@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">AklimdakiHediye</string>
+    <string name="title_app_name">Aklımdaki Hediye</string>
+    <string name="main_list_title">Hediye Kimin İçin ? </string>
+
+    <string name="next_text">Devam et</string>
+
+    <string name="main_list_father">Babalar Günü</string>
+    <string name="main_list_mother">Anneler Günü</string>
+    <string name="main_list_lover">Sevgililer Günü</string>
+    <string name="main_list_women">Kadınlar Günü</string>
+    <string name="main_list_father_card">"Babalar, ailenin sessiz kahramanlarıdır. Güçleriyle destekler, sevgileriyle büyütürler. İyi ki varsınız, hayatımızdaki ilk ve sonsuz kahramanlarımız!"</string>
+    <string name="main_list_mother_card">"Anne, sevginin ve şefkatin en saf hali sensin. Hayatımızdaki yerin tarif edilemez, çünkü sen bizim ilk öğretmenimiz, en güçlü destekçimiz ve sonsuz sevgi kaynağımızsın. Anneler Günü'n kutlu olsun, hayatımızın güneşi!"</string>
+    <string name="main_list_lover_card">"Sevgilim, sen hayatıma anlam katan en güzel hediyesin. Gözlerinle ışıldayan dünyamda her an daha özel, daha unutulmaz. Sevgililer Günümüz kutlu olsun, kalbimin en güzel köşesindeki yerin hep senin!"</string>
+    <string name="main_list_women_card">"Kadınlar, dünyanın rengini ve anlamını değiştiren gerçek kahramanlardır. Güçleri, sevgileri ve eşsiz varlıklarıyla her anı güzelleştirirler. Hayatı daha yaşanabilir kılan tüm kadınların Kadınlar Günü kutlu olsun!"</string>
+
+    <string name="info_label_name">adı nedir ?</string>
+    <string name="info_label_old"> yaşı kaç ?</string>
+    <string name="info_label_zodiac"> burcu ne ?</string>
+    <string name="info_label_job"> mesleği ne ?</string>
+    <string name="info_label_best_side"> karakterinin öne çıkan özellikleri ?</string>"
+    <string name="info_label_hobbies"> Hobileri neler ?</string>
+    <string name="info_label_last_gifts"> ona daha önce aldığın hediyeleri neler ?</string>
+    <string name="info_label_time"> kaç yıldır berabersiniz ?</string>
+
+    <string name="main_row_love">Sevgiliniz</string>
+    <string name="main_row_friend">Arkadaşınız</string>
+    <string name="main_row_teacher">Öğretmeniniz</string>
+    <string name="main_row_job">İş Arkadaşı</string>
+
+    <string name="name_label">Adın ne ? (Soy adın ile ilgilenmiyoruz)</string>
+    <string name="old_label">Kaç yaşındasın ?</string>
+    <string name="best_side_label">İnsanlar senin iyi yönlerin olarak neler söyler ?</string>
+    <string name="hobbies_label">İlgilendiğin alanlar neler ?</string>
+    <string name="zodiac_label">Burcun nedir ? (Her şey kanıtlanmak zorunda değil...)</string>
+    <string name="caracter_label">Kişiliğin nasıldır sence ? (Mesela sosyal kelebekmisin ?)</string>
+
+    <string name="user_info_label_1">Önce bir adını öğrenelim</string>
+    <string name="user_info_label_2">Bize kendinden bahset</string>
+    <string name="gift_price_place_label">Hediye İçin Bütceniz Nedir ?</string>
+    <string name="gift_screen_mention_label">Hediyenizin Nasıl Bir Anlamı Olsun istersiniz ?</string>
+    <string name="done">Bitir</string>
+</resources>
