@@ -40,4 +40,11 @@
     <string name="gift_price_place_label">Hediye İçin Bütceniz Nedir ?</string>
     <string name="gift_screen_mention_label">Hediyenizin Nasıl Bir Anlamı Olsun istersiniz ?</string>
     <string name="done">Bitir</string>
+    <string name="alert_dialog_empty_info_title">Kayıtlı Bilginiz Bulunamadı</string>
+    <string name="alert_dialog_empty_info_dismiss">Biraz daha bakayım</string>
+    <string name="alert_dialog_empty_info_confirm">Şimdi kendini tanıt</string>
+    <string name="for_who_user_label">Kendi Bilgileriniz ile mi devam etmek istersiniz ?</string>
+    <string name="for_who_another_label">Hayır Başka biri için</string>
+    <string name="for_who_forme_label">Evet Kendim için</string>
+    <string name="save_text">Kaydet</string>
 </resources>

@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.example.aklimdakihediye.Views.DailyAskViewUserInfo
+import com.example.aklimdakihediye.Views.UserInfoView
 import com.example.aklimdakihediye.Views.DailyInfoView
 import com.example.aklimdakihediye.Views.InformationGiftView
 import com.example.aklimdakihediye.Views.UserMainView
@@ -19,18 +19,18 @@ class LocalNavController {
         val navController = rememberNavController()
 
         NavHost(
-            startDestination = InformationGiftScreen,
+            startDestination = MainScreen,
             navController = navController
         ){
             composable<MainScreen> {
                 UserMainView().UserMainScreen(navController = navController)
             }
 
-            composable<DailyInfoUserScreen> {
-                val forDay = it.toRoute<DailyInfoUserScreen>()
-                DailyAskViewUserInfo().DailyAskUserInfoScreen(
+            composable<LocalNavController.UserInfoScreen> {
+                val forDay = it.toRoute<LocalNavController.UserInfoScreen>()
+                UserInfoView().DailyAskUserInfoScreen(
                     navController = navController,
-                    args = DailyInfoUserScreen(forDay = forDay.forDay,forDay.source)
+                    args = UserInfoScreen(forDay = forDay.forDay,forDay.source,forDay.forWhat)
                 )
             }
 
@@ -57,7 +57,7 @@ class LocalNavController {
     object MainScreen
 
     @Serializable
-    data class  DailyInfoUserScreen(val forDay : String,val source: Int)
+    data class  UserInfoScreen(val forDay : String?, val source: Int?,val forWhat : String)
 
 
     @Serializable

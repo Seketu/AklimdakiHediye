@@ -8,16 +8,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -38,26 +34,19 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.aklimdakihediye.NavController.LocalNavController
 import com.example.aklimdakihediye.ObserverClasses.InfoStepsStatus
 import com.example.aklimdakihediye.R
-import com.example.aklimdakihediye.compose.BorderButton
-import com.example.aklimdakihediye.compose.DailyUserInfoFieldsHolder
 import com.example.aklimdakihediye.compose.InfoScreen
 import com.example.aklimdakihediye.compose.LottieAnim
 import com.example.aklimdakihediye.compose.StepperIndicator
-import com.example.aklimdakihediye.ui.theme.ColorDailyUserInfoBc
 import com.example.aklimdakihediye.ui.theme.ColorDailyUserInfoButton
-import com.example.aklimdakihediye.ui.theme.ColorDailyUserInfoFields0
-import com.example.aklimdakihediye.ui.theme.ColorDailyUserInfoFields1
 import com.example.aklimdakihediye.ui.theme.ColorDailyUserInfoTopBarr
 
-class DailyAskViewUserInfo {
+class UserInfoView {
 
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -65,14 +54,21 @@ class DailyAskViewUserInfo {
     fun DailyAskUserInfoScreen(
         modifier: Modifier = Modifier,
         navController: NavController,
-        args : LocalNavController.DailyInfoUserScreen
+        args : LocalNavController.UserInfoScreen
         ) {
+        val context = LocalContext.current
+
+        var labelColor by remember { mutableStateOf(Color.Black) }
+
+        val buttonText = remember {
+            mutableStateOf(context.getString(R.string.next_text))
+        }
 
         var screenStepState : MutableState<InfoStepsStatus> = remember {
             mutableStateOf(InfoStepsStatus.Name)
         }
 
-        Log.e("Args" , args.forDay)
+        Log.e("Args" , args.forWhat.toString())
 
         val nameState = remember {
             mutableStateOf("")
@@ -101,7 +97,6 @@ class DailyAskViewUserInfo {
         val configuration = LocalConfiguration
         val screenHeight = configuration.current.screenHeightDp.dp
 
-        val context = LocalContext.current
 
         Scaffold(
             modifier = Modifier
@@ -160,7 +155,8 @@ class DailyAskViewUserInfo {
                                         modifier = Modifier
                                             .height(screenHeight * 1f),
                                         label = context.getString(R.string.name_label),
-                                        state = nameState
+                                        state = nameState,
+                                        color = labelColor
                                     )
                                 }
                                 InfoStepsStatus.Old -> {
@@ -168,7 +164,8 @@ class DailyAskViewUserInfo {
                                         modifier = Modifier
                                             .height(screenHeight * 1f),
                                         label = context.getString(R.string.old_label),
-                                        state = oldState
+                                        state = oldState,
+                                        color = labelColor
                                     )
                                 }
                                 InfoStepsStatus.BestSide -> {
@@ -176,7 +173,8 @@ class DailyAskViewUserInfo {
                                         modifier = Modifier
                                             .height(screenHeight * 1f),
                                         label = context.getString(R.string.best_side_label),
-                                        state = oldState
+                                        state = bestSideState,
+                                        color = labelColor
                                     )
                                 }
                                 InfoStepsStatus.Hobbies -> {
@@ -184,7 +182,8 @@ class DailyAskViewUserInfo {
                                         modifier = Modifier
                                             .height(screenHeight * 1f),
                                         label = context.getString(R.string.hobbies_label),
-                                        state = hobbiesState
+                                        state = hobbiesState,
+                                        color = labelColor
                                     )
                                 }
                                 InfoStepsStatus.Zodiac -> {
@@ -192,7 +191,8 @@ class DailyAskViewUserInfo {
                                         modifier = Modifier
                                             .height(screenHeight * 1f),
                                         label = context.getString(R.string.zodiac_label),
-                                        state = zodiacState
+                                        state = zodiacState,
+                                        color = labelColor
                                     )
                                 }
                                 InfoStepsStatus.Caracter -> {
@@ -200,7 +200,8 @@ class DailyAskViewUserInfo {
                                         modifier = Modifier
                                             .height(screenHeight * 1f),
                                         label = context.getString(R.string.caracter_label),
-                                        state = caracterState
+                                        state = caracterState,
+                                        color = labelColor
                                     )
                                 }
                             }
@@ -218,28 +219,71 @@ class DailyAskViewUserInfo {
                             .background(ColorDailyUserInfoButton)
                             .clickable {
                                 when (screenStepState.value) {
-                                    InfoStepsStatus.Name -> screenStepState.value =
-                                        InfoStepsStatus.Old
+                                    InfoStepsStatus.Name -> {
+                                        if (nameState.value.isEmpty()) {
+                                            labelColor = Color.Red
+                                        } else {
+                                            screenStepState.value = InfoStepsStatus.Old
+                                            labelColor = Color.Black
+                                        }
+                                    }
 
-                                    InfoStepsStatus.Old -> screenStepState.value =
-                                        InfoStepsStatus.BestSide
+                                    InfoStepsStatus.Old -> {
+                                        if (oldState.value.isEmpty()) {
+                                            labelColor = Color.Red
+                                        } else {
+                                            screenStepState.value = InfoStepsStatus.BestSide
+                                            labelColor = Color.Black
+                                        }
+                                    }
 
-                                    InfoStepsStatus.BestSide -> screenStepState.value =
-                                        InfoStepsStatus.Hobbies
+                                    InfoStepsStatus.BestSide -> {
+                                        if (bestSideState.value.isEmpty()) {
+                                            labelColor = Color.Red
+                                        } else {
+                                            screenStepState.value = InfoStepsStatus.Hobbies
+                                            labelColor = Color.Black
+                                        }
+                                    }
 
-                                    InfoStepsStatus.Hobbies -> screenStepState.value =
-                                        InfoStepsStatus.Zodiac
+                                    InfoStepsStatus.Hobbies -> {
+                                        if (hobbiesState.value.isEmpty()){
+                                            labelColor = Color.Red
+                                        }else{
+                                            labelColor = Color.Black
+                                            screenStepState.value = InfoStepsStatus.Zodiac
+                                        }
 
-                                    InfoStepsStatus.Zodiac -> screenStepState.value =
-                                        InfoStepsStatus.Caracter
+                                    }
+
+                                    InfoStepsStatus.Zodiac -> {
+                                        if (zodiacState.value.isEmpty()){
+                                            labelColor = Color.Red
+                                        }else {
+                                            screenStepState.value =
+                                                InfoStepsStatus.Caracter
+                                            buttonText.value = context.getString(R.string.save_text)
+                                            labelColor = Color.Black
+                                        }
+
+                                    }
 
                                     InfoStepsStatus.Caracter -> {
-                                        navController.navigate(
-                                            LocalNavController.DailyInfoScreen(
-                                                forDay = args.forDay,
-                                                source = args.source
+                                        if (caracterState.value.isEmpty()){
+                                            labelColor = Color.Red
+                                        }else{
+                                            navController.navigate(
+                                                if (args.forDay.isNullOrEmpty()) {
+                                                    LocalNavController.MainScreen
+                                                } else {
+                                                    LocalNavController.DailyInfoScreen(
+                                                        forDay = args.forDay,
+                                                        source = args.source!!
+                                                    )
+                                                }
                                             )
-                                        )
+                                            labelColor = Color.Black
+                                        }
                                     }
                                 }
                             },
@@ -247,7 +291,7 @@ class DailyAskViewUserInfo {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            context.getString(R.string.next_text),
+                            buttonText.value,
                             color = Color.White,
                             fontSize = 24.sp,
                             modifier = Modifier

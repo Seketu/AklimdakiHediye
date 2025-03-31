@@ -1,6 +1,5 @@
 package com.example.aklimdakihediye.Views
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +23,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,14 +38,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.example.aklimdakihediye.NavController.LocalNavController
+import com.example.aklimdakihediye.ObserverClasses.ForWhoObserver
+import com.example.aklimdakihediye.ObserverClasses.AlertDialogObserver
+import com.example.aklimdakihediye.ObserverClasses.ToScreenObserver
 import com.example.aklimdakihediye.R
 import com.example.aklimdakihediye.ViewModels.UserMainViewModel
+import com.example.aklimdakihediye.compose.AlertDialog
 import com.example.aklimdakihediye.compose.LottieAnim
 import com.example.aklimdakihediye.compose.MainListDailyButton
 import com.example.aklimdakihediye.compose.MainListRowButton
@@ -61,10 +65,14 @@ class UserMainView {
 
     @Composable
     fun UserMainScreen(
-        navController : NavController,
-        viewModel : UserMainViewModel = viewModel()
+        navController: NavController,
+        viewModel: UserMainViewModel = hiltViewModel()
     ) {
         val context = LocalContext.current
+        val informationState = viewModel.alertDialogState.collectAsState()
+        val showAlert = viewModel.showAlert.collectAsState()
+        val infoScreen = viewModel.infoScreen.collectAsState()
+
         val isLoading = remember { mutableStateOf(true) }
         // Her bir animasyon için rememberLottieComposition kullanıyoruz
         val compositionMain by rememberLottieComposition(
@@ -86,6 +94,44 @@ class UserMainView {
             LottieCompositionSpec.RawRes(R.raw.woman_anim)
         )
 
+        LaunchedEffect(
+            infoScreen.value
+        ) {
+            if (!isLoading.value) {
+                infoScreen.value.let { event->
+                    when(event){
+                        is ToScreenObserver.ForAnotherInformation -> {
+                            viewModel.navigateFromColumn(
+                                navController,
+                                event.forDay,
+                                event.source,
+                                "ForAnother"
+                            )
+                        }
+                        is ToScreenObserver.NewInformation -> {
+                            viewModel.navigateFromColumn(
+                                navController,
+                                forDay = event.forDay,
+                                source = event.source,
+                                forWhat = "SaveInf"
+                            )
+                        }
+                        is ToScreenObserver.WithUserInformation -> {
+                            viewModel.navigateFromColumn(
+                                navController = navController,
+                                forDay = event.forDay,
+                                source = event.source,
+                                forWhat = "WithInf"
+                            )
+                        }
+                        ToScreenObserver.none -> {
+
+                        }
+                    }
+                }
+            }
+        }
+
         // Tüm animasyonların yüklenip yüklenmediğini kontrol ediyoruz
         LaunchedEffect(
             compositionMain,
@@ -105,33 +151,61 @@ class UserMainView {
                 isLoading.value = false
             }
         }
-
-        when(isLoading.value){
-            true ->{
-                Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    Modifier
-                        .fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "Yükleniyor...", color = Color.Black, fontSize = 20.sp)
-                    Spacer(Modifier.height(50.dp))
-                    CircularProgressIndicator()
+        informationState.value.let { event ->
+            when (event) {
+                is AlertDialogObserver.NewAlertDialog -> {
+                    if (showAlert.value && !isLoading.value) {
+                        AlertDialog(
+                            title = event.title,
+                            confirmButton = event.onConfirm,
+                            dismissButton = event.dismissButton,
+                            onDismissRequest = event.onDismiss,
+                            dismissText = event.dismissText,
+                            confirmText = event.confirmText
+                        )
+                    }
                 }
-            }}
-            false -> SuccesLoading(navController)
+
+                AlertDialogObserver.none -> {
+
+                }
+            }
+        }
+
+        when (isLoading.value) {
+            true -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        Modifier
+                            .fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "Yükleniyor...", color = Color.Black, fontSize = 20.sp)
+                        Spacer(Modifier.height(50.dp))
+                        CircularProgressIndicator()
+                    }
+                }
+            }
+
+            false -> SuccesLoading(navController, infoScreen, viewModel)
         }
     }
 }
 
 @Composable
-fun SuccesLoading(navController: NavController) {
-
+fun SuccesLoading(
+    navController: NavController,
+    infoScreen: State<ToScreenObserver>,
+    viewModel: UserMainViewModel
+) {
+    val userInformation = viewModel.userInformation.collectAsState()
     val context = LocalContext.current
+    val forWhoState = viewModel.forWhoState.collectAsState()
+
 
     val rowList = listOf(
         UserMainRowListItems(
@@ -181,13 +255,13 @@ fun SuccesLoading(navController: NavController) {
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-        ) {
+    ) {
         Column(
             modifier = Modifier
                 .padding(it)
                 .fillMaxSize()
                 .background(ColorUserMainBc),
-        ){
+        ) {
             Column(
                 Modifier
                     .fillMaxWidth()
@@ -209,7 +283,7 @@ fun SuccesLoading(navController: NavController) {
                         .fillMaxWidth(0.9f)
                         .fillMaxHeight(0.8f)
                 ) {
-                    items(rowList) {row ->
+                    items(rowList) { row ->
                         Spacer(Modifier.width(20.dp))
                         MainListRowButton(
                             modifier = Modifier
@@ -226,7 +300,7 @@ fun SuccesLoading(navController: NavController) {
                 modifier = Modifier
                     .fillMaxSize(),
                 contentAlignment = Alignment.BottomCenter
-            ){
+            ) {
                 LottieAnim(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -247,7 +321,7 @@ fun SuccesLoading(navController: NavController) {
                             .fillMaxWidth(0.95f)
                             .fillMaxHeight(0.85f)
                     ) {
-                        items(buttonList) {button ->
+                        items(buttonList) { button ->
                             Spacer(Modifier.height(50.dp))
                             MainListDailyButton(
                                 modifier = Modifier
@@ -255,10 +329,12 @@ fun SuccesLoading(navController: NavController) {
                                     .background(button.color, shape = RoundedCornerShape(15.dp))
                                     .padding(5.dp)
                                     .clickable {
-                                        navController.navigate(LocalNavController.DailyInfoUserScreen(
-                                            button.text,
-                                            button.source
-                                        ))
+                                        viewModel.updateForWhoState(
+                                            ForWhoObserver.checkState,
+                                            forDay = button.text,
+                                            source = button.source,
+                                            context = context
+                                        )
                                     },
                                 source = button.source,
                                 lottieModifier = Modifier
@@ -273,32 +349,32 @@ fun SuccesLoading(navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth(0.95f)
                             .fillMaxHeight()
-                            .paint(painter = painterResource(R.drawable.down_navigation),
-                                contentScale = ContentScale.FillWidth)
+                            .paint(
+                                painter = painterResource(R.drawable.down_navigation),
+                                contentScale = ContentScale.FillWidth
+                            )
                             .padding(start = 20.dp, end = 20.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
-                    ){
-                            NavigationButton(
-                                modifier = Modifier
-                                    .padding(top = 15.dp)
-                                    .size(56.dp),
-                                R.drawable.friends
-                            )
-                            NavigationButton(
-                                modifier = Modifier
-                                    .size(100.dp)
-                                    .padding(8.dp),
-                                R.drawable.main_navigation
-                            )
-                            NavigationButton(
-                                modifier = Modifier
-                                    .padding(top = 15.dp)
-                                    .size(56.dp),
-                                R.drawable.settings_navigation
-                            )
-
-
+                    ) {
+                        NavigationButton(
+                            modifier = Modifier
+                                .padding(top = 15.dp)
+                                .size(56.dp),
+                            R.drawable.friends
+                        )
+                        NavigationButton(
+                            modifier = Modifier
+                                .size(100.dp)
+                                .padding(8.dp),
+                            R.drawable.main_navigation
+                        )
+                        NavigationButton(
+                            modifier = Modifier
+                                .padding(top = 15.dp)
+                                .size(56.dp),
+                            R.drawable.settings_navigation
+                        )
                     }
                 }
             }

@@ -3,6 +3,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    id("com.google.devtools.ksp")
+    //hilt
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -38,6 +42,7 @@ android {
     buildFeatures {
         compose = true
     }
+
 }
 dependencies {
 
@@ -54,6 +59,14 @@ dependencies {
     implementation("io.ktor:ktor-client-content-negotiation")
     implementation("io.ktor:ktor-serialization-kotlinx-json")
 
+    ksp("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-rxjava3:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
+
+    //hilt
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
@@ -75,4 +88,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+kapt {
+    correctErrorTypes = true
 }

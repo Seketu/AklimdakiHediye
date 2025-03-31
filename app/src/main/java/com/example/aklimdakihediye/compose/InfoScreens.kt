@@ -82,6 +82,7 @@ fun InfoScreen(
     modifier: Modifier = Modifier,
     state : MutableState<String>,
     label : String,
+    color: Color
 ) {
     Column(
         modifier = modifier
@@ -93,7 +94,7 @@ fun InfoScreen(
                 label,
                 fontSize = 22.sp,
                 textAlign = TextAlign.Start,
-                color = Color.Black
+                color = color
             )
         Spacer(modifier = Modifier.padding(15.dp))
             UserInfoTextField(
