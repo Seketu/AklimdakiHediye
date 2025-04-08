@@ -1,7 +1,8 @@
-package com.example.aklimdakihediye.compose
+package com.example.aklimdakihediye.Compose
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,26 +11,57 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.aklimdakihediye.ObserverClasses.ZodiacStatus
 import com.example.aklimdakihediye.ui.theme.ColorDailyUserInfoButton
+
+
+@Composable
+fun ZodiacButton(
+    modifier: Modifier = Modifier,
+    imageSource: Int,
+    zodiacName : String,
+    checkBoxState : MutableState<ZodiacStatus>,
+    boxZodiac : ZodiacStatus,
+    noneZodiacStatus: ZodiacStatus = ZodiacStatus.None
+    ) {
+    Button(
+        onClick = {
+            checkBoxState.value = boxZodiac
+        },
+        modifier = modifier,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.White
+        ),
+    ) {
+        Image(
+            painter = painterResource(imageSource),
+            "zodiac buttons",
+            contentScale = ContentScale.FillHeight,
+        )
+        Text(zodiacName)
+        Checkbox(
+            checked = checkBoxState.value == boxZodiac,
+            onCheckedChange = {
+                checkBoxState.value = noneZodiacStatus
+            }
+        )
+    }
+}
 
 
 @Composable

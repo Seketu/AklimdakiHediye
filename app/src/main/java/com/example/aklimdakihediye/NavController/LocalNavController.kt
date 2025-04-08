@@ -6,9 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.example.aklimdakihediye.LocalDatabase.Models.LocalUserInformation
 import com.example.aklimdakihediye.Views.UserInfoView
 import com.example.aklimdakihediye.Views.DailyInfoView
-import com.example.aklimdakihediye.Views.InformationGiftView
 import com.example.aklimdakihediye.Views.UserMainView
 import kotlinx.serialization.Serializable
 
@@ -22,7 +22,7 @@ class LocalNavController {
             startDestination = MainScreen,
             navController = navController
         ){
-            composable<MainScreen> {
+            composable<LocalNavController.MainScreen> {
                 UserMainView().UserMainScreen(navController = navController)
             }
 
@@ -36,30 +36,24 @@ class LocalNavController {
 
             composable<DailyInfoScreen> {
                 val forDay = it.toRoute<DailyInfoScreen>()
-                DailyInfoView().DailyInfoScreen(
+                DailyInfoView().AboutGiftInformation(
                     navController = navController,
-                    args = DailyInfoScreen(forDay = forDay.forDay,forDay.source)
+                    args = DailyInfoScreen(forDay = forDay.forDay, source =  forDay.source, forAnother = forDay.forAnother)
                 )
-            }
-
-            composable<InformationGiftScreen> {
-                InformationGiftView().InformationGiftScreen(navController = navController)
             }
         }
 
     }
 
-    @Serializable
-    object InformationGiftScreen
 
 
     @Serializable
     object MainScreen
 
     @Serializable
-    data class  UserInfoScreen(val forDay : String?, val source: Int?,val forWhat : String)
+    data class UserInfoScreen(val forDay : String?, val source: Int?,val forWhat : String)
 
 
     @Serializable
-    data class  DailyInfoScreen(val forDay : String,val source : Int)
+    data class DailyInfoScreen(val forDay : String,val source : Int,val forAnother : Boolean)
 }

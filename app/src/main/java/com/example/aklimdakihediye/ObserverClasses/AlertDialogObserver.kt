@@ -3,7 +3,6 @@ package com.example.aklimdakihediye.ObserverClasses
 import com.example.aklimdakihediye.LocalDatabase.Models.LocalUserInformation
 
 sealed class AlertDialogObserver {
-
     data class NewAlertDialog(
         val title: String,
         val onDismiss: () -> Unit,
@@ -12,7 +11,6 @@ sealed class AlertDialogObserver {
         val confirmText: String,
         val dismissButton: () -> Unit
     ) : AlertDialogObserver()
-
     object none : AlertDialogObserver()
 }
 

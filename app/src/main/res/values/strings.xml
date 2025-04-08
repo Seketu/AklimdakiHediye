@@ -47,4 +47,19 @@
     <string name="for_who_another_label">Hayır Başka biri için</string>
     <string name="for_who_forme_label">Evet Kendim için</string>
     <string name="save_text">Kaydet</string>
+    <string name="zodiac_name_libra">Terazi</string>
+    <string name="zodiac_name_virgo">Başak</string>
+    <string name="zodiac_name_scorpio">Akrep</string>
+    <string name="zodiac_name_sagittarius">Yay</string>
+    <string name="zodiac_name_capricon">Oğlak</string>
+    <string name="zodiac_name_aquarius">Kova</string>
+    <string name="zodiac_name_pisces">Balık</string>
+    <string name="zodiac_name_aries">Koç</string>
+    <string name="zodiac_name_taurus">Boğa</string>
+    <string name="zodiac_name_gemini">İkizler</string>
+    <string name="zodiac_name_cancer">Yengeç</string>
+    <string name="zodiac_name_leo">Aslan</string>
+    <string name="relationship_flirt">Flört</string>
+    <string name="relationship_married">Evli</string>
+    <string name="relationship_sweatheart">Sevgili</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.aklimdakihediye.Views
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -10,10 +11,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -21,7 +22,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -36,25 +36,28 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.aklimdakihediye.ObserverClasses.GiftScreenObserver
-import com.example.aklimdakihediye.ObserverClasses.InfoStepsStatus
 import com.example.aklimdakihediye.R
-import com.example.aklimdakihediye.compose.GiftInfo
-import com.example.aklimdakihediye.compose.GiftInfoScreenPrice
-import com.example.aklimdakihediye.compose.LottieAnim
-import com.example.aklimdakihediye.compose.StepperIndicator
+import com.example.aklimdakihediye.ViewModels.AboutGiftInformationViewModel
+import com.example.aklimdakihediye.Compose.GiftInfo
+import com.example.aklimdakihediye.Compose.GiftInfoScreenPrice
+import com.example.aklimdakihediye.Compose.LottieAnim
+import com.example.aklimdakihediye.Compose.StepperIndicator
+import com.example.aklimdakihediye.ObserverClasses.AboutGiftInformationScreenObserver
+import com.example.aklimdakihediye.models.GiftInformationModels.ForGiftInformation
 import com.example.aklimdakihediye.ui.theme.ColorDailyUserInfoTopBarr
 import com.example.aklimdakihediye.ui.theme.ColorInformationGiftBc
 import com.example.aklimdakihediye.ui.theme.ColorInformationGiftButton
 
-class InformationGiftView {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun InformationGiftScreen(
-        modifier: Modifier = Modifier,
-        navController: NavController
-        ) {
+        navController: NavController,
+        viewModel: AboutGiftInformationViewModel = hiltViewModel(),
+        giftInformationScreenState: MutableState<AboutGiftInformationScreenObserver>)
+     {
 
         val context = LocalContext.current
 
@@ -81,6 +84,25 @@ class InformationGiftView {
             mutableStateOf("")
         }
 
+         val labelColor = remember {
+             mutableStateOf(Color.White)
+         }
+
+         BackHandler {
+             screenStateObserver.value.let {
+                 when (it) {
+                     GiftScreenObserver.Price -> giftInformationScreenState.value =
+                         AboutGiftInformationScreenObserver.AboutPersonInformation
+
+                     GiftScreenObserver.Mention -> screenStateObserver.value =
+                         GiftScreenObserver.Price
+
+                     GiftScreenObserver.Class -> screenStateObserver.value =
+                         GiftScreenObserver.Mention
+                 }
+             }
+         }
+
         Scaffold(
             Modifier
                 .fillMaxSize()
@@ -93,7 +115,15 @@ class InformationGiftView {
                             Image(
                                 painter = painterResource(R.drawable.back_icon),
                                 "back button",
-                                modifier = Modifier.padding(10.dp)
+                                modifier = Modifier.padding(10.dp).clickable{
+                                    screenStateObserver.value.let {
+                                        when(it){
+                                            GiftScreenObserver.Price -> giftInformationScreenState.value = AboutGiftInformationScreenObserver.AboutPersonInformation
+                                            GiftScreenObserver.Mention -> screenStateObserver.value = GiftScreenObserver.Price
+                                            GiftScreenObserver.Class -> screenStateObserver.value = GiftScreenObserver.Mention
+                                        }
+                                    }
+                                }
                             )
                         },
                         colors = TopAppBarDefaults.topAppBarColors(
@@ -144,7 +174,8 @@ class InformationGiftView {
                                         stateSecond = priceValueSecond,
                                         modifier = Modifier
                                             .height(screenHeight * 0.4f),
-                                        label = context.getString(R.string.gift_price_place_label)
+                                        label = context.getString(R.string.gift_price_place_label),
+                                        labelColor = labelColor.value
                                     )
                                 }
                                 GiftScreenObserver.Mention -> {
@@ -152,7 +183,11 @@ class InformationGiftView {
                                         state = giftMention,
                                         modifier = Modifier
                                             .height(screenHeight * 0.4f),
-                                        label = stringResource(R.string.gift_screen_mention_label)
+                                        label = stringResource(R.string.gift_screen_mention_label),
+                                        keyboard = KeyboardOptions(
+                                            keyboardType = KeyboardOptions.Default.keyboardType
+                                        ),
+                                        labelColor = labelColor.value
                                     )
                                 }
                                 GiftScreenObserver.Class -> {
@@ -160,7 +195,11 @@ class InformationGiftView {
                                         state = giftClass,
                                         modifier = Modifier
                                             .height(screenHeight * 0.4f),
-                                        label = "Özel Bir Hediye Türünüz Var mı ? (Elbise, Ayakkabı vb)"
+                                        label = "Özel Bir Hediye Türünüz Var mı ? (Elbise, Ayakkabı vb)",
+                                        keyboard = KeyboardOptions(
+                                            keyboardType = KeyboardOptions.Default.keyboardType
+                                        ),
+                                        labelColor = labelColor.value
                                     )
                                 }
                             }
@@ -174,14 +213,37 @@ class InformationGiftView {
                             .background(ColorInformationGiftButton)
                             .clickable {
                                 when (screenStateObserver.value) {
-                                    GiftScreenObserver.Price -> screenStateObserver.value =
-                                        GiftScreenObserver.Mention
+                                    GiftScreenObserver.Price -> {
+                                        if (priceValueFirst.value.isEmpty() || priceValueSecond.value.isEmpty()) {
+                                            labelColor.value = Color.Red
+                                        } else {
+                                            screenStateObserver.value = GiftScreenObserver.Mention
+                                            labelColor.value = Color.Black
+                                        }
+                                    }
 
-                                    GiftScreenObserver.Mention -> screenStateObserver.value =
-                                        GiftScreenObserver.Class
+                                    GiftScreenObserver.Mention -> {
+                                        if (giftMention.value.isEmpty()){
+                                            labelColor.value = Color.Red
+                                        }else{
+                                            screenStateObserver.value = GiftScreenObserver.Class
+                                            labelColor.value = Color.Black
+                                        }
+                                    }
 
                                     GiftScreenObserver.Class -> {
-
+                                        if (giftClass.value.isEmpty()){
+                                            labelColor.value = Color.Red
+                                        }else{
+                                            viewModel.saveGiftInformation(
+                                                ForGiftInformation(
+                                                    minPrice = priceValueFirst.value,
+                                                    maxPrice = priceValueSecond.value,
+                                                    giftType = giftMention.value,
+                                                    giftClass = giftClass.value
+                                                )
+                                            )
+                                        }
                                     }
                                 }
                             },
@@ -202,4 +264,3 @@ class InformationGiftView {
             }
         }
     }
-}

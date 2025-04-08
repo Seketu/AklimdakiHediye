@@ -1,6 +1,5 @@
-package com.example.aklimdakihediye.compose
+package com.example.aklimdakihediye.Compose
 
-import android.app.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text

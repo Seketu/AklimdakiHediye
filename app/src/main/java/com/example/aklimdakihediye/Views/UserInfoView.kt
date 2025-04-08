@@ -1,6 +1,7 @@
 package com.example.aklimdakihediye.Views
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,12 +15,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,22 +30,28 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.aklimdakihediye.LocalDatabase.Models.LocalUserInformation
 import com.example.aklimdakihediye.NavController.LocalNavController
 import com.example.aklimdakihediye.ObserverClasses.InfoStepsStatus
 import com.example.aklimdakihediye.R
-import com.example.aklimdakihediye.compose.InfoScreen
-import com.example.aklimdakihediye.compose.LottieAnim
-import com.example.aklimdakihediye.compose.StepperIndicator
+import com.example.aklimdakihediye.Compose.InfoScreen
+import com.example.aklimdakihediye.Compose.LottieAnim
+import com.example.aklimdakihediye.Compose.StepperIndicator
+import com.example.aklimdakihediye.ViewModels.AboutGiftInformationViewModel
 import com.example.aklimdakihediye.ui.theme.ColorDailyUserInfoButton
 import com.example.aklimdakihediye.ui.theme.ColorDailyUserInfoTopBarr
 
@@ -54,20 +63,38 @@ class UserInfoView {
     fun DailyAskUserInfoScreen(
         modifier: Modifier = Modifier,
         navController: NavController,
-        args : LocalNavController.UserInfoScreen
+        args : LocalNavController.UserInfoScreen,
+        viewModel: AboutGiftInformationViewModel = hiltViewModel()
         ) {
         val context = LocalContext.current
-
+        val nameFocusRequester = remember { FocusRequester() }
+        val oldFocusRequester = remember { FocusRequester() }
+        val bestSideFocusRequester = remember { FocusRequester() }
+        val hobbiesFocusRequester = remember { FocusRequester() }
+        val zodiacFocusRequester = remember { FocusRequester() }
+        val caracterFocusRequester = remember { FocusRequester() }
         var labelColor by remember { mutableStateOf(Color.Black) }
 
         val buttonText = remember {
             mutableStateOf(context.getString(R.string.next_text))
         }
-
+        val focusManager = LocalFocusManager.current
         var screenStepState : MutableState<InfoStepsStatus> = remember {
             mutableStateOf(InfoStepsStatus.Name)
         }
+        BackHandler {
+            when(screenStepState.value){
+                InfoStepsStatus.Name -> {
+                    viewModel.backMainMenu(navController)
+                }
+                InfoStepsStatus.Old -> screenStepState.value = InfoStepsStatus.Name
 
+                InfoStepsStatus.BestSide -> screenStepState.value = InfoStepsStatus.Old
+                InfoStepsStatus.Hobbies -> screenStepState.value = InfoStepsStatus.BestSide
+                InfoStepsStatus.Zodiac -> screenStepState.value = InfoStepsStatus.Hobbies
+                InfoStepsStatus.Caracter -> screenStepState.value = InfoStepsStatus.Zodiac
+            }
+        }
         Log.e("Args" , args.forWhat.toString())
 
         val nameState = remember {
@@ -111,7 +138,11 @@ class UserInfoView {
                             Image(
                                 painter = painterResource(R.drawable.back_icon),
                                 "back button",
-                                modifier = Modifier.padding(10.dp)
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .clickable {
+                                        viewModel.backMainMenu(navController)
+                                    }
                             )
                         },
                         colors = TopAppBarDefaults.topAppBarColors(
@@ -156,8 +187,15 @@ class UserInfoView {
                                             .height(screenHeight * 1f),
                                         label = context.getString(R.string.name_label),
                                         state = nameState,
-                                        color = labelColor
+                                        color = labelColor,
+                                        focusRequester =  nameFocusRequester,
+                                        keyboard = KeyboardOptions(
+                                            keyboardType = KeyboardType.Unspecified
+                                        )
                                     )
+                                    LaunchedEffect(screenStepState.value) {
+                                        nameFocusRequester.requestFocus()
+                                    }
                                 }
                                 InfoStepsStatus.Old -> {
                                     InfoScreen(
@@ -165,8 +203,15 @@ class UserInfoView {
                                             .height(screenHeight * 1f),
                                         label = context.getString(R.string.old_label),
                                         state = oldState,
-                                        color = labelColor
+                                        color = labelColor,
+                                        focusRequester = oldFocusRequester,
+                                        keyboard = KeyboardOptions(
+                                            keyboardType = KeyboardType.Number
+                                        )
                                     )
+                                    LaunchedEffect(screenStepState.value) {
+                                        oldFocusRequester.requestFocus()
+                                    }
                                 }
                                 InfoStepsStatus.BestSide -> {
                                     InfoScreen(
@@ -174,8 +219,15 @@ class UserInfoView {
                                             .height(screenHeight * 1f),
                                         label = context.getString(R.string.best_side_label),
                                         state = bestSideState,
-                                        color = labelColor
+                                        color = labelColor,
+                                        focusRequester = bestSideFocusRequester,
+                                        keyboard = KeyboardOptions(
+                                            keyboardType = KeyboardType.Unspecified
+                                        )
                                     )
+                                    LaunchedEffect(screenStepState.value) {
+                                        bestSideFocusRequester.requestFocus()
+                                    }
                                 }
                                 InfoStepsStatus.Hobbies -> {
                                     InfoScreen(
@@ -183,8 +235,15 @@ class UserInfoView {
                                             .height(screenHeight * 1f),
                                         label = context.getString(R.string.hobbies_label),
                                         state = hobbiesState,
-                                        color = labelColor
+                                        color = labelColor,
+                                        focusRequester = hobbiesFocusRequester,
+                                        keyboard = KeyboardOptions(
+                                            keyboardType = KeyboardType.Unspecified
+                                        )
                                     )
+                                    LaunchedEffect(screenStepState.value) {
+                                        hobbiesFocusRequester.requestFocus()
+                                    }
                                 }
                                 InfoStepsStatus.Zodiac -> {
                                     InfoScreen(
@@ -192,8 +251,15 @@ class UserInfoView {
                                             .height(screenHeight * 1f),
                                         label = context.getString(R.string.zodiac_label),
                                         state = zodiacState,
-                                        color = labelColor
+                                        color = labelColor,
+                                        focusRequester = zodiacFocusRequester,
+                                        keyboard = KeyboardOptions(
+                                            keyboardType = KeyboardType.Unspecified
+                                        )
                                     )
+                                    LaunchedEffect(screenStepState.value) {
+                                        zodiacFocusRequester.requestFocus()
+                                    }
                                 }
                                 InfoStepsStatus.Caracter -> {
                                     InfoScreen(
@@ -201,8 +267,15 @@ class UserInfoView {
                                             .height(screenHeight * 1f),
                                         label = context.getString(R.string.caracter_label),
                                         state = caracterState,
-                                        color = labelColor
+                                        color = labelColor,
+                                        focusRequester = caracterFocusRequester,
+                                        keyboard = KeyboardOptions(
+                                            keyboardType = KeyboardType.Unspecified
+                                        )
                                     )
+                                    LaunchedEffect(screenStepState.value) {
+                                        caracterFocusRequester.requestFocus()
+                                    }
                                 }
                             }
                         }
@@ -247,9 +320,9 @@ class UserInfoView {
                                     }
 
                                     InfoStepsStatus.Hobbies -> {
-                                        if (hobbiesState.value.isEmpty()){
+                                        if (hobbiesState.value.isEmpty()) {
                                             labelColor = Color.Red
-                                        }else{
+                                        } else {
                                             labelColor = Color.Black
                                             screenStepState.value = InfoStepsStatus.Zodiac
                                         }
@@ -257,31 +330,57 @@ class UserInfoView {
                                     }
 
                                     InfoStepsStatus.Zodiac -> {
-                                        if (zodiacState.value.isEmpty()){
+                                        if (zodiacState.value.isEmpty()) {
                                             labelColor = Color.Red
-                                        }else {
+                                        } else {
                                             screenStepState.value =
                                                 InfoStepsStatus.Caracter
                                             buttonText.value = context.getString(R.string.save_text)
                                             labelColor = Color.Black
                                         }
-
                                     }
 
                                     InfoStepsStatus.Caracter -> {
-                                        if (caracterState.value.isEmpty()){
+
+                                        if (caracterState.value.isEmpty()) {
                                             labelColor = Color.Red
-                                        }else{
-                                            navController.navigate(
-                                                if (args.forDay.isNullOrEmpty()) {
-                                                    LocalNavController.MainScreen
-                                                } else {
-                                                    LocalNavController.DailyInfoScreen(
-                                                        forDay = args.forDay,
-                                                        source = args.source!!
+                                        } else {
+
+                                            when(args.forWhat){
+                                                "ForAnother" ->{
+                                                    Log.d("Tag" , args.forWhat.toString())
+
+                                                    viewModel.setForAnotherInformation(
+                                                        LocalUserInformation(
+                                                            name = nameState.value,
+                                                            old = oldState.value.toInt(),
+                                                            bestSide = bestSideState.value,
+                                                            hobbies = hobbiesState.value,
+                                                            zodiac = zodiacState.value,
+                                                            caracter = caracterState.value
+                                                        )
+                                                    )
+
+                                                    navController.navigate(LocalNavController.DailyInfoScreen(args.forDay!!, source = args.source!!,forAnother = true))
+                                                }
+                                                "SaveInf" -> {
+                                                    viewModel.saveLocalInformation(
+                                                        LocalUserInformation(
+                                                            name = nameState.value,
+                                                            old = oldState.value.toInt(),
+                                                            bestSide = bestSideState.value,
+                                                            hobbies = hobbiesState.value,
+                                                            zodiac = zodiacState.value,
+                                                            caracter = caracterState.value
+                                                        )
+                                                    )
+                                                    navController.navigate(
+                                                            LocalNavController.MainScreen
                                                     )
                                                 }
-                                            )
+                                                else ->{}
+                                            }
+
                                             labelColor = Color.Black
                                         }
                                     }
@@ -304,63 +403,3 @@ class UserInfoView {
         }
     }
 }
-
-
-
-
-/*
-*
-                        item {
-                            DailyUserInfoFieldsHolder(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .background(ColorDailyUserInfoFields0),
-                                state1 = nameState,
-                                state2 = oldState,
-                                state3 = bestSideState,
-                                label1 = context.getString(R.string.name_label),
-                                label2 = context.getString(R.string.old_label),
-                                label3 = context.getString(R.string.best_side_label),
-                                context = context,
-                                containerLabel = context.getString(R.string.user_info_label_1)
-                            )
-                        }
-
-                        item {
-                            Spacer(Modifier.height(10.dp))
-                        }
-
-                        item {
-                            DailyUserInfoFieldsHolder(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .background(ColorDailyUserInfoFields1),
-                                state1 = hobbiesState,
-                                state2 = zodiacState,
-                                state3 = caracterState,
-                                label1 = context.getString(R.string.hobbies_label),
-                                label2 = context.getString(R.string.zodiac_label),
-                                label3 = context.getString(R.string.caracter_label),
-                                context = context,
-                                containerLabel = context.getString(R.string.user_info_label_2)
-                            )
-                        }
-
-                        item {
-                            Spacer(Modifier.height(10.dp))
-                        }
-
-                        item {
-                            BorderButton(
-                                Modifier,
-                                context.getString(R.string.next_text),
-                                onClick = {
-                                    navController.navigate(
-                                        LocalNavController.DailyInfoScreen(
-                                            source = args.source,
-                                            forDay = args.forDay
-                                        )
-                                    )
-                                }
-                            )
-                        }*/

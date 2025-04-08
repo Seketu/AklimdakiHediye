@@ -1,5 +1,6 @@
 package com.example.aklimdakihediye.Views
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -43,16 +44,17 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.aklimdakihediye.BuildConfig
 import com.example.aklimdakihediye.ObserverClasses.ForWhoObserver
 import com.example.aklimdakihediye.ObserverClasses.AlertDialogObserver
 import com.example.aklimdakihediye.ObserverClasses.ToScreenObserver
 import com.example.aklimdakihediye.R
 import com.example.aklimdakihediye.ViewModels.UserMainViewModel
-import com.example.aklimdakihediye.compose.AlertDialog
-import com.example.aklimdakihediye.compose.LottieAnim
-import com.example.aklimdakihediye.compose.MainListDailyButton
-import com.example.aklimdakihediye.compose.MainListRowButton
-import com.example.aklimdakihediye.compose.NavigationButton
+import com.example.aklimdakihediye.Compose.AlertDialog
+import com.example.aklimdakihediye.Compose.LottieAnim
+import com.example.aklimdakihediye.Compose.MainListDailyButton
+import com.example.aklimdakihediye.Compose.MainListRowButton
+import com.example.aklimdakihediye.Compose.NavigationButton
 import com.example.aklimdakihediye.models.ComposeModels.UserMainListItems
 import com.example.aklimdakihediye.models.ComposeModels.UserMainRowListItems
 import com.example.aklimdakihediye.ui.theme.ColorUserMainBc
@@ -105,7 +107,7 @@ class UserMainView {
                                 navController,
                                 event.forDay,
                                 event.source,
-                                "ForAnother"
+                                "ForAnother",
                             )
                         }
                         is ToScreenObserver.NewInformation -> {

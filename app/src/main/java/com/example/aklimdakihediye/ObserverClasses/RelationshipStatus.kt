@@ -1,5 +1,5 @@
 package com.example.aklimdakihediye.ObserverClasses
 
 enum class RelationshipStatus {
-    FLORT, MARRIED, SINGLE, NONE
+    FLORT, MARRIED, SweatHeart, NONE
 }

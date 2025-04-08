@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.ktor.client.HttpClient
 import javax.inject.Singleton
 
 @HiltAndroidApp
@@ -46,7 +47,7 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideUserRepository(userDao: UserInformationDao): MainRepo {
-        return MainRepo(userDao)
+    fun provideUserRepository(userDao: UserInformationDao,client: HttpClient): MainRepo {
+        return MainRepo(userDao,client)
     }
 }

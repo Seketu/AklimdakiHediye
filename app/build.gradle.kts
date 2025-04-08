@@ -19,7 +19,8 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
+        buildConfigField("String", "API_KEY","\"AIzaSyAxp5b7hIyY8Yzb93QHFPFY8vFOK69X3GA\"")
+        buildConfigField("String", "BASE_URL","\"https://generativelanguage.googleapis.com/\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -41,33 +42,38 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
 }
 dependencies {
 
     //lottie Animations dependicies
-    implementation("com.airbnb.android:lottie-compose:6.0.0")
+    implementation(libs.lottie.compose)
 
     //Okhttp dependicies
     implementation(libs.okhttp)
-    // ktor
-    implementation(platform("io.ktor:ktor-bom:3.1.0"))
-    implementation("io.ktor:ktor-client-android")
-    implementation("io.ktor:ktor-client-serialization")
-    implementation("io.ktor:ktor-client-logging")
-    implementation("io.ktor:ktor-client-content-negotiation")
-    implementation("io.ktor:ktor-serialization-kotlinx-json")
 
-    ksp("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-rxjava3:2.6.1")
-    implementation ("androidx.room:room-ktx:2.6.1")
+    // ktor
+    implementation(platform(libs.ktor.bom))
+    implementation(libs.ktor.ktor.client.android)
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.ktor.client.content.negotiation)
+    implementation(libs.ktor.ktor.serialization.kotlinx.json)
+    implementation (libs.ktor.client.plugins)
+    implementation (libs.ktor.client.cio)
+
+    //Room
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.rxjava3)
+    implementation (libs.androidx.room.ktx)
+
 
     //hilt
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
-
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 

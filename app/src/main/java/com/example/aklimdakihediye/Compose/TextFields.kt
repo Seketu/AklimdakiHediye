@@ -1,10 +1,8 @@
-package com.example.aklimdakihediye.compose
+package com.example.aklimdakihediye.Compose
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -17,14 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.aklimdakihediye.R
 
 
 @Composable
@@ -99,7 +93,8 @@ fun PriceInformationTextField(
 @Composable
 fun UserInfoTextField(
     modifier: Modifier = Modifier,
-    string : MutableState<String>
+    string: MutableState<String>,
+    keyboard: KeyboardOptions
 ) {
     Row(
         modifier
@@ -114,11 +109,12 @@ fun UserInfoTextField(
                 disabledContainerColor = Color.Black,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                unfocusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.Black,
             ),
             shape = RoundedCornerShape(25.dp),
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            keyboardOptions = keyboard
         )
     }
 }
@@ -128,6 +124,7 @@ fun InfoTextFields(
     modifier: Modifier = Modifier,
     label: String,
     state: MutableState<String>,
+    keyboard: KeyboardOptions
 ) {
     Row(
         modifier = modifier
@@ -147,7 +144,8 @@ fun InfoTextFields(
             label = {Text(label)},
             modifier = Modifier
                 .fillMaxWidth(),
-            shape = RoundedCornerShape(15.dp)
+            shape = RoundedCornerShape(15.dp),
+            keyboardOptions = keyboard
         )
     }
 }

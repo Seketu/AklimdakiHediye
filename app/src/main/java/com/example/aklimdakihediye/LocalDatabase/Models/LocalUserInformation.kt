@@ -3,6 +3,7 @@ package com.example.aklimdakihediye.LocalDatabase.Models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
 @Entity(tableName = "user_information")
 class LocalUserInformation(

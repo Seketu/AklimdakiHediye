@@ -1,6 +1,7 @@
 package com.example.aklimdakihediye.ViewModels
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
@@ -14,14 +15,15 @@ import com.example.aklimdakihediye.Repo.MainRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UserMainViewModel
     @Inject constructor(
-        mainRepo: MainRepo,
-        context: Context,
+        val mainRepo: MainRepo,
+        val context: Context,
     ) : ViewModel() {
 
     private var _alertDialogState = MutableStateFlow<AlertDialogObserver>(AlertDialogObserver.none)
@@ -41,33 +43,38 @@ class UserMainViewModel
 
     init {
         viewModelScope.launch {
-            mainRepo.getUserInformation.collect {
-                _userInformation.value = it
-            }
-        }
-        when(_userInformation.value.isEmpty()){
-            true -> {
-                _alertDialogState.value = AlertDialogObserver.NewAlertDialog(
-                    title = context.getString(R.string.alert_dialog_empty_info_title),
-                    onDismiss = {
-                        _showAlert.value = !_showAlert.value
-                    },
-                    onConfirm = {
-                        _toInfoScreen.value = ToScreenObserver.NewInformation(forDay = null,source = null)
-                    },
-                    dismissText = context.getString(R.string.alert_dialog_empty_info_dismiss),
-                    confirmText = context.getString(R.string.alert_dialog_empty_info_confirm),
-                    dismissButton = {
-                        _showAlert.value = !_showAlert.value
-                    }
-                )
-            }
-            false -> {
-                _alertDialogState.value = AlertDialogObserver.none
+            mainRepo.getUserInformation.apply {
+                collect {
+                    _userInformation.value = it
+                    Log.e("Error",it.toString())
+                    checkUserInformation()
+                }
+            }.catch {
+                Log.e("Error",it.message.toString())
             }
         }
     }
 
+     fun checkUserInformation() {
+        if (_userInformation.value.isEmpty()) {
+            _alertDialogState.value = AlertDialogObserver.NewAlertDialog(
+                title = context.getString(R.string.alert_dialog_empty_info_title),
+                onDismiss = {
+                    _showAlert.value = !_showAlert.value
+                },
+                onConfirm = {
+                    _toInfoScreen.value = ToScreenObserver.NewInformation(forDay = null, source = null)
+                },
+                dismissText = context.getString(R.string.alert_dialog_empty_info_dismiss),
+                confirmText = context.getString(R.string.alert_dialog_empty_info_confirm),
+                dismissButton = {
+                    _showAlert.value = !_showAlert.value
+                }
+            )
+        } else {
+            _alertDialogState.value = AlertDialogObserver.none
+        }
+    }
     fun updateForWhoState(forWhoObserver: ForWhoObserver,context: Context,forDay : String,source : Int){
 
         val userInformation = userInformation.value
@@ -107,7 +114,7 @@ class UserMainViewModel
         navController: NavController,
         forDay: String?,
         source: Int?,
-        forWhat: String
+        forWhat: String,
     ){
         when(forWhat){
             "SaveInf" -> {
@@ -115,8 +122,12 @@ class UserMainViewModel
                 _toInfoScreen.value = ToScreenObserver.none
             }
             "WithInf" -> {
-                navController.navigate(LocalNavController.UserInfoScreen(forDay,source,forWhat))
-                _toInfoScreen.value = ToScreenObserver.none
+                if (forDay.isNullOrEmpty() && source == null){
+                    Log.e("Error At UserMainViewModel","forDay is null or empty")
+                }else{
+                    navController.navigate(LocalNavController.DailyInfoScreen(forDay!!,source!!,false))
+                    _toInfoScreen.value = ToScreenObserver.none
+                }
             }
             "ForAnother" -> {
                 navController.navigate(LocalNavController.UserInfoScreen(forDay,source,forWhat))
