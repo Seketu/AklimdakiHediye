@@ -1,4 +1,4 @@
-package com.example.aklimdakihediye.Views
+package com.example.aklimdakihediye.Views.PartScreens
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
@@ -243,6 +243,7 @@ import com.example.aklimdakihediye.ui.theme.ColorInformationGiftButton
                                                     giftClass = giftClass.value
                                                 )
                                             )
+                                            giftInformationScreenState.value = AboutGiftInformationScreenObserver.SearchResult
                                         }
                                     }
                                 }

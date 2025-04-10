@@ -69,6 +69,13 @@ dependencies {
     implementation(libs.androidx.room.rxjava3)
     implementation (libs.androidx.room.ktx)
 
+    //jsoup
+    implementation("org.jsoup:jsoup:1.15.4")
+
+    //coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+
 
     //hilt
     implementation(libs.hilt.android)

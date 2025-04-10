@@ -1,6 +1,5 @@
-package com.example.aklimdakihediye.Views
+package com.example.aklimdakihediye.Views.MainScreens
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +18,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,13 +36,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.example.aklimdakihediye.BuildConfig
 import com.example.aklimdakihediye.ObserverClasses.ForWhoObserver
 import com.example.aklimdakihediye.ObserverClasses.AlertDialogObserver
 import com.example.aklimdakihediye.ObserverClasses.ToScreenObserver
@@ -55,6 +51,7 @@ import com.example.aklimdakihediye.Compose.LottieAnim
 import com.example.aklimdakihediye.Compose.MainListDailyButton
 import com.example.aklimdakihediye.Compose.MainListRowButton
 import com.example.aklimdakihediye.Compose.NavigationButton
+import com.example.aklimdakihediye.Views.PartScreens.LoadingScreen
 import com.example.aklimdakihediye.models.ComposeModels.UserMainListItems
 import com.example.aklimdakihediye.models.ComposeModels.UserMainRowListItems
 import com.example.aklimdakihediye.ui.theme.ColorUserMainBc
@@ -175,23 +172,7 @@ class UserMainView {
         }
 
         when (isLoading.value) {
-            true -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(
-                        Modifier
-                            .fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Text(text = "Yükleniyor...", color = Color.Black, fontSize = 20.sp)
-                        Spacer(Modifier.height(50.dp))
-                        CircularProgressIndicator()
-                    }
-                }
-            }
+            true -> LoadingScreen(modifier = Modifier.fillMaxSize())
 
             false -> SuccesLoading(navController, infoScreen, viewModel)
         }

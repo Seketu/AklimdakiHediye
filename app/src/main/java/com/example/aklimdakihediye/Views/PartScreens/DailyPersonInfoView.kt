@@ -1,4 +1,4 @@
-package com.example.aklimdakihediye.Views
+package com.example.aklimdakihediye.Views.PartScreens
 
 import android.content.Context
 import androidx.compose.foundation.Image
@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -52,7 +51,6 @@ import androidx.navigation.NavController
 import com.example.aklimdakihediye.Compose.BorderButton
 import com.example.aklimdakihediye.Compose.LottieAnim
 import com.example.aklimdakihediye.Compose.PersonInfoScreen
-import com.example.aklimdakihediye.Compose.ZodiacButton
 import com.example.aklimdakihediye.Compose.ZodiacInfoScreen
 import com.example.aklimdakihediye.NavController.LocalNavController
 import com.example.aklimdakihediye.ObserverClasses.AboutGiftInformationScreenObserver
@@ -70,7 +68,6 @@ import com.example.aklimdakihediye.ui.theme.ColorUserMainPlaceFathers
 import com.example.aklimdakihediye.ui.theme.ColorUserMainPlaceLovers
 import com.example.aklimdakihediye.ui.theme.ColorUserMainPlaceMothers
 import com.example.aklimdakihediye.ui.theme.ColorUserMainPlaceWomen
-import kotlin.times
 
 
 @Composable

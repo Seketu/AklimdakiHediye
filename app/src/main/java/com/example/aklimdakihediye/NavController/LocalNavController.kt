@@ -6,10 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.example.aklimdakihediye.LocalDatabase.Models.LocalUserInformation
-import com.example.aklimdakihediye.Views.UserInfoView
-import com.example.aklimdakihediye.Views.DailyInfoView
-import com.example.aklimdakihediye.Views.UserMainView
+import com.example.aklimdakihediye.Views.MainScreens.UserInfoView
+import com.example.aklimdakihediye.Views.MainScreens.DailyInfoView
+import com.example.aklimdakihediye.Views.MainScreens.UserMainView
 import kotlinx.serialization.Serializable
 
 class LocalNavController {

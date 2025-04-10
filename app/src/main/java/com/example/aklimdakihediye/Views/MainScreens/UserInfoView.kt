@@ -1,4 +1,4 @@
-package com.example.aklimdakihediye.Views
+package com.example.aklimdakihediye.Views.MainScreens
 
 import android.util.Log
 import androidx.activity.compose.BackHandler
@@ -56,8 +56,6 @@ import com.example.aklimdakihediye.ui.theme.ColorDailyUserInfoButton
 import com.example.aklimdakihediye.ui.theme.ColorDailyUserInfoTopBarr
 
 class UserInfoView {
-
-
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun DailyAskUserInfoScreen(
