@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">هديتي في ذهني</string>
+    <string name="title_app_name">هديتي في ذهني</string>
+    <string name="main_list_title">لمن الهدية؟</string>
+
+    <string name="next_text">تابع</string>
+
+    <string name="main_list_father">عيد الأب</string>
+    <string name="main_list_mother">عيد الأم</string>
+    <string name="main_list_lover">عيد الحب</string>
+    <string name="main_list_women">يوم المرأة</string>
+    <string name="main_list_father_card">"الآباء هم الأبطال الصامتون في العائلة. يدعموننا بقوتهم، ويكبروننا بحبهم. شكرًا لوجودكم، أنتم أبطالنا الأوائل والدائمون!"</string>
+    <string name="main_list_mother_card">"أمي، أنت أنقى أشكال الحب والحنان. مكانك في حياتنا لا يوصف، لأنك أول معلمة لنا، أقوى داعمة، ومصدر حب لا نهاية له. عيد أم سعيد، يا شمس حياتنا!"</string>
+    <string name="main_list_lover_card">"حبيبي، أنت أجمل هدية أضفتِ معنى لحياتي. في عالمي المضيء بعينيك، كل لحظة تصبح أكثر خصوصية ولا تُنسى. عيد حب سعيد، لمكانك الأجمل في قلبي!"</string>
+    <string name="main_list_women_card">"النساء هن الأبطال الحقيقيون الذين يغيّرون لون ومعنى العالم. بقوتهن، حبّهن، ووجودهن الفريد، يجعلون كل لحظة أجمل. يوم نساء سعيد لكل من يجعل الحياة أجمل!"</string>
+
+    <string name="info_label_name">ما اسمه؟</string>
+    <string name="info_label_old">كم عمره؟</string>
+    <string name="info_label_zodiac">ما برجه؟</string>
+    <string name="info_label_job">ما مهنته؟</string>
+    <string name="info_label_best_side">ما أبرز صفاته؟</string>
+    <string name="info_label_hobbies">ما هي هواياته؟</string>
+    <string name="info_label_last_gifts">ما الهدايا التي قدمتها له سابقًا؟</string>
+    <string name="info_label_time">منذ كم سنة أنتما معًا؟</string>
+
+    <string name="main_row_love">حبيبك</string>
+    <string name="main_row_friend">صديقك</string>
+    <string name="main_row_teacher">معلمك</string>
+    <string name="main_row_job">زميل العمل</string>
+
+    <string name="name_label">ما اسمك؟ (لا نهتم باللقب)</string>
+    <string name="old_label">كم عمرك؟</string>
+    <string name="best_side_label">ما الجوانب الجيدة التي يراها الآخرون فيك؟</string>
+    <string name="hobbies_label">ما هي اهتماماتك؟</string>
+    <string name="zodiac_label">ما هو برجك؟ (ليس كل شيء بحاجة إلى إثبات...)</string>
+    <string name="caracter_label">كيف تصف شخصيتك؟ (هل أنت فراشة اجتماعية؟)</string>
+
+    <string name="user_info_label_1">لنبدأ باسمك</string>
+    <string name="user_info_label_2">حدثنا عن نفسك</string>
+    <string name="gift_price_place_label">ما ميزانيتك للهدية؟</string>
+    <string name="gift_screen_mention_label">ما المعنى الذي تريده لهديتك؟</string>
+    <string name="done">إنهاء</string>
+    <string name="alert_dialog_empty_info_title">لم يتم العثور على معلومات</string>
+    <string name="alert_dialog_empty_info_dismiss">سأنظر أكثر</string>
+    <string name="alert_dialog_empty_info_confirm">دعني أقدم نفسي</string>
+    <string name="for_who_user_label">هل ترغب في الاستمرار بمعلوماتك؟</string>
+    <string name="for_who_another_label">لا، لشخص آخر</string>
+    <string name="for_who_forme_label">نعم، لنفسي</string>
+    <string name="save_text">احفظ</string>
+
+    <string name="zodiac_name_libra">الميزان</string>
+    <string name="zodiac_name_virgo">العذراء</string>
+    <string name="zodiac_name_scorpio">العقرب</string>
+    <string name="zodiac_name_sagittarius">القوس</string>
+    <string name="zodiac_name_capricon">الجدي</string>
+    <string name="zodiac_name_aquarius">الدلو</string>
+    <string name="zodiac_name_pisces">الحوت</string>
+    <string name="zodiac_name_aries">الحمل</string>
+    <string name="zodiac_name_taurus">الثور</string>
+    <string name="zodiac_name_gemini">الجوزاء</string>
+    <string name="zodiac_name_cancer">السرطان</string>
+    <string name="zodiac_name_leo">الأسد</string>
+
+    <string name="relationship_flirt">علاقة عابرة</string>
+    <string name="relationship_married">متزوج</string>
+    <string name="relationship_sweatheart">حبيب</string>
+
+    <string name="gift_mention_button_label_sentimental">معنى عاطفي</string>
+    <string name="gift_mention_button_label_daily_user">للاستخدام اليومي</string>
+
+    <string name="delete">حذف</string>
+
+    <string name="saved_gift_screen_label">الهدايا المحفوظة</string>
+    <string name="saved_gift_screen_empty_label">لا توجد هدايا محفوظة</string>
+    <string name="user_info_user_setting_label">معلوماتك الشخصية</string>
+    <string name="user_info_button_user_settings_label">عرض معلوماتي</string>
+    <string name="user_info_user_settings_information">معلومات شخصية</string>
+    <string name="user_info_name_label">اسمك: </string>
+    <string name="user_info_hobbies_label">هواياتك: </string>
+    <string name="user_info_caracter_label">الشخصية: </string>
+    <string name="user_info_old_label">عمرك: </string>
+    <string name="user_info_zodiac_label">برجك: </string>
+    <string name="user_info_best_side_label">صفاتك الجيدة: </string>
+</resources>

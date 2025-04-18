@@ -62,4 +62,19 @@
     <string name="relationship_flirt">Flört</string>
     <string name="relationship_married">Evli</string>
     <string name="relationship_sweatheart">Sevgili</string>
+    <string name="gift_mention_button_label_sentimental">Duygusal Anlamlı</string>
+    <string name="gift_mention_button_label_daily_user">Gündelik Kullanım</string>
+    <string name="delete">Sil</string>
+
+    <string name="saved_gift_screen_label">Kaydettiğiniz Hediyeler</string>
+    <string name="saved_gift_screen_empty_label">Kayıtlı bir hediye bulunmamaktadır</string>
+    <string name="user_info_user_setting_label">Kendi Bilgileriniz</string>
+    <string name="user_info_button_user_settings_label">Bilgilerimi Göster</string>
+    <string name="user_info_user_settings_information">Kişisel Bilgileriniz</string>
+    <string name="user_info_name_label">İsminiz : </string>
+    <string name="user_info_hobbies_label">Hobileriniz : </string>
+    <string name="user_info_caracter_label">Karakter : </string>
+    <string name="user_info_old_label">Yaşınız : </string>
+    <string name="user_info_zodiac_label">Burcunuz : </string>
+    <string name="user_info_best_side_label">İyi yönleriniz : </string>
 </resources>

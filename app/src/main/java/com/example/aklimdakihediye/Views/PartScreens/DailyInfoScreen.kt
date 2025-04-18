@@ -1,14 +1,12 @@
 package com.example.aklimdakihediye.Views.PartScreens
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,9 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -47,10 +43,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.aklimdakihediye.Compose.BorderButton
 import com.example.aklimdakihediye.Compose.LottieAnim
 import com.example.aklimdakihediye.Compose.PersonInfoScreen
+import com.example.aklimdakihediye.Compose.ReleationshipStateInfo
 import com.example.aklimdakihediye.Compose.ZodiacInfoScreen
 import com.example.aklimdakihediye.NavController.LocalNavController
 import com.example.aklimdakihediye.ObserverClasses.AboutGiftInformationScreenObserver
@@ -59,6 +57,7 @@ import com.example.aklimdakihediye.ObserverClasses.RelationshipStatus
 import com.example.aklimdakihediye.ObserverClasses.ZodiacStatus
 import com.example.aklimdakihediye.R
 import com.example.aklimdakihediye.ViewModels.AboutGiftInformationViewModel
+import com.example.aklimdakihediye.ViewModels.SpecialGiftViewModel
 import com.example.aklimdakihediye.models.GiftInformationModels.ForPersonInformation
 import com.example.aklimdakihediye.ui.theme.ColorUserMainListFathers
 import com.example.aklimdakihediye.ui.theme.ColorUserMainListLovers
@@ -77,7 +76,7 @@ fun DailyInfoScreen(
     viewModel: AboutGiftInformationViewModel = hiltViewModel(),
     giftInformationScreenState: MutableState<AboutGiftInformationScreenObserver>
 ) {
-
+    Log.e("Error", "Error")
     var themeColor = HashMap<String, Color>()
     val context = LocalContext.current
 
@@ -93,6 +92,84 @@ fun DailyInfoScreen(
     )
 
     when (args.forDay) {
+
+        context.getString(R.string.main_row_love) -> {
+            themeColor.apply {
+                put("mainColor", ColorUserMainListLovers)
+                put("placeColor", ColorUserMainPlaceLovers)
+            }
+            val labelList = labelListRaw.map {
+                "Sevgilinizin " + it
+            }
+            DailyInfoBakeScreen(
+                forWho = args.forDay,
+                color = themeColor,
+                source = args.source,
+                labelList = labelList,
+                viewModel = viewModel,
+                giftInformationScreenState = giftInformationScreenState,
+                navController = navController
+            )
+        }
+
+        context.getString(R.string.main_row_teacher) -> {
+            themeColor.apply {
+                put("mainColor", ColorUserMainListFathers)
+                put("placeColor", ColorUserMainPlaceFathers)
+            }
+            val labelList = labelListRaw.map {
+                "Öğretmeninin " + it
+            }
+            DailyInfoBakeScreen(
+                forWho = args.forDay,
+                color = themeColor,
+                source = args.source,
+                labelList = labelList,
+                viewModel = viewModel,
+                giftInformationScreenState = giftInformationScreenState,
+                navController = navController
+            )
+        }
+
+        context.getString(R.string.main_row_job) -> {
+            themeColor.apply {
+                put("mainColor", ColorUserMainListFathers)
+                put("placeColor", ColorUserMainPlaceFathers)
+            }
+            val labelList = labelListRaw.map {
+                "İş Arkadaşınızın " + it
+            }
+            DailyInfoBakeScreen(
+                forWho = args.forDay,
+                color = themeColor,
+                source = args.source,
+                labelList = labelList,
+                viewModel = viewModel,
+                giftInformationScreenState = giftInformationScreenState,
+                navController = navController
+            )
+        }
+
+
+        context.getString(R.string.main_row_friend) -> {
+            themeColor.apply {
+                put("mainColor", ColorUserMainListFathers)
+                put("placeColor", ColorUserMainPlaceFathers)
+            }
+            val labelList = labelListRaw.map {
+                "Arkadaşınızın " + it
+            }
+            DailyInfoBakeScreen(
+                forWho = args.forDay,
+                color = themeColor,
+                source = args.source,
+                labelList = labelList,
+                viewModel = viewModel,
+                giftInformationScreenState = giftInformationScreenState,
+                navController = navController
+            )
+        }
+
         context.getString(R.string.main_list_father) -> {
             themeColor.apply {
                 put("mainColor", ColorUserMainListFathers)
@@ -101,13 +178,14 @@ fun DailyInfoScreen(
             val labelList = labelListRaw.map {
                 "Babanızın " + it
             }
-            Screen(
+            DailyInfoBakeScreen(
                 forWho = args.forDay,
                 color = themeColor,
                 source = args.source,
                 labelList = labelList,
                 viewModel = viewModel,
-                giftInformationScreenState = giftInformationScreenState
+                giftInformationScreenState = giftInformationScreenState,
+                navController = navController
             )
 
         }
@@ -120,13 +198,14 @@ fun DailyInfoScreen(
             val labelList = labelListRaw.map {
                 "Annenizin " + it
             }
-            Screen(
+            DailyInfoBakeScreen(
                 forWho = args.forDay,
                 color = themeColor,
                 source = args.source,
                 labelList = labelList,
                 viewModel = viewModel,
-                giftInformationScreenState = giftInformationScreenState
+                giftInformationScreenState = giftInformationScreenState,
+                navController = navController
             )
         }
 
@@ -138,13 +217,14 @@ fun DailyInfoScreen(
             val labelList = labelListRaw.map {
                 "Sevgilinizin " + it
             }
-            Screen(
+            DailyInfoBakeScreen(
                 forWho = args.forDay,
                 color = themeColor,
                 source = args.source,
                 labelList = labelList,
                 viewModel = viewModel,
-                giftInformationScreenState = giftInformationScreenState
+                giftInformationScreenState = giftInformationScreenState,
+                navController = navController
             )
         }
 
@@ -156,13 +236,14 @@ fun DailyInfoScreen(
             val labelList = labelListRaw.map {
                 "Kadının " + it
             }
-            Screen(
+            DailyInfoBakeScreen(
                 forWho = args.forDay,
                 color = themeColor,
                 source = args.source,
                 labelList = labelList,
                 viewModel = viewModel,
-                giftInformationScreenState = giftInformationScreenState
+                giftInformationScreenState = giftInformationScreenState,
+                navController = navController
             )
         }
 
@@ -172,14 +253,15 @@ fun DailyInfoScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Screen(
+fun DailyInfoBakeScreen(
     forWho: String,
     color: HashMap<String, Color>,
     source: Int,
     context: Context = LocalContext.current,
     labelList: List<String>,
-    viewModel: AboutGiftInformationViewModel,
-    giftInformationScreenState: MutableState<AboutGiftInformationScreenObserver>
+    viewModel: AboutGiftInformationViewModel = hiltViewModel(),
+    giftInformationScreenState: MutableState<AboutGiftInformationScreenObserver>,
+    navController : NavController
 ) {
 
     var labelColor by remember {
@@ -190,34 +272,6 @@ fun Screen(
         mutableStateOf(DailyPlacesObserver.Name)
     }
 
-    val zodiacList = listOf<Triple<Int, String, ZodiacStatus>>(
-        Triple(R.drawable.libra, stringResource(R.string.zodiac_name_libra), ZodiacStatus.Libra),
-        Triple(R.drawable.virgo, stringResource(R.string.zodiac_name_virgo), ZodiacStatus.Virgo),
-        Triple(
-            R.drawable.scorpio, stringResource(R.string.zodiac_name_scorpio), ZodiacStatus.Scorpio
-        ),
-        Triple(
-            R.drawable.sagittarius,
-            stringResource(R.string.zodiac_name_sagittarius),
-            ZodiacStatus.Sagittarius
-        ),
-        Triple(
-            R.drawable.capricorn,
-            stringResource(R.string.zodiac_name_capricon),
-            ZodiacStatus.Capricorn
-        ),
-        Triple(
-            R.drawable.aquarius_,
-            stringResource(R.string.zodiac_name_aquarius),
-            ZodiacStatus.Aquarius
-        ),
-        Triple(R.drawable.pisces, stringResource(R.string.zodiac_name_pisces), ZodiacStatus.Pisces),
-        Triple(R.drawable.aries, stringResource(R.string.zodiac_name_aries), ZodiacStatus.Aries),
-        Triple(R.drawable.taurus, stringResource(R.string.zodiac_name_taurus), ZodiacStatus.Taurus),
-        Triple(R.drawable.gemini, stringResource(R.string.zodiac_name_gemini), ZodiacStatus.Gemini),
-        Triple(R.drawable.cancer, stringResource(R.string.zodiac_name_cancer), ZodiacStatus.Cancer),
-        Triple(R.drawable.leo, stringResource(R.string.zodiac_name_leo), ZodiacStatus.Leo)
-    )
 
     val zodiacStatus = remember {
         mutableStateOf(ZodiacStatus.None)
@@ -257,13 +311,13 @@ fun Screen(
         mutableStateOf("")
     }
 
-    var selectedOption by remember { mutableStateOf(RelationshipStatus.NONE) }
+    var selectedOption = remember { mutableStateOf(RelationshipStatus.NONE) }
 
     var relationShipState: MutableState<String?> = remember {
         mutableStateOf(null)
     }
 
-    when (selectedOption) {
+    when (selectedOption.value) {
         RelationshipStatus.FLORT -> relationShipState.value =
             stringResource(R.string.relationship_flirt)
 
@@ -288,9 +342,36 @@ fun Screen(
                     Text("")
                 }, navigationIcon = {
                     Image(
-                        modifier = Modifier.padding(10.dp),
+                        modifier = Modifier
+                            .padding(10.dp)
+                            .clickable {
+                                when (valuesState.value) {
+                                    DailyPlacesObserver.Name -> {
+                                        navController.popBackStack()
+                                    }
+
+                                    DailyPlacesObserver.OldName -> {
+                                        valuesState.value = DailyPlacesObserver.Name
+                                    }
+
+                                    DailyPlacesObserver.Zodiac -> {
+                                        valuesState.value = DailyPlacesObserver.OldName
+                                    }
+
+                                    DailyPlacesObserver.Job -> {
+                                        valuesState.value = DailyPlacesObserver.Zodiac
+                                    }
+
+                                    DailyPlacesObserver.BestSide -> {
+                                        valuesState.value = DailyPlacesObserver.Job
+                                    }
+                                    DailyPlacesObserver.Hobbies -> {
+                                        valuesState.value = DailyPlacesObserver.BestSide
+                                    }
+                                }
+                            },
                         painter = painterResource(R.drawable.back_icon),
-                        contentDescription = "back button",
+                        contentDescription = "back button"
                     )
                 }, colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = color.getValue("placeColor")
@@ -340,9 +421,14 @@ fun Screen(
                                     keyboardType = KeyboardType.Unspecified
                                 )
                             )
-                            LaunchedEffect(valuesState.value) {
-                                nameRequester.requestFocus()
+                            if (color.getValue("mainColor") == ColorUserMainListLovers && valuesState.value == DailyPlacesObserver.Name) {
+                                ReleationshipStateInfo(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    selectedOption = selectedOption
+                                )
                             }
+                            Spacer(Modifier.height(25.dp))
                         }
 
                         DailyPlacesObserver.OldName -> {
@@ -422,80 +508,6 @@ fun Screen(
                 }
 
 
-                item {
-                    if (color.getValue("mainColor") == ColorUserMainListLovers && valuesState.value == DailyPlacesObserver.Hobbies) {
-
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.SpaceAround,
-                            modifier = Modifier
-                                .background(Color.Transparent)
-                                .fillMaxWidth(0.9f)
-                        ) {
-                            Text("İlişki Durumu")
-
-                            Row(
-                                modifier = Modifier
-                                    .height(IntrinsicSize.Max)
-                                    .background(Color.LightGray, shape = RoundedCornerShape(25.dp))
-                                    .fillMaxWidth(0.7f)
-                                    .padding(15.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceAround
-                            ) {
-
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    modifier = Modifier.clickable(
-                                            onClick = {
-                                                selectedOption = RelationshipStatus.MARRIED
-                                            })) {
-                                    Checkbox(
-                                        checked = selectedOption == RelationshipStatus.MARRIED,
-                                        enabled = true,
-                                        onCheckedChange = {
-                                            if (it) selectedOption =
-                                                RelationshipStatus.MARRIED else selectedOption =
-                                                RelationshipStatus.NONE
-                                        })
-                                    Text("Evli")
-                                }
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    modifier = Modifier.clickable(
-                                            onClick = {
-                                                selectedOption = RelationshipStatus.SweatHeart
-                                            })) {
-
-                                    Checkbox(
-                                        checked = selectedOption == RelationshipStatus.SweatHeart,
-                                        enabled = true,
-                                        onCheckedChange = {
-                                            if (it) selectedOption =
-                                                RelationshipStatus.SweatHeart else RelationshipStatus.NONE
-                                        })
-                                    Text("Sevgili")
-                                }
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    modifier = Modifier.clickable(
-                                            onClick = {
-                                                selectedOption = RelationshipStatus.FLORT
-                                            })) {
-                                    Checkbox(
-                                        checked = selectedOption == RelationshipStatus.FLORT,
-                                        enabled = true,
-                                        onCheckedChange = {
-                                            if (it) selectedOption =
-                                                RelationshipStatus.FLORT else RelationshipStatus.NONE
-                                        })
-                                    Text("Flört")
-                                }
-                            }
-                        }
-                    }
-                    Spacer(Modifier.height(25.dp))
-                }
 
                 item {
                     BorderButton(
@@ -590,6 +602,7 @@ fun Screen(
 
                                             ZodiacStatus.None -> zodiacState.value = ""
                                         }
+
                                         viewModel.savePersonInformation(
                                             ForPersonInformation(
                                                 forWho = forWho,
@@ -605,6 +618,8 @@ fun Screen(
                                         )
                                         giftInformationScreenState.value =
                                             AboutGiftInformationScreenObserver.AboutGiftInformation
+
+
                                     }
                                 }
                             }

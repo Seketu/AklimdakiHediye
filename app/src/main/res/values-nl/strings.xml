@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CadeauInGedachten</string>
+    <string name="title_app_name">Cadeau in Gedachten</string>
+    <string name="main_list_title">Voor wie is het cadeau?</string>
+
+    <string name="next_text">Ga verder</string>
+
+    <string name="main_list_father">Vaderdag</string>
+    <string name="main_list_mother">Moederdag</string>
+    <string name="main_list_lover">Valentijnsdag</string>
+    <string name="main_list_women">Internationale Vrouwendag</string>
+    <string name="main_list_father_card">"Vaders zijn de stille helden van het gezin. Ze steunen ons met hun kracht en laten ons opgroeien met hun liefde. Bedankt dat jullie er zijn – onze eerste en eeuwige helden!"</string>
+    <string name="main_list_mother_card">"Mama, jij bent de puurste vorm van liefde en zorg. Jouw plaats in ons leven is onbeschrijfelijk, want jij bent onze eerste lerares, onze sterkste steun en een oneindige bron van liefde. Fijne Moederdag, zon van ons leven!"</string>
+    <string name="main_list_lover_card">"Liefste, jij bent het mooiste cadeau dat betekenis geeft aan mijn leven. In een wereld verlicht door jouw ogen wordt elk moment specialer en onvergetelijk. Fijne Valentijnsdag – de mooiste plek in mijn hart is voor jou!"</string>
+    <string name="main_list_women_card">"Vrouwen zijn de echte heldinnen die kleur en betekenis geven aan de wereld. Met hun kracht, liefde en unieke aanwezigheid maken ze elk moment mooier. Fijne Vrouwendag aan alle vrouwen die het leven mooier maken!"</string>
+
+    <string name="info_label_name">Wat is zijn/haar naam?</string>
+    <string name="info_label_old">Hoe oud is hij/zij?</string>
+    <string name="info_label_zodiac">Wat is zijn/haar sterrenbeeld?</string>
+    <string name="info_label_job">Wat is zijn/haar beroep?</string>
+    <string name="info_label_best_side">Wat zijn zijn/haar opvallende eigenschappen?</string>
+    <string name="info_label_hobbies">Wat zijn zijn/haar hobby’s?</string>
+    <string name="info_label_last_gifts">Welke cadeaus heb je eerder gegeven?</string>
+    <string name="info_label_time">Hoe lang zijn jullie al samen?</string>
+
+    <string name="main_row_love">Je partner</string>
+    <string name="main_row_friend">Je vriend(in)</string>
+    <string name="main_row_teacher">Je leraar/lerares</string>
+    <string name="main_row_job">Collega</string>
+
+    <string name="name_label">Wat is jouw naam? (We hebben je achternaam niet nodig)</string>
+    <string name="old_label">Hoe oud ben jij?</string>
+    <string name="best_side_label">Wat zeggen mensen over jouw goede eigenschappen?</string>
+    <string name="hobbies_label">Wat zijn jouw interesses?</string>
+    <string name="zodiac_label">Wat is jouw sterrenbeeld? (Niet alles hoeft bewezen te worden...)</string>
+    <string name="caracter_label">Hoe zou jij je persoonlijkheid beschrijven? (Ben je bijvoorbeeld een sociaal vlindertje?)</string>
+
+    <string name="user_info_label_1">Laten we beginnen met je naam</string>
+    <string name="user_info_label_2">Vertel ons iets over jezelf</string>
+    <string name="gift_price_place_label">Wat is je budget voor het cadeau?</string>
+    <string name="gift_screen_mention_label">Wat voor betekenis wil je dat het cadeau heeft?</string>
+    <string name="done">Voltooien</string>
+    <string name="alert_dialog_empty_info_title">Geen opgeslagen informatie gevonden</string>
+    <string name="alert_dialog_empty_info_dismiss">Ik kijk nog even</string>
+    <string name="alert_dialog_empty_info_confirm">Ik stel mezelf nu voor</string>
+    <string name="for_who_user_label">Wil je doorgaan met je eigen gegevens?</string>
+    <string name="for_who_another_label">Nee, voor iemand anders</string>
+    <string name="for_who_forme_label">Ja, voor mijzelf</string>
+    <string name="save_text">Opslaan</string>
+
+    <string name="zodiac_name_libra">Weegschaal</string>
+    <string name="zodiac_name_virgo">Maagd</string>
+    <string name="zodiac_name_scorpio">Schorpioen</string>
+    <string name="zodiac_name_sagittarius">Boogschutter</string>
+    <string name="zodiac_name_capricon">Steenbok</string>
+    <string name="zodiac_name_aquarius">Waterman</string>
+    <string name="zodiac_name_pisces">Vissen</string>
+    <string name="zodiac_name_aries">Ram</string>
+    <string name="zodiac_name_taurus">Stier</string>
+    <string name="zodiac_name_gemini">Tweelingen</string>
+    <string name="zodiac_name_cancer">Kreeft</string>
+    <string name="zodiac_name_leo">Leeuw</string>
+
+    <string name="relationship_flirt">Flirt</string>
+    <string name="relationship_married">Getrouwd</string>
+    <string name="relationship_sweatheart">Liefje</string>
+
+    <string name="gift_mention_button_label_sentimental">Emotionele betekenis</string>
+    <string name="gift_mention_button_label_daily_user">Dagelijks gebruik</string>
+
+    <string name="delete">Verwijderen</string>
+
+    <string name="saved_gift_screen_label">Opgeslagen Cadeaus</string>
+    <string name="saved_gift_screen_empty_label">Geen opgeslagen cadeaus gevonden</string>
+    <string name="user_info_user_setting_label">Jouw Gegevens</string>
+    <string name="user_info_button_user_settings_label">Mijn gegevens tonen</string>
+    <string name="user_info_user_settings_information">Persoonlijke informatie</string>
+    <string name="user_info_name_label">Jouw naam: </string>
+    <string name="user_info_hobbies_label">Jouw hobby’s: </string>
+    <string name="user_info_caracter_label">Persoonlijkheid: </string>
+    <string name="user_info_old_label">Jouw leeftijd: </string>
+    <string name="user_info_zodiac_label">Jouw sterrenbeeld: </string>
+    <string name="user_info_best_side_label">Jouw goede eigenschappen: </string>
+</resources>

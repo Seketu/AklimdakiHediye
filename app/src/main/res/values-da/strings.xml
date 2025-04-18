@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GavenIMittHode</string>
+    <string name="title_app_name">Gaven i Mitt Hode</string>
+    <string name="main_list_title">Hvem er gaven til?</string>
+
+    <string name="next_text">Fortsett</string>
+
+    <string name="main_list_father">Farsdag</string>
+    <string name="main_list_mother">Morsdag</string>
+    <string name="main_list_lover">Valentinsdagen</string>
+    <string name="main_list_women">Kvinnedagen</string>
+    <string name="main_list_father_card">"Fedre er familiens stille helter. De støtter oss med sin styrke og oppdrar oss med kjærlighet. Takk for at dere er våre første og evige helter!"</string>
+    <string name="main_list_mother_card">"Mamma, du er den reneste formen for kjærlighet og omsorg. Din plass i livet vårt er ubeskrivelig, for du er vår første lærer, vår sterkeste støtte og en uendelig kilde til kjærlighet. Gratulerer med morsdagen, solskinnet i våre liv!"</string>
+    <string name="main_list_lover_card">"Elskling, du er den vakreste gaven som gir livet mitt mening. I en verden opplyst av dine øyne blir hvert øyeblikk mer spesielt og uforglemmelig. God Valentinsdag – den fineste plassen i hjertet mitt er din!"</string>
+    <string name="main_list_women_card">"Kvinner er de ekte heltene som gir verden farge og mening. Med sin styrke, kjærlighet og unike nærvær gjør de hvert øyeblikk vakrere. Gratulerer med kvinnedagen til alle som gjør livet bedre!"</string>
+
+    <string name="info_label_name">Hva heter han/hun?</string>
+    <string name="info_label_old">Hvor gammel er han/hun?</string>
+    <string name="info_label_zodiac">Hva er stjernetegnet hans/hennes?</string>
+    <string name="info_label_job">Hva jobber han/hun med?</string>
+    <string name="info_label_best_side">Hva er hans/hennes beste egenskaper?</string>
+    <string name="info_label_hobbies">Hva er hobbyene hans/hennes?</string>
+    <string name="info_label_last_gifts">Hvilke gaver har du gitt tidligere?</string>
+    <string name="info_label_time">Hvor lenge har dere vært sammen?</string>
+
+    <string name="main_row_love">Din partner</string>
+    <string name="main_row_friend">Din venn</string>
+    <string name="main_row_teacher">Læreren din</string>
+    <string name="main_row_job">Kollega</string>
+
+    <string name="name_label">Hva heter du? (Vi trenger ikke etternavnet)</string>
+    <string name="old_label">Hvor gammel er du?</string>
+    <string name="best_side_label">Hva sier folk er dine beste sider?</string>
+    <string name="hobbies_label">Hva er dine interesser?</string>
+    <string name="zodiac_label">Hva er ditt stjernetegn? (Ikke alt trenger å bevises...)</string>
+    <string name="caracter_label">Hvordan vil du beskrive personligheten din? (Er du for eksempel en sosial sommerfugl?)</string>
+
+    <string name="user_info_label_1">La oss starte med navnet ditt</string>
+    <string name="user_info_label_2">Fortell oss litt om deg selv</string>
+    <string name="gift_price_place_label">Hva er budsjettet ditt for gaven?</string>
+    <string name="gift_screen_mention_label">Hva slags betydning ønsker du at gaven skal ha?</string>
+    <string name="done">Fullfør</string>
+    <string name="alert_dialog_empty_info_title">Ingen lagret informasjon funnet</string>
+    <string name="alert_dialog_empty_info_dismiss">Jeg skal se litt til</string>
+    <string name="alert_dialog_empty_info_confirm">La meg introdusere meg selv</string>
+    <string name="for_who_user_label">Vil du fortsette med din egen informasjon?</string>
+    <string name="for_who_another_label">Nei, for noen andre</string>
+    <string name="for_who_forme_label">Ja, for meg selv</string>
+    <string name="save_text">Lagre</string>
+
+    <string name="zodiac_name_libra">Vekten</string>
+    <string name="zodiac_name_virgo">Jomfruen</string>
+    <string name="zodiac_name_scorpio">Skorpionen</string>
+    <string name="zodiac_name_sagittarius">Skytten</string>
+    <string name="zodiac_name_capricon">Steinbukken</string>
+    <string name="zodiac_name_aquarius">Vannmannen</string>
+    <string name="zodiac_name_pisces">Fiskene</string>
+    <string name="zodiac_name_aries">Væren</string>
+    <string name="zodiac_name_taurus">Tyren</string>
+    <string name="zodiac_name_gemini">Tvillingene</string>
+    <string name="zodiac_name_cancer">Krepsen</string>
+    <string name="zodiac_name_leo">Løven</string>
+
+    <string name="relationship_flirt">Flørt</string>
+    <string name="relationship_married">Gift</string>
+    <string name="relationship_sweatheart">Kjæreste</string>
+
+    <string name="gift_mention_button_label_sentimental">Følelsesmessig betydning</string>
+    <string name="gift_mention_button_label_daily_user">Daglig bruk</string>
+
+    <string name="delete">Slett</string>
+
+    <string name="saved_gift_screen_label">Lagrede Gaver</string>
+    <string name="saved_gift_screen_empty_label">Ingen lagrede gaver funnet</string>
+    <string name="user_info_user_setting_label">Din informasjon</string>
+    <string name="user_info_button_user_settings_label">Vis min informasjon</string>
+    <string name="user_info_user_settings_information">Personlig informasjon</string>
+    <string name="user_info_name_label">Navnet ditt: </string>
+    <string name="user_info_hobbies_label">Hobbyene dine: </string>
+    <string name="user_info_caracter_label">Personlighet: </string>
+    <string name="user_info_old_label">Alderen din: </string>
+    <string name="user_info_zodiac_label">Stjernetegnet ditt: </string>
+    <string name="user_info_best_side_label">Dine beste sider: </string>
+</resources>

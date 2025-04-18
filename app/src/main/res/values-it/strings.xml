@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RegaloNellaMente</string>
+    <string name="title_app_name">Regalo nella Mente</string>
+    <string name="main_list_title">Per chi è il regalo?</string>
+
+    <string name="next_text">Continua</string>
+
+    <string name="main_list_father">Festa del Papà</string>
+    <string name="main_list_mother">Festa della Mamma</string>
+    <string name="main_list_lover">San Valentino</string>
+    <string name="main_list_women">Giornata della Donna</string>
+    <string name="main_list_father_card">"I padri sono gli eroi silenziosi della famiglia. Ci sostengono con la loro forza e ci crescono con il loro amore. Grazie per esserci, i nostri primi ed eterni eroi!"</string>
+    <string name="main_list_mother_card">"Mamma, sei la forma più pura di amore e affetto. Il tuo posto nella nostra vita è indescrivibile, perché sei la nostra prima insegnante, il nostro più grande sostegno e una fonte infinita d'amore. Buona Festa della Mamma, sole della nostra vita!"</string>
+    <string name="main_list_lover_card">"Amore mio, sei il regalo più bello che dà senso alla mia vita. In un mondo illuminato dai tuoi occhi, ogni momento diventa più speciale e indimenticabile. Buon San Valentino, il posto più bello nel mio cuore è tutto tuo!"</string>
+    <string name="main_list_women_card">"Le donne sono le vere eroine che danno colore e significato al mondo. Con la loro forza, amore e presenza unica rendono ogni momento più bello. Buona Giornata della Donna a tutte coloro che rendono la vita più vivibile!"</string>
+
+    <string name="info_label_name">Come si chiama?</string>
+    <string name="info_label_old">Quanti anni ha?</string>
+    <string name="info_label_zodiac">Qual è il suo segno zodiacale?</string>
+    <string name="info_label_job">Qual è la sua professione?</string>
+    <string name="info_label_best_side">Quali sono le sue caratteristiche migliori?</string>
+    <string name="info_label_hobbies">Quali sono i suoi hobby?</string>
+    <string name="info_label_last_gifts">Che regali gli/le hai già fatto?</string>
+    <string name="info_label_time">Da quanti anni siete insieme?</string>
+
+    <string name="main_row_love">Il tuo partner</string>
+    <string name="main_row_friend">Il tuo amico / La tua amica</string>
+    <string name="main_row_teacher">Il tuo insegnante</string>
+    <string name="main_row_job">Collega</string>
+
+    <string name="name_label">Come ti chiami? (Non ci interessa il cognome)</string>
+    <string name="old_label">Quanti anni hai?</string>
+    <string name="best_side_label">Cosa dicono gli altri dei tuoi lati positivi?</string>
+    <string name="hobbies_label">Quali sono i tuoi interessi?</string>
+    <string name="zodiac_label">Qual è il tuo segno? (Non tutto deve essere provato...)</string>
+    <string name="caracter_label">Come descriveresti la tua personalità? (Ad esempio: sei una farfalla sociale?)</string>
+
+    <string name="user_info_label_1">Iniziamo con il tuo nome</string>
+    <string name="user_info_label_2">Raccontaci un po’ di te</string>
+    <string name="gift_price_place_label">Qual è il tuo budget per il regalo?</string>
+    <string name="gift_screen_mention_label">Che significato vuoi che abbia il tuo regalo?</string>
+    <string name="done">Fine</string>
+    <string name="alert_dialog_empty_info_title">Nessuna informazione trovata</string>
+    <string name="alert_dialog_empty_info_dismiss">Guardo ancora un po’</string>
+    <string name="alert_dialog_empty_info_confirm">Mi presento ora</string>
+    <string name="for_who_user_label">Vuoi continuare con le tue informazioni?</string>
+    <string name="for_who_another_label">No, per qualcun altro</string>
+    <string name="for_who_forme_label">Sì, per me stesso/a</string>
+    <string name="save_text">Salva</string>
+
+    <string name="zodiac_name_libra">Bilancia</string>
+    <string name="zodiac_name_virgo">Vergine</string>
+    <string name="zodiac_name_scorpio">Scorpione</string>
+    <string name="zodiac_name_sagittarius">Sagittario</string>
+    <string name="zodiac_name_capricon">Capricorno</string>
+    <string name="zodiac_name_aquarius">Acquario</string>
+    <string name="zodiac_name_pisces">Pesci</string>
+    <string name="zodiac_name_aries">Ariete</string>
+    <string name="zodiac_name_taurus">Toro</string>
+    <string name="zodiac_name_gemini">Gemelli</string>
+    <string name="zodiac_name_cancer">Cancro</string>
+    <string name="zodiac_name_leo">Leone</string>
+
+    <string name="relationship_flirt">Flirt</string>
+    <string name="relationship_married">Sposato/a</string>
+    <string name="relationship_sweatheart">Innamorato/a</string>
+
+    <string name="gift_mention_button_label_sentimental">Significato emotivo</string>
+    <string name="gift_mention_button_label_daily_user">Uso quotidiano</string>
+
+    <string name="delete">Elimina</string>
+
+    <string name="saved_gift_screen_label">Regali salvati</string>
+    <string name="saved_gift_screen_empty_label">Nessun regalo salvato</string>
+    <string name="user_info_user_setting_label">Le tue informazioni</string>
+    <string name="user_info_button_user_settings_label">Mostra le mie informazioni</string>
+    <string name="user_info_user_settings_information">Informazioni personali</string>
+    <string name="user_info_name_label">Il tuo nome: </string>
+    <string name="user_info_hobbies_label">I tuoi hobby: </string>
+    <string name="user_info_caracter_label">Personalità: </string>
+    <string name="user_info_old_label">La tua età: </string>
+    <string name="user_info_zodiac_label">Il tuo segno: </string>
+    <string name="user_info_best_side_label">I tuoi punti di forza: </string>
+</resources>

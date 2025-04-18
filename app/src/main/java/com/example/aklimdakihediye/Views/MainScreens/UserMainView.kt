@@ -1,5 +1,7 @@
 package com.example.aklimdakihediye.Views.MainScreens
 
+import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -27,11 +30,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,6 +47,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.aklimdakihediye.AdMob.AdBanner
 import com.example.aklimdakihediye.ObserverClasses.ForWhoObserver
 import com.example.aklimdakihediye.ObserverClasses.AlertDialogObserver
 import com.example.aklimdakihediye.ObserverClasses.ToScreenObserver
@@ -51,9 +58,12 @@ import com.example.aklimdakihediye.Compose.LottieAnim
 import com.example.aklimdakihediye.Compose.MainListDailyButton
 import com.example.aklimdakihediye.Compose.MainListRowButton
 import com.example.aklimdakihediye.Compose.NavigationButton
+import com.example.aklimdakihediye.NavController.LocalNavController
+import com.example.aklimdakihediye.ObserverClasses.SpecialRowStatus
 import com.example.aklimdakihediye.Views.PartScreens.LoadingScreen
 import com.example.aklimdakihediye.models.ComposeModels.UserMainListItems
 import com.example.aklimdakihediye.models.ComposeModels.UserMainRowListItems
+import com.example.aklimdakihediye.ui.theme.ColorUserMainRowBc
 import com.example.aklimdakihediye.ui.theme.ColorUserMainBc
 import com.example.aklimdakihediye.ui.theme.ColorUserMainListFathers
 import com.example.aklimdakihediye.ui.theme.ColorUserMainListLovers
@@ -68,9 +78,10 @@ class UserMainView {
         viewModel: UserMainViewModel = hiltViewModel()
     ) {
         val context = LocalContext.current
-        val informationState = viewModel.alertDialogState.collectAsState()
+        val alertDialogState = viewModel.alertDialogState.collectAsState()
         val showAlert = viewModel.showAlert.collectAsState()
         val infoScreen = viewModel.infoScreen.collectAsState()
+        val toRowButtonState = viewModel.rowStatus.collectAsState()
 
         val isLoading = remember { mutableStateOf(true) }
         // Her bir animasyon için rememberLottieComposition kullanıyoruz
@@ -92,6 +103,32 @@ class UserMainView {
         val compositionWoman by rememberLottieComposition(
             LottieCompositionSpec.RawRes(R.raw.woman_anim)
         )
+
+        LaunchedEffect(
+           key1 = toRowButtonState.value
+        ) {
+            toRowButtonState.value.let {
+                when(it){
+                    SpecialRowStatus.None ->{
+
+                    }
+                    is SpecialRowStatus.ToScreen -> {
+                        navController.navigate(LocalNavController.SpecialGiftRowScreen(
+                            source = it.source,
+                            forWho = it.forWho,
+                            forAnother = false
+                        ))
+                    }
+                    is SpecialRowStatus.ToTakeInformation -> {
+                        navController.navigate(LocalNavController.SpecialGiftRowScreen(
+                            source = it.source,
+                            forWho = it.forWho,
+                            forAnother = it.forAnother
+                        ))
+                    }
+                }
+            }
+        }
 
         LaunchedEffect(
             infoScreen.value
@@ -124,7 +161,7 @@ class UserMainView {
                             )
                         }
                         ToScreenObserver.none -> {
-
+                            Log.e("Error","none")
                         }
                     }
                 }
@@ -150,7 +187,7 @@ class UserMainView {
                 isLoading.value = false
             }
         }
-        informationState.value.let { event ->
+        alertDialogState.value.let { event ->
             when (event) {
                 is AlertDialogObserver.NewAlertDialog -> {
                     if (showAlert.value && !isLoading.value) {
@@ -185,27 +222,27 @@ fun SuccesLoading(
     infoScreen: State<ToScreenObserver>,
     viewModel: UserMainViewModel
 ) {
+    var showAd by remember { mutableStateOf(true) }
     val userInformation = viewModel.userInformation.collectAsState()
     val context = LocalContext.current
     val forWhoState = viewModel.forWhoState.collectAsState()
 
-
     val rowList = listOf(
         UserMainRowListItems(
-            R.drawable.love_row,
-            context.getString(R.string.main_row_love)
+            source =  R.raw.lover_anim,
+            text = context.getString(R.string.main_row_love)
         ),
         UserMainRowListItems(
-            R.drawable.friend_row,
-            context.getString(R.string.main_row_friend)
+           source =   R.raw.friend_row,
+           text =  context.getString(R.string.main_row_friend)
         ),
         UserMainRowListItems(
-            R.drawable.teacher_row,
-            context.getString(R.string.main_row_teacher)
+            source =  R.raw.teacher_row,
+            text =  context.getString(R.string.main_row_teacher)
         ),
         UserMainRowListItems(
-            R.drawable.job_row,
-            context.getString(R.string.main_row_job)
+            source =  R.raw.job_friend,
+            text =  context.getString(R.string.main_row_job)
         )
     )
 
@@ -235,6 +272,8 @@ fun SuccesLoading(
             context.getString(R.string.main_list_women_card)
         )
     )
+    val screenConfig = LocalConfiguration.current
+    val screenHeight = screenConfig.screenHeightDp.dp
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -245,15 +284,16 @@ fun SuccesLoading(
                 .fillMaxSize()
                 .background(ColorUserMainBc),
         ) {
+            AdBanner(
+                modifier = Modifier.fillMaxWidth().fillMaxHeight(0.1f)
+            )
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.2f)
+                    .height(screenHeight * 0.21f)
                     .padding(top = 10.dp)
-                    .paint(
-                        painter = painterResource(R.drawable.main_up_row),
-                        contentScale = ContentScale.FillBounds
-                    ),
+                    .clip(RoundedCornerShape(bottomStart = 50.dp, bottomEnd = 50.dp))
+                    .background(ColorUserMainRowBc),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
@@ -270,7 +310,15 @@ fun SuccesLoading(
                         Spacer(Modifier.width(20.dp))
                         MainListRowButton(
                             modifier = Modifier
-                                .size(90.dp),
+                                .size(90.dp)
+                                .clickable{
+                                    viewModel.updateForWhoState(
+                                        ForWhoObserver.checkState,
+                                        forDay = row.text,
+                                        source = row.source,
+                                        context = context
+                                    )
+                                },
                             source = row.source,
                             text = row.text
                         )
@@ -343,19 +391,33 @@ fun SuccesLoading(
                         NavigationButton(
                             modifier = Modifier
                                 .padding(top = 15.dp)
-                                .size(56.dp),
-                            R.drawable.friends
+                                .size(56.dp)
+                                .clickable{
+                                    navController.navigate(LocalNavController.SavedVariablesScreen)
+                                },
+                            R.drawable.saved_variables
                         )
-                        NavigationButton(
+                        Box(
                             modifier = Modifier
-                                .size(100.dp)
+                                .size(75.dp)
                                 .padding(8.dp),
-                            R.drawable.main_navigation
-                        )
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Image(
+                                painter = painterResource(R.drawable.logo),
+                                "",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.fillMaxSize().clip(CircleShape)
+                            )
+                        }
+
                         NavigationButton(
                             modifier = Modifier
                                 .padding(top = 15.dp)
-                                .size(56.dp),
+                                .size(56.dp)
+                                .clickable{
+                                    navController.navigate(LocalNavController.UserSettingsScreen)
+                                },
                             R.drawable.settings_navigation
                         )
                     }

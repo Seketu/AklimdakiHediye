@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ΔώροΣτοΜυαλό</string>
+    <string name="title_app_name">Δώρο στο Μυαλό</string>
+    <string name="main_list_title">Για ποιον είναι το δώρο;</string>
+
+    <string name="next_text">Συνέχεια</string>
+
+    <string name="main_list_father">Ημέρα του Πατέρα</string>
+    <string name="main_list_mother">Ημέρα της Μητέρας</string>
+    <string name="main_list_lover">Ημέρα του Αγίου Βαλεντίνου</string>
+    <string name="main_list_women">Παγκόσμια Ημέρα της Γυναίκας</string>
+    <string name="main_list_father_card">"Οι πατέρες είναι οι σιωπηλοί ήρωες της οικογένειας. Μας στηρίζουν με τη δύναμή τους και μας μεγαλώνουν με την αγάπη τους. Ευχαριστούμε που είστε οι πρώτοι και αιώνιοι ήρωές μας!"</string>
+    <string name="main_list_mother_card">"Μαμά, είσαι η πιο αγνή μορφή αγάπης και στοργής. Η θέση σου στη ζωή μας είναι ανεκτίμητη, γιατί είσαι η πρώτη μας δασκάλα, η μεγαλύτερη στήριξή μας και μια ατελείωτη πηγή αγάπης. Χαρούμενη Ημέρα της Μητέρας, ήλιε της ζωής μας!"</string>
+    <string name="main_list_lover_card">"Αγάπη μου, είσαι το πιο όμορφο δώρο που δίνει νόημα στη ζωή μου. Σε έναν κόσμο που φωτίζεται από τα μάτια σου, κάθε στιγμή γίνεται πιο ξεχωριστή και αξέχαστη. Χαρούμενη Ημέρα του Αγίου Βαλεντίνου — η πιο όμορφη θέση στην καρδιά μου ανήκει σε εσένα!"</string>
+    <string name="main_list_women_card">"Οι γυναίκες είναι οι πραγματικές ηρωίδες που δίνουν χρώμα και νόημα στον κόσμο. Με τη δύναμή τους, την αγάπη τους και την ξεχωριστή τους παρουσία, κάνουν κάθε στιγμή πιο όμορφη. Χαρούμενη Ημέρα της Γυναίκας σε όλες που κάνουν τη ζωή καλύτερη!"</string>
+
+    <string name="info_label_name">Πώς λέγεται;</string>
+    <string name="info_label_old">Πόσων ετών είναι;</string>
+    <string name="info_label_zodiac">Τι ζώδιο είναι;</string>
+    <string name="info_label_job">Τι επάγγελμα κάνει;</string>
+    <string name="info_label_best_side">Ποια είναι τα κύρια χαρακτηριστικά του/της;</string>
+    <string name="info_label_hobbies">Ποια είναι τα χόμπι του/της;</string>
+    <string name="info_label_last_gifts">Τι δώρα του/της έχεις κάνει στο παρελθόν;</string>
+    <string name="info_label_time">Πόσο καιρό είστε μαζί;</string>
+
+    <string name="main_row_love">Ο/Η σύντροφός σου</string>
+    <string name="main_row_friend">Ο/Η φίλος/φίλη σου</string>
+    <string name="main_row_teacher">Ο/Η δάσκαλός/δασκάλα σου</string>
+    <string name="main_row_job">Συνάδελφος</string>
+
+    <string name="name_label">Πώς σε λένε; (Δε μας νοιάζει το επώνυμο)</string>
+    <string name="old_label">Πόσων ετών είσαι;</string>
+    <string name="best_side_label">Τι λένε οι άλλοι για τα θετικά σου χαρακτηριστικά;</string>
+    <string name="hobbies_label">Ποια είναι τα ενδιαφέροντά σου;</string>
+    <string name="zodiac_label">Ποιο είναι το ζώδιό σου; (Δεν χρειάζονται αποδείξεις...)</string>
+    <string name="caracter_label">Πώς θα περιέγραφες τον χαρακτήρα σου; (Π.χ. είσαι κοινωνική πεταλούδα;)</string>
+
+    <string name="user_info_label_1">Ας ξεκινήσουμε με το όνομά σου</string>
+    <string name="user_info_label_2">Πες μας λίγα πράγματα για εσένα</string>
+    <string name="gift_price_place_label">Ποιο είναι το budget σου για το δώρο;</string>
+    <string name="gift_screen_mention_label">Τι νόημα θέλεις να έχει το δώρο σου;</string>
+    <string name="done">Ολοκλήρωση</string>
+    <string name="alert_dialog_empty_info_title">Δε βρέθηκαν αποθηκευμένες πληροφορίες</string>
+    <string name="alert_dialog_empty_info_dismiss">Ας κοιτάξω λίγο ακόμα</string>
+    <string name="alert_dialog_empty_info_confirm">Ας συστηθώ τώρα</string>
+    <string name="for_who_user_label">Θέλεις να συνεχίσεις με τα δικά σου στοιχεία;</string>
+    <string name="for_who_another_label">Όχι, για κάποιον άλλον</string>
+    <string name="for_who_forme_label">Ναι, για εμένα</string>
+    <string name="save_text">Αποθήκευση</string>
+
+    <string name="zodiac_name_libra">Ζυγός</string>
+    <string name="zodiac_name_virgo">Παρθένος</string>
+    <string name="zodiac_name_scorpio">Σκορπιός</string>
+    <string name="zodiac_name_sagittarius">Τοξότης</string>
+    <string name="zodiac_name_capricon">Αιγόκερως</string>
+    <string name="zodiac_name_aquarius">Υδροχόος</string>
+    <string name="zodiac_name_pisces">Ιχθύες</string>
+    <string name="zodiac_name_aries">Κριός</string>
+    <string name="zodiac_name_taurus">Ταύρος</string>
+    <string name="zodiac_name_gemini">Δίδυμοι</string>
+    <string name="zodiac_name_cancer">Καρκίνος</string>
+    <string name="zodiac_name_leo">Λέων</string>
+
+    <string name="relationship_flirt">Φλερτ</string>
+    <string name="relationship_married">Παντρεμένος/η</string>
+    <string name="relationship_sweatheart">Αγαπημένος/η</string>
+
+    <string name="gift_mention_button_label_sentimental">Συναισθηματική αξία</string>
+    <string name="gift_mention_button_label_daily_user">Καθημερινή χρήση</string>
+
+    <string name="delete">Διαγραφή</string>
+
+    <string name="saved_gift_screen_label">Αποθηκευμένα δώρα</string>
+    <string name="saved_gift_screen_empty_label">Δεν υπάρχουν αποθηκευμένα δώρα</string>
+    <string name="user_info_user_setting_label">Τα στοιχεία σου</string>
+    <string name="user_info_button_user_settings_label">Δες τα στοιχεία μου</string>
+    <string name="user_info_user_settings_information">Προσωπικές πληροφορίες</string>
+    <string name="user_info_name_label">Το όνομά σου: </string>
+    <string name="user_info_hobbies_label">Τα χόμπι σου: </string>
+    <string name="user_info_caracter_label">Χαρακτήρας: </string>
+    <string name="user_info_old_label">Η ηλικία σου: </string>
+    <string name="user_info_zodiac_label">Το ζώδιό σου: </string>
+    <string name="user_info_best_side_label">Τα δυνατά σου σημεία: </string>
+</resources>

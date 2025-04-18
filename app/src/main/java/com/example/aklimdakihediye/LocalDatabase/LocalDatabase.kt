@@ -3,15 +3,21 @@ package com.example.aklimdakihediye.LocalDatabase
 import android.content.Context
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.aklimdakihediye.LocalDatabase.Dao.SavedGiftDao
 import com.example.aklimdakihediye.LocalDatabase.Dao.UserInformationDao
 import com.example.aklimdakihediye.LocalDatabase.Models.LocalUserInformation
+import com.example.aklimdakihediye.LocalDatabase.Models.SavedGifts
 
 
-@Database(entities = arrayOf(LocalUserInformation::class), version = 1)
+@Database(entities = arrayOf(LocalUserInformation::class,SavedGifts::class), version = 2)
 abstract class LocalDatabase(): RoomDatabase() {
     abstract fun userInformationDao() : UserInformationDao
+    abstract fun savedGiftsDao() : SavedGiftDao
 
     companion object {
+
         @Volatile
         private var INSTANCE : LocalDatabase? = null
 

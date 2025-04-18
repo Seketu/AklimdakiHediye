@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GiftOnMyMind</string>
+    <string name="title_app_name">Gift on My Mind</string>
+    <string name="main_list_title">Who is the gift for?</string>
+
+    <string name="next_text">Continue</string>
+
+    <string name="main_list_father">Father’s Day</string>
+    <string name="main_list_mother">Mother’s Day</string>
+    <string name="main_list_lover">Valentine’s Day</string>
+    <string name="main_list_women">Women’s Day</string>
+    <string name="main_list_father_card">"Fathers are the silent heroes of the family. They support us with their strength and raise us with their love. Thank you for being our first and eternal heroes!"</string>
+    <string name="main_list_mother_card">"Mom, you are the purest form of love and care. Your place in our lives is indescribable because you are our first teacher, strongest supporter, and an endless source of love. Happy Mother’s Day, sunshine of our lives!"</string>
+    <string name="main_list_lover_card">"My love, you are the most beautiful gift that gives meaning to my life. In a world lit by your eyes, every moment becomes more special and unforgettable. Happy Valentine’s Day — the most beautiful place in my heart belongs to you!"</string>
+    <string name="main_list_women_card">"Women are the real heroes who add color and meaning to the world. With their strength, love, and unique presence, they make every moment more beautiful. Happy Women’s Day to all who make life better!"</string>
+
+    <string name="info_label_name">What’s their name?</string>
+    <string name="info_label_old">How old are they?</string>
+    <string name="info_label_zodiac">What’s their zodiac sign?</string>
+    <string name="info_label_job">What’s their profession?</string>
+    <string name="info_label_best_side">What are their best personality traits?</string>
+    <string name="info_label_hobbies">What are their hobbies?</string>
+    <string name="info_label_last_gifts">What gifts have you given them before?</string>
+    <string name="info_label_time">How long have you been together?</string>
+
+    <string name="main_row_love">Your Partner</string>
+    <string name="main_row_friend">Your Friend</string>
+    <string name="main_row_teacher">Your Teacher</string>
+    <string name="main_row_job">Coworker</string>
+
+    <string name="name_label">What’s your name? (We don’t care about your last name)</string>
+    <string name="old_label">How old are you?</string>
+    <string name="best_side_label">What do people say are your good traits?</string>
+    <string name="hobbies_label">What are your interests?</string>
+    <string name="zodiac_label">What’s your zodiac sign? (Not everything needs proof...)</string>
+    <string name="caracter_label">How would you describe your personality? (Are you a social butterfly?)</string>
+
+    <string name="user_info_label_1">Let’s start with your name</string>
+    <string name="user_info_label_2">Tell us a bit about yourself</string>
+    <string name="gift_price_place_label">What’s your budget for the gift?</string>
+    <string name="gift_screen_mention_label">What kind of meaning do you want the gift to have?</string>
+    <string name="done">Finish</string>
+    <string name="alert_dialog_empty_info_title">No Information Found</string>
+    <string name="alert_dialog_empty_info_dismiss">Let me check a bit more</string>
+    <string name="alert_dialog_empty_info_confirm">Let me introduce myself</string>
+    <string name="for_who_user_label">Do you want to continue with your own info?</string>
+    <string name="for_who_another_label">No, for someone else</string>
+    <string name="for_who_forme_label">Yes, for myself</string>
+    <string name="save_text">Save</string>
+
+    <string name="zodiac_name_libra">Libra</string>
+    <string name="zodiac_name_virgo">Virgo</string>
+    <string name="zodiac_name_scorpio">Scorpio</string>
+    <string name="zodiac_name_sagittarius">Sagittarius</string>
+    <string name="zodiac_name_capricon">Capricorn</string>
+    <string name="zodiac_name_aquarius">Aquarius</string>
+    <string name="zodiac_name_pisces">Pisces</string>
+    <string name="zodiac_name_aries">Aries</string>
+    <string name="zodiac_name_taurus">Taurus</string>
+    <string name="zodiac_name_gemini">Gemini</string>
+    <string name="zodiac_name_cancer">Cancer</string>
+    <string name="zodiac_name_leo">Leo</string>
+
+    <string name="relationship_flirt">Flirt</string>
+    <string name="relationship_married">Married</string>
+    <string name="relationship_sweatheart">Sweetheart</string>
+
+    <string name="gift_mention_button_label_sentimental">Sentimental Meaning</string>
+    <string name="gift_mention_button_label_daily_user">For Everyday Use</string>
+
+    <string name="delete">Delete</string>
+
+    <string name="saved_gift_screen_label">Saved Gifts</string>
+    <string name="saved_gift_screen_empty_label">No saved gifts found</string>
+    <string name="user_info_user_setting_label">Your Info</string>
+    <string name="user_info_button_user_settings_label">Show My Info</string>
+    <string name="user_info_user_settings_information">Personal Information</string>
+    <string name="user_info_name_label">Your Name: </string>
+    <string name="user_info_hobbies_label">Your Hobbies: </string>
+    <string name="user_info_caracter_label">Personality: </string>
+    <string name="user_info_old_label">Your Age: </string>
+    <string name="user_info_zodiac_label">Your Zodiac Sign: </string>
+    <string name="user_info_best_side_label">Your Best Traits: </string>
+</resources>

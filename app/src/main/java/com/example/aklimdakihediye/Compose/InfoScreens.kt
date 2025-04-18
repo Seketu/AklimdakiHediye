@@ -1,16 +1,17 @@
 package com.example.aklimdakihediye.Compose
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
@@ -25,8 +26,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.aklimdakihediye.ObserverClasses.DailyPlacesObserver
+import com.example.aklimdakihediye.ObserverClasses.RelationshipStatus
 import com.example.aklimdakihediye.ObserverClasses.ZodiacStatus
 import com.example.aklimdakihediye.R
+import com.example.aklimdakihediye.ui.theme.ColorUserMainListLovers
+import kotlin.collections.getValue
 
 
 @Composable
@@ -35,7 +40,7 @@ fun GiftInfoScreenPrice(
     label: String,
     stateFirst: MutableState<String>,
     stateSecond: MutableState<String>,
-    labelColor : Color
+    labelColor: Color
 ) {
     Column(
         modifier = modifier,
@@ -62,18 +67,30 @@ fun GiftInfoScreenPrice(
     }
 }
 
+
+
 @Composable
-fun GiftInfo(
+fun GiftInfoMeaning(
     modifier: Modifier = Modifier,
-    state: MutableState<String>,
+    buttonModifier: Modifier = Modifier,
     label: String,
-    keyboard: KeyboardOptions,
-    labelColor: Color
-) {
+    labelColor: Color,
+    onClickFirst: () -> Unit,
+    onCheckedChangeFirst: (Boolean) -> Unit,
+    checkedFirst: Boolean,
+    imageFirst: Int,
+    buttonTextFirst: String,
+    onClickSecond: () -> Unit,
+    onCheckedChangeSecond: (Boolean) -> Unit,
+    checkedSecond: Boolean,
+    imageSecond: Int,
+    buttonTextSecond: String,
+
+    ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.SpaceAround,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
         Text(
             label,
@@ -82,12 +99,24 @@ fun GiftInfo(
             color = labelColor,
         )
 
-        UserInfoTextField(
-            modifier = Modifier
-                .fillMaxWidth(),
-            string = state,
-            keyboard
+        ButtonWithCheckBox(
+            modifier = buttonModifier,
+            onClick = onClickFirst,
+            text = buttonTextFirst,
+            checked = checkedFirst,
+            onCheckedChange = onCheckedChangeFirst,
+            image = imageFirst
         )
+
+        ButtonWithCheckBox(
+            modifier = buttonModifier,
+            onClick = onClickSecond,
+            text = buttonTextSecond,
+            checked = checkedSecond,
+            onCheckedChange = onCheckedChangeSecond,
+            image = imageSecond
+        )
+
     }
 }
 

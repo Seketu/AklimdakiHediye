@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ПодаръкВГлавата</string>
+    <string name="title_app_name">Подарък в Главата</string>
+    <string name="main_list_title">За кого е подаръкът?</string>
+
+    <string name="next_text">Продължи</string>
+
+    <string name="main_list_father">Ден на бащата</string>
+    <string name="main_list_mother">Ден на майката</string>
+    <string name="main_list_lover">Свети Валентин</string>
+    <string name="main_list_women">Ден на жената</string>
+    <string name="main_list_father_card">"Бащите са тихите герои на семейството. Те ни подкрепят със силата си и ни възпитават с любовта си. Благодарим ви, че сте нашите първи и вечни герои!"</string>
+    <string name="main_list_mother_card">"Мамо, ти си най-чистата форма на любов и нежност. Мястото ти в нашия живот е неописуемо, защото си нашият първи учител, най-силната ни подкрепа и безкраен източник на любов. Честит Ден на майката, слънце в живота ни!"</string>
+    <string name="main_list_lover_card">"Любов моя, ти си най-красивият подарък, който дава смисъл на живота ми. В свят, озарен от очите ти, всяка минута става по-специална и незабравима. Честит Свети Валентин – най-красивото място в сърцето ми е за теб!"</string>
+    <string name="main_list_women_card">"Жените са истинските герои, които придават цвят и смисъл на света. Със своята сила, любов и уникално присъствие те правят всеки момент по-красив. Честит Ден на жената на всички, които правят живота по-добър!"</string>
+
+    <string name="info_label_name">Как се казва?</string>
+    <string name="info_label_old">На колко години е?</string>
+    <string name="info_label_zodiac">Каква е зодията му/ѝ?</string>
+    <string name="info_label_job">Каква е професията му/ѝ?</string>
+    <string name="info_label_best_side">Какви са най-добрите му/ѝ черти?</string>
+    <string name="info_label_hobbies">Какви са хобитата му/ѝ?</string>
+    <string name="info_label_last_gifts">Какви подаръци си подарявал/а преди?</string>
+    <string name="info_label_time">От колко време сте заедно?</string>
+
+    <string name="main_row_love">Партньор</string>
+    <string name="main_row_friend">Приятел</string>
+    <string name="main_row_teacher">Учител</string>
+    <string name="main_row_job">Колега</string>
+
+    <string name="name_label">Как се казваш? (Не ни трябва фамилията ти)</string>
+    <string name="old_label">На колко години си?</string>
+    <string name="best_side_label">Какво казват хората за твоите добри качества?</string>
+    <string name="hobbies_label">Какви са твоите интереси?</string>
+    <string name="zodiac_label">Каква е твоята зодия? (Не всичко трябва да се доказва...)</string>
+    <string name="caracter_label">Как би описал/а своя характер? (Например – социална пеперуда ли си?)</string>
+
+    <string name="user_info_label_1">Нека започнем с твоето име</string>
+    <string name="user_info_label_2">Разкажи ни малко за себе си</string>
+    <string name="gift_price_place_label">Какъв е твоят бюджет за подарък?</string>
+    <string name="gift_screen_mention_label">Какво значение искаш да има подаръкът?</string>
+    <string name="done">Готово</string>
+    <string name="alert_dialog_empty_info_title">Няма намерена запазена информация</string>
+    <string name="alert_dialog_empty_info_dismiss">Ще потърся още малко</string>
+    <string name="alert_dialog_empty_info_confirm">Ще се представя сега</string>
+    <string name="for_who_user_label">Искаш ли да продължиш със собствена информация?</string>
+    <string name="for_who_another_label">Не, за друг човек</string>
+    <string name="for_who_forme_label">Да, за мен самия/самата</string>
+    <string name="save_text">Запази</string>
+
+    <string name="zodiac_name_libra">Везни</string>
+    <string name="zodiac_name_virgo">Дева</string>
+    <string name="zodiac_name_scorpio">Скорпион</string>
+    <string name="zodiac_name_sagittarius">Стрелец</string>
+    <string name="zodiac_name_capricon">Козирог</string>
+    <string name="zodiac_name_aquarius">Водолей</string>
+    <string name="zodiac_name_pisces">Риби</string>
+    <string name="zodiac_name_aries">Овен</string>
+    <string name="zodiac_name_taurus">Телец</string>
+    <string name="zodiac_name_gemini">Близнаци</string>
+    <string name="zodiac_name_cancer">Рак</string>
+    <string name="zodiac_name_leo">Лъв</string>
+
+    <string name="relationship_flirt">Флирт</string>
+    <string name="relationship_married">Женен/Омъжена</string>
+    <string name="relationship_sweatheart">Любим/Любима</string>
+
+    <string name="gift_mention_button_label_sentimental">Емоционално значение</string>
+    <string name="gift_mention_button_label_daily_user">Ежедневна употреба</string>
+
+    <string name="delete">Изтрий</string>
+
+    <string name="saved_gift_screen_label">Запазени подаръци</string>
+    <string name="saved_gift_screen_empty_label">Няма запазени подаръци</string>
+    <string name="user_info_user_setting_label">Твоята информация</string>
+    <string name="user_info_button_user_settings_label">Покажи моята информация</string>
+    <string name="user_info_user_settings_information">Лична информация</string>
+    <string name="user_info_name_label">Твоето име: </string>
+    <string name="user_info_hobbies_label">Твоите хобита: </string>
+    <string name="user_info_caracter_label">Характер: </string>
+    <string name="user_info_old_label">Твоята възраст: </string>
+    <string name="user_info_zodiac_label">Твоята зодия: </string>
+    <string name="user_info_best_side_label">Твоите силни страни: </string>
+</resources>

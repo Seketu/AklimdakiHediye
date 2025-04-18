@@ -9,6 +9,7 @@ import com.example.aklimdakihediye.LocalDatabase.Models.LocalUserInformation
 import com.example.aklimdakihediye.NavController.LocalNavController
 import com.example.aklimdakihediye.ObserverClasses.ForWhoObserver
 import com.example.aklimdakihediye.ObserverClasses.AlertDialogObserver
+import com.example.aklimdakihediye.ObserverClasses.SpecialRowStatus
 import com.example.aklimdakihediye.ObserverClasses.ToScreenObserver
 import com.example.aklimdakihediye.R
 import com.example.aklimdakihediye.Repo.MainRepo
@@ -25,6 +26,9 @@ class UserMainViewModel
         val mainRepo: MainRepo,
         val context: Context,
     ) : ViewModel() {
+
+    private var _rowStatus = MutableStateFlow<SpecialRowStatus>(SpecialRowStatus.None)
+    var rowStatus = _rowStatus.asStateFlow()
 
     private var _alertDialogState = MutableStateFlow<AlertDialogObserver>(AlertDialogObserver.none)
     var alertDialogState = _alertDialogState.asStateFlow()
@@ -55,7 +59,53 @@ class UserMainViewModel
         }
     }
 
-     fun checkUserInformation() {
+    fun updateAlertStateForRowNavigation(
+        forWho : String,
+        source: Int
+    ){
+        if(userInformation.value.isEmpty()){
+            _showAlert.value = true
+            _alertDialogState.value = AlertDialogObserver.NewAlertDialog(
+                title = "Kullanıcı Bilgisi Boş Devam etmek için kendinizi tanıtın",
+                onDismiss = {
+                    _showAlert.value = !_showAlert.value
+                    _alertDialogState.value = AlertDialogObserver.none
+                },
+                onConfirm = {
+                    _toInfoScreen.value = ToScreenObserver.NewInformation(forDay = null, source = null)
+                },
+                dismissButton = {
+                    _showAlert.value = !_showAlert.value
+                    _alertDialogState.value = AlertDialogObserver.none
+                },
+                dismissText = "Vazgeç",
+                confirmText = "Bilgilerimi Ekle",
+            )
+        }else{
+            _showAlert.value = true
+            _alertDialogState.value = AlertDialogObserver.NewAlertDialog(
+                title = context.getString(R.string.for_who_user_label),
+                onDismiss = {
+                    _showAlert.value = !_showAlert.value
+                    _alertDialogState.value = AlertDialogObserver.none
+                },
+                dismissButton = {
+                    _rowStatus.value = SpecialRowStatus.ToTakeInformation(
+                        forAnother = true,
+                        forWho = forWho,
+                        source = source
+                    )
+                },
+                onConfirm = {
+                    _rowStatus.value = SpecialRowStatus.ToScreen(forWho = forWho,source = source)
+                },
+                dismissText = context.getString(R.string.for_who_another_label),
+                confirmText = context.getString(R.string.for_who_forme_label),
+            )
+        }
+    }
+
+    fun checkUserInformation() {
         if (_userInformation.value.isEmpty()) {
             _alertDialogState.value = AlertDialogObserver.NewAlertDialog(
                 title = context.getString(R.string.alert_dialog_empty_info_title),
@@ -75,6 +125,7 @@ class UserMainViewModel
             _alertDialogState.value = AlertDialogObserver.none
         }
     }
+
     fun updateForWhoState(forWhoObserver: ForWhoObserver,context: Context,forDay : String,source : Int){
 
         val userInformation = userInformation.value
@@ -135,6 +186,9 @@ class UserMainViewModel
 
             }
         }
+    }
+    fun clearNavigationEvent() {
+        _toInfoScreen.value = ToScreenObserver.none
     }
 
 }

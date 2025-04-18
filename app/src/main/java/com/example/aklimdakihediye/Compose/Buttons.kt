@@ -2,7 +2,6 @@ package com.example.aklimdakihediye.Compose
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
@@ -31,14 +31,46 @@ import com.example.aklimdakihediye.ui.theme.ColorDailyUserInfoButton
 
 
 @Composable
+fun ButtonWithCheckBox(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    image: Int,
+    text: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    Button(
+        modifier = modifier,
+        onClick = {
+            onClick.invoke()
+        },
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.White
+        )
+    ) {
+        Image(
+            painter = painterResource(image),
+            "Mention Button",
+            contentScale = ContentScale.FillHeight
+        )
+
+        Text(text, color = Color.Black)
+        Checkbox(
+            checked = checked,
+            onCheckedChange = {onCheckedChange.invoke(it)}
+        )
+    }
+}
+
+@Composable
 fun ZodiacButton(
     modifier: Modifier = Modifier,
     imageSource: Int,
-    zodiacName : String,
-    checkBoxState : MutableState<ZodiacStatus>,
-    boxZodiac : ZodiacStatus,
+    zodiacName: String,
+    checkBoxState: MutableState<ZodiacStatus>,
+    boxZodiac: ZodiacStatus,
     noneZodiacStatus: ZodiacStatus = ZodiacStatus.None
-    ) {
+) {
     Button(
         onClick = {
             checkBoxState.value = boxZodiac
@@ -53,7 +85,7 @@ fun ZodiacButton(
             "zodiac buttons",
             contentScale = ContentScale.FillHeight,
         )
-        Text(zodiacName)
+        Text(zodiacName, color = Color.Black)
         Checkbox(
             checked = checkBoxState.value == boxZodiac,
             onCheckedChange = {
@@ -69,23 +101,22 @@ fun MainListRowButton(
     modifier: Modifier = Modifier,
     source: Int,
     text: String
-    ) {
+) {
     Column(
         modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Image(
-            painter = painterResource(source),
-            "",
-            contentScale = ContentScale.Fit,
-            modifier = Modifier.fillMaxSize(0.7f)
+        LottieAnim(
+            modifier = Modifier.fillMaxHeight(0.8f),
+            source = source,
+            contentScale = ContentScale.FillWidth
         )
         Text(
             text,
             color = Color.White,
             fontSize = 15.sp
-            )
+        )
     }
 }
 
@@ -94,9 +125,9 @@ fun MainListDailyButton(
     modifier: Modifier = Modifier,
     source: Int,
     contentScale: ContentScale,
-    text : String,
-    lottieModifier : Modifier,
-    cardText : String
+    text: String,
+    lottieModifier: Modifier,
+    cardText: String
 ) {
 
     Column(
@@ -135,8 +166,6 @@ fun MainListDailyButton(
                 contentScale = contentScale,
                 source = source
             )
-
-
         }
     }
 }
@@ -149,7 +178,7 @@ fun NavigationButton(
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center
-    ){
+    ) {
         Image(
             painter = painterResource(source),
             "",
@@ -164,10 +193,10 @@ fun BorderButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit = {}
-    ) {
+) {
     Box(
         modifier = modifier
-    ){
+    ) {
 
         Button(
             onClick = {

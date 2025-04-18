@@ -1,5 +1,6 @@
 package com.example.aklimdakihediye.Compose
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,6 +21,31 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+
+@Composable
+fun UserInformationRow(
+    modifier: Modifier = Modifier,
+    label : String,
+    value : MutableState<String>,
+    enabled : MutableState<Boolean>
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        Text(label)
+        Spacer(Modifier.weight(1f))
+        TextField(
+            value.value,
+            onValueChange = {value.value = it},
+            shape = RoundedCornerShape(15.dp),
+            enabled = enabled.value,
+            colors = TextFieldDefaults.colors(
+            ),
+        )
+    }
+}
 
 @Composable
 fun PriceInformationTextField(
@@ -105,46 +131,12 @@ fun UserInfoTextField(
             value = string.value,
             onValueChange = {string.value = it},
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color.Black,
-                disabledContainerColor = Color.Black,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                unfocusedContainerColor = Color.Black,
             ),
             shape = RoundedCornerShape(25.dp),
             modifier = Modifier
                 .fillMaxWidth(),
-            keyboardOptions = keyboard
-        )
-    }
-}
-
-@Composable
-fun InfoTextFields(
-    modifier: Modifier = Modifier,
-    label: String,
-    state: MutableState<String>,
-    keyboard: KeyboardOptions
-) {
-    Row(
-        modifier = modifier
-    ) {
-        TextField(
-            value = state.value,
-            onValueChange = {state.value = it},
-            colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledContainerColor = Color.White,
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
-                focusedTextColor = Color.Black,
-                unfocusedTextColor = Color.Black,
-            ),
-            label = {Text(label)},
-            modifier = Modifier
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(15.dp),
             keyboardOptions = keyboard
         )
     }

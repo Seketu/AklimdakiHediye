@@ -71,10 +71,16 @@ dependencies {
 
     //jsoup
     implementation("org.jsoup:jsoup:1.15.4")
-
+    //set theme
+    implementation("androidx.appcompat:appcompat:1.6.1")
     //coil
     implementation("io.coil-kt:coil-compose:2.4.0")
 
+    //ads
+    implementation("com.google.android.gms:play-services-ads:24.2.0")
+
+    implementation ("com.google.accompanist:accompanist-pager:0.34.0")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.34.0")
 
 
     //hilt

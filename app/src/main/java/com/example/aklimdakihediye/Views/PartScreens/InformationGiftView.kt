@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -41,11 +40,12 @@ import androidx.navigation.NavController
 import com.example.aklimdakihediye.ObserverClasses.GiftScreenObserver
 import com.example.aklimdakihediye.R
 import com.example.aklimdakihediye.ViewModels.AboutGiftInformationViewModel
-import com.example.aklimdakihediye.Compose.GiftInfo
+import com.example.aklimdakihediye.Compose.GiftInfoMeaning
 import com.example.aklimdakihediye.Compose.GiftInfoScreenPrice
 import com.example.aklimdakihediye.Compose.LottieAnim
 import com.example.aklimdakihediye.Compose.StepperIndicator
 import com.example.aklimdakihediye.ObserverClasses.AboutGiftInformationScreenObserver
+import com.example.aklimdakihediye.ObserverClasses.GiftMeanStatus
 import com.example.aklimdakihediye.models.GiftInformationModels.ForGiftInformation
 import com.example.aklimdakihediye.ui.theme.ColorDailyUserInfoTopBarr
 import com.example.aklimdakihediye.ui.theme.ColorInformationGiftBc
@@ -80,13 +80,11 @@ import com.example.aklimdakihediye.ui.theme.ColorInformationGiftButton
             mutableStateOf("")
         }
 
-        val giftClass = remember {
-            mutableStateOf("")
-        }
-
          val labelColor = remember {
              mutableStateOf(Color.White)
          }
+
+         val giftMean = remember { mutableStateOf<GiftMeanStatus>(GiftMeanStatus.none)}
 
          BackHandler {
              screenStateObserver.value.let {
@@ -96,9 +94,6 @@ import com.example.aklimdakihediye.ui.theme.ColorInformationGiftButton
 
                      GiftScreenObserver.Mention -> screenStateObserver.value =
                          GiftScreenObserver.Price
-
-                     GiftScreenObserver.Class -> screenStateObserver.value =
-                         GiftScreenObserver.Mention
                  }
              }
          }
@@ -115,15 +110,19 @@ import com.example.aklimdakihediye.ui.theme.ColorInformationGiftButton
                             Image(
                                 painter = painterResource(R.drawable.back_icon),
                                 "back button",
-                                modifier = Modifier.padding(10.dp).clickable{
-                                    screenStateObserver.value.let {
-                                        when(it){
-                                            GiftScreenObserver.Price -> giftInformationScreenState.value = AboutGiftInformationScreenObserver.AboutPersonInformation
-                                            GiftScreenObserver.Mention -> screenStateObserver.value = GiftScreenObserver.Price
-                                            GiftScreenObserver.Class -> screenStateObserver.value = GiftScreenObserver.Mention
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .clickable {
+                                        screenStateObserver.value.let {
+                                            when (it) {
+                                                GiftScreenObserver.Price -> giftInformationScreenState.value =
+                                                    AboutGiftInformationScreenObserver.AboutPersonInformation
+
+                                                GiftScreenObserver.Mention -> screenStateObserver.value =
+                                                    GiftScreenObserver.Price
+                                            }
                                         }
                                     }
-                                }
                             )
                         },
                         colors = TopAppBarDefaults.topAppBarColors(
@@ -179,27 +178,24 @@ import com.example.aklimdakihediye.ui.theme.ColorInformationGiftButton
                                     )
                                 }
                                 GiftScreenObserver.Mention -> {
-                                    GiftInfo(
-                                        state = giftMention,
+                                    GiftInfoMeaning(
                                         modifier = Modifier
-                                            .height(screenHeight * 0.4f),
-                                        label = stringResource(R.string.gift_screen_mention_label),
-                                        keyboard = KeyboardOptions(
-                                            keyboardType = KeyboardOptions.Default.keyboardType
-                                        ),
-                                        labelColor = labelColor.value
-                                    )
-                                }
-                                GiftScreenObserver.Class -> {
-                                    GiftInfo(
-                                        state = giftClass,
-                                        modifier = Modifier
-                                            .height(screenHeight * 0.4f),
-                                        label = "Özel Bir Hediye Türünüz Var mı ? (Elbise, Ayakkabı vb)",
-                                        keyboard = KeyboardOptions(
-                                            keyboardType = KeyboardOptions.Default.keyboardType
-                                        ),
-                                        labelColor = labelColor.value
+                                            .fillMaxWidth()
+                                            .height(screenHeight * 0.5f),
+                                        buttonModifier = Modifier
+                                            .height(screenHeight * 0.13f),
+                                        labelColor = labelColor.value,
+                                        label = context.getString(R.string.gift_screen_mention_label),
+                                        checkedFirst = giftMean.value == GiftMeanStatus.sentimental,
+                                        onClickFirst = {giftMean.value = GiftMeanStatus.sentimental},
+                                        onCheckedChangeFirst = {giftMean.value = GiftMeanStatus.none},
+                                        imageFirst = R.drawable.gift_mean_sentimental,
+                                        buttonTextFirst = stringResource(R.string.gift_mention_button_label_sentimental),
+                                        checkedSecond = giftMean.value == GiftMeanStatus.dailyUser,
+                                        onClickSecond = {giftMean.value = GiftMeanStatus.dailyUser},
+                                        onCheckedChangeSecond = {giftMean.value = GiftMeanStatus.none},
+                                        imageSecond = R.drawable.gift_mean_daily_user,
+                                        buttonTextSecond = stringResource(R.string.gift_mention_button_label_daily_user),
                                     )
                                 }
                             }
@@ -223,27 +219,23 @@ import com.example.aklimdakihediye.ui.theme.ColorInformationGiftButton
                                     }
 
                                     GiftScreenObserver.Mention -> {
-                                        if (giftMention.value.isEmpty()){
-                                            labelColor.value = Color.Red
-                                        }else{
-                                            screenStateObserver.value = GiftScreenObserver.Class
-                                            labelColor.value = Color.Black
+                                        when (giftMean.value) {
+                                            GiftMeanStatus.none -> { labelColor.value = Color.Red }
+                                            GiftMeanStatus.sentimental -> giftMention.value = "duygusal"
+                                            GiftMeanStatus.dailyUser -> giftMention.value = "günlük kullanım"
                                         }
-                                    }
-
-                                    GiftScreenObserver.Class -> {
-                                        if (giftClass.value.isEmpty()){
+                                        if (giftMention.value.isEmpty()) {
                                             labelColor.value = Color.Red
-                                        }else{
+                                        } else {
                                             viewModel.saveGiftInformation(
                                                 ForGiftInformation(
                                                     minPrice = priceValueFirst.value,
                                                     maxPrice = priceValueSecond.value,
-                                                    giftType = giftMention.value,
-                                                    giftClass = giftClass.value
+                                                    giftMean = giftMention.value,
                                                 )
                                             )
-                                            giftInformationScreenState.value = AboutGiftInformationScreenObserver.SearchResult
+                                            giftInformationScreenState.value =
+                                                AboutGiftInformationScreenObserver.SearchResult
                                         }
                                     }
                                 }
@@ -252,7 +244,7 @@ import com.example.aklimdakihediye.ui.theme.ColorInformationGiftButton
                         horizontalArrangement = Arrangement.Center
                     ){
                         Text(
-                            if (screenStateObserver.value != GiftScreenObserver.Class)context.getString(R.string.next_text)
+                            if (screenStateObserver.value != GiftScreenObserver.Mention)context.getString(R.string.next_text)
                             else context.getString(R.string.done),
                             color = Color.White,
                             fontSize = 24.sp,

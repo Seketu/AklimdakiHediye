@@ -12,6 +12,7 @@ import com.example.aklimdakihediye.Internet.Models.GeminiModels.Part
 import com.example.aklimdakihediye.Internet.safeApiCall
 import com.example.aklimdakihediye.LocalDatabase.Dao.UserInformationDao
 import com.example.aklimdakihediye.LocalDatabase.Models.LocalUserInformation
+import com.example.aklimdakihediye.LocalDatabase.Models.SavedGifts
 import com.example.aklimdakihediye.models.ComposeModels.SearchCardModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -33,6 +34,7 @@ import javax.inject.Inject
 class MainRepo
 @Inject constructor(
     private val userInformationDao: UserInformationDao,
+    private val giftInformationDao: SavedVariableRepo,
     val client: HttpClient
 ) {
     val getUserInformation = userInformationDao.getLocalInformation().flowOn(Dispatchers.IO)
@@ -52,41 +54,58 @@ class MainRepo
         return response.bodyAsText()
     }
 
+    suspend fun saveNewGift(gift: SavedGifts){
+        giftInformationDao.saveGift(gift)
+    }
+
     suspend fun searchWithKtorAndJsoup(query: String): List<SearchCardModel> {
         val html = getDuckDuckGoHtml(query)
-
         val doc = Jsoup.parse(html)
 
-        return doc.select("div.result").map { element ->
+        return doc.select("div.result").mapNotNull { element ->
             val rawLink = element.select("a").attr("href")
             val decodedLink = decodeDuckLink(rawLink)
-            val title = element.select("a").text()
+
+            val domain = extractDomain(decodedLink)?.removePrefix("www.") ?: return@mapNotNull null
             val desc = element.select(".result__snippet").text()
+
             val imgEl = element.selectFirst("img")
             val imageUrl = imgEl?.attr("src")?.takeIf { it.isNotBlank() }
-            val fullImageUrl = imageUrl?.takeIf { it.isNotBlank() }?.let {
+            val fullImageUrl = imageUrl?.let {
                 if (it.startsWith("//")) "https:$it" else it
             }
 
             Log.d("TAG", "image: $fullImageUrl")
             Log.d("TAG", "link: $decodedLink")
-            Log.d("TAG", "name: $title")
+            Log.d("TAG", "name: $domain")
             Log.d("TAG", "desc: $desc")
 
             SearchCardModel(
-                name = title,
+                name = domain,
                 url = decodedLink,
                 description = desc,
                 imageUrl = fullImageUrl
             )
         }
     }
+
     fun decodeDuckLink(link: String): String {
-        val uri = Uri.parse("https:$link") // başında // varsa
-        val encoded = uri.getQueryParameter("uddg")
-        return Uri.decode(encoded)
+        return try {
+            val uri = Uri.parse("https:$link")
+            val encoded = uri.getQueryParameter("uddg")
+            Uri.decode(encoded)
+        } catch (e: Exception) {
+            link // fallback
+        }
     }
 
+    fun extractDomain(url: String): String? {
+        return try {
+            Uri.parse(url).host
+        } catch (e: Exception) {
+            null
+        }
+    }
     suspend fun askGemini(prompt: String): Flow<ApiResponse<GeminiResponse>> = safeApiCall {
         val GEMINI_API_KEY = BuildConfig.API_KEY
         val MODEL_ID = "gemini-2.0-flash"

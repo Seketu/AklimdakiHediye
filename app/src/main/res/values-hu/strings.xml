@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AjándékAGondolatban</string>
+    <string name="title_app_name">Ajándék a Gondolatban</string>
+    <string name="main_list_title">Kinek szól az ajándék?</string>
+
+    <string name="next_text">Tovább</string>
+
+    <string name="main_list_father">Apák napja</string>
+    <string name="main_list_mother">Anyák napja</string>
+    <string name="main_list_lover">Valentin-nap</string>
+    <string name="main_list_women">Nők napja</string>
+    <string name="main_list_father_card">"Az apák a család csendes hősei. Erővel támogatnak minket, és szeretettel nevelnek fel. Köszönjük, hogy vagytok – az első és örök hőseink!"</string>
+    <string name="main_list_mother_card">"Anya, te vagy a szeretet és a gyengédség legtisztább formája. Helyed az életünkben leírhatatlan, mert te vagy az első tanárunk, a legnagyobb támaszunk, és a végtelen szeretet forrása. Boldog anyák napját, életünk napfénye!"</string>
+    <string name="main_list_lover_card">"Szerelmem, te vagy a legszebb ajándék, amely értelmet ad az életemnek. A világban, amit a szemed fénye világít meg, minden pillanat különleges és felejthetetlen. Boldog Valentin-napot, a szívem legszebb helye a tiéd!"</string>
+    <string name="main_list_women_card">"A nők az igazi hősök, akik színt és értelmet visznek a világba. Erőjükkel, szeretetükkel és egyediségükkel minden pillanatot szebbé tesznek. Boldog nőnapot minden nőnek, aki élhetőbbé teszi az életet!"</string>
+
+    <string name="info_label_name">Mi a neve?</string>
+    <string name="info_label_old">Hány éves?</string>
+    <string name="info_label_zodiac">Mi a csillagjegye?</string>
+    <string name="info_label_job">Mi a foglalkozása?</string>
+    <string name="info_label_best_side">Melyek a legjobb tulajdonságai?</string>
+    <string name="info_label_hobbies">Mik a hobbijai?</string>
+    <string name="info_label_last_gifts">Milyen ajándékokat adtál már neki?</string>
+    <string name="info_label_time">Mióta vagytok együtt?</string>
+
+    <string name="main_row_love">Párod</string>
+    <string name="main_row_friend">Barátod</string>
+    <string name="main_row_teacher">Tanárod</string>
+    <string name="main_row_job">Munkatárs</string>
+
+    <string name="name_label">Mi a neved? (A vezetéknév nem számít)</string>
+    <string name="old_label">Hány éves vagy?</string>
+    <string name="best_side_label">Mit mondanak mások a jó tulajdonságaidról?</string>
+    <string name="hobbies_label">Mik az érdeklődési köreid?</string>
+    <string name="zodiac_label">Mi a csillagjegyed? (Nem kell mindent bizonyítani...)</string>
+    <string name="caracter_label">Hogyan jellemeznéd magad? (Például: társasági pillangó vagy?)</string>
+
+    <string name="user_info_label_1">Először is, mi a neved?</string>
+    <string name="user_info_label_2">Mesélj magadról</string>
+    <string name="gift_price_place_label">Mekkora a költségkereted az ajándékra?</string>
+    <string name="gift_screen_mention_label">Milyen jelentést szeretnél, hogy az ajándék hordozzon?</string>
+    <string name="done">Kész</string>
+    <string name="alert_dialog_empty_info_title">Nem található mentett adat</string>
+    <string name="alert_dialog_empty_info_dismiss">Még körülnézek</string>
+    <string name="alert_dialog_empty_info_confirm">Bemutatkozom most</string>
+    <string name="for_who_user_label">Saját adataiddal szeretnél folytatni?</string>
+    <string name="for_who_another_label">Nem, valaki másnak</string>
+    <string name="for_who_forme_label">Igen, magamnak</string>
+    <string name="save_text">Mentés</string>
+
+    <string name="zodiac_name_libra">Mérleg</string>
+    <string name="zodiac_name_virgo">Szűz</string>
+    <string name="zodiac_name_scorpio">Skorpió</string>
+    <string name="zodiac_name_sagittarius">Nyilas</string>
+    <string name="zodiac_name_capricon">Bak</string>
+    <string name="zodiac_name_aquarius">Vízöntő</string>
+    <string name="zodiac_name_pisces">Halak</string>
+    <string name="zodiac_name_aries">Kos</string>
+    <string name="zodiac_name_taurus">Bika</string>
+    <string name="zodiac_name_gemini">Ikrek</string>
+    <string name="zodiac_name_cancer">Rák</string>
+    <string name="zodiac_name_leo">Oroszlán</string>
+
+    <string name="relationship_flirt">Flört</string>
+    <string name="relationship_married">Házas</string>
+    <string name="relationship_sweatheart">Szerelmem</string>
+
+    <string name="gift_mention_button_label_sentimental">Érzelmi jelentés</string>
+    <string name="gift_mention_button_label_daily_user">Mindennapi használat</string>
+
+    <string name="delete">Törlés</string>
+
+    <string name="saved_gift_screen_label">Mentett ajándékok</string>
+    <string name="saved_gift_screen_empty_label">Nincs mentett ajándék</string>
+    <string name="user_info_user_setting_label">Saját adataid</string>
+    <string name="user_info_button_user_settings_label">Mutasd az adataimat</string>
+    <string name="user_info_user_settings_information">Személyes adatok</string>
+    <string name="user_info_name_label">Neved: </string>
+    <string name="user_info_hobbies_label">Hobbijaid: </string>
+    <string name="user_info_caracter_label">Személyiség: </string>
+    <string name="user_info_old_label">Életkorod: </string>
+    <string name="user_info_zodiac_label">Csillagjegyed: </string>
+    <string name="user_info_best_side_label">Erősségeid: </string>
+</resources>

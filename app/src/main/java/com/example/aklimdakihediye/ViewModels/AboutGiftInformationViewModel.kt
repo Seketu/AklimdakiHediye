@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import com.example.aklimdakihediye.Internet.ApiResponse
 import com.example.aklimdakihediye.Internet.Models.GeminiModels.GeminiResponse
 import com.example.aklimdakihediye.LocalDatabase.Models.LocalUserInformation
+import com.example.aklimdakihediye.LocalDatabase.Models.SavedGifts
 import com.example.aklimdakihediye.NavController.LocalNavController
 import com.example.aklimdakihediye.Repo.MainRepo
 import com.example.aklimdakihediye.models.GiftInformationModels.ForGiftInformation
@@ -16,6 +17,7 @@ import com.example.aklimdakihediye.models.GiftInformationModels.ForPersonInforma
 import com.example.aklimdakihediye.models.GiftInformationModels.Products
 import com.example.aklimdakihediye.ObserverClasses.QueryProductsStatus
 import com.example.aklimdakihediye.ObserverClasses.SearchResultStatus
+import com.example.aklimdakihediye.Repo.SavedVariableRepo
 import com.example.aklimdakihediye.models.GiftInformationModels.SearchWithLabel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -56,9 +58,15 @@ class AboutGiftInformationViewModel
         }
     }
 
+    fun saveGift(gift: SavedGifts){
+        viewModelScope.launch {
+            mainRepo.saveNewGift(gift)
+        }
+    }
+
     fun backMainMenu(navController: NavController) {
         navController.navigate(LocalNavController.MainScreen) {
-            popUpTo(LocalNavController.MainScreen) { inclusive = true }
+            popUpTo(0) { inclusive = true }
         }
     }
 
@@ -99,7 +107,7 @@ class AboutGiftInformationViewModel
             try {
                 products.map { product ->
                     async {
-                        val result = mainRepo.searchWithKtorAndJsoup(product.name).take(2)
+                        val result = mainRepo.searchWithKtorAndJsoup("${product.name} ${product.price}").take(3)
                         val resultWithLabel = SearchWithLabel(product.name, result)
                         _searchResults.value = _searchResults.value + resultWithLabel
                     }.await().also {
@@ -117,8 +125,7 @@ class AboutGiftInformationViewModel
         giftInformation.value = ForGiftInformation(
             minPrice = forGiftInformation.minPrice,
             maxPrice = forGiftInformation.maxPrice,
-            giftType = forGiftInformation.giftType,
-            giftClass = forGiftInformation.giftClass
+            giftMean = forGiftInformation.giftMean,
         )
 
 
@@ -188,8 +195,7 @@ class AboutGiftInformationViewModel
             append("\nHediye Bilgileri:\n")
             append("Minimum Fiyat: ${giftInformation.value!!.minPrice} TL\n")
             append("Maksimum Fiyat: ${giftInformation.value!!.maxPrice} TL\n")
-            append("Hediye Türü: ${giftInformation.value!!.giftType}\n")
-            append("İstenen Hediye Sınıfı: ${giftInformation.value!!.giftClass}\n")
+            append("Hediye Türü: ${giftInformation.value!!.giftMean}\n")
 
             append("\nLütfen sadece şu formatta yanıt ver: '//ürün-marka (fiyat)//'. Başka hiçbir açıklama ya da cümle istemiyorum. Sadece 3 adet öneri dön.")
         }.toString()

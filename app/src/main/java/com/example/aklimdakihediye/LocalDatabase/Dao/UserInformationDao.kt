@@ -17,4 +17,6 @@ interface UserInformationDao {
     @Query("DELETE FROM user_information")
     suspend fun deleteLocalInformation()
 
+    @Query("UPDATE user_information SET user_name = :name, user_hobbies = :hobbies,user_caracter = :caracter, user_old = :old, user_zodiac = :zodiac,user_best_side =:bestSide where uid = :guid ")
+    suspend fun updateLocalInformation(name : String, hobbies : String, caracter : String, old : Int, zodiac : String, bestSide : String , guid : Int)
 }
