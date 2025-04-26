@@ -173,9 +173,7 @@ fun UserSettingsWithDataScreen(
         )
     )
 
-    val editIsEnable = remember {
-        mutableStateOf(false)
-    }
+    val editIsEnable = viewModel.isEdit.collectAsState()
 
     val showInformation = remember {
         mutableStateOf(false)
@@ -211,7 +209,7 @@ fun UserSettingsWithDataScreen(
                     .padding(5.dp)
                     .size(50.dp)
                     .clickable{
-                        editIsEnable.value = !editIsEnable.value
+                        viewModel.setEdit()
                     }
             )
         }
@@ -263,7 +261,7 @@ fun UserSettingsWithDataScreen(
                             .fillMaxHeight()
                             .padding(top = 10.dp),
                         list = rowList,
-                        editEnable = editIsEnable
+                        editEnable = editIsEnable as MutableState<Boolean>
                     )
                 }
             }

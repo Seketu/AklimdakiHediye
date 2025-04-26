@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.aklimdakihediye.R
@@ -35,13 +36,16 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
         ) {
 
             Image(
-                painter = painterResource(id = R.drawable.logo),
+                painter = painterResource(id = R.drawable.logo_alpha),
                 contentDescription = "Logo"
             )
 
-            Text(text = "Yükleniyor...", color = Color.Black, fontSize = 20.sp)
+            Text(text = stringResource(R.string.loading), color = Color.Black, fontSize = 20.sp)
             Spacer(Modifier.height(50.dp))
-            CircularProgressIndicator()
+            CircularProgressIndicator(
+                color = Color.Red,
+                modifier = Modifier.height(50.dp)
+            )
         }
     }
 }

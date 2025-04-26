@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GavenIMittHode</string>
+    <string name="app_name">Gaven I Mitt Hode</string>
     <string name="title_app_name">Gaven i Mitt Hode</string>
     <string name="main_list_title">Hvem er gaven til?</string>
 
@@ -82,4 +82,5 @@
     <string name="user_info_old_label">Alderen din: </string>
     <string name="user_info_zodiac_label">Stjernetegnet ditt: </string>
     <string name="user_info_best_side_label">Dine beste sider: </string>
+    <string name="loading">Laster inn...</string>
 </resources>

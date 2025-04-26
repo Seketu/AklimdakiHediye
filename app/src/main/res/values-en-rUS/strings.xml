@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GiftOnMyMind</string>
+    <string name="app_name">Gift On My Mind</string>
     <string name="title_app_name">Gift on My Mind</string>
     <string name="main_list_title">Who is the gift for?</string>
 
@@ -82,4 +82,5 @@
     <string name="user_info_old_label">Your Age: </string>
     <string name="user_info_zodiac_label">Your Zodiac Sign: </string>
     <string name="user_info_best_side_label">Your Best Traits: </string>
+    <string name="loading">Loading...</string>
 </resources>

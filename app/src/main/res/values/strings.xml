@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AklimdakiHediye</string>
+    <string name="app_name">Aklimdaki Hediye</string>
     <string name="title_app_name">Aklımdaki Hediye</string>
     <string name="main_list_title">Hediye Kimin İçin ? </string>
 
@@ -10,7 +10,7 @@
     <string name="main_list_lover">Sevgililer Günü</string>
     <string name="main_list_women">Kadınlar Günü</string>
     <string name="main_list_father_card">"Babalar, ailenin sessiz kahramanlarıdır. Güçleriyle destekler, sevgileriyle büyütürler. İyi ki varsınız, hayatımızdaki ilk ve sonsuz kahramanlarımız!"</string>
-    <string name="main_list_mother_card">"Anne, sevginin ve şefkatin en saf hali sensin. Hayatımızdaki yerin tarif edilemez, çünkü sen bizim ilk öğretmenimiz, en güçlü destekçimiz ve sonsuz sevgi kaynağımızsın. Anneler Günü'n kutlu olsun, hayatımızın güneşi!"</string>
+    <string name="main_list_mother_card">"Anne, sevginin ve şefkatin en saf hali sensin. Hayatımızdaki yerin tarif edilemez, çünkü sen bizim ilk öğretmenimiz, en güçlü destekçimiz ve sonsuz sevgi kaynağımızsın. Anneler Günün kutlu olsun, hayatımızın güneşi!"</string>
     <string name="main_list_lover_card">"Sevgilim, sen hayatıma anlam katan en güzel hediyesin. Gözlerinle ışıldayan dünyamda her an daha özel, daha unutulmaz. Sevgililer Günümüz kutlu olsun, kalbimin en güzel köşesindeki yerin hep senin!"</string>
     <string name="main_list_women_card">"Kadınlar, dünyanın rengini ve anlamını değiştiren gerçek kahramanlardır. Güçleri, sevgileri ve eşsiz varlıklarıyla her anı güzelleştirirler. Hayatı daha yaşanabilir kılan tüm kadınların Kadınlar Günü kutlu olsun!"</string>
 
@@ -77,4 +77,5 @@
     <string name="user_info_old_label">Yaşınız : </string>
     <string name="user_info_zodiac_label">Burcunuz : </string>
     <string name="user_info_best_side_label">İyi yönleriniz : </string>
+    <string name="loading">Yükleniyor...</string>
 </resources>

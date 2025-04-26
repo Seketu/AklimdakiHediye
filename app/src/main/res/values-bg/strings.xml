@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ПодаръкВГлавата</string>
+    <string name="app_name">Подарък ВГ лавата</string>
     <string name="title_app_name">Подарък в Главата</string>
     <string name="main_list_title">За кого е подаръкът?</string>
 
@@ -82,4 +82,5 @@
     <string name="user_info_old_label">Твоята възраст: </string>
     <string name="user_info_zodiac_label">Твоята зодия: </string>
     <string name="user_info_best_side_label">Твоите силни страни: </string>
+    <string name="loading">Зареждане...</string>
 </resources>

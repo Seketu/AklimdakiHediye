@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ПодарокВДуме</string>
+    <string name="app_name">Подарок В Думе</string>
     <string name="title_app_name">Подарок в Думе</string>
     <string name="main_list_title">Для кого подарок?</string>
 
@@ -82,4 +82,5 @@
     <string name="user_info_old_label">Твой возраст: </string>
     <string name="user_info_zodiac_label">Твой знак зодиака: </string>
     <string name="user_info_best_side_label">Твои сильные стороны: </string>
+    <string name="loading">"Загрузка... "</string>
 </resources>

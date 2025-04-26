@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GeschenkImKopf</string>
+    <string name="app_name">GeschenkIm Kopf</string>
     <string name="title_app_name">Geschenk im Kopf</string>
     <string name="main_list_title">Für wen ist das Geschenk?</string>
 
@@ -82,4 +82,5 @@
     <string name="user_info_old_label">Dein Alter: </string>
     <string name="user_info_zodiac_label">Dein Sternzeichen: </string>
     <string name="user_info_best_side_label">Deine guten Seiten: </string>
+    <string name="loading">Wird geladen...</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">RegaloNellaMente</string>
+    <string name="app_name">Regalo Nella Mente</string>
     <string name="title_app_name">Regalo nella Mente</string>
     <string name="main_list_title">Per chi è il regalo?</string>
 
@@ -82,4 +82,5 @@
     <string name="user_info_old_label">La tua età: </string>
     <string name="user_info_zodiac_label">Il tuo segno: </string>
     <string name="user_info_best_side_label">I tuoi punti di forza: </string>
+    <string name="loading">Caricamento...</string>
 </resources>

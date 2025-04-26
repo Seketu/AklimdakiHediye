@@ -18,7 +18,9 @@ fun SavedVariablesView(
     }
 
     when (screenStepsStatus.value) {
-        SavedVariablesViewObserver.None -> TODO()
+        SavedVariablesViewObserver.None -> {
+
+        }
         is SavedVariablesViewObserver.SavedVariablesView -> {
             SavedGiftScreen(navController = navController)
         }

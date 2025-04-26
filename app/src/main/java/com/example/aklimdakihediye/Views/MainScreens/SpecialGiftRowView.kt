@@ -26,7 +26,9 @@ fun SpecialGiftRowView(
     }
 
     when(screenStateObserver.value){
-        SpecialGiftRowViewObserver.None -> TODO()
+        SpecialGiftRowViewObserver.None -> {
+
+        }
         SpecialGiftRowViewObserver.TakeInformation -> {
             UserInformationView(
                 navController = navController,

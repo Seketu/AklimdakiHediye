@@ -82,4 +82,5 @@
     <string name="user_info_old_label">عمرك: </string>
     <string name="user_info_zodiac_label">برجك: </string>
     <string name="user_info_best_side_label">صفاتك الجيدة: </string>
+    <string name="loading">جارٍ التحميل...</string>
 </resources>

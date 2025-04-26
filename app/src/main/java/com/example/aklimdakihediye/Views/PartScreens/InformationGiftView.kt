@@ -187,13 +187,25 @@ import com.example.aklimdakihediye.ui.theme.ColorInformationGiftButton
                                         labelColor = labelColor.value,
                                         label = context.getString(R.string.gift_screen_mention_label),
                                         checkedFirst = giftMean.value == GiftMeanStatus.sentimental,
-                                        onClickFirst = {giftMean.value = GiftMeanStatus.sentimental},
-                                        onCheckedChangeFirst = {giftMean.value = GiftMeanStatus.none},
+                                        onClickFirst = {
+                                            giftMean.value = if (giftMean.value == GiftMeanStatus.sentimental) GiftMeanStatus.none
+                                            else GiftMeanStatus.sentimental
+                                        },
+                                        onCheckedChangeFirst = {
+                                            giftMean.value = if (giftMean.value == GiftMeanStatus.sentimental) GiftMeanStatus.none
+                                            else GiftMeanStatus.sentimental
+                                        },
                                         imageFirst = R.drawable.gift_mean_sentimental,
                                         buttonTextFirst = stringResource(R.string.gift_mention_button_label_sentimental),
                                         checkedSecond = giftMean.value == GiftMeanStatus.dailyUser,
-                                        onClickSecond = {giftMean.value = GiftMeanStatus.dailyUser},
-                                        onCheckedChangeSecond = {giftMean.value = GiftMeanStatus.none},
+                                        onClickSecond = {
+                                            giftMean.value = if (giftMean.value == GiftMeanStatus.dailyUser) GiftMeanStatus.none
+                                            else GiftMeanStatus.dailyUser
+                                        },
+                                        onCheckedChangeSecond = {
+                                            giftMean.value = if (giftMean.value == GiftMeanStatus.dailyUser) GiftMeanStatus.none
+                                            else GiftMeanStatus.dailyUser
+                                        },
                                         imageSecond = R.drawable.gift_mean_daily_user,
                                         buttonTextSecond = stringResource(R.string.gift_mention_button_label_daily_user),
                                     )

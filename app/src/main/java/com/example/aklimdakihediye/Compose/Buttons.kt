@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -57,7 +58,7 @@ fun ButtonWithCheckBox(
         Text(text, color = Color.Black)
         Checkbox(
             checked = checked,
-            onCheckedChange = {onCheckedChange.invoke(it)}
+            onCheckedChange = {onCheckedChange.invoke(it)},
         )
     }
 }
@@ -89,7 +90,8 @@ fun ZodiacButton(
         Checkbox(
             checked = checkBoxState.value == boxZodiac,
             onCheckedChange = {
-                checkBoxState.value = noneZodiacStatus
+                checkBoxState.value = if (checkBoxState.value == boxZodiac) noneZodiacStatus
+                else boxZodiac
             }
         )
     }
@@ -108,7 +110,7 @@ fun MainListRowButton(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         LottieAnim(
-            modifier = Modifier.fillMaxHeight(0.8f),
+            modifier = Modifier.fillMaxHeight(0.8f).width(75.dp),
             source = source,
             contentScale = ContentScale.FillWidth
         )

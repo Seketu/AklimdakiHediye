@@ -1,18 +1,18 @@
 <resources>
-    <string name="app_name">MyGiftIdea</string>
+    <string name="app_name">My Gift Idea</string>
     <string name="title_app_name">My Gift Idea</string>
     <string name="main_list_title">Who is the gift for?</string>
 
     <string name="next_text">Continue</string>
 
-    <string name="main_list_father">Father's Day</string>
-    <string name="main_list_mother">Mother's Day</string>
-    <string name="main_list_lover">Valentine's Day</string>
-    <string name="main_list_women">Women's Day</string>
+    <string name="main_list_father">Fathers Day</string>
+    <string name="main_list_mother">Mothers Day</string>
+    <string name="main_list_lover">Valentines Day</string>
+    <string name="main_list_women">Womens Day</string>
     <string name="main_list_father_card">"Fathers are the silent heroes of the family. They support us with their strength and raise us with their love. Thank you for being our first and eternal hero!"</string>
-    <string name="main_list_mother_card">"Mom, you are the purest form of love and compassion. Your place in our lives is indescribable because you are our first teacher, our strongest supporter, and an endless source of love. Happy Mother's Day, the sunshine of our lives!"</string>
-    <string name="main_list_lover_card">"My love, you are the most beautiful gift that gives meaning to my life. In a world that shines with your eyes, every moment becomes more special and unforgettable. Happy Valentine's Day, the one who holds the most special place in my heart!"</string>
-    <string name="main_list_women_card">"Women are the true heroes who change the color and meaning of the world. With their strength, love, and unique presence, they make every moment more beautiful. Happy Women's Day to all the women who make life more livable!"</string>
+    <string name="main_list_mother_card">"Mom, you are the purest form of love and compassion. Your place in our lives is indescribable because you are our first teacher, our strongest supporter, and an endless source of love. Happy Mothes Day, the sunshine of our lives!"</string>
+    <string name="main_list_lover_card">"My love, you are the most beautiful gift that gives meaning to my life. In a world that shines with your eyes, every moment becomes more special and unforgettable. Happy Valentines Day, the one who holds the most special place in my heart!"</string>
+    <string name="main_list_women_card">"Women are the true heroes who change the color and meaning of the world. With their strength, love, and unique presence, they make every moment more beautiful. Happy Womens Day to all the women who make life more livable!"</string>
 
     <string name="info_label_name">What is their name?</string>
     <string name="info_label_old">How old are they?</string>
@@ -28,20 +28,20 @@
     <string name="main_row_teacher">Your Teacher</string>
     <string name="main_row_job">Coworker</string>
 
-    <string name="name_label">What's your name? (We don’t care about your surname)</string>
+    <string name="name_label">Whats your name? (We don’t care about your surname)</string>
     <string name="old_label">How old are you?</string>
     <string name="best_side_label">What do people say are your good traits?</string>
     <string name="hobbies_label">What are your interests?</string>
     <string name="zodiac_label">What is your zodiac sign? (Not everything has to be proven...)</string>
     <string name="caracter_label">How would you describe your personality? (Are you a social butterfly?)</string>
 
-    <string name="user_info_label_1">Let's start with your name</string>
+    <string name="user_info_label_1">Lets start with your name</string>
     <string name="user_info_label_2">Tell us about yourself</string>
-    <string name="gift_price_place_label">What's your budget for the gift?</string>
+    <string name="gift_price_place_label">Whats your budget for the gift?</string>
     <string name="gift_screen_mention_label">What kind of meaning do you want the gift to have?</string>
     <string name="done">Finish</string>
     <string name="alert_dialog_empty_info_title">No Information Found</string>
-    <string name="alert_dialog_empty_info_dismiss">I'll keep looking</string>
+    <string name="alert_dialog_empty_info_dismiss">Ill keep looking</string>
     <string name="alert_dialog_empty_info_confirm">Let me introduce myself</string>
     <string name="for_who_user_label">Do you want to proceed with your own info?</string>
     <string name="for_who_another_label">No, for someone else</string>
@@ -81,4 +81,5 @@
     <string name="user_info_old_label">Your Age: </string>
     <string name="user_info_zodiac_label">Your Zodiac Sign: </string>
     <string name="user_info_best_side_label">Your Good Traits: </string>
+    <string name="loading">Loading...</string>
 </resources>

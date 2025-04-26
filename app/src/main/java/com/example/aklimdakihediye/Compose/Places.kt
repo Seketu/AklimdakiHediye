@@ -344,9 +344,6 @@ fun UserInformationPlace(
                 value = value,
                 enabled = editEnable
             )
-
         }
-
-
     }
 }

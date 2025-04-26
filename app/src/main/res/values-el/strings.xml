@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ΔώροΣτοΜυαλό</string>
+    <string name="app_name">Δώρο Στο Μυαλό</string>
     <string name="title_app_name">Δώρο στο Μυαλό</string>
     <string name="main_list_title">Για ποιον είναι το δώρο;</string>
 
@@ -82,4 +82,5 @@
     <string name="user_info_old_label">Η ηλικία σου: </string>
     <string name="user_info_zodiac_label">Το ζώδιό σου: </string>
     <string name="user_info_best_side_label">Τα δυνατά σου σημεία: </string>
+    <string name="loading">Φόρτωση...</string>
 </resources>

@@ -85,7 +85,6 @@ fun GiftInfoMeaning(
     checkedSecond: Boolean,
     imageSecond: Int,
     buttonTextSecond: String,
-
     ) {
     Column(
         modifier = modifier,

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AjándékAGondolatban</string>
+    <string name="app_name">Ajándék A Gondolatban</string>
     <string name="title_app_name">Ajándék a Gondolatban</string>
     <string name="main_list_title">Kinek szól az ajándék?</string>
 
@@ -82,4 +82,5 @@
     <string name="user_info_old_label">Életkorod: </string>
     <string name="user_info_zodiac_label">Csillagjegyed: </string>
     <string name="user_info_best_side_label">Erősségeid: </string>
+    <string name="loading">"Betöltés... "</string>
 </resources>

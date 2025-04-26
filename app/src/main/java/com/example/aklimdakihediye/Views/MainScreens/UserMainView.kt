@@ -307,10 +307,9 @@ fun SuccesLoading(
                         .fillMaxHeight(0.8f)
                 ) {
                     items(rowList) { row ->
-                        Spacer(Modifier.width(20.dp))
+                        Spacer(Modifier.width(15.dp))
                         MainListRowButton(
                             modifier = Modifier
-                                .size(90.dp)
                                 .clickable{
                                     viewModel.updateForWhoState(
                                         ForWhoObserver.checkState,
@@ -322,6 +321,7 @@ fun SuccesLoading(
                             source = row.source,
                             text = row.text
                         )
+                        Spacer(Modifier.width(5.dp))
                     }
                 }
             }
