@@ -86,11 +86,10 @@ All text resources are managed via Android's `strings.xml` structure, ensuring a
 ## 📸 Screenshots
 
 Here are some screenshots from the app:
-
-![Screenshot1](https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/image1.jpeg)
-
-![Screenshot2](https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/image2.jpeg)
-
+<p align="center">
+  <img src="https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/image1.jpeg" alt="Screenshot1" width="45%" />
+  <img src="https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/image2.jpeg" alt="Screenshot2" width="45%" />
+</p>
 ---
 ## 📩 Contact
 
