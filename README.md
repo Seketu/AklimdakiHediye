@@ -87,9 +87,9 @@ All text resources are managed via Android's `strings.xml` structure, ensuring a
 
 Here are some screenshots from the app:
 
-![Screenshot1](https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/Samsung%20Galaxy%20S21%20Ultra%20Screenshot%201.png)
+![Screenshot1](https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/image1.jpeg)
 
-![Screenshot2](https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/Samsung%20Galaxy%20S21%20Ultra%20Screenshot%202.png)
+![Screenshot2](https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/image2.jpeg)
 
 ---
 ## 📩 Contact
