@@ -81,22 +81,17 @@ All text resources are managed via Android's `strings.xml` structure, ensuring a
 2. Open the project in **Android Studio**.
 3. Let Gradle sync automatically.
 4. Build and run the app on an emulator or a physical device!
-
 ---
 
 ## 📸 Screenshots
 
-> _Coming Soon!_  
-(You can add screenshots here to show how your app looks!)
+Here are some screenshots from the app:
 
-Example:
-```markdown
 ![Screenshot1](https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/Samsung%20Galaxy%20S21%20Ultra%20Screenshot%201.png)
+
 ![Screenshot2](https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/Samsung%20Galaxy%20S21%20Ultra%20Screenshot%202.png)
-```
 
 ---
-
 ## 📩 Contact
 
 If you have any questions, feedback, or collaboration ideas, feel free to reach out!
