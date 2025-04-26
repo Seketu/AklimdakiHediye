@@ -91,8 +91,8 @@ All text resources are managed via Android's `strings.xml` structure, ensuring a
 
 Example:
 ```markdown
-![Screenshot1](path-to-screenshot1.png)
-![Screenshot2](path-to-screenshot2.png)
+![Screenshot1](https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/Samsung%20Galaxy%20S21%20Ultra%20Screenshot%201.png)
+![Screenshot2](https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/Samsung%20Galaxy%20S21%20Ultra%20Screenshot%202.png)
 ```
 
 ---
