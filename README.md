@@ -95,7 +95,7 @@ Here are some screenshots from the app:
 
 If you have any questions, feedback, or collaboration ideas, feel free to reach out!
 
-- GitHub: [your-username](https://github.com/your-username)
-- Email: your-email@example.com
+- GitHub: [Seketu](https://github.com/Seketu)
+- Email: kerem.tuga.yy@gmail.com
 
 ---
