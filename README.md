@@ -86,17 +86,16 @@ All text resources are managed via Android's `strings.xml` structure, ensuring a
 ## 📸 Screenshots
 
 Here are some screenshots from the app:
-
-![Screenshot1](https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/Samsung%20Galaxy%20S21%20Ultra%20Screenshot%201.png)
-
-![Screenshot2](https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/Samsung%20Galaxy%20S21%20Ultra%20Screenshot%202.png)
-
+<p align="center">
+  <img src="https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/image1.jpeg" alt="Screenshot1" width="45%" />
+  <img src="https://github.com/Seketu/AklimdakiHediye/blob/main/pictures/image2.jpeg" alt="Screenshot2" width="45%" />
+</p>
 ---
 ## 📩 Contact
 
 If you have any questions, feedback, or collaboration ideas, feel free to reach out!
 
-- GitHub: [your-username](https://github.com/your-username)
-- Email: your-email@example.com
+- GitHub: [Seketu](https://github.com/Seketu)
+- Email: kerem.tuga.yy@gmail.com
 
 ---
