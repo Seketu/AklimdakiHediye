@@ -20,7 +20,7 @@ This project is developed using **Native Android (Kotlin)** and follows the **MV
 It actively utilizes the **Room Database**, **Dagger Hilt**, **Ktor Client**, and **Flow** libraries.  
 Additionally, **Gemini API** and **DuckDuckGo Search Engine** integrations enhance the app's functionality.
 
-[APK File](https://github.com/Seketu/AklimdakiHediye/blob/main/apk/raw/akl%C4%B1mdaki_hediye.apk)
+[APK File](https://github.com/Seketu/AklimdakiHediye/raw/main/apk/akl%C4%B1mdaki_hediye.apk)
 
 Thank you for your interest and support!
 
