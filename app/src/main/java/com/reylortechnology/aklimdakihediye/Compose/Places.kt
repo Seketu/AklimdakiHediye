@@ -1,0 +1,576 @@
+package com.reylortechnology.aklimdakihediye.Compose
+
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.SavedGifts
+import com.reylortechnology.aklimdakihediye.ObserverClasses.RelationshipStatus
+import com.reylortechnology.aklimdakihediye.models.ComposeModels.SearchCardModel
+import com.reylortechnology.aklimdakihediye.R
+import com.reylortechnology.aklimdakihediye.ui.theme.onSurfaceLight
+import com.reylortechnology.aklimdakihediye.ui.theme.primaryContainerDark
+import com.reylortechnology.aklimdakihediye.ui.theme.primaryContainerLight
+import com.reylortechnology.aklimdakihediye.ui.theme.primaryLight
+import com.reylortechnology.aklimdakihediye.ui.theme.secondaryLight
+import com.reylortechnology.aklimdakihediye.ui.theme.surfaceContainerDark
+import com.reylortechnology.aklimdakihediye.ui.theme.surfaceContainerLight
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
+
+
+@Composable
+fun StepperIndicator(currentStep: Int, modifier: Modifier, totalSteps: Int) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        for (i in 1..totalSteps) {
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(if (i == currentStep) 12.dp else 6.dp)
+                    .background(
+                        if (i == currentStep) Color.DarkGray else Color.Gray,
+                        shape = RoundedCornerShape(50)
+                    )
+            )
+            Spacer(Modifier.width(10.dp))
+        }
+    }
+}
+
+
+@Composable
+fun ReminderCard(
+    modifier: Modifier = Modifier,
+    title: String,
+    event : String,
+    time : Long,
+    releationship : String
+) {
+
+    val sdf = SimpleDateFormat("dd MMMM yyyy", Locale("tr"))
+    sdf.timeZone = TimeZone.getTimeZone("Europe/Istanbul")
+
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                title,
+                fontSize = 24.sp,
+                color = MaterialTheme.colorScheme.onSecondary
+            )
+            Text(
+                event,
+                fontSize = 18.sp,
+                color = MaterialTheme.colorScheme.onSecondary
+            )
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                releationship,
+                fontSize = 18.sp,
+                color = MaterialTheme.colorScheme.onSecondary
+            )
+
+            Text(
+                sdf.format(Date(time)),
+                fontSize = 18.sp,
+                color = MaterialTheme.colorScheme.onSecondary
+            )
+        }
+    }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DatePickerView(
+    selectedDateMillis1: MutableState<Long?>,
+    modifier: Modifier = Modifier
+) {
+    val showDatePickerDialog = remember { mutableStateOf(false) }
+    Column(
+        modifier
+    ) {
+        Button(
+            onClick = { showDatePickerDialog.value = true },
+            modifier = Modifier
+                .fillMaxWidth(),
+            shape = MaterialTheme.shapes.small
+        ) {
+            Text("Tarih Seç")
+        }
+        // 2. Seçilen tarihi göster
+        selectedDateMillis1.value?.let { millis ->
+            val formattedDate = remember(millis) {
+                SimpleDateFormat("dd MMMM yyyy", Locale("tr")).format(Date(millis))
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                "Seçilen Tarih: $formattedDate",
+                fontSize = 23.sp,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                modifier = Modifier
+                    .background(
+                        MaterialTheme.colorScheme.secondaryContainer,
+                        shape = MaterialTheme.shapes.medium
+                    )
+                    .padding(5.dp)
+            )
+        }
+    }
+    // 3. DatePicker Dialog
+    if (showDatePickerDialog.value) {
+        val datePickerState = rememberDatePickerState()
+
+        DatePickerDialog(
+            onDismissRequest = { showDatePickerDialog.value = false },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        selectedDateMillis1.value = datePickerState.selectedDateMillis
+                        showDatePickerDialog.value = false
+                    }
+                ) {
+                    Text("Tamam")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDatePickerDialog.value = false }) {
+                    Text("İptal")
+                }
+            }
+        ) {
+            DatePicker(state = datePickerState)
+        }
+    }
+}
+
+
+@Composable
+fun specialDayRelationshipCard(
+    modifier: Modifier = Modifier,
+    videoSource: Int,
+    title: String,
+    description: String,
+    checked: State<Boolean>,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    Box(
+        modifier = modifier
+            .border(
+                3.dp,
+                color = MaterialTheme.colorScheme.outline,
+                shape = MaterialTheme.shapes.medium
+            )
+            .background(
+                MaterialTheme.colorScheme.secondaryContainer,
+                shape = MaterialTheme.shapes.medium
+            )
+            .clickable {
+                onCheckedChange.invoke(!checked.value)
+            }
+    ){
+        LottieAnim(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .size(85.dp),
+            source = videoSource,
+            contentScale = ContentScale.FillWidth,
+        )
+        Column(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(5.dp)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Top
+        ){
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Text(
+                    title,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    fontSize = 15.sp
+                )
+                Spacer(Modifier.weight(1f))
+                Checkbox(
+                    checked = checked.value,
+                    onCheckedChange = onCheckedChange,
+                    enabled = true,
+                    colors = CheckboxDefaults.colors(
+                        checkedColor = MaterialTheme.colorScheme.primary,
+                        uncheckedColor = MaterialTheme.colorScheme.onSecondary,
+                        checkmarkColor = MaterialTheme.colorScheme.onPrimary,
+                    )
+                )
+            }
+            Text(
+                description,
+                fontSize = 9.sp,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun preview() {
+
+}
+
+@Composable
+fun ReleationshipStateInfo(
+    modifier: Modifier = Modifier,
+    selectedOption: MutableState<RelationshipStatus>,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceAround,
+        modifier = modifier
+            .background(Color.Transparent)
+            .fillMaxWidth(0.9f)
+    ) {
+        Text("İlişki Durumu")
+
+        Row(
+            modifier = Modifier
+                .height(IntrinsicSize.Max)
+                .fillMaxWidth()
+                .padding(15.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .padding(5.dp)
+                    .clickable(
+                        onClick = {
+                            selectedOption.value = RelationshipStatus.MARRIED
+                        })
+                    .background(Color.White, RoundedCornerShape(10.dp))
+            ) {
+                Checkbox(
+                    checked = selectedOption.value == RelationshipStatus.MARRIED,
+                    enabled = true,
+                    onCheckedChange = {
+                        if (it) selectedOption.value =
+                            RelationshipStatus.MARRIED else selectedOption.value =
+                            RelationshipStatus.NONE
+                    })
+                Text("Evli",color = Color.Black)
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .padding(5.dp)
+                    .clickable(
+                        onClick = {
+                            selectedOption.value = RelationshipStatus.SweatHeart
+                        })
+                    .background(Color.White, RoundedCornerShape(10.dp))
+            ) {
+
+                Checkbox(
+                    checked = selectedOption.value == RelationshipStatus.SweatHeart,
+                    enabled = true,
+                    onCheckedChange = {
+                        if (it) selectedOption.value =
+                            RelationshipStatus.SweatHeart else RelationshipStatus.NONE
+                    })
+                Text("Sevgili",color = Color.Black)
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .padding(5.dp)
+                    .clickable(
+                        onClick = {
+                            selectedOption.value = RelationshipStatus.FLORT
+                        })
+                    .background(Color.White, RoundedCornerShape(10.dp))
+            ) {
+                Checkbox(
+                    checked = selectedOption.value == RelationshipStatus.FLORT,
+                    enabled = true,
+                    onCheckedChange = {
+                        if (it) selectedOption.value =
+                            RelationshipStatus.FLORT else RelationshipStatus.NONE
+                    })
+                Text("Flört",color = Color.Black)
+            }
+        }
+    }
+    Spacer(Modifier.height(25.dp))
+}
+
+@Composable
+fun SearchCard(
+    item: SearchCardModel,
+    modifier: Modifier = Modifier,
+    saveGift: () -> Unit
+) {
+    val context = LocalContext.current
+    var parentHeight by remember { mutableStateOf(0) }
+    val localConfig = LocalConfiguration.current
+    val screenHeight = localConfig.screenHeightDp.dp
+    Box(
+        modifier = modifier
+            .onGloballyPositioned {
+                parentHeight = it.size.height
+            }
+            .clip(RoundedCornerShape(20.dp))
+            .background(MaterialTheme.colorScheme.secondary)
+
+    ) {
+        if (parentHeight > 0) {
+            val animHeightPx = parentHeight * 0.2f
+            val animHeightDp = with(LocalDensity.current) { animHeightPx.toDp() }
+
+            /*LottieAnim(
+                source = R.raw.main_anim,
+                modifier = Modifier
+                    .height(animHeightDp)
+                    .align(Alignment.BottomCenter),
+                contentScale = ContentScale.FillWidth,
+                secondModifier = Modifier
+                    .graphicsLayer(scaleY = 0.2f) // 1f = normal, istersen animasyonla azaltabilirsin
+            )*/
+        }
+
+        Column {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.primary)
+                    .padding(horizontal = 10.dp)
+            ) {
+                Text(
+                    item.name,
+                    maxLines = 1,
+                    fontSize = 24.sp,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            }
+            Spacer(modifier = Modifier.height(screenHeight * 0.01f))
+            Box(
+                modifier = Modifier
+                    .padding(horizontal = 10.dp)
+            ) {
+                Text(
+                    item.description,
+                    maxLines = 2,
+                    fontSize = 16.sp,
+                    color = MaterialTheme.colorScheme.onSecondary
+                )
+            }
+            Spacer(Modifier.height(10.dp))
+            Row(
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(5.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Button(
+                    onClick = {
+                        saveGift.invoke()
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Text(
+                        "Kaydet",
+                        fontSize = 16.sp,
+                        color = androidx.compose.material.MaterialTheme.colors.onError
+                    )
+                }
+                Button(
+                    onClick = {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
+                        context.startActivity(intent)
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text(
+                        "Sayfaya Git",
+                        fontSize = 16.sp,
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun SavedGiftCard(
+    modifier: Modifier = Modifier,
+    gift: SavedGifts,
+    checked: MutableState<Boolean>,
+    onCheckedChange: (Boolean) -> Unit,
+    enabled : MutableState<Boolean>
+) {
+    val context = LocalContext.current
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(15.dp))
+            .background(onSurfaceLight)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                gift.giftName,
+            )
+            Spacer(Modifier.weight(1f))
+            if (enabled.value){
+                Checkbox(
+                    modifier = Modifier
+                        .clickable{
+                            checked.value = !checked.value
+                        },
+                    checked = checked.value,
+                    onCheckedChange = {onCheckedChange.invoke(it)},
+                )
+            }else{
+
+            }
+
+        }
+        Row (
+            modifier = Modifier.padding(horizontal = 10.dp)
+        ){
+            Text(gift.giftDescription)
+        }
+        Row(
+            modifier = Modifier
+                .padding(end = 10.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+
+            Button(
+                onClick = {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(gift.giftUrl))
+                    context.startActivity(intent)
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.White
+                ),
+                shape = RoundedCornerShape(1.dp)
+            ) {
+                Text(
+                    "Sayfaya Git",
+                    fontSize = 16.sp,
+                    color = Color.Black
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun UserInformationPlace(
+    modifier: Modifier = Modifier,
+    list : MutableList<Pair<String, MutableState<String>>>,
+    editEnable : MutableState<Boolean>
+    ) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.SpaceAround,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        list.forEach { (label, value) ->
+            UserInformationRow(
+                modifier = Modifier.fillMaxWidth(),
+                label = label,
+                value = value,
+                enabled = editEnable
+            )
+        }
+    }
+}

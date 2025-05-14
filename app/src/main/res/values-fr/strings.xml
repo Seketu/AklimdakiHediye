@@ -83,4 +83,5 @@
     <string name="user_info_zodiac_label">Ton signe du zodiaque : </string>
     <string name="user_info_best_side_label">Tes points forts : </string>
     <string name="loading">Chargement...</string>
+    <string name="who_is_lucky">\tQui est le chanceux ?</string>
 </resources>

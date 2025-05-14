@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.aklimdakihediye"
+    namespace = "com.reylortechnology.aklimdakihediye"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.aklimdakihediye"
+        applicationId = "com.reylortechnology.aklimdakihediye"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -63,6 +63,8 @@ dependencies {
     implementation(libs.ktor.ktor.serialization.kotlinx.json)
     implementation (libs.ktor.client.plugins)
     implementation (libs.ktor.client.cio)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
 
     //Room
     ksp(libs.androidx.room.compiler)
@@ -70,25 +72,28 @@ dependencies {
     implementation (libs.androidx.room.ktx)
 
     //jsoup
-    implementation("org.jsoup:jsoup:1.15.4")
+    implementation("org.jsoup:jsoup:1.20.1")
     //set theme
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.appcompat:appcompat:1.7.0")
     //coil
-    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("io.coil-kt:coil-compose:2.7.0")
 
     //ads
     implementation("com.google.android.gms:play-services-ads:24.2.0")
 
-    implementation ("com.google.accompanist:accompanist-pager:0.34.0")
-    implementation ("com.google.accompanist:accompanist-pager-indicators:0.34.0")
+    implementation ("com.google.accompanist:accompanist-pager:0.36.0")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.36.0")
 
-    
+    //google fonts
+    implementation ("androidx.compose.ui:ui-text-google-fonts:1.8.1")
+
     //hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation("com.google.auto:auto-common:1.2.2")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

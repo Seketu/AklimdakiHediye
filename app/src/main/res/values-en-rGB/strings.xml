@@ -82,4 +82,5 @@
     <string name="user_info_zodiac_label">Your Zodiac Sign: </string>
     <string name="user_info_best_side_label">Your Good Traits: </string>
     <string name="loading">Loading...</string>
+    <string name="who_is_lucky">\tWho is the lucky one?</string>
 </resources>

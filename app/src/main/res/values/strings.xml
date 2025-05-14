@@ -78,4 +78,21 @@
     <string name="user_info_zodiac_label">Burcunuz : </string>
     <string name="user_info_best_side_label">İyi yönleriniz : </string>
     <string name="loading">Yükleniyor...</string>
+    <string name="who_is_lucky">"Kim bu şanslı "</string>
+    <string name="special_day_main_title">Kaydedilen Hatırlatmalar</string>
+    <string name="name">İsim</string>
+    <string name="mother">Anne</string>
+    <string name="mother_short_desc">Kalbimin en sessiz duası hep senin için anne.</string>
+    <string name="father_desc_short">Gölgen yeter baba, her adımımda güç veriyorsun.</string>
+    <string name="sibling_desc_short">Küçük bir kalpte sonsuz bir dostluk: Kardeşim.</string>
+    <string name="sweatheart_desc_short">Sen gülümseyince dünya susuyor, sadece kalbim konuşuyor.</string>
+    <string name="teacher_desc_short">Bir harf verdiniz, bir ömür yol gösterdiniz.</string>
+    <string name="friend_desc_short">Gerçek dostluk, sessizlikte bile anlaşabilmektir.</string>
+    <string name="select_date">Tarih Seçiniz</string>
+    <string name="reminder_message_text">için oluşturduğun etkinlik yaklaştı</string>
+    <string name="father">Baba</string>
+    <string name="sibling">Kardeş</string>
+    <string name="sweatheart">Sevgiliniz</string>
+    <string name="teacher">Öğretmen</string>
+    <string name="friend">Arkadaş</string>
 </resources>

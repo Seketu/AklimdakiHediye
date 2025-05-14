@@ -83,4 +83,5 @@
     <string name="user_info_zodiac_label">Csillagjegyed: </string>
     <string name="user_info_best_side_label">Erősségeid: </string>
     <string name="loading">"Betöltés... "</string>
+    <string name="who_is_lucky">\tKi a szerencsés?</string>
 </resources>
