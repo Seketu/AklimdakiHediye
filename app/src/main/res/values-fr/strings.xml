@@ -29,7 +29,7 @@
     <string name="main_row_teacher">Ton professeur</string>
     <string name="main_row_job">Collègue</string>
 
-    <string name="name_label">Quel est ton nom ? (Pas besoin du nom de famille)</string>
+    <string name="name_label">Quel est ton nom ?</string>
     <string name="old_label">Quel âge as-tu ?</string>
     <string name="best_side_label">Quelles sont les qualités que les gens remarquent chez toi ?</string>
     <string name="hobbies_label">Quels sont tes centres d’intérêt ?</string>

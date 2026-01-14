@@ -18,7 +18,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -58,11 +60,10 @@ import com.reylortechnology.aklimdakihediye.ObserverClasses.ZodiacStatus
 import com.reylortechnology.aklimdakihediye.R
 import com.reylortechnology.aklimdakihediye.ViewModels.AboutGiftInformationViewModel
 import com.reylortechnology.aklimdakihediye.models.GiftInformationModels.ForPersonInformation
-import com.reylortechnology.aklimdakihediye.ui.theme.surfaceLight
 
 
 @Composable
-fun DailyInfoScreen(
+fun InformationPersonScreen(
     navController: NavController,
     args: LocalNavController.DailyInfoScreen,
     viewModel: AboutGiftInformationViewModel = hiltViewModel(),
@@ -72,19 +73,19 @@ fun DailyInfoScreen(
     val context = LocalContext.current
 
     val labelListRaw = listOf(
-        context.getString(R.string.info_label_name),
-        context.getString(R.string.info_label_old),
-        context.getString(R.string.info_label_zodiac),
-        context.getString(R.string.info_label_job),
-        context.getString(R.string.info_label_best_side),
-        context.getString(R.string.info_label_hobbies),
-        context.getString(R.string.info_label_last_gifts),
-        context.getString(R.string.info_label_time)
+        stringResource(R.string.info_label_name),
+        stringResource(R.string.info_label_old),
+        stringResource(R.string.info_label_zodiac),
+        stringResource(R.string.info_label_job),
+        stringResource(R.string.info_label_best_side),
+        stringResource(R.string.info_label_hobbies),
+        stringResource(R.string.info_label_last_gifts),
+        stringResource(R.string.info_label_time)
     )
 
     when (args.forDay) {
 
-        context.getString(R.string.main_row_love) -> {
+        stringResource(R.string.main_row_love) -> {
 
             val labelList = labelListRaw.map {
                 "Sevgilinizin " + it
@@ -100,7 +101,7 @@ fun DailyInfoScreen(
             )
         }
 
-        context.getString(R.string.main_row_teacher) -> {
+        stringResource(R.string.main_row_teacher) -> {
 
             val labelList = labelListRaw.map {
                 "Öğretmeninin " + it
@@ -115,7 +116,7 @@ fun DailyInfoScreen(
             )
         }
 
-        context.getString(R.string.main_row_job) -> {
+        stringResource(R.string.main_row_job) -> {
 
             val labelList = labelListRaw.map {
                 "İş Arkadaşınızın " + it
@@ -131,7 +132,7 @@ fun DailyInfoScreen(
         }
 
 
-        context.getString(R.string.main_row_friend) -> {
+        stringResource(R.string.main_row_friend) -> {
 
             val labelList = labelListRaw.map {
                 "Arkadaşınızın " + it
@@ -146,7 +147,7 @@ fun DailyInfoScreen(
             )
         }
 
-        context.getString(R.string.main_list_father) -> {
+        stringResource(R.string.main_list_father) -> {
 
             val labelList = labelListRaw.map {
                 "Babanızın " + it
@@ -162,7 +163,7 @@ fun DailyInfoScreen(
 
         }
 
-        context.getString(R.string.main_list_mother) -> {
+        stringResource(R.string.main_list_mother) -> {
 
             val labelList = labelListRaw.map {
                 "Annenizin " + it
@@ -177,7 +178,7 @@ fun DailyInfoScreen(
             )
         }
 
-        context.getString(R.string.main_list_lover) -> {
+        stringResource(R.string.main_list_lover) -> {
 
             val labelList = labelListRaw.map {
                 "Sevgilinizin " + it
@@ -193,7 +194,7 @@ fun DailyInfoScreen(
             )
         }
 
-        context.getString(R.string.main_list_women) -> {
+        stringResource(R.string.main_list_women) -> {
 
             val labelList = labelListRaw.map {
                 "Kadının " + it
@@ -299,14 +300,14 @@ fun DailyInfoBakeScreen(
             .fillMaxSize()
             .windowInsetsPadding(insets = WindowInsets.ime),
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
+                modifier = Modifier,
                 title = {
                     Text("")
-                }, navigationIcon = {
-                    Image(
-                        modifier = Modifier
-                            .padding(10.dp)
-                            .clickable {
+                },
+                navigationIcon = {
+                    IconButton(
+                        onClick = {
                                 when (valuesState.value) {
                                     DailyPlacesObserver.Name -> {
                                         navController.popBackStack()
@@ -332,9 +333,13 @@ fun DailyInfoBakeScreen(
                                     }
                                 }
                             },
-                        painter = painterResource(R.drawable.back_icon),
-                        contentDescription = "back button"
-                    )
+                        shape = MaterialTheme.shapes.extraSmall,
+                        modifier = Modifier.padding(2.dp)
+                    ){
+                        Image(
+                            painter = painterResource(R.drawable.back_icon),
+                            "back button")
+                    }
                 }, colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.secondaryContainer
                 )
@@ -468,9 +473,6 @@ fun DailyInfoBakeScreen(
                         }
                     }
                 }
-
-
-
                 item {
                     BorderButton(
                         text = context.getString(R.string.next_text), onClick = {

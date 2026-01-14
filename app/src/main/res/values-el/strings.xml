@@ -29,7 +29,7 @@
     <string name="main_row_teacher">Ο/Η δάσκαλός/δασκάλα σου</string>
     <string name="main_row_job">Συνάδελφος</string>
 
-    <string name="name_label">Πώς σε λένε; (Δε μας νοιάζει το επώνυμο)</string>
+    <string name="name_label">Πώς σε λένε;</string>
     <string name="old_label">Πόσων ετών είσαι;</string>
     <string name="best_side_label">Τι λένε οι άλλοι για τα θετικά σου χαρακτηριστικά;</string>
     <string name="hobbies_label">Ποια είναι τα ενδιαφέροντά σου;</string>

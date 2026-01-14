@@ -29,7 +29,7 @@
     <string name="main_row_teacher">Il tuo insegnante</string>
     <string name="main_row_job">Collega</string>
 
-    <string name="name_label">Come ti chiami? (Non ci interessa il cognome)</string>
+    <string name="name_label">"Come ti chiami? "</string>
     <string name="old_label">Quanti anni hai?</string>
     <string name="best_side_label">Cosa dicono gli altri dei tuoi lati positivi?</string>
     <string name="hobbies_label">Quali sono i tuoi interessi?</string>

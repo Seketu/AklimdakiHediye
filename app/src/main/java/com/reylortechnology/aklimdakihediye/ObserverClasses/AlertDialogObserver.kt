@@ -14,7 +14,6 @@ sealed class AlertDialogObserver {
 
 sealed class ToScreenObserver{
     data class NewInformation(val forDay : String?,val source : Int?) : ToScreenObserver()
-    data class ForAnotherInformation(val forDay: String , val source: Int,val withInformation: Boolean) : ToScreenObserver()
     data class WithUserInformation(val forDay: String,val source: Int) : ToScreenObserver()
     object none : ToScreenObserver()
 }

@@ -3,6 +3,7 @@ package com.reylortechnology.aklimdakihediye.Compose
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -166,6 +167,38 @@ fun PriceInformationTextField(
             )
         }
     }
+}
+
+@Composable
+fun UserSettingsTextField(
+    modifier: Modifier = Modifier,
+    value : MutableState<String>,
+    prefix : String,
+    keyboard: KeyboardOptions = KeyboardOptions.Default
+) {
+    TextField(
+        value = value.value,
+        onValueChange = {value.value = it},
+        colors = TextFieldDefaults.colors(
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+            focusedTextColor = MaterialTheme.colorScheme.onSecondary,
+            unfocusedTextColor = MaterialTheme.colorScheme.onSecondary
+        ),
+        shape = MaterialTheme.shapes.extraSmall,
+        modifier = modifier,
+        prefix = {
+            Text(
+                text = prefix,
+                color = MaterialTheme.colorScheme.onSecondary,
+                style = MaterialTheme.typography.labelMedium
+                )
+        },
+        textStyle = MaterialTheme.typography.titleLarge,
+        keyboardOptions = keyboard
+    )
 }
 
 @Composable

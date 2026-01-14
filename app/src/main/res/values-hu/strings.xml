@@ -29,7 +29,7 @@
     <string name="main_row_teacher">Tanárod</string>
     <string name="main_row_job">Munkatárs</string>
 
-    <string name="name_label">Mi a neved? (A vezetéknév nem számít)</string>
+    <string name="name_label">Mi a neved?</string>
     <string name="old_label">Hány éves vagy?</string>
     <string name="best_side_label">Mit mondanak mások a jó tulajdonságaidról?</string>
     <string name="hobbies_label">Mik az érdeklődési köreid?</string>

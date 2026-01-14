@@ -11,6 +11,9 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 
+
+// test kimliği : ca-app-pub-3940256099942544/1033173712
+// uygulama kimliği : ca-app-pub-3865288813123224/9193054578
 @Composable
 fun InterstitialAdScreen(
     onAdClosed: () -> Unit = {}

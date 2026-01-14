@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -9,9 +11,16 @@ plugins {
     id("com.google.dagger.hilt.android")
 }
 
+
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) {
+        file.inputStream().use { stream -> load(stream) }
+    }
+}
 android {
     namespace = "com.reylortechnology.aklimdakihediye"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.reylortechnology.aklimdakihediye"
@@ -19,8 +28,10 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "API_KEY","\"AIzaSyAxp5b7hIyY8Yzb93QHFPFY8vFOK69X3GA\"")
-        buildConfigField("String", "BASE_URL","\"https://generativelanguage.googleapis.com/\"")
+
+        buildConfigField("String", "GEMINI_API_KEY", "\"${localProperties.getProperty("GEMINI_API_KEY")}\"")
+        buildConfigField("String", "BASE_URL", "\"${localProperties.getProperty("BASE_URL")}\"")
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -36,9 +47,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
@@ -72,24 +80,27 @@ dependencies {
     implementation (libs.androidx.room.ktx)
 
     //jsoup
-    implementation("org.jsoup:jsoup:1.20.1")
+    implementation("org.jsoup:jsoup:1.22.1")
     //set theme
     implementation("androidx.appcompat:appcompat:1.7.0")
     //coil
     implementation("io.coil-kt:coil-compose:2.7.0")
 
     //ads
-    implementation("com.google.android.gms:play-services-ads:24.2.0")
+    implementation("com.google.android.gms:play-services-ads:24.9.0")
 
     implementation ("com.google.accompanist:accompanist-pager:0.36.0")
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.36.0")
 
     //google fonts
-    implementation ("androidx.compose.ui:ui-text-google-fonts:1.8.1")
+    implementation ("androidx.compose.ui:ui-text-google-fonts:1.10.0")
+
+    //icons
+    implementation("androidx.compose.material:material-icons-extended")
 
     //hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
@@ -115,4 +126,9 @@ dependencies {
 }
 kapt {
     correctErrorTypes = true
+}
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+    }
 }

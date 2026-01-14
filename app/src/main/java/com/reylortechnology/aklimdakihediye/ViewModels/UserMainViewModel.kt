@@ -129,7 +129,14 @@ class UserMainViewModel
     fun updateForWhoState(forWhoObserver: ForWhoObserver,context: Context,forDay : String,source : Int){
 
         val userInformation = userInformation.value
+        if (userInformation.isEmpty()){
+            _toInfoScreen.value = ToScreenObserver.NewInformation(forDay = forDay,source = source)
+        }else{
+            _toInfoScreen.value = ToScreenObserver.WithUserInformation(forDay,source)
+        }
 
+        /*
+        Depreceted For check another user
         when(forWhoObserver){
             is ForWhoObserver.checkState -> {
                 _showAlert.value = true
@@ -140,25 +147,20 @@ class UserMainViewModel
                         _alertDialogState.value = AlertDialogObserver.none
                     },
                     onConfirm = {
-                        if (userInformation.isEmpty()){
-                            _toInfoScreen.value = ToScreenObserver.NewInformation(forDay = forDay,source = source)
-                            _alertDialogState.value = AlertDialogObserver.none
-                        }else{
-                            _toInfoScreen.value = ToScreenObserver.WithUserInformation(forDay,source)
-                            _alertDialogState.value = AlertDialogObserver.none
-                        }
+
                     },
                     dismissText = context.getString(R.string.for_who_another_label),
                     confirmText = context.getString(R.string.for_who_forme_label),
                     dismissButton = {
-                        _toInfoScreen.value = ToScreenObserver.ForAnotherInformation(withInformation = false, forDay=forDay, source = source )
                         _showAlert.value = !_showAlert.value
                         _alertDialogState.value = AlertDialogObserver.none
                     }
                 )
             }
-            ForWhoObserver.none -> TODO()
-        }
+            ForWhoObserver.none -> {
+
+            }
+        }*/
     }
 
     fun navigateFromColumn(
@@ -179,11 +181,6 @@ class UserMainViewModel
                     navController.navigate(LocalNavController.DailyInfoScreen(forDay!!,source!!,false))
                     _toInfoScreen.value = ToScreenObserver.none
                 }
-            }
-            "ForAnother" -> {
-                navController.navigate(LocalNavController.UserInfoScreen(forDay,source,forWhat))
-                _toInfoScreen.value = ToScreenObserver.none
-
             }
         }
     }

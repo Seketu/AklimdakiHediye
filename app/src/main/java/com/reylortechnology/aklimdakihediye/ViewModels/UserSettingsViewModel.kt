@@ -1,6 +1,7 @@
 package com.reylortechnology.aklimdakihediye.ViewModels
 
 import android.util.Log
+import androidx.compose.runtime.State
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
@@ -18,24 +19,18 @@ class UserSettingsViewModel
     val userSettingsRepo : UserSettingsRepo
 ) : ViewModel(){
 
-    val _isEdit = MutableStateFlow<Boolean>(false)
-    val isEdit = _isEdit.asStateFlow()
     val userInformation = userSettingsRepo.getUserInformation
 
-    fun setUserInformation(userInformation : LocalUserInformation){
+    fun setUserInformation(userInformation: LocalUserInformation, isModified: State<Boolean>){
         viewModelScope.launch {
             try {
                 userSettingsRepo.updateUserInformation(userInformation)
-                _isEdit.value = false
             }catch (e: Exception){
                 Log.e("UserSettingsViewModel", "setUserInformation: ${e.message}")
             }
         }
     }
 
-    fun setEdit(){
-        _isEdit.value = true
-    }
 
     fun exitScreen(navController: NavController) {
         try {

@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -55,6 +56,7 @@ import com.reylortechnology.aklimdakihediye.Compose.StepperIndicator
 import com.reylortechnology.aklimdakihediye.ViewModels.AboutGiftInformationViewModel
 import com.reylortechnology.aklimdakihediye.ui.theme.backgroundLight
 import com.reylortechnology.aklimdakihediye.ui.theme.secondaryLight
+import androidx.compose.ui.res.stringResource
 
 
 class UserInfoView {
@@ -135,15 +137,18 @@ class UserInfoView {
                     TopAppBar(
                         title = {},
                         navigationIcon = {
-                            Image(
-                                painter = painterResource(R.drawable.back_icon),
-                                "back button",
-                                modifier = Modifier
-                                    .padding(10.dp)
-                                    .clickable {
-                                        viewModel.backMainMenu(navController)
-                                    }
-                            )
+                            IconButton(
+                                onClick = {
+                                    viewModel.backMainMenu(navController)
+                                }
+                            ) {
+                                Image(
+                                    painter = painterResource(R.drawable.back_icon),
+                                    "back button",
+                                    modifier = Modifier
+                                )
+                            }
+
                         },
                         colors = TopAppBarDefaults.topAppBarColors(
                             containerColor = secondaryLight
@@ -185,7 +190,7 @@ class UserInfoView {
                                     InfoScreen(
                                         modifier = Modifier
                                             .height(screenHeight * 1f),
-                                        label = context.getString(R.string.name_label),
+                                        label = stringResource(R.string.name_label),
                                         state = nameState,
                                         color = labelColor,
                                         focusRequester =  nameFocusRequester,
@@ -201,7 +206,7 @@ class UserInfoView {
                                     InfoScreen(
                                         modifier = Modifier
                                             .height(screenHeight * 1f),
-                                        label = context.getString(R.string.old_label),
+                                        label = stringResource(R.string.old_label),
                                         state = oldState,
                                         color = labelColor,
                                         focusRequester = oldFocusRequester,
@@ -217,7 +222,7 @@ class UserInfoView {
                                     InfoScreen(
                                         modifier = Modifier
                                             .height(screenHeight * 1f),
-                                        label = context.getString(R.string.best_side_label),
+                                        label = stringResource(R.string.best_side_label),
                                         state = bestSideState,
                                         color = labelColor,
                                         focusRequester = bestSideFocusRequester,
@@ -233,7 +238,7 @@ class UserInfoView {
                                     InfoScreen(
                                         modifier = Modifier
                                             .height(screenHeight * 1f),
-                                        label = context.getString(R.string.hobbies_label),
+                                        label = stringResource(R.string.hobbies_label),
                                         state = hobbiesState,
                                         color = labelColor,
                                         focusRequester = hobbiesFocusRequester,
@@ -249,7 +254,7 @@ class UserInfoView {
                                     InfoScreen(
                                         modifier = Modifier
                                             .height(screenHeight * 1f),
-                                        label = context.getString(R.string.zodiac_label),
+                                        label = stringResource(R.string.zodiac_label),
                                         state = zodiacState,
                                         color = labelColor,
                                         focusRequester = zodiacFocusRequester,
@@ -265,7 +270,7 @@ class UserInfoView {
                                     InfoScreen(
                                         modifier = Modifier
                                             .height(screenHeight * 1f),
-                                        label = context.getString(R.string.caracter_label),
+                                        label = stringResource(R.string.caracter_label),
                                         state = caracterState,
                                         color = labelColor,
                                         focusRequester = caracterFocusRequester,

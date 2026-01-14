@@ -10,7 +10,7 @@ import com.reylortechnology.aklimdakihediye.AdMob.InterstitialAdScreen
 import com.reylortechnology.aklimdakihediye.NavController.LocalNavController
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ScreenStateObservers.AboutGiftInformationScreenObserver
 import com.reylortechnology.aklimdakihediye.ViewModels.AboutGiftInformationViewModel
-import com.reylortechnology.aklimdakihediye.Views.PartScreens.DailyInfoScreen
+import com.reylortechnology.aklimdakihediye.Views.PartScreens.InformationPersonScreen
 import com.reylortechnology.aklimdakihediye.Views.PartScreens.InformationGiftScreen
 import com.reylortechnology.aklimdakihediye.Views.PartScreens.SearchResultScreen
 
@@ -36,7 +36,7 @@ import com.reylortechnology.aklimdakihediye.Views.PartScreens.SearchResultScreen
 
         when (giftInformationScreenState.value) {
             AboutGiftInformationScreenObserver.AboutPersonInformation -> {
-                DailyInfoScreen(
+                InformationPersonScreen(
                     navController = navController,
                     args = args,
                     giftInformationScreenState = giftInformationScreenState,

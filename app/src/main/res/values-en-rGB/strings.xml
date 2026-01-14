@@ -28,7 +28,7 @@
     <string name="main_row_teacher">Your Teacher</string>
     <string name="main_row_job">Coworker</string>
 
-    <string name="name_label">Whats your name? (We don’t care about your surname)</string>
+    <string name="name_label">"Whats name? "</string>
     <string name="old_label">How old are you?</string>
     <string name="best_side_label">What do people say are your good traits?</string>
     <string name="hobbies_label">What are your interests?</string>

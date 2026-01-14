@@ -29,7 +29,7 @@
     <string name="main_row_teacher">Je leraar/lerares</string>
     <string name="main_row_job">Collega</string>
 
-    <string name="name_label">Wat is jouw naam? (We hebben je achternaam niet nodig)</string>
+    <string name="name_label">"Wat is jouw naam? "</string>
     <string name="old_label">Hoe oud ben jij?</string>
     <string name="best_side_label">Wat zeggen mensen over jouw goede eigenschappen?</string>
     <string name="hobbies_label">Wat zijn jouw interesses?</string>

@@ -29,7 +29,7 @@
     <string name="main_row_teacher">Учител</string>
     <string name="main_row_job">Колега</string>
 
-    <string name="name_label">Как се казваш? (Не ни трябва фамилията ти)</string>
+    <string name="name_label">Как се казваш?</string>
     <string name="old_label">На колко години си?</string>
     <string name="best_side_label">Какво казват хората за твоите добри качества?</string>
     <string name="hobbies_label">Какви са твоите интереси?</string>

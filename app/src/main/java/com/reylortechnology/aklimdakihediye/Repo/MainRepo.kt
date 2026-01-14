@@ -107,8 +107,8 @@ class MainRepo
         }
     }
     suspend fun askGemini(prompt: String): Flow<ApiResponse<GeminiResponse>> = safeApiCall {
-        val GEMINI_API_KEY = BuildConfig.API_KEY
-        val MODEL_ID = "gemini-2.0-flash"
+        val GEMINI_API_KEY = BuildConfig.GEMINI_API_KEY
+        val MODEL_ID = "gemini-2.5-flash-lite"
         val GENERATE_CONTENT_API = "generateContent"
         client.post(
             "${BuildConfig.BASE_URL}v1beta/models/${MODEL_ID}:${GENERATE_CONTENT_API}?key=${GEMINI_API_KEY}"

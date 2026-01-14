@@ -1,7 +1,6 @@
 package com.reylortechnology.aklimdakihediye.Views.MainScreens
 
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,24 +18,21 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -44,7 +40,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -134,14 +130,6 @@ class UserMainView {
             if (!isLoading.value) {
                 infoScreen.value.let { event->
                     when(event){
-                        is ToScreenObserver.ForAnotherInformation -> {
-                            viewModel.navigateFromColumn(
-                                navController,
-                                event.forDay,
-                                event.source,
-                                "ForAnother",
-                            )
-                        }
                         is ToScreenObserver.NewInformation -> {
                             viewModel.navigateFromColumn(
                                 navController,
@@ -209,65 +197,61 @@ class UserMainView {
         when (isLoading.value) {
             true -> LoadingScreen(modifier = Modifier.fillMaxSize())
 
-            false -> SuccesLoading(navController, infoScreen, viewModel)
+            false -> SuccessLoading(navController, viewModel)
         }
     }
 }
 
 @Composable
-fun SuccesLoading(
+fun SuccessLoading(
     navController: NavController,
-    infoScreen: State<ToScreenObserver>,
     viewModel: UserMainViewModel
 ) {
-    var showAd by remember { mutableStateOf(true) }
-    val userInformation = viewModel.userInformation.collectAsState()
     val context = LocalContext.current
-    val forWhoState = viewModel.forWhoState.collectAsState()
 
     val rowList = listOf(
         UserMainRowListItems(
             source =  R.raw.lover_anim,
-            text = context.getString(R.string.main_row_love)
+            text = stringResource(R.string.main_row_love)
         ),
         UserMainRowListItems(
            source =   R.raw.friend_row,
-           text =  context.getString(R.string.main_row_friend)
+           text =  stringResource(R.string.main_row_friend)
         ),
         UserMainRowListItems(
             source =  R.raw.teacher_row,
-            text =  context.getString(R.string.main_row_teacher)
+            text =  stringResource(R.string.main_row_teacher)
         ),
         UserMainRowListItems(
             source =  R.raw.job_friend,
-            text =  context.getString(R.string.main_row_job)
+            text =  stringResource(R.string.main_row_job)
         )
     )
 
     val buttonList = listOf<UserMainListItems>(
         UserMainListItems(
-            context.getString(R.string.main_list_father),
+            stringResource(R.string.main_list_father),
             R.raw.fathers_anim,
             MaterialTheme.colorScheme.secondary,
-            context.getString(R.string.main_list_father_card)
+            stringResource(R.string.main_list_father_card)
         ),
         UserMainListItems(
-            context.getString(R.string.main_list_mother),
+            stringResource(R.string.main_list_mother),
             R.raw.mother,
             MaterialTheme.colorScheme.secondary,
-            context.getString(R.string.main_list_mother_card)
+            stringResource(R.string.main_list_mother_card)
         ),
         UserMainListItems(
-            context.getString(R.string.main_list_lover),
+            stringResource(R.string.main_list_lover),
             R.raw.lover_anim,
             MaterialTheme.colorScheme.secondary,
-            context.getString(R.string.main_list_lover_card)
+            stringResource(R.string.main_list_lover_card)
         ),
         UserMainListItems(
-            context.getString(R.string.main_list_women),
+            stringResource(R.string.main_list_women),
             R.raw.woman_anim,
             MaterialTheme.colorScheme.secondary,
-            context.getString(R.string.main_list_women_card)
+            stringResource(R.string.main_list_women_card)
         )
     )
     val screenConfig = LocalConfiguration.current
@@ -383,7 +367,8 @@ fun SuccesLoading(
                             .fillMaxHeight()
                             .paint(
                                 painter = painterResource(R.drawable.down_navigation),
-                                contentScale = ContentScale.FillWidth
+                                contentScale = ContentScale.FillWidth,
+                                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.surfaceTint)
                             )
                             .padding(start = 20.dp, end = 20.dp),
                         verticalAlignment = Alignment.CenterVertically,
@@ -396,26 +381,18 @@ fun SuccesLoading(
                                 .clickable {
                                     navController.navigate(LocalNavController.SavedVariablesScreen)
                                 },
-                            R.drawable.saved_variables
+                            R.drawable.save_icon
                         )
-                        Box(
+                        NavigationButton(
                             modifier = Modifier
                                 .size(75.dp)
-                                .padding(8.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Image(
-                                painter = painterResource(R.drawable.logo),
-                                "",
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .clip(CircleShape)
-                                    .clickable{
-                                        navController.navigate(LocalNavController.SpecialDaysScreen)
-                                    }
-                            )
-                        }
+                                .padding(8.dp)
+                                .clickable{
+                                    navController.navigate(LocalNavController.SpecialDaysScreen)
+                                },
+                            source = R.drawable.notification_icon,
+
+                        )
 
                         NavigationButton(
                             modifier = Modifier
@@ -424,7 +401,7 @@ fun SuccesLoading(
                                 .clickable {
                                     navController.navigate(LocalNavController.UserSettingsScreen)
                                 },
-                            R.drawable.settings_navigation
+                            R.drawable.user_settings_icon
                         )
                     }
                 }

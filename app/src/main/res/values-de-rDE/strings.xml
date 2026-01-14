@@ -29,7 +29,7 @@
     <string name="main_row_teacher">Dein Lehrer</string>
     <string name="main_row_job">Arbeitskollege</string>
 
-    <string name="name_label">Wie heißt du? (Nachnamen interessieren uns nicht)</string>
+    <string name="name_label">Wie heißt du?</string>
     <string name="old_label">Wie alt bist du?</string>
     <string name="best_side_label">Was sagen andere über deine guten Seiten?</string>
     <string name="hobbies_label">Was sind deine Interessen?</string>
