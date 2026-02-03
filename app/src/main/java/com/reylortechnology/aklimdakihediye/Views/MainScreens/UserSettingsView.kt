@@ -168,7 +168,7 @@ fun UserSettingsWithDataScreen(
     }
 
     val characterState = remember(originalUserData) {
-        mutableStateOf(originalUserData.caracter)
+        mutableStateOf(originalUserData.character)
     }
 
     val userOldState = remember(originalUserData) {
@@ -187,7 +187,7 @@ fun UserSettingsWithDataScreen(
         derivedStateOf {
             userNameState.value != originalUserData.name ||
                     userHobbiesState.value != originalUserData.hobbies ||
-                    characterState.value != originalUserData.caracter ||
+                    characterState.value != originalUserData.character ||
                     userOldState.value != originalUserData.old.toString()||
                     userZodiacState.value != originalUserData.zodiac ||
                     userBestSideState.value != originalUserData.bestSide
@@ -377,7 +377,7 @@ fun UserSettingsWithDataScreen(
                                 uid = userInformation.value.get(0).uid,
                                 name = userNameState.value,
                                 hobbies = userHobbiesState.value,
-                                caracter = characterState.value,
+                                character = characterState.value,
                                 old = userOldState.value.toInt(),
                                 zodiac = userZodiacState.value,
                                 bestSide = userBestSideState.value

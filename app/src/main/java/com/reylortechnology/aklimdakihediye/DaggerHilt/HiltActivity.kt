@@ -6,11 +6,13 @@ import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.NotificationsDao
+import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.PeoplesDao
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.SavedGiftDao
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.UserInformationDao
 import com.reylortechnology.aklimdakihediye.LocalDatabase.LocalDatabase
 import com.reylortechnology.aklimdakihediye.Repo.MainRepo
 import com.reylortechnology.aklimdakihediye.Repo.NotificationsRepo
+import com.reylortechnology.aklimdakihediye.Repo.PeopleRepo
 import com.reylortechnology.aklimdakihediye.Repo.SavedVariableRepo
 import com.reylortechnology.aklimdakihediye.Repo.UserSettingsRepo
 import dagger.Module
@@ -43,7 +45,7 @@ object DatabaseModule {
             LocalDatabase::class.java,
             "app_database"
         )
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration(false)
             .build()
     }
 
@@ -74,12 +76,28 @@ object DatabaseModule {
         giftDao : SavedGiftDao,
         userDao : UserInformationDao,
     ) : UserSettingsRepo{
-        return (UserSettingsRepo(userDao,giftDao))
+        return UserSettingsRepo(userDao,giftDao)
     }
 
     @Provides
-    fun provideUserRepository(savedVariableDao: SavedVariableRepo,userDao: UserInformationDao,client: HttpClient): MainRepo {
-        return MainRepo(userDao,savedVariableDao,client)
+    fun providePeopleDao(database: LocalDatabase) : PeoplesDao{
+        return database.peoplesDao()
+    }
+    @Provides
+    fun provideUserRepository(
+        savedVariableDao: SavedVariableRepo,
+        userDao: UserInformationDao,
+        client: HttpClient,
+        providePeopleDao: PeoplesDao
+    ): MainRepo {
+        return MainRepo(userInformationDao = userDao, giftInformationDao = savedVariableDao, peopleInformationDao = providePeopleDao, client = client)
+    }
+
+    @Provides
+    fun providePeopleRope(
+        peopleDao : PeoplesDao
+    ): PeopleRepo{
+        return PeopleRepo(peoplesDao = peopleDao)
     }
 
     @Provides

@@ -21,7 +21,7 @@ class UserSettingsRepo
                 guid = localUserInformation.uid,
                 zodiac = localUserInformation.zodiac,
                 old = localUserInformation.old,
-                caracter = localUserInformation.caracter,
+                caracter = localUserInformation.character,
                 hobbies = localUserInformation.hobbies
             )
         }catch (e: Exception){

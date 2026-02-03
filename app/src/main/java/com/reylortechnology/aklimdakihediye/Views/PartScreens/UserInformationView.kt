@@ -342,7 +342,7 @@ fun UserInformationView(
                                             LocalUserInformation(
                                                 name = nameState.value,
                                                 old = oldState.value.toInt(),
-                                                caracter = caracterState.value,
+                                                character = caracterState.value,
                                                 hobbies = hobbiesState.value,
                                                 bestSide = bestSideState.value,
                                                 zodiac = zodiacState.value

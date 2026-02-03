@@ -2,31 +2,46 @@ package com.reylortechnology.aklimdakihediye.Compose
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
@@ -40,33 +55,162 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.drawOutline
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.SavedGifts
 import com.reylortechnology.aklimdakihediye.ObserverClasses.RelationshipStatus
 import com.reylortechnology.aklimdakihediye.models.ComposeModels.SearchCardModel
-import com.reylortechnology.aklimdakihediye.R
 import com.reylortechnology.aklimdakihediye.ui.theme.onSurfaceLight
-import com.reylortechnology.aklimdakihediye.ui.theme.primaryContainerDark
-import com.reylortechnology.aklimdakihediye.ui.theme.primaryContainerLight
-import com.reylortechnology.aklimdakihediye.ui.theme.primaryLight
-import com.reylortechnology.aklimdakihediye.ui.theme.secondaryLight
-import com.reylortechnology.aklimdakihediye.ui.theme.surfaceContainerDark
-import com.reylortechnology.aklimdakihediye.ui.theme.surfaceContainerLight
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import androidx.core.net.toUri
+import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.Peoples
+import com.reylortechnology.aklimdakihediye.R
+import com.reylortechnology.aklimdakihediye.models.Enums.AgeDescStates
 
 
+@Composable
+fun AgeDescSurface(
+    modifier: Modifier = Modifier,
+    ageState : AgeDescStates,
+) {
+
+    val targetColor = ageState.color
+
+    val animatedColor by animateColorAsState(
+        targetValue = targetColor,
+        animationSpec = tween(durationMillis = 500), // 500ms sürede renk değişsin
+        label = "ColorAnimation"
+    )
+    Surface(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.medium,
+        border = BorderStroke(5.dp,Color.White),
+        shadowElevation = 5.dp,
+        color = animatedColor
+    ) {
+        AnimatedContent(
+            targetState = ageState,
+            transitionSpec = {
+                (slideInVertically { height-> height } + fadeIn()).togetherWith(
+                    slideOutVertically { fullHeight -> fullHeight } + fadeOut()
+                )
+            }
+        ) {
+            when(it){
+                AgeDescStates.Child -> {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(it.iconSource),
+                            "",
+                            modifier = Modifier
+                                .fillMaxHeight(0.5f)
+                                .aspectRatio(1f),
+                        )
+                        Text(
+                            text = stringResource(it.text),
+                            modifier = Modifier
+                                .weight(1f),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
+                AgeDescStates.Teen -> {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(it.iconSource),
+                            "",
+                            modifier = Modifier
+                                .fillMaxHeight(0.5f)
+                                .aspectRatio(1f),
+                        )
+                        Text(
+                            text = stringResource(it.text),
+                            modifier = Modifier
+                                .weight(1f),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
+                AgeDescStates.Adult -> {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(it.iconSource),
+                            "",
+                            modifier = Modifier
+                                .fillMaxHeight(0.5f)
+                                .aspectRatio(1f),
+                        )
+                        Text(
+                            text = stringResource(it.text),
+                            modifier = Modifier
+                                .weight(1f),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
+                AgeDescStates.Older -> {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(it.iconSource),
+                            "",
+                            modifier = Modifier
+                                .fillMaxHeight(0.5f)
+                                .aspectRatio(1f),
+                        )
+                        Text(
+                            text = stringResource(it.text),
+                            modifier = Modifier
+                                .weight(1f),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
 @Composable
 fun StepperIndicator(currentStep: Int, modifier: Modifier, totalSteps: Int) {
     Row(
@@ -216,6 +360,95 @@ fun DatePickerView(
 
 
 @Composable
+fun MainPeopleCard(
+    modifier: Modifier = Modifier,
+    peoples: Peoples
+) {
+    val darkTheme = isSystemInDarkTheme()
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(0.5f)
+                .aspectRatio(1f)
+                .border(
+                    8.dp,
+                    brush = Brush.radialGradient(
+                        0.7f to peoples.color,
+                        1f to peoples.color.copy(alpha = 0.1f)
+                    ),
+                    shape = CircleShape
+                )
+                .padding(8.dp)
+                .clip(CircleShape)
+        ){
+            Image(
+                painter = painterResource(id = peoples.image),
+                contentDescription = "People Image",
+                modifier = Modifier,
+                contentScale = ContentScale.Crop
+            )
+        }
+
+        Text(
+            text = peoples.peopleName,
+            style = MaterialTheme.typography.labelMedium.copy(fontSize = 26.sp),
+            color = if (darkTheme) Color.White else Color.Black
+        )
+    }
+}
+
+@Composable
+fun AddMainPeopleCard(
+    modifier : Modifier = Modifier,
+){
+    val darkTheme = isSystemInDarkTheme()
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.SpaceAround,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .aspectRatio(1f)
+                .clip(CircleShape)
+                .drawBehind {
+                    val stroke = Stroke(
+                        width = 10f,
+                        pathEffect = PathEffect.dashPathEffect(
+                            intervals = floatArrayOf(15f, 10f),
+                            phase = 0f
+                        )
+                    )
+                    drawOutline(
+                        outline = CircleShape.createOutline(size, layoutDirection, this),
+                        color = if (darkTheme) Color.White else Color.Black,
+                        style = stroke
+                    )
+
+                },
+            contentAlignment = Alignment.Center
+        ){
+            Text("+",
+                modifier = Modifier.align(Alignment.Center),
+                fontSize = 50.sp,
+                textAlign = TextAlign.Center
+                )
+        }
+        Text(
+            text = stringResource(R.string.new_label),
+            modifier = Modifier
+                .fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            color = if (darkTheme) Color.White else Color.Black
+        )
+    }
+}
+@Composable
 fun specialDayRelationshipCard(
     modifier: Modifier = Modifier,
     videoSource: Int,
@@ -282,12 +515,6 @@ fun specialDayRelationshipCard(
             )
         }
     }
-}
-
-@Preview
-@Composable
-private fun preview() {
-
 }
 
 @Composable
@@ -535,7 +762,7 @@ fun SavedGiftCard(
 
             Button(
                 onClick = {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(gift.giftUrl))
+                    val intent = Intent(Intent.ACTION_VIEW, gift.giftUrl.toUri())
                     context.startActivity(intent)
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -552,6 +779,11 @@ fun SavedGiftCard(
         }
     }
 }
+
+/*
+
+
+DEPRECETED AFTER USER SETTİNGS UPDATE
 
 @Composable
 fun UserInformationPlace(
@@ -573,4 +805,24 @@ fun UserInformationPlace(
             )
         }
     }
+}
+*/
+@Preview
+@Composable
+private fun CardPreviewAdd() {
+    MainPeopleCard(
+        modifier = Modifier,
+        peoples = Peoples(
+            1,
+            "Ahmet",
+            24,
+            "Terazi",
+            "Harika",
+            "Harika",
+            "Harika",
+            "Aşçı",
+            R.drawable.man_1,
+            Color.Cyan
+        )
+    )
 }

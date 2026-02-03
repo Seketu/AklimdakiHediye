@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -21,6 +22,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.reylortechnology.aklimdakihediye.R
@@ -150,83 +152,38 @@ fun InfoScreen(
 @Composable
 fun ZodiacInfoScreen(
     modifier: Modifier = Modifier,
-    zodiacStatus: MutableState<ZodiacStatus>
+    zodiacStatus: MutableState<ZodiacStatus>,
+    buttonHeigh : Dp = 75.dp
 ) {
 
-    val zodiacList = listOf<Triple<Int, String, ZodiacStatus>>(
-        Triple(R.drawable.libra, stringResource(R.string.zodiac_name_libra), ZodiacStatus.Libra),
-        Triple(R.drawable.virgo, stringResource(R.string.zodiac_name_virgo), ZodiacStatus.Virgo),
-        Triple(
-            R.drawable.scorpio, stringResource(R.string.zodiac_name_scorpio), ZodiacStatus.Scorpio
-        ),
-        Triple(
-            R.drawable.sagittarius,
-            stringResource(R.string.zodiac_name_sagittarius),
-            ZodiacStatus.Sagittarius
-        ),
-        Triple(
-            R.drawable.capricorn,
-            stringResource(R.string.zodiac_name_capricon),
-            ZodiacStatus.Capricorn
-        ),
-        Triple(
-            R.drawable.aquarius_,
-            stringResource(R.string.zodiac_name_aquarius),
-            ZodiacStatus.Aquarius
-        ),
-        Triple(R.drawable.pisces, stringResource(R.string.zodiac_name_pisces), ZodiacStatus.Pisces),
-        Triple(R.drawable.aries, stringResource(R.string.zodiac_name_aries), ZodiacStatus.Aries),
-        Triple(R.drawable.taurus, stringResource(R.string.zodiac_name_taurus), ZodiacStatus.Taurus),
-        Triple(R.drawable.gemini, stringResource(R.string.zodiac_name_gemini), ZodiacStatus.Gemini),
-        Triple(R.drawable.cancer, stringResource(R.string.zodiac_name_cancer), ZodiacStatus.Cancer),
-        Triple(R.drawable.leo, stringResource(R.string.zodiac_name_leo), ZodiacStatus.Leo)
-    )
-
-
+    val zodiacList = remember {
+        ZodiacStatus.entries.filter { it != ZodiacStatus.None }
+    }
+    val chunks = zodiacList.chunked(6)
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        val firstList = zodiacList.subList(0, 6)
-        val secondList = zodiacList.subList(6, 12)
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .fillMaxHeight(),
-            verticalArrangement = Arrangement.SpaceAround,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            firstList.forEach { zodiacPair ->
-                ZodiacButton(
-                    modifier = Modifier
-                        .fillMaxWidth(0.95f)
-                        .height(75.dp),
-                    imageSource = zodiacPair.first,
-                    zodiacName = zodiacPair.second,
-                    checkBoxState = zodiacStatus,
-                    boxZodiac = zodiacPair.third
-                )
-            }
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(),
-            verticalArrangement = Arrangement.SpaceAround,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            secondList.forEach { zodiacPair ->
-                ZodiacButton(
-                    modifier = Modifier
-                        .fillMaxWidth(0.95f)
-                        .height(75.dp),
-                    imageSource = zodiacPair.first,
-                    zodiacName = zodiacPair.second,
-                    checkBoxState = zodiacStatus,
-                    boxZodiac = zodiacPair.third
-                )
+        chunks.forEach { columnItems ->
+            Column(
+                modifier = Modifier
+                    .weight(1f) // fillMaxWidth(0.5f) yerine weight daha stabildir
+                    .fillMaxHeight(),
+                verticalArrangement = Arrangement.SpaceAround,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                columnItems.forEach { status ->
+                    ZodiacButton(
+                        modifier = Modifier
+                            .fillMaxWidth(0.95f)
+                            .height(buttonHeigh),
+                        imageSource = status.iconRes,
+                        zodiacName = stringResource(status.nameRes),
+                        checkBoxState = zodiacStatus,
+                        boxZodiac = status
+                    )
+                }
             }
         }
     }

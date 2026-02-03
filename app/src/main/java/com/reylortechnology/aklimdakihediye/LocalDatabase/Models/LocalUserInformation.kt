@@ -19,5 +19,5 @@ class LocalUserInformation(
     @ColumnInfo("user_zodiac")
     val zodiac : String,
     @ColumnInfo("user_caracter")
-    val caracter : String
+    val character : String
 )

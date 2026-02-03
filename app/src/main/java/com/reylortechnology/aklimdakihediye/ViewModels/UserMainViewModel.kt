@@ -17,6 +17,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,6 +40,11 @@ class UserMainViewModel
     private var _showAlert = MutableStateFlow<Boolean>(true)
     val showAlert = _showAlert.asStateFlow()
 
+    val peoplesInformation = mainRepo.peoplesInformation.stateIn(
+        viewModelScope,
+        kotlinx.coroutines.flow.SharingStarted.Lazily,
+        emptyList()
+    )
     private var _toInfoScreen = MutableStateFlow<ToScreenObserver>(ToScreenObserver.none)
     val infoScreen = _toInfoScreen.asStateFlow()
 
@@ -186,6 +192,10 @@ class UserMainViewModel
     }
     fun clearNavigationEvent() {
         _toInfoScreen.value = ToScreenObserver.none
+    }
+
+    fun addNewPeople() {
+
     }
 
 }

@@ -176,7 +176,7 @@ class AboutGiftInformationViewModel
             append("Burç: ${_userInformation.value?.zodiac}\n")
             append("İyi Yönler: ${_userInformation.value?.bestSide}\n")
             append("Hobiler: ${_userInformation.value?.hobbies}\n")
-            append("Karakter Özellikleri: ${_userInformation.value?.caracter}\n")
+            append("Karakter Özellikleri: ${_userInformation.value?.character}\n")
 
             append("\nHediye Alınacak Kişi Hakkında Bilgiler:\n")
             append("İsim: ${personInformation.value!!.name}\n")

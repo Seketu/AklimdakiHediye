@@ -62,6 +62,9 @@ dependencies {
     //Okhttp dependicies
     implementation(libs.okhttp)
 
+    //Google Fonts
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.10.1")
+
     // ktor
     implementation(platform(libs.ktor.bom))
     implementation(libs.ktor.ktor.client.android)
@@ -71,6 +74,7 @@ dependencies {
     implementation(libs.ktor.ktor.serialization.kotlinx.json)
     implementation (libs.ktor.client.plugins)
     implementation (libs.ktor.client.cio)
+    implementation(libs.androidx.compose.material3)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.junit.jupiter)
 

@@ -1,5 +1,64 @@
 package com.reylortechnology.aklimdakihediye.ui.theme
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+
+
+val profileColorsYellow = Color(0xFFB4B769)
+val profileColorsBlue = Color(0xFF283AA9)
+val profileColorsGreen = Color(0xFF31A11C)
+val profileColorsPurple = Color(0xFFA6209E)
+val profileColorsTurquoise = Color(0xFF3C9BA6)
+val profileColorsBrown = Color(0xFF865F23)
+val profileColorsBlack = Color(0xFF3B2505)
+val profileColorsLightBrown = Color(0xFFD09E57)
+val profileColorsDarkGreen = Color(0xFF045002)
+
+val adultCardBg = Color(0xFF63BC66)
+val olderCardBg = Color(0xFF418B44)
+val childCardBg = Color(0xFFCAE6FF)
+val teenCardBg = Color(0xFF6392BC)
+
+val fatherCardBg = Brush.linearGradient(
+    colors = listOf(
+        Color(0xFF013A6B),
+        Color(0xFF000830)
+    )
+)
+val motherCardBg = Brush.linearGradient(
+    colors = listOf(
+        Color(0xFF6B0166),
+        Color(0xFF1E0030)
+    )
+)
+val loverCardBg = Brush.linearGradient(
+    colors = listOf(
+        Color(0xFF6B0101),
+        Color(0xFF300000)
+    )
+)
+val womenCardBg = Brush.linearGradient(
+    colors = listOf(
+        Color(0xFF46016B),
+        Color(0xFF090030)
+    )
+)
+
+val saveDialogBg = Brush.linearGradient(
+    listOf(
+        Color(0xFF278F89),
+        Color(0xFF1D4442)
+    ))
+val onSaveDialogBg = Color(0xFFECECEC)
+val stylizedRed = Color(0xBF9D2424)
+
+val stylizedYellow = Color(0xFFFFEAAF)
+
+val mainRowCardBg = Brush.verticalGradient(
+    colors = listOf(
+        Color(0xFF016B5D),
+        Color(0xFF00302A)
+    )
+)
 
 val primaryLight = Color(0xFF016B5D)
 val onPrimaryLight = Color(0xFFFFFFFF)

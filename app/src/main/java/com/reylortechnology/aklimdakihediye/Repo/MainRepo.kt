@@ -10,6 +10,7 @@ import com.reylortechnology.aklimdakihediye.Internet.Models.GeminiModels.GeminiR
 import com.reylortechnology.aklimdakihediye.Internet.Models.GeminiModels.GenerationConfig
 import com.reylortechnology.aklimdakihediye.Internet.Models.GeminiModels.Part
 import com.reylortechnology.aklimdakihediye.Internet.safeApiCall
+import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.PeoplesDao
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.UserInformationDao
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.LocalUserInformation
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.SavedGifts
@@ -33,12 +34,13 @@ import javax.inject.Inject
 
 class MainRepo
 @Inject constructor(
-    private val userInformationDao: UserInformationDao,
-    private val giftInformationDao: SavedVariableRepo,
+    private val userInformationDao : UserInformationDao,
+    private val giftInformationDao : SavedVariableRepo,
+    private val peopleInformationDao : PeoplesDao,
     val client: HttpClient
 ) {
     val getUserInformation = userInformationDao.getLocalInformation().flowOn(Dispatchers.IO)
-
+    val peoplesInformation = peopleInformationDao.getAllPeoples().flowOn(Dispatchers.IO)
     suspend fun addInformation(userInformation: LocalUserInformation) {
         userInformationDao.addLocalInformation(userInformation)
     }

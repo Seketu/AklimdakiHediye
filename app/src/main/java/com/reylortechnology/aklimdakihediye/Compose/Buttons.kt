@@ -1,28 +1,48 @@
 package com.reylortechnology.aklimdakihediye.Compose
 
+import android.util.Log
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.LocalMinimumInteractiveComponentEnforcement
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,13 +51,117 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ZodiacStatus
+import com.reylortechnology.aklimdakihediye.R
+import com.reylortechnology.aklimdakihediye.models.Enums.ProfileColors
 import com.reylortechnology.aklimdakihediye.ui.theme.onSecondaryLight
 import com.reylortechnology.aklimdakihediye.ui.theme.outlineLight
 
+
+@Composable
+fun ColorButton(
+    modifier: Modifier = Modifier,
+    color : ProfileColors,
+    isSelected : Boolean,
+    onColorChange : (Color)-> Unit
+) {
+    val border = if (isSelected) BorderStroke(3.dp, Color.White) else BorderStroke(0.dp, Color.Transparent)
+    Box(
+        modifier = modifier
+            .background(
+                color = color.color,
+                shape = CircleShape
+            )
+            .clip(CircleShape)
+            .border(
+                border = border,
+                shape = CircleShape,
+            )
+            .clickable(
+                onClick = {
+                    onColorChange.invoke(color.color)
+                    Log.d("Selected Color " , color.toString())
+                }
+            )
+    )
+}
+@Composable
+fun ColoredCheckBox(
+    modifier: Modifier = Modifier,
+    text: String,
+    selectedValue : Boolean,
+    selectedColor : Color = MaterialTheme.colorScheme.primary,
+    onSelectedColor : Color = MaterialTheme.colorScheme.onPrimary,
+    prefixImage : Int? = null,
+    onCheckedChange : (Boolean) -> Unit,
+) {
+    val animatedContainerColor by animateColorAsState(
+        targetValue = if (!selectedValue) Color.White else selectedColor,
+        animationSpec = tween(durationMillis = 300),
+        label = "Container Color anim"
+    )
+
+    val animatedContentColor by animateColorAsState(
+        targetValue = if (!selectedValue) Color.Black else onSelectedColor,
+        animationSpec = tween(durationMillis = 300),
+        label = "Content Color Anim"
+    )
+        Surface(
+            modifier = modifier
+                .clip(androidx.compose.material.MaterialTheme.shapes.small)
+                .clickable(
+                    onClick = {
+                        onCheckedChange(!selectedValue)
+                    }
+                ),
+            shape = MaterialTheme.shapes.small,
+            color = animatedContainerColor,
+            border = BorderStroke(2.dp , color = animatedContentColor),
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(vertical = 5.dp, horizontal = 5.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (
+                    prefixImage != null
+                ){
+                    Image(
+                        painter = painterResource(prefixImage),
+                        "",
+                        contentScale = ContentScale.FillHeight,
+                        modifier = Modifier
+                            .size(15.dp)
+                            .aspectRatio(1f)
+                    )
+                }
+                Text(
+                    text,
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.labelSmall,
+                    maxLines = 1,
+                    color = animatedContentColor
+                )
+
+                if (selectedValue){
+                    Icon(
+                        painter = painterResource(R.drawable.close_icon),
+                        "",
+                        tint = androidx.compose.material.MaterialTheme.colors.onPrimary,
+                        modifier = Modifier
+                            .size(10.dp)
+                    )
+                }
+            }
+
+        }
+
+}
 
 @Composable
 fun ButtonWithCheckBox(
@@ -123,7 +247,9 @@ fun MainListRowButton(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         LottieAnim(
-            modifier = Modifier.fillMaxHeight(0.8f).width(75.dp),
+            modifier = Modifier
+                .fillMaxHeight(0.8f)
+                .width(75.dp),
             source = source,
             contentScale = ContentScale.FillWidth
         )
@@ -155,7 +281,7 @@ fun MainListDailyButton(
                 .fillMaxWidth()
                 .fillMaxHeight(0.2f)
                 .padding(5.dp),
-            color = MaterialTheme.colorScheme.onSecondary,
+            color = Color.White,
             fontSize = 24.sp,
             fontFamily = FontFamily.Monospace
         )
@@ -174,7 +300,7 @@ fun MainListDailyButton(
                 textAlign = TextAlign.Start,
                 modifier = Modifier
                     .weight(1f),
-                color = MaterialTheme.colorScheme.onSecondary,
+                color = Color.White,
                 fontSize = 13.sp
             )
 
@@ -190,26 +316,40 @@ fun MainListDailyButton(
 @Composable
 fun NavigationButton(
     modifier: Modifier = Modifier,
-    source: Int
+    source: Int,
+    text: String
 ) {
-    Box(
-        modifier = modifier
-            .clip(CircleShape)
-            .background(color = MaterialTheme.colorScheme.secondary)
-            .border(2.dp, MaterialTheme.colorScheme.surface,CircleShape)
-        ,
-        contentAlignment = Alignment.Center
+
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(source),
-            "",
-            modifier = Modifier
-                .fillMaxSize(0.8f)
-                .padding(10.dp),
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSecondary),
-            contentScale = ContentScale.Fit
+
+        Box(
+            modifier = modifier
+                .background(Color.Transparent),
+            contentAlignment = Alignment.Center
+        ) {
+
+            Image(
+                painter = painterResource(source),
+                "",
+                modifier = Modifier
+                    .fillMaxSize(0.8f)
+                    .padding(2.dp),
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
+                contentScale = ContentScale.Fit
+            )
+        }
+
+        Text(
+            text = text,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onPrimary,
+            fontWeight = FontWeight.Bold
         )
     }
+
 }
 
 @Composable

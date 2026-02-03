@@ -1,5 +1,6 @@
 package com.reylortechnology.aklimdakihediye.Views.MainScreens
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
@@ -44,7 +45,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.LocalUserInformation
 import com.reylortechnology.aklimdakihediye.NavController.LocalNavController
@@ -57,9 +57,11 @@ import com.reylortechnology.aklimdakihediye.ViewModels.AboutGiftInformationViewM
 import com.reylortechnology.aklimdakihediye.ui.theme.backgroundLight
 import com.reylortechnology.aklimdakihediye.ui.theme.secondaryLight
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 
 
 class UserInfoView {
+    @SuppressLint("LocalContextGetResourceValueCall")
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun DailyAskUserInfoScreen(
@@ -362,7 +364,7 @@ class UserInfoView {
                                                             bestSide = bestSideState.value,
                                                             hobbies = hobbiesState.value,
                                                             zodiac = zodiacState.value,
-                                                            caracter = caracterState.value
+                                                            character = caracterState.value
                                                         )
                                                     )
 
@@ -376,7 +378,7 @@ class UserInfoView {
                                                             bestSide = bestSideState.value,
                                                             hobbies = hobbiesState.value,
                                                             zodiac = zodiacState.value,
-                                                            caracter = caracterState.value
+                                                            character = caracterState.value
                                                         )
                                                     )
                                                     navController.navigate(
