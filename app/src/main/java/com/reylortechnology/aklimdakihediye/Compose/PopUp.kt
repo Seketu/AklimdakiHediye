@@ -84,7 +84,6 @@ fun AddPeopleDialog(
     val density = LocalDensity.current
 
     val heightPx = windowInfo.containerSize.height
-    val widthPx = windowInfo.containerSize.width
     val screenHeight = with(density){heightPx.toDp()}
 
     val profileImages = listOf(
@@ -190,7 +189,8 @@ fun AddPeopleDialog(
                 }
 
                 //Photo Field
-                item {
+                item (
+                ){
                     PeoplePhotoSelector(
                         modifier = Modifier
                             .fillMaxWidth(0.95f)

@@ -1,13 +1,13 @@
 import java.util.Properties
+import com.android.build.api.dsl.ApplicationExtension
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    //Ksp Core Kotlin
     id("com.google.devtools.ksp")
     //hilt
-    id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
 
@@ -18,7 +18,7 @@ val localProperties = Properties().apply {
         file.inputStream().use { stream -> load(stream) }
     }
 }
-android {
+configure<ApplicationExtension> {
     namespace = "com.reylortechnology.aklimdakihediye"
     compileSdk = 36
 
@@ -45,8 +45,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true
@@ -62,8 +62,6 @@ dependencies {
     //Okhttp dependicies
     implementation(libs.okhttp)
 
-    //Google Fonts
-    implementation("androidx.compose.ui:ui-text-google-fonts:1.10.1")
 
     // ktor
     implementation(platform(libs.ktor.bom))
@@ -76,7 +74,6 @@ dependencies {
     implementation (libs.ktor.client.cio)
     implementation(libs.androidx.compose.material3)
     testImplementation(libs.junit.jupiter)
-    testImplementation(libs.junit.jupiter)
 
     //Room
     ksp(libs.androidx.room.compiler)
@@ -84,23 +81,23 @@ dependencies {
     implementation (libs.androidx.room.ktx)
 
     //jsoup
-    implementation("org.jsoup:jsoup:1.22.1")
+    implementation(libs.jsoup)
     //set theme
-    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation(libs.androidx.appcompat)
     //coil
-    implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation(libs.coil.compose)
 
     //ads
-    implementation("com.google.android.gms:play-services-ads:24.9.0")
+    implementation(libs.play.services.ads)
 
-    implementation ("com.google.accompanist:accompanist-pager:0.36.0")
-    implementation ("com.google.accompanist:accompanist-pager-indicators:0.36.0")
+    implementation (libs.accompanist.pager)
+    implementation (libs.accompanist.pager.indicators)
 
     //google fonts
-    implementation ("androidx.compose.ui:ui-text-google-fonts:1.10.0")
+    implementation (libs.androidx.ui.text.google.fonts)
 
     //icons
-    implementation("androidx.compose.material:material-icons-extended")
+    implementation(libs.androidx.compose.material.icons.extended)
 
     //hilt
     implementation(libs.hilt.android)
@@ -108,7 +105,7 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
-    implementation("com.google.auto:auto-common:1.2.2")
+    implementation(libs.auto.common)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -127,12 +124,15 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Force consistent version for concurrent-futures across app and tests
+    implementation(libs.androidx.concurrent.futures)
+    androidTestImplementation(libs.androidx.concurrent.futures)
+    androidTestImplementation(libs.androidx.concurrent.futures.ktx)
 }
-kapt {
-    correctErrorTypes = true
-}
+
 kotlin {
     compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
 }
