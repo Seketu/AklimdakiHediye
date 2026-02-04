@@ -1,7 +1,6 @@
 package com.reylortechnology.aklimdakihediye.models.Enums
 
 import androidx.annotation.DrawableRes
-import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
 import com.reylortechnology.aklimdakihediye.R

@@ -1,6 +1,7 @@
 package com.reylortechnology.aklimdakihediye.Compose
 
 import DatePickerScreen
+import android.annotation.SuppressLint
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -23,12 +24,11 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
@@ -47,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.painterResource
@@ -56,6 +57,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.Peoples
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ZodiacStatus
 import com.reylortechnology.aklimdakihediye.R
 import com.reylortechnology.aklimdakihediye.models.Enums.AgeDescStates
@@ -70,12 +72,13 @@ import java.time.LocalDate
 import java.time.Period
 
 
+@SuppressLint("LocalContextGetResourceValueCall")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddPeopleDialog(
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit,
-    onSaveClick : () -> Unit
+    onSaveClick : (Peoples) -> Unit
 ) {
     val windowInfo = LocalWindowInfo.current
     val density = LocalDensity.current
@@ -83,9 +86,8 @@ fun AddPeopleDialog(
     val heightPx = windowInfo.containerSize.height
     val widthPx = windowInfo.containerSize.width
     val screenHeight = with(density){heightPx.toDp()}
-    val screenWidth = with(density){widthPx.toDp()}
 
-    val profileImages = listOf<Int>(
+    val profileImages = listOf(
         R.drawable.man_1,
         R.drawable.man_2,
         R.drawable.woman_2,
@@ -96,7 +98,14 @@ fun AddPeopleDialog(
     val peopleName = remember {
         mutableStateOf("")
     }
+    val peopleJob = remember {
+        mutableStateOf("")
+    }
 
+    val peopleBestSide = remember {
+        mutableStateOf("")
+    }
+    
     val selectedZodiac = remember {
         mutableStateOf(ZodiacStatus.None)
     }
@@ -116,17 +125,35 @@ fun AddPeopleDialog(
     val sortedHobbies = remember(selectedHobbies.toList()) {
         Hobbies.entries.sortedByDescending { selectedHobbies.contains(it) }
     }
+    val context = LocalContext.current
+    val today = remember { LocalDate.now() }
+    var selectedDay by remember { mutableIntStateOf(1) }
+    var selectedMonth by remember { mutableIntStateOf(1) }
+    var selectedYear by remember { mutableIntStateOf(today.year) }
+
+
+    val calculatedAge = remember(selectedDay, selectedMonth, selectedYear) {
+        val today = LocalDate.now()
+
+        try {
+            val birthdate = LocalDate.of(selectedYear,selectedMonth,selectedDay)
+            if (birthdate.isAfter(today)) {
+                "0"
+            }else{
+                Period.between(birthdate,today).years.toString()
+            }
+        }catch (e : Exception){
+            Log.e("Error at take Age" , e.message.toString())
+            "0"
+        }
+    }
 
     val selectedColor = remember { mutableStateOf(ProfileColors.Brown.color) }
 
-    var selectedImageId: Int by remember { mutableStateOf(1) }
+    var selectedImageId: Int by remember { mutableIntStateOf(1) }
 
     val selectedGender = remember{
         mutableStateOf<Genders?>(null)
-    }
-
-    val selectedDate = remember {
-        mutableStateOf("Lütfen Tarih Seçiniz")
     }
 
     Dialog(
@@ -145,7 +172,7 @@ fun AddPeopleDialog(
             //Content
             LazyColumn(
                 //Todo change this after finish
-                state = rememberLazyListState(initialFirstVisibleItemIndex = 7),
+                state = rememberLazyListState(initialFirstVisibleItemIndex = 3),
                 modifier = Modifier
                     .fillMaxSize()
                     .imePadding(),
@@ -250,6 +277,110 @@ fun AddPeopleDialog(
                                             text = "Lüften Arkadaşınızın ismini yazın...",
                                             color = MaterialTheme.colorScheme.onSecondary
                                             )
+                                    }else{
+                                        innerField()
+                                    }
+                                }
+                            }
+                        },
+                        modifier = Modifier
+                            .height(screenHeight * 0.06f)
+                            .fillMaxWidth(0.89f),
+                    )
+                }
+
+                //PeopleJob Field
+                item {
+                    BasicTextField(
+                        value = peopleJob.value,
+                        onValueChange = {peopleJob.value = it},
+                        decorationBox = { innerField ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clip(shape = MaterialTheme.shapes.medium)
+                                    .background(
+                                        MaterialTheme.colorScheme.secondary
+                                    ),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxHeight()
+                                        .fillMaxWidth(0.2f)
+                                        .background(MaterialTheme.colorScheme.primary),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        "Meslek",
+                                        color = MaterialTheme.colorScheme.onPrimary
+                                    )
+                                }
+
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .padding(10.dp)
+                                ){
+                                    if (peopleJob.value.isNullOrEmpty()){
+                                        Text(
+                                            text = "Lüften Mesleğini Yazınız...",
+                                            color = MaterialTheme.colorScheme.onSecondary
+                                        )
+                                    }else{
+                                        innerField()
+                                    }
+                                }
+                            }
+                        },
+                        modifier = Modifier
+                            .height(screenHeight * 0.06f)
+                            .fillMaxWidth(0.89f),
+                    )
+                }
+
+                //People BestSize Fİeld
+                item {
+                    BasicTextField(
+                        value = peopleBestSide.value,
+                        onValueChange = {peopleBestSide.value = it},
+                        decorationBox = { innerField ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clip(shape = MaterialTheme.shapes.medium)
+                                    .background(
+                                        MaterialTheme.colorScheme.secondary
+                                    ),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxHeight()
+                                        .fillMaxWidth(0.2f)
+                                        .background(MaterialTheme.colorScheme.primary),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        "İyi Yönler",
+                                        color = MaterialTheme.colorScheme.onPrimary
+                                    )
+                                }
+
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .padding(10.dp)
+                                ){
+                                    if (peopleBestSide.value.isNullOrEmpty()){
+                                        Text(
+                                            text = "Lüften İyi Yönlerini Yazınız...",
+                                            color = MaterialTheme.colorScheme.onSecondary
+                                        )
                                     }else{
                                         innerField()
                                     }
@@ -377,27 +508,6 @@ fun AddPeopleDialog(
 
                 //BirthDay
                 item {
-                    val today = remember { LocalDate.now() }
-                    var selectedDay by remember { mutableIntStateOf(1) }
-                    var selectedMonth by remember { mutableIntStateOf(1) }
-                    var selectedYear by remember { mutableIntStateOf(today.year) }
-
-
-                    val calculatedAge = remember(selectedDay, selectedMonth, selectedYear) {
-                        val today = LocalDate.now()
-
-                        try {
-                            val birthdate = LocalDate.of(selectedYear,selectedMonth,selectedDay)
-                            if (birthdate.isAfter(today)) {
-                                "0"
-                            }else{
-                                Period.between(birthdate,today).years.toString()
-                            }
-                        }catch (e : Exception){
-                            Log.e("Error at take Age" , e.message.toString())
-                            "0"
-                        }
-                    }
 
                     val descAgedState = remember(calculatedAge) {
                         val ageInt = calculatedAge.toInt()
@@ -477,7 +587,7 @@ fun AddPeopleDialog(
                                 modifier = Modifier
                                     .fillMaxHeight()
                                     .fillMaxWidth(0.65f),
-                                {d,m,y ->
+                                onDateChange = {d,m,y ->
                                     selectedDay = d
                                     selectedMonth = m
                                     selectedYear = y
@@ -663,7 +773,17 @@ fun AddPeopleDialog(
                 item {
                     FilledTonalButton(
                         onClick = {
-
+                            onSaveClick(Peoples(
+                                peopleName = peopleName.value,
+                                age = calculatedAge.toInt(),
+                                zodiac = context.getString(selectedZodiac.value.nameRes),
+                                hobbies = selectedHobbies.toString(),
+                                bestSide = peopleBestSide.value,
+                                character = selectedCharacterTrait.toString(),
+                                job = peopleJob.value,
+                                image = selectedImageId,
+                                color = selectedColor.value
+                            ))
                         },
                         shape = MaterialTheme.shapes.small,
                         modifier = Modifier.fillMaxWidth(0.95f),
@@ -726,7 +846,7 @@ fun AlertDialog(
     confirmText : String,
     dismissText : String
 ) {
-    androidx.compose.material3.AlertDialog(
+    AlertDialog(
         onDismissRequest =  onDismissRequest,
         confirmButton = {
             Button(
@@ -762,7 +882,7 @@ fun AlertDialog(
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
-private fun private() {
+private fun PopPreview() {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {

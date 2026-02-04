@@ -2,7 +2,6 @@ package com.reylortechnology.aklimdakihediye.models.Enums
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.animation.unveilIn
 import com.reylortechnology.aklimdakihediye.R
 
 enum class Hobbies(

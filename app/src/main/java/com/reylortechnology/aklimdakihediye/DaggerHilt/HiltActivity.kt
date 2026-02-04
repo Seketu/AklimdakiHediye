@@ -3,8 +3,6 @@ package com.reylortechnology.aklimdakihediye.DaggerHilt
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.NotificationsDao
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.PeoplesDao
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.SavedGiftDao

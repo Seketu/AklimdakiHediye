@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class Peoples(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("people_id")
-    val peopleId : Int,
+    val peopleId : Int = 0,
     @ColumnInfo("name")
     val peopleName : String,
     @ColumnInfo("age")
