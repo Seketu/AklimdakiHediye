@@ -73,6 +73,7 @@ dependencies {
     implementation (libs.ktor.client.plugins)
     implementation (libs.ktor.client.cio)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.geometry)
     testImplementation(libs.junit.jupiter)
 
     //Room

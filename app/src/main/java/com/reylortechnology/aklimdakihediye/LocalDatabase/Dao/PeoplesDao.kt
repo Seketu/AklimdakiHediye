@@ -18,4 +18,6 @@ interface PeoplesDao {
 
     @Delete
     suspend fun deletePeople(peoples: Peoples)
+    @Query("SELECT * FROM peoples WHERE people_id = :peopleId")
+    suspend fun getPeopleById(peopleId: Int) : Peoples
 }

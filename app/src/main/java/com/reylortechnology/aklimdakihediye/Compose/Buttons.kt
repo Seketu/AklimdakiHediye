@@ -11,9 +11,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -23,44 +23,107 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
-import androidx.compose.material.LocalMinimumInteractiveComponentEnforcement
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextPainter.paint
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ZodiacStatus
 import com.reylortechnology.aklimdakihediye.R
+import com.reylortechnology.aklimdakihediye.models.ComposeModels.SearchCardModel
 import com.reylortechnology.aklimdakihediye.models.Enums.ProfileColors
-import com.reylortechnology.aklimdakihediye.ui.theme.onSecondaryLight
-import com.reylortechnology.aklimdakihediye.ui.theme.outlineLight
+import com.reylortechnology.aklimdakihediye.ui.theme.JustAnotherHandFont
+import com.reylortechnology.aklimdakihediye.ui.theme.OleoScript
+import com.reylortechnology.aklimdakihediye.ui.theme.OrelegaOneRegular
 
+
+@Composable
+fun SearchCard(
+    modifier: Modifier = Modifier,
+    searchCardModel: SearchCardModel,
+    onBuyButton : () -> Unit,
+    onSaveButton : () -> Unit
+) {
+    Box(
+        modifier = modifier
+            .clip(
+                shape = MaterialTheme.shapes.large
+            )
+    ){
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.secondaryContainer)
+                .padding(horizontal = 3.dp)
+        ){
+            AsyncImage(
+                model = searchCardModel.imageUrl,
+                contentDescription = "Search Card Image",
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
+            )
+            Text(
+                text = searchCardModel.name,
+                style = MaterialTheme.typography.bodyMedium,
+                )
+
+            Text(
+                searchCardModel.price,
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+            )
+
+            Button(
+                onClick = {
+                    onBuyButton()
+                },
+                modifier = Modifier
+                    .defaultMinSize(minWidth = 0.dp, minHeight = 0.dp)
+                    .fillMaxWidth(0.85f)
+                    .fillMaxHeight(0.5f)
+                    .align(Alignment.CenterHorizontally),
+                contentPadding = PaddingValues(vertical = 1.dp)
+            ) {
+                Text(
+                    text = "Göz At",
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1
+                    )
+            }
+        }
+    }
+
+}
 
 @Composable
 fun ColorButton(
@@ -84,7 +147,7 @@ fun ColorButton(
             .clickable(
                 onClick = {
                     onColorChange.invoke(color.color)
-                    Log.d("Selected Color " , color.toString())
+                    Log.d("Selected Color ", color.toString())
                 }
             )
     )
@@ -93,76 +156,152 @@ fun ColorButton(
 fun ColoredCheckBox(
     modifier: Modifier = Modifier,
     text: String,
-    selectedValue : Boolean,
-    selectedColor : Color = MaterialTheme.colorScheme.primary,
-    onSelectedColor : Color = MaterialTheme.colorScheme.onPrimary,
-    prefixImage : Int? = null,
-    onCheckedChange : (Boolean) -> Unit,
+    selectedValue: Boolean,
+    selectedColor: Color = MaterialTheme.colorScheme.primary,
+    onSelectedColor: Color = MaterialTheme.colorScheme.onPrimary,
+    prefixImage: Int? = null,
+    onCheckedChange: (Boolean) -> Unit,
 ) {
     val animatedContainerColor by animateColorAsState(
         targetValue = if (!selectedValue) Color.White else selectedColor,
         animationSpec = tween(durationMillis = 300),
-        label = "Container Color anim"
+        label = "Container Color"
     )
 
     val animatedContentColor by animateColorAsState(
         targetValue = if (!selectedValue) Color.Black else onSelectedColor,
         animationSpec = tween(durationMillis = 300),
-        label = "Content Color Anim"
+        label = "Content Color"
     )
-        Surface(
-            modifier = modifier
-                .clip(androidx.compose.material.MaterialTheme.shapes.small)
-                .clickable(
-                    onClick = {
-                        onCheckedChange(!selectedValue)
-                    }
-                ),
-            shape = MaterialTheme.shapes.small,
-            color = animatedContainerColor,
-            border = BorderStroke(2.dp , color = animatedContentColor),
-        ) {
-            Row(
-                modifier = Modifier
-                    .padding(vertical = 5.dp, horizontal = 5.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (
-                    prefixImage != null
-                ){
-                    Image(
-                        painter = painterResource(prefixImage),
-                        "",
-                        contentScale = ContentScale.FillHeight,
-                        modifier = Modifier
-                            .size(15.dp)
-                            .aspectRatio(1f)
-                    )
-                }
-                Text(
-                    text,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.labelSmall,
-                    maxLines = 1,
-                    color = animatedContentColor
-                )
 
-                if (selectedValue){
-                    Icon(
-                        painter = painterResource(R.drawable.close_icon),
-                        "",
-                        tint = androidx.compose.material.MaterialTheme.colors.onPrimary,
-                        modifier = Modifier
-                            .size(10.dp)
+    Row(
+        modifier = modifier
+            .clip(MaterialTheme.shapes.small)
+            .clickable { onCheckedChange(!selectedValue) }
+            .background(animatedContainerColor)
+            .border(
+                width = 2.dp,
+                color = animatedContentColor,
+                shape = MaterialTheme.shapes.small
+            )
+            .padding(vertical = 5.dp, horizontal = 5.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (prefixImage != null) {
+            Image(
+                painter = painterResource(prefixImage),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(35.dp),
+                contentScale = ContentScale.Fit
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+        }
+
+        Text(
+            text = text,
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.bodyLarge,
+            maxLines = 1,
+            color = animatedContentColor
+        )
+
+        if (selectedValue) {
+            Spacer(modifier = Modifier.width(4.dp))
+            Icon(
+                painter = painterResource(R.drawable.close_icon),
+                contentDescription = null,
+                tint = animatedContentColor,
+                modifier = Modifier.size(10.dp)
+            )
+        }
+    }
+}
+
+
+@Composable
+fun ButtonRectangleSelectedBox(
+    modifier: Modifier = Modifier,
+    imageSource : Int,
+    text : String,
+    onClick: () -> Unit,
+    isSelected: Boolean
+) {
+    val containerColor  = if (isSelected) MaterialTheme.colorScheme.primary  else MaterialTheme.colorScheme.secondaryContainer
+    val contentColor = if (isSelected) MaterialTheme.colorScheme.onPrimary  else MaterialTheme.colorScheme.onSecondaryContainer
+    val shadowColor = MaterialTheme.colorScheme.onSurface
+    Box(
+        modifier = modifier
+            .drawBehind {
+                drawIntoCanvas { canvas ->
+
+                    val paint = Paint().asFrameworkPaint().apply {
+                        color = android.graphics.Color.BLACK
+                        setShadowLayer(
+                            10f,
+                            10f,
+                            30f,
+                            shadowColor.copy(0.2f).toArgb()
+                        )
+                    }
+
+                    canvas.nativeCanvas.drawRoundRect(
+                        0f,
+                        0f,
+                        size.width,
+                        size.height,
+                        30f, 30f,
+                        paint
                     )
                 }
             }
-
+            .clip(MaterialTheme.shapes.medium)
+            .border(
+                shape = MaterialTheme.shapes.medium,
+                color = if (isSelected) Color.Black else Color.Gray,
+                width = if (isSelected) 5.dp else 5.dp
+            )
+            .background(containerColor)
+            .clickable {
+                onClick()
+            }
+        ,
+    ){
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(imageSource),
+                contentDescription = "Button",
+                contentScale = ContentScale.FillHeight,
+                modifier = Modifier
+                    .weight(1f)
+            )
+            Text(
+                text = text,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontFamily = OleoScript
+                ),
+                color = contentColor
+            )
+            Spacer(modifier = Modifier.height(10.dp))
         }
-
+        Checkbox(
+            onCheckedChange = { onClick() },
+            checked = isSelected,
+            modifier = Modifier
+                .padding(end = 15.dp, top = 15.dp)
+                .size(15.dp)
+                .align(
+                    Alignment.TopEnd
+                )
+        )
+    }
 }
-
 @Composable
 fun ButtonWithCheckBox(
     modifier: Modifier = Modifier,
@@ -289,7 +428,7 @@ fun MainListDailyButton(
         Row(
             Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.5f)
+                .fillMaxHeight()
                 .padding(5.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
@@ -301,7 +440,8 @@ fun MainListDailyButton(
                 modifier = Modifier
                     .weight(1f),
                 color = Color.White,
-                fontSize = 13.sp
+                fontSize = 13.sp,
+                overflow = TextOverflow.Ellipsis
             )
 
             LottieAnim(
@@ -380,4 +520,30 @@ fun BorderButton(
             )
         }
     }
+}
+
+@Preview
+@Composable
+private fun ButtonsPreview() {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            SearchCard(
+                modifier = Modifier
+                    .width(100.dp)
+                    .height(200.dp),
+                searchCardModel = SearchCardModel(
+                    name = "Hediye Kartı",
+                    price = "₺100",
+                    imageUrl = "https://productimages.hepsiburada.net/s/49/400-592/10986386358322.jpg",
+                    url = "https://www.hepsiburada.com/100-tl-hediye-karti-hediye-kartlari-p-HBV00000KZQG8?magaza=Hepsiburada",
+                ),
+                onBuyButton = { },
+                onSaveButton = { }
+            )
+        }
 }

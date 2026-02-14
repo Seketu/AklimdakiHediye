@@ -35,6 +35,12 @@ val kanitFontFamily = FontFamily(
     Font(googleFont = GoogleFont("Kanit"), fontProvider = provider, weight = FontWeight.ExtraBold)
 )
 
+val OleoScript = FontFamily(
+    Font(R.font.oleo_script_regular, FontWeight.Normal)
+)
+val OrelegaOneRegular = FontFamily(
+    Font(R.font.justanotherhand_regular, FontWeight.Normal)
+)
 val JustAnotherHandFont = FontFamily(
     Font(R.font.justanotherhand_regular, FontWeight.Normal)
 )

@@ -17,17 +17,19 @@ import com.reylortechnology.aklimdakihediye.models.GiftInformationModels.ForPers
 import com.reylortechnology.aklimdakihediye.models.GiftInformationModels.Products
 import com.reylortechnology.aklimdakihediye.ObserverClasses.QueryProductsStatus
 import com.reylortechnology.aklimdakihediye.ObserverClasses.SearchResultStatus
-import com.reylortechnology.aklimdakihediye.models.GiftInformationModels.SearchWithLabel
+import com.reylortechnology.aklimdakihediye.models.ComposeModels.SearchCardModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 @HiltViewModel
-class AboutGiftInformationViewModel
+class CelebretadDayViewModel
 @Inject constructor(
     val mainRepo: MainRepo,
 ) : ViewModel() {
@@ -38,7 +40,7 @@ class AboutGiftInformationViewModel
     val userForUserInformation = mtb.asStateFlow()
 
 
-    private val _searchResults = MutableStateFlow<List<SearchWithLabel>>(emptyList())
+    private val _searchResults = MutableStateFlow<List<SearchCardModel>>(emptyList())
 
     private val _totalState = MutableStateFlow<SearchResultStatus>(SearchResultStatus.Loading)
     val totalState = _totalState.asStateFlow()
@@ -103,20 +105,16 @@ class AboutGiftInformationViewModel
 
     fun takeSearchResult(products: List<Products>) {
         viewModelScope.launch {
-            try {
-                products.map { product ->
-                    async {
-                        val result = mainRepo.searchWithKtorAndJsoup("${product.name} ${product.price}").take(3)
-                        val resultWithLabel = SearchWithLabel(product.name, result)
-                        _searchResults.value = _searchResults.value + resultWithLabel
-                    }.await().also {
-                        _totalState.value = SearchResultStatus.Success(_searchResults.value)
-                    }
+            mainRepo.getGiftsAndUrls(
+                products
+            )
+                .catch {
+                    Log.e("Error at takeSearchResult", it.message.toString())
                 }
-            }catch (e : Exception){
-                _totalState.value = SearchResultStatus.Error("Arama sırasında hata oluştu: ${e.message}")
-                Log.e("Error", e.message.toString())
-            }
+                .onEach {
+                    _searchResults.value = it
+                    _totalState.value = SearchResultStatus.Success(it)
+            }.collect()
         }
     }
 
@@ -126,8 +124,6 @@ class AboutGiftInformationViewModel
             maxPrice = forGiftInformation.maxPrice,
             giftMean = forGiftInformation.giftMean,
         )
-
-
 
         val prompt = makePrompt()
 
@@ -142,15 +138,24 @@ class AboutGiftInformationViewModel
 
                             is ApiResponse.Succes<GeminiResponse> -> {
                                 try {
-                                    val geminiResponse = it.body.candidates.firstOrNull()?.content?.parts?.firstOrNull()?.text.toString()
+                                    val rawJsonResponse = it.body.candidates.firstOrNull()?.content?.parts?.firstOrNull()?.text
+                                    if (rawJsonResponse != null) {
+                                        try {
 
-                                    val productRegex = Regex("""//(.+?)\s*-\s*(.+?) \((\d+)\s*TL\)//""")
+                                            val cleanedJson = rawJsonResponse
+                                                .removePrefix("```json")
+                                                .removeSuffix("```")
+                                                .trim()
 
-                                    val products = productRegex.findAll(geminiResponse).map {
-                                        val (name , brand , price) = it.destructured
-                                        Products(name = name.trim(), brand = brand.trim(), price = price.trim())
-                                    }.toList()
-                                    _queryState.value = QueryProductsStatus.Success(products)
+                                            val giftList = Json.decodeFromString<List<Products>>(cleanedJson)
+
+                                            _queryState.value = QueryProductsStatus.Success(giftList)
+
+
+                                        } catch (e: Exception) {
+                                            Log.e("JSON_ERROR", "Parse edilemedi: ${e.message}")
+                                        }
+                                    }
                                 }catch (e: Exception){
                                     Log.e("Error", e.message.toString())
                                 }

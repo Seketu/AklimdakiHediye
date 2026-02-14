@@ -61,6 +61,8 @@ import com.reylortechnology.aklimdakihediye.ui.theme.onPrimaryLight
 import com.reylortechnology.aklimdakihediye.ui.theme.primaryLight
 import com.reylortechnology.aklimdakihediye.ui.theme.surfaceLight
 
+
+//Kullanıcı ayarları sayfası
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserSettingsView(

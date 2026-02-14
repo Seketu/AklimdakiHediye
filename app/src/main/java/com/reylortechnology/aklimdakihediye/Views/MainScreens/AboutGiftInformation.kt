@@ -9,19 +9,20 @@ import androidx.navigation.NavController
 import com.reylortechnology.aklimdakihediye.AdMob.InterstitialAdScreen
 import com.reylortechnology.aklimdakihediye.NavController.LocalNavController
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ScreenStateObservers.AboutGiftInformationScreenObserver
-import com.reylortechnology.aklimdakihediye.ViewModels.AboutGiftInformationViewModel
-import com.reylortechnology.aklimdakihediye.Views.PartScreens.InformationPersonScreen
-import com.reylortechnology.aklimdakihediye.Views.PartScreens.InformationGiftScreen
-import com.reylortechnology.aklimdakihediye.Views.PartScreens.SearchResultScreen
+import com.reylortechnology.aklimdakihediye.ViewModels.CelebretadDayViewModel
+import com.reylortechnology.aklimdakihediye.Views.PartScreens.AboutGıftInformationsScreen.InformationPersonScreen
+import com.reylortechnology.aklimdakihediye.Views.PartScreens.AboutGıftInformationsScreen.InformationGiftScreen
+import com.reylortechnology.aklimdakihediye.Views.PartScreens.SearchResultScreenCelebratedDays
 
 
 
+//Özel Günler için alma butyonuna tıklandığı zaman bilgilerin alınarak girildiği sayfalar
     @Composable
     fun AboutGiftInformation(
         modifier: Modifier = Modifier,
         navController: NavController,
         args: LocalNavController.DailyInfoScreen,
-        viewModel: AboutGiftInformationViewModel = hiltViewModel()
+        viewModel: CelebretadDayViewModel = hiltViewModel()
     ) {
 
         val showAds = remember { mutableStateOf(true) }
@@ -57,7 +58,7 @@ import com.reylortechnology.aklimdakihediye.Views.PartScreens.SearchResultScreen
                         onAdClosed = {showAds.value = false }
                     )
                 }else{
-                    SearchResultScreen(
+                    SearchResultScreenCelebratedDays(
                         navController = navController,
                     )
                 }

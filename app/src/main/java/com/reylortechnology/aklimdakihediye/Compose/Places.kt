@@ -1,7 +1,6 @@
 package com.reylortechnology.aklimdakihediye.Compose
 
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
@@ -23,7 +22,6 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -51,7 +49,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -62,10 +59,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -74,7 +68,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.SavedGifts
 import com.reylortechnology.aklimdakihediye.ObserverClasses.RelationshipStatus
-import com.reylortechnology.aklimdakihediye.models.ComposeModels.SearchCardModel
 import com.reylortechnology.aklimdakihediye.ui.theme.onSurfaceLight
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -127,14 +120,15 @@ fun AgeDescSurface(
                             painter = painterResource(it.iconSource),
                             "",
                             modifier = Modifier
-                                .fillMaxHeight(0.5f)
+                                .fillMaxWidth(0.4f)
                                 .aspectRatio(1f),
                         )
-                        Text(
+                        AutoResizeText(
                             text = stringResource(it.text),
                             modifier = Modifier
                                 .weight(1f),
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.White
                         )
                     }
                 }
@@ -150,14 +144,16 @@ fun AgeDescSurface(
                             painter = painterResource(it.iconSource),
                             "",
                             modifier = Modifier
-                                .fillMaxHeight(0.5f)
+                                .fillMaxWidth(0.4f)
                                 .aspectRatio(1f),
                         )
-                        Text(
+                        AutoResizeText(
                             text = stringResource(it.text),
                             modifier = Modifier
                                 .weight(1f),
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.White
+
                         )
                     }
                 }
@@ -173,14 +169,15 @@ fun AgeDescSurface(
                             painter = painterResource(it.iconSource),
                             "",
                             modifier = Modifier
-                                .fillMaxHeight(0.5f)
+                                .fillMaxWidth(0.4f)
                                 .aspectRatio(1f),
                         )
-                        Text(
+                        AutoResizeText(
                             text = stringResource(it.text),
                             modifier = Modifier
                                 .weight(1f),
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.White
                         )
                     }
                 }
@@ -196,14 +193,15 @@ fun AgeDescSurface(
                             painter = painterResource(it.iconSource),
                             "",
                             modifier = Modifier
-                                .fillMaxHeight(0.5f)
+                                .fillMaxWidth(0.4f)
                                 .aspectRatio(1f),
                         )
-                        Text(
+                        AutoResizeText(
                             text = stringResource(it.text),
                             modifier = Modifier
                                 .weight(1f),
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.White
                         )
                     }
                 }
@@ -372,7 +370,7 @@ fun MainPeopleCard(
     ){
         Box(
             modifier = Modifier
-                .fillMaxWidth(0.5f)
+                .weight(1f)
                 .aspectRatio(1f)
                 .border(
                     8.dp,
@@ -395,7 +393,7 @@ fun MainPeopleCard(
 
         Text(
             text = peoples.peopleName,
-            style = MaterialTheme.typography.labelMedium.copy(fontSize = 26.sp),
+            style = MaterialTheme.typography.labelMedium.copy(fontSize = 20.sp),
             color = if (darkTheme) Color.White else Color.Black
         )
     }
@@ -413,8 +411,8 @@ fun AddMainPeopleCard(
     ) {
         Box(
             modifier = Modifier
-                .weight(1f)
                 .aspectRatio(1f)
+                .weight(1f)
                 .clip(CircleShape)
                 .drawBehind {
                     val stroke = Stroke(
@@ -434,7 +432,9 @@ fun AddMainPeopleCard(
             contentAlignment = Alignment.Center
         ){
             Text("+",
-                modifier = Modifier.align(Alignment.Center),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .align(Alignment.Center),
                 fontSize = 50.sp,
                 textAlign = TextAlign.Center
                 )
@@ -449,7 +449,7 @@ fun AddMainPeopleCard(
     }
 }
 @Composable
-fun specialDayRelationshipCard(
+fun SpecialDayRelationshipCard(
     modifier: Modifier = Modifier,
     videoSource: Int,
     title: String,
@@ -604,109 +604,6 @@ fun ReleationshipStateInfo(
     Spacer(Modifier.height(25.dp))
 }
 
-@Composable
-fun SearchCard(
-    item: SearchCardModel,
-    modifier: Modifier = Modifier,
-    saveGift: () -> Unit
-) {
-    val context = LocalContext.current
-    var parentHeight by remember { mutableStateOf(0) }
-    val localConfig = LocalConfiguration.current
-    val screenHeight = localConfig.screenHeightDp.dp
-    Box(
-        modifier = modifier
-            .onGloballyPositioned {
-                parentHeight = it.size.height
-            }
-            .clip(RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.secondary)
-
-    ) {
-        if (parentHeight > 0) {
-            val animHeightPx = parentHeight * 0.2f
-            val animHeightDp = with(LocalDensity.current) { animHeightPx.toDp() }
-
-            /*LottieAnim(
-                source = R.raw.main_anim,
-                modifier = Modifier
-                    .height(animHeightDp)
-                    .align(Alignment.BottomCenter),
-                contentScale = ContentScale.FillWidth,
-                secondModifier = Modifier
-                    .graphicsLayer(scaleY = 0.2f) // 1f = normal, istersen animasyonla azaltabilirsin
-            )*/
-        }
-
-        Column {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.primary)
-                    .padding(horizontal = 10.dp)
-            ) {
-                Text(
-                    item.name,
-                    maxLines = 1,
-                    fontSize = 24.sp,
-                    color = MaterialTheme.colorScheme.onPrimary
-                )
-            }
-            Spacer(modifier = Modifier.height(screenHeight * 0.01f))
-            Box(
-                modifier = Modifier
-                    .padding(horizontal = 10.dp)
-            ) {
-                Text(
-                    item.description,
-                    maxLines = 2,
-                    fontSize = 16.sp,
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
-            }
-            Spacer(Modifier.height(10.dp))
-            Row(
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(5.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Button(
-                    onClick = {
-                        saveGift.invoke()
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.error
-                    )
-                ) {
-                    Text(
-                        "Kaydet",
-                        fontSize = 16.sp,
-                        color = androidx.compose.material.MaterialTheme.colors.onError
-                    )
-                }
-                Button(
-                    onClick = {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
-                        context.startActivity(intent)
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary
-                    ),
-                    shape = RoundedCornerShape(12.dp)
-                ) {
-                    Text(
-                        "Sayfaya Git",
-                        fontSize = 16.sp,
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
-            }
-        }
-    }
-}
 
 
 @Composable

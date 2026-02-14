@@ -1,6 +1,8 @@
 package com.reylortechnology.aklimdakihediye.Views.MainScreens
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -58,6 +60,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.reylortechnology.aklimdakihediye.R
 import com.reylortechnology.aklimdakihediye.AdMob.AdBanner
 import com.reylortechnology.aklimdakihediye.Compose.AddMainPeopleCard
+import com.reylortechnology.aklimdakihediye.Compose.AddPeopleDialog
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ForWhoObserver
 import com.reylortechnology.aklimdakihediye.ObserverClasses.AlertDialogObserver
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ToScreenObserver
@@ -72,6 +75,7 @@ import com.reylortechnology.aklimdakihediye.Compose.NavigationButton
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.LocalUserInformation
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.Peoples
 import com.reylortechnology.aklimdakihediye.NavController.LocalNavController
+import com.reylortechnology.aklimdakihediye.ObserverClasses.ShowPopUp
 import com.reylortechnology.aklimdakihediye.ObserverClasses.SpecialRowStatus
 import com.reylortechnology.aklimdakihediye.Views.PartScreens.LoadingScreen
 import com.reylortechnology.aklimdakihediye.models.ComposeModels.UserMainListItems
@@ -85,8 +89,10 @@ import com.reylortechnology.aklimdakihediye.ui.theme.stylizedYellow
 import com.reylortechnology.aklimdakihediye.ui.theme.womenCardBg
 
 
+//Ana kullanıcı sayfası
 class UserMainView {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @Composable
     fun UserMainScreen(
         navController: NavController,
@@ -99,6 +105,8 @@ class UserMainView {
         val toRowButtonState by viewModel.rowStatus.collectAsState()
         val userInformation by viewModel.userInformation.collectAsState()
         val peopleInformation by  viewModel.peoplesInformation.collectAsState()
+        val addPeoplePopUp by viewModel.addPeoplePopUpState.collectAsState()
+
         UserMainContent(
             navController = navController,
             alertDialogState = alertDialogState,
@@ -118,10 +126,15 @@ class UserMainView {
             },
             userInformation,
             peopleInformation,
-            addNewPeople = { viewModel.addNewPeople() }
+            addNewPeople = { viewModel.addNewPeople(it) },
+            addPeoplePopUp = addPeoplePopUp,
+            setAddPeoplePopUp = {value ->
+                viewModel.setAddPeoplePopup(value)
+            }
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @Composable
     fun UserMainContent(
         navController: NavController,
@@ -133,8 +146,10 @@ class UserMainView {
         onNavigateFromColumn: (NavController, String?, Int?, String) -> Unit,
         userInformation: List<LocalUserInformation>,
         peopleInformation : List<Peoples>,
-        addNewPeople : ()-> Unit
-    ) {
+        addNewPeople : (Peoples)-> Unit,
+        setAddPeoplePopUp : (Boolean)-> Unit,
+        addPeoplePopUp: ShowPopUp
+        ) {
         val isLoading = remember { mutableStateOf(true) }
         // Her bir animasyon için rememberLottieComposition kullanıyoruz
         val compositionMain by rememberLottieComposition(
@@ -155,6 +170,24 @@ class UserMainView {
         val compositionWoman by rememberLottieComposition(
             LottieCompositionSpec.RawRes(R.raw.woman_anim)
         )
+
+        when(addPeoplePopUp){
+            ShowPopUp.None -> {
+
+            }
+            ShowPopUp.Show -> {
+                AddPeopleDialog(
+                    modifier = Modifier
+                        .fillMaxWidth(0.94f)
+                        .fillMaxHeight(0.94f),
+                    onDismissRequest = {
+                        setAddPeoplePopUp(false)
+                    }
+                ) {peoples ->
+                    addNewPeople(peoples)
+                }
+            }
+        }
 
         LaunchedEffect(
             key1 = toRowButtonState
@@ -261,7 +294,9 @@ class UserMainView {
                 onUpdateForWho =  onUpdateForWho,
                 userInformation = userInformation.firstOrNull(),
                 peopleInformation = peopleInformation,
-                addNewPeople = addNewPeople
+                setAddPeoplePopUp = {
+                    setAddPeoplePopUp(it)
+                }
             )
         }
     }
@@ -273,7 +308,7 @@ fun SuccessLoading(
     onUpdateForWho: (String, Int) -> Unit,
     userInformation: LocalUserInformation? = null,
     peopleInformation: List<Peoples>,
-    addNewPeople : ()-> Unit,
+    setAddPeoplePopUp : (Boolean) -> Unit
 ) {
     val context = LocalContext.current
 
@@ -428,7 +463,6 @@ fun SuccessLoading(
             Column(
                 modifier = Modifier.fillMaxWidth(0.97f)
                     .heightIn(
-                        min = screenHeight  * 0.135f,
                         max = screenHeight * 0.15f
                     )
             ) {
@@ -460,7 +494,10 @@ fun SuccessLoading(
                         MainPeopleCard(
                             modifier = Modifier
                                 .fillMaxHeight()
-                                .aspectRatio(1f),
+                                .aspectRatio(1f)
+                                .clickable{
+                                    navController.navigate(LocalNavController.ToFriendGiftView(people.peopleId))
+                                },
                             peoples = people
                         )
                     }
@@ -470,7 +507,7 @@ fun SuccessLoading(
                                 .fillMaxHeight(1f)
                                 .width(60.dp)
                                 .clickable{
-
+                                    setAddPeoplePopUp(true)
                                 }
                         )
                     }
@@ -553,16 +590,19 @@ fun SuccessLoading(
                     Spacer(
                         Modifier.height(3.dp)
                     )
-                    LazyColumn(
+
+                    //Celebrate Days Fields
+                    LazyRow(
                         modifier = Modifier
                             .fillMaxWidth(0.95f)
                             .fillMaxHeight(0.85f)
                     ) {
                         items(buttonList) { button ->
-                            Spacer(Modifier.height(15.dp))
+                            Spacer(Modifier.width(15.dp))
                             MainListDailyButton(
                                 modifier = Modifier
-                                    .fillMaxWidth()
+                                    .width(  350.dp)
+                                    .fillMaxHeight(0.8f)
                                     .background(button.color, shape = RoundedCornerShape(15.dp))
                                     .border(
                                         width = 1.dp,
@@ -656,6 +696,6 @@ private fun Prev() {
     SuccessLoading(rememberNavController(),
         onUpdateForWho = { _, _ -> },
         peopleInformation = emptyList(),
-        addNewPeople = {}
+        setAddPeoplePopUp = {}
         )
 }

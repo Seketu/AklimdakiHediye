@@ -13,6 +13,8 @@ import com.reylortechnology.aklimdakihediye.Repo.NotificationsRepo
 import com.reylortechnology.aklimdakihediye.Repo.PeopleRepo
 import com.reylortechnology.aklimdakihediye.Repo.SavedVariableRepo
 import com.reylortechnology.aklimdakihediye.Repo.UserSettingsRepo
+import com.reylortechnology.aklimdakihediye.Services.DuckDuckGoSearch
+import com.reylortechnology.aklimdakihediye.Services.ImageSearchService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -81,14 +83,33 @@ object DatabaseModule {
     fun providePeopleDao(database: LocalDatabase) : PeoplesDao{
         return database.peoplesDao()
     }
+
+    @Provides
+    fun provideDuckDuckGoSearch(client: HttpClient) : DuckDuckGoSearch{
+        return DuckDuckGoSearch(client)
+    }
+
+    @Provides
+    fun provideImageSearchService(client: HttpClient) : ImageSearchService {
+        return ImageSearchService(client)
+    }
+
     @Provides
     fun provideUserRepository(
         savedVariableDao: SavedVariableRepo,
         userDao: UserInformationDao,
         client: HttpClient,
-        providePeopleDao: PeoplesDao
+        providePeopleDao: PeoplesDao,
+        duckGoSearch: DuckDuckGoSearch,
+        imageSearchService: ImageSearchService
     ): MainRepo {
-        return MainRepo(userInformationDao = userDao, giftInformationDao = savedVariableDao, peopleInformationDao = providePeopleDao, client = client)
+        return MainRepo(
+            userInformationDao = userDao,
+            giftInformationDao = savedVariableDao,
+            peopleInformationDao = providePeopleDao,
+            client = client, duckSearch = duckGoSearch,
+            bingSearchService = imageSearchService
+        )
     }
 
     @Provides

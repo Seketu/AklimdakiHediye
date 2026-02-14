@@ -1,5 +1,7 @@
 package com.reylortechnology.aklimdakihediye.NavController
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -17,6 +19,7 @@ import kotlinx.serialization.Serializable
 
 class LocalNavController {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @Composable
     fun LocalNavHost(modifier: Modifier = Modifier) {
         val navController = rememberNavController()
@@ -66,6 +69,11 @@ class LocalNavController {
                 val args = it.toRoute<SpecialGiftRowScreen>()
                 SpecialGiftRowView(args, navController)
             }
+
+            composable<ToFriendGiftView> {
+                val args = it.toRoute<ToFriendGiftView>()
+                com.reylortechnology.aklimdakihediye.Views.MainScreens.ToFriendGiftView(peopleId = args.peopleId , navController = navController)
+            }
         }
 
     }
@@ -90,4 +98,7 @@ class LocalNavController {
 
     @Serializable
     data class DailyInfoScreen(val forDay: String, val source: Int, val forAnother: Boolean)
+
+    @Serializable
+    data class ToFriendGiftView(val peopleId : Int)
 }

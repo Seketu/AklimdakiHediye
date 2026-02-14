@@ -37,6 +37,5 @@ enum class Hobbies(
     Basketball(id = 24 , textSource = R.string.hobbies_basketball , R.drawable.basketball_icon),
     Volleyball(id = 25 , textSource = R.string.hobbies_volleyball , R.drawable.volleyball_icon),
     Cosplay(id = 26 , textSource = R.string.hobbies_cosplay, R.drawable.cosplay_icon),
-    Art(id = 27 , textSource = R.string.hobbies_art , R.drawable.art_icon),
-    AlarayiSevmek(id = 28 , textSource = R.string.silAlara )
+    Art(id = 27 , textSource = R.string.hobbies_art , R.drawable.art_icon)
 }

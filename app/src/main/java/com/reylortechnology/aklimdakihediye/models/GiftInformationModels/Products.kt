@@ -1,10 +1,13 @@
 package com.reylortechnology.aklimdakihediye.models.GiftInformationModels
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import javax.inject.Inject
 
-data class Products
-    @Inject constructor(
+@Serializable
+data class Products (
+    @SerialName("gift_name")
     val name : String,
-    val price : String,
-    val brand : String
+    @SerialName("estimated_price")
+    val price : String
 )

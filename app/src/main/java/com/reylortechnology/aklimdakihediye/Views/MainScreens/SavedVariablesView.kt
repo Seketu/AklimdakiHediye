@@ -8,6 +8,8 @@ import androidx.navigation.NavController
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ScreenStateObservers.SavedVariablesViewObserver
 import com.reylortechnology.aklimdakihediye.Views.PartScreens.SavedGiftScreen
 
+
+//Kayıt aldığın nesnelerin listelendiği sayfa
 @Composable
 fun SavedVariablesView(
     modifier: Modifier = Modifier,

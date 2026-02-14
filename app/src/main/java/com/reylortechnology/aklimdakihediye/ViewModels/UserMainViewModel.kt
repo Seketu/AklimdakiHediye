@@ -5,14 +5,19 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.reylortechnology.aklimdakihediye.Interfaces.ViewModelDelegation.StateManager
+import com.reylortechnology.aklimdakihediye.Interfaces.ViewModelDelegation.StateManagerImp
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.LocalUserInformation
+import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.Peoples
 import com.reylortechnology.aklimdakihediye.NavController.LocalNavController
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ForWhoObserver
 import com.reylortechnology.aklimdakihediye.ObserverClasses.AlertDialogObserver
+import com.reylortechnology.aklimdakihediye.ObserverClasses.ShowPopUp
 import com.reylortechnology.aklimdakihediye.ObserverClasses.SpecialRowStatus
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ToScreenObserver
 import com.reylortechnology.aklimdakihediye.R
 import com.reylortechnology.aklimdakihediye.Repo.MainRepo
+import com.reylortechnology.aklimdakihediye.Repo.PeopleRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,6 +31,7 @@ class UserMainViewModel
     @Inject constructor(
         val mainRepo: MainRepo,
         val context: Context,
+        val peoplesRepo : PeopleRepo
     ) : ViewModel() {
 
     private var _rowStatus = MutableStateFlow<SpecialRowStatus>(SpecialRowStatus.None)
@@ -40,6 +46,8 @@ class UserMainViewModel
     private var _showAlert = MutableStateFlow<Boolean>(true)
     val showAlert = _showAlert.asStateFlow()
 
+    private val _addPeoplePopUpState = MutableStateFlow<ShowPopUp>(ShowPopUp.None)
+    val addPeoplePopUpState = _addPeoplePopUpState.asStateFlow()
     val peoplesInformation = mainRepo.peoplesInformation.stateIn(
         viewModelScope,
         kotlinx.coroutines.flow.SharingStarted.Lazily,
@@ -194,8 +202,19 @@ class UserMainViewModel
         _toInfoScreen.value = ToScreenObserver.none
     }
 
-    fun addNewPeople() {
-
+    fun addNewPeople(peoples: Peoples) {
+        viewModelScope.launch {
+            val job  = peoplesRepo.addPeople(peoples)
+            if (job.isSuccess){
+                _addPeoplePopUpState.value = ShowPopUp.None
+            }
+        }
     }
-
+    fun setAddPeoplePopup(isOpen : Boolean){
+        if (isOpen){
+            _addPeoplePopUpState.value = ShowPopUp.Show
+        }else{
+            _addPeoplePopUpState.value = ShowPopUp.None
+        }
+    }
 }

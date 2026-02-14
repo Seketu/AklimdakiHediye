@@ -29,7 +29,8 @@ fun AutoResizeText(
     fontFamily: FontFamily? = null,
     fontWeight: FontWeight? = null,
     textAlign: TextAlign = TextAlign.Start,
-    style: TextStyle = TextStyle.Default
+    style: TextStyle = TextStyle.Default,
+    maxLines : Int = 1
 ) {
     var fontSize by remember(text) { mutableStateOf(maxFontSize) }
     var ready by remember { mutableStateOf(false) }
@@ -42,7 +43,7 @@ fun AutoResizeText(
         fontWeight = fontWeight,
         fontSize = fontSize,
         textAlign = textAlign,
-        maxLines = 1,
+        maxLines = maxLines,
         softWrap = false,
         style = style,
         onTextLayout = { result: TextLayoutResult ->

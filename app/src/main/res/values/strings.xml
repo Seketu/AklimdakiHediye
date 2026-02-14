@@ -151,4 +151,23 @@
     <string name="trait_composure">Soğuk Kanlı</string>
     <string name="trait_stubbornness">İnatçı</string>
     <string name="silAlara">Alarayı çok sevmek</string>
+    <string name="for_why_just_because">İçimden Geldi</string>
+    <string name="for_why_birthday">Doğumgünü</string>
+    <string name="for_why_anniversary">Yıl dönümü</string>
+    <string name="for_why_education">Mezuniyet</string>
+    <string name="for_why_house_warming">Yeni Ev</string>
+    <string name="for_why_holiday">Tatil</string>
+    <string name="gift_vibe_romance">Romantik</string>
+    <string name="gift_vibe_emotional">Duygusal</string>
+    <string name="gift_vibe_for_use">İşlevsel</string>
+    <string name="gift_vibe_humors">Esprili</string>
+    <string name="gift_vibe_retro">Retro</string>
+    <string name="gift_vibe_luxury"><![CDATA[Lüks & Şık]]></string>
+    <string name="gift_vibe_memorable">Deneyim</string>
+    <string name="gift_vibe_minimalist">Minimalist</string>
+    <string name="prices_low">₺0-500</string>
+    <string name="upper_low">₺500-1000</string>
+    <string name="prices_medium">₺1000-1500</string>
+    <string name="prices_high">₺1500-3000</string>
+    <string name="prices_unlimit">₺+3000</string>
 </resources>

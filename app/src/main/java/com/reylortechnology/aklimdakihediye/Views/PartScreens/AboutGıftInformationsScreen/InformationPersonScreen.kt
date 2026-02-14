@@ -1,10 +1,9 @@
-package com.reylortechnology.aklimdakihediye.Views.PartScreens
+package com.reylortechnology.aklimdakihediye.Views.PartScreens.AboutGıftInformationsScreen
 
 import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -24,7 +23,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -58,7 +56,7 @@ import com.reylortechnology.aklimdakihediye.ObserverClasses.DailyPlacesObserver
 import com.reylortechnology.aklimdakihediye.ObserverClasses.RelationshipStatus
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ZodiacStatus
 import com.reylortechnology.aklimdakihediye.R
-import com.reylortechnology.aklimdakihediye.ViewModels.AboutGiftInformationViewModel
+import com.reylortechnology.aklimdakihediye.ViewModels.CelebretadDayViewModel
 import com.reylortechnology.aklimdakihediye.models.GiftInformationModels.ForPersonInformation
 
 
@@ -66,7 +64,7 @@ import com.reylortechnology.aklimdakihediye.models.GiftInformationModels.ForPers
 fun InformationPersonScreen(
     navController: NavController,
     args: LocalNavController.DailyInfoScreen,
-    viewModel: AboutGiftInformationViewModel = hiltViewModel(),
+    viewModel: CelebretadDayViewModel = hiltViewModel(),
     giftInformationScreenState: MutableState<AboutGiftInformationScreenObserver>
 ) {
     Log.e("Error", "Error")
@@ -220,7 +218,7 @@ fun DailyInfoBakeScreen(
     source: Int,
     context: Context = LocalContext.current,
     labelList: List<String>,
-    viewModel: AboutGiftInformationViewModel = hiltViewModel(),
+    viewModel: CelebretadDayViewModel = hiltViewModel(),
     giftInformationScreenState: MutableState<AboutGiftInformationScreenObserver>,
     navController : NavController,
     isForLove : Boolean = false
@@ -475,7 +473,7 @@ fun DailyInfoBakeScreen(
                 }
                 item {
                     BorderButton(
-                        text = context.getString(R.string.next_text), onClick = {
+                        text = stringResource(R.string.next_text), onClick = {
                             when (valuesState.value) {
                                 DailyPlacesObserver.Name -> {
                                     if (nameState.value.isEmpty()) {

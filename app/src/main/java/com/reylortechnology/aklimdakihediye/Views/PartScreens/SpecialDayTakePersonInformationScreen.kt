@@ -49,7 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.reylortechnology.aklimdakihediye.Compose.SpecialDayTextField
-import com.reylortechnology.aklimdakihediye.Compose.specialDayRelationshipCard
+import com.reylortechnology.aklimdakihediye.Compose.SpecialDayRelationshipCard
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ScreenStateObservers.SpecialDaysScreenObserver
 import com.reylortechnology.aklimdakihediye.ObserverClasses.SpecialDayCheckModel
 import com.reylortechnology.aklimdakihediye.R
@@ -206,7 +206,7 @@ fun SpecialDayTakePersonInformationScreen(
                 Box{
                     LazyRow{
                         items(releationshipCardList) {item->
-                            specialDayRelationshipCard(
+                            SpecialDayRelationshipCard(
                                 videoSource = item.videoSource,
                                 title = item.title,
                                 description = item.description,

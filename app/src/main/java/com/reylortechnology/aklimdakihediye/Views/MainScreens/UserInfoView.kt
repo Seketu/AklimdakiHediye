@@ -53,8 +53,7 @@ import com.reylortechnology.aklimdakihediye.R
 import com.reylortechnology.aklimdakihediye.Compose.InfoScreen
 import com.reylortechnology.aklimdakihediye.Compose.LottieAnim
 import com.reylortechnology.aklimdakihediye.Compose.StepperIndicator
-import com.reylortechnology.aklimdakihediye.ViewModels.AboutGiftInformationViewModel
-import com.reylortechnology.aklimdakihediye.ui.theme.backgroundLight
+import com.reylortechnology.aklimdakihediye.ViewModels.CelebretadDayViewModel
 import com.reylortechnology.aklimdakihediye.ui.theme.secondaryLight
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -68,7 +67,7 @@ class UserInfoView {
         modifier: Modifier = Modifier,
         navController: NavController,
         args : LocalNavController.UserInfoScreen,
-        viewModel: AboutGiftInformationViewModel = hiltViewModel()
+        viewModel: CelebretadDayViewModel = hiltViewModel()
         ) {
         val context = LocalContext.current
         val nameFocusRequester = remember { FocusRequester() }
