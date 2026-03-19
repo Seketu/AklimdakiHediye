@@ -4,6 +4,8 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -13,6 +15,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -27,9 +30,12 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.reylortechnology.aklimdakihediye.AdMob.InterstitialAdScreen
+import com.reylortechnology.aklimdakihediye.ObserverClasses.QueryProductsStatus
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ScreenStateObservers.ToFriendGiftViewObserver
+import com.reylortechnology.aklimdakihediye.ObserverClasses.SearchResultStatus
 import com.reylortechnology.aklimdakihediye.R
 import com.reylortechnology.aklimdakihediye.ViewModels.ToFriendsGiftViewModel
+import com.reylortechnology.aklimdakihediye.Views.PartScreens.ToFriendsGiftView.ForGiftMentionSearchScreen
 import com.reylortechnology.aklimdakihediye.Views.PartScreens.ToFriendsGiftView.ForReasonScreen
 
 
@@ -40,17 +46,23 @@ fun ToFriendGiftView(
     navController: NavController,
     viewModel: ToFriendsGiftViewModel = hiltViewModel()
 ) {
-
-
     val screenConf = LocalConfiguration.current
+
     val screenHeight = screenConf.screenHeightDp.dp
+
     val viewerState = remember {
         mutableStateOf<ToFriendGiftViewObserver>(ToFriendGiftViewObserver.ForReasonScreen)
     }
+
     val context = LocalContext.current
+
     val showAd = remember {
-        mutableStateOf(false)
+        mutableStateOf(true)
     }
+
+    val geminiResponseState = viewModel.geminiResponse.collectAsState()
+    val searchResultState = viewModel.searchResultStatus.collectAsState()
+
     BackHandler {
         when (viewerState.value){
             ToFriendGiftViewObserver.ForReasonScreen -> {
@@ -82,10 +94,24 @@ fun ToFriendGiftView(
                         navController.popBackStack()
                     }
                 ) {
-                    Icon(
-                        painter = painterResource(R.drawable.back_unbox_icon),
-                        "back Button",
-                    )
+                    when(
+                        viewerState.value
+                    ){
+                        ToFriendGiftViewObserver.ForReasonScreen -> {
+                            Icon(
+                                painter = painterResource(R.drawable.back_unbox_icon),
+                                "back Button",
+                            )
+                        }
+                        ToFriendGiftViewObserver.ShowSearchResults -> {
+                            Icon(
+                                Icons.Default.Home,
+                                "Go Back",
+                                tint = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
+                    }
+
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
@@ -101,9 +127,11 @@ fun ToFriendGiftView(
         ){
             ToFriendGiftViewObserver.ForReasonScreen -> {
                 ForReasonScreen(modifier = Modifier
-                    .padding(it),
-                    onActionButton = {
-                        viewModel.saveGiftInformation(it)
+                    .padding(it)
+                    .fillMaxSize(),
+                    onActionButton = {res->
+                        viewModel.saveGiftInformation(context = context, giftInformation = res)
+                        viewerState.value = ToFriendGiftViewObserver.ShowSearchResults
                     },
                     context = context
                 )
@@ -111,10 +139,24 @@ fun ToFriendGiftView(
             ToFriendGiftViewObserver.ShowSearchResults -> {
                 if (showAd.value){
                     InterstitialAdScreen {
-                        showAd.value = true
+                        showAd.value = false
                     }
                 }else{
-
+                    ForGiftMentionSearchScreen(
+                        modifier = Modifier
+                            .padding(it)
+                            .fillMaxSize(),
+                        geminiQueryState = geminiResponseState.value,
+                        searchResultStatus = searchResultState.value,
+                        navController = navController,
+                        takeSearchResultStatus = {
+                            viewModel.takeSearchResult(it)
+                        },
+                        saveGifts = {
+                            viewModel.saveGift(it)
+                        },
+                        context = context
+                    )
                 }
             }
         }

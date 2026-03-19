@@ -275,7 +275,8 @@ class UserMainView {
                             dismissButton = event.dismissButton,
                             onDismissRequest = event.onDismiss,
                             dismissText = event.dismissText,
-                            confirmText = event.confirmText
+                            confirmText = event.confirmText,
+                            withDismiss = event.withDismiss
                         )
                     }
                 }
@@ -659,7 +660,7 @@ fun SuccessLoading(
                                 30.dp
                             )
                             .clickable{
-
+                                navController.navigate(LocalNavController.PeoplesScreen)
                             },
                         source = R.drawable.people_icon,
                         text = "İnsanlar"

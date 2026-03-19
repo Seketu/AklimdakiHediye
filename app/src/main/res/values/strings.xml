@@ -170,4 +170,6 @@
     <string name="prices_medium">₺1000-1500</string>
     <string name="prices_high">₺1500-3000</string>
     <string name="prices_unlimit">₺+3000</string>
+    <string name="screen_titles_peoples">Kişileriniz</string>
+    <string name="peoples_screen_no_people">Kayıtlı Arkadışınız Bulunmuyor</string>
 </resources>

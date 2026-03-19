@@ -49,6 +49,11 @@ object DatabaseModule {
             .build()
     }
 
+
+     @Provides
+     fun provideCalculatorSpecialDays() : com.reylortechnology.aklimdakihediye.Services.CalculatorSpecialDays{
+         return com.reylortechnology.aklimdakihediye.Services.CalculatorSpecialDays()
+     }
     @Provides
     fun provideUserDao(database: LocalDatabase): UserInformationDao {
         return database.userInformationDao()

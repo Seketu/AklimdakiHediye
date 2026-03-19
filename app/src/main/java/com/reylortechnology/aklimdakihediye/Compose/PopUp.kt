@@ -799,6 +799,7 @@ fun AddPeopleDialog(
                                 onSaveClick(
                                     Peoples(
                                         peopleName = peopleName.value,
+                                        birthday = LocalDate.of(selectedYear, selectedMonth, selectedDay) ,
                                         age = calculatedAge.toInt(),
                                         zodiac = selectedZodiac.value.name,
                                         hobbies = selectedHobbies.joinToString(","){it.name},
@@ -806,7 +807,8 @@ fun AddPeopleDialog(
                                         character = selectedCharacterTrait.joinToString(",") { it.name },
                                         job = peopleJob.value,
                                         image = selectedImageId,
-                                        color = selectedColor.value
+                                        color = selectedColor.value,
+                                        relationship = selectedRelationships.value!!
                                     )
                                 )
                             } else {
@@ -878,7 +880,8 @@ fun AlertDialog(
     dismissButton: () -> Unit,
     title: String,
     confirmText: String,
-    dismissText: String
+    dismissText: String,
+    withDismiss : Boolean = true
 ) {
     AlertDialog(
         onDismissRequest = { onDismissRequest() },
@@ -892,16 +895,18 @@ fun AlertDialog(
                 Text(confirmText, color = MaterialTheme.colorScheme.onPrimary)
             }
         },
-        dismissButton = {
-            Button(
-                onClick = dismissButton,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.error
-                )
-            ) {
-                Text(dismissText, color = MaterialTheme.colorScheme.onError)
+        dismissButton = if (withDismiss) {
+            @Composable{
+                Button(
+                    onClick = dismissButton,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Text(dismissText, color = MaterialTheme.colorScheme.onError)
+                }
             }
-        },
+        } else null,
         title = {
             Text(
                 title,

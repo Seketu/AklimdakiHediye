@@ -316,8 +316,8 @@ fun ForReasonScreen(
                 .height(screenHeight * 0.05f),
             onClick = {
                     if (
-                        selectedPrices.value == null &&
-                        selectedReason.value == null &&
+                        selectedPrices.value == null ||
+                        selectedReason.value == null ||
                         selectedVibe.value == null
                     ){
                         Toast

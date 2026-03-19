@@ -6,4 +6,5 @@ sealed class SearchResultStatus {
     data class Success(val searchCardModels: List<SearchCardModel>) : SearchResultStatus()
     data class Error(val message: String) : SearchResultStatus()
     object Loading : SearchResultStatus()
+    object None : SearchResultStatus()
 }

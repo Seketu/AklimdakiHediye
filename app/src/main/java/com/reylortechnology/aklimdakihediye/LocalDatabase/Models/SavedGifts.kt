@@ -11,8 +11,8 @@ data class SavedGifts(
     val giftId : Int = 0,
     @ColumnInfo("gift_name")
     val giftName : String,
-    @ColumnInfo("gift_description")
-    val giftDescription : String,
     @ColumnInfo("gift_url")
-    val giftUrl : String
+    val giftUrl : String,
+    @ColumnInfo("gift_image")
+    val giftImage : String,
 )

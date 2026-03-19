@@ -4,6 +4,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.reylortechnology.aklimdakihediye.models.Enums.TypeRelationship
+import java.time.LocalDate
 
 @Entity("peoples")
 data class Peoples(
@@ -12,6 +14,10 @@ data class Peoples(
     val peopleId : Int = 0,
     @ColumnInfo("name")
     val peopleName : String,
+    @ColumnInfo("relationship")
+    val relationship : TypeRelationship,
+    @ColumnInfo("birthday")
+    val birthday : LocalDate,
     @ColumnInfo("age")
     val age : Int,
     @ColumnInfo("zodiac")

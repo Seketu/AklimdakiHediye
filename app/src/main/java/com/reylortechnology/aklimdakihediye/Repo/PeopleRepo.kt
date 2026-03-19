@@ -10,6 +10,10 @@ class PeopleRepo
     @Inject constructor(
     val peoplesDao: PeoplesDao
 ) {
+
+
+        val peoples = peoplesDao.getAllPeoples()
+
     suspend fun addPeople(
         peoples: Peoples
     ) : Result<Unit>{

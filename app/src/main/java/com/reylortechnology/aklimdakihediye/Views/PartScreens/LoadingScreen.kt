@@ -47,5 +47,6 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier.height(50.dp)
             )
         }
+
     }
 }

@@ -40,8 +40,6 @@ class CelebretadDayViewModel
     val userForUserInformation = mtb.asStateFlow()
 
 
-    private val _searchResults = MutableStateFlow<List<SearchCardModel>>(emptyList())
-
     private val _totalState = MutableStateFlow<SearchResultStatus>(SearchResultStatus.Loading)
     val totalState = _totalState.asStateFlow()
 
@@ -109,10 +107,10 @@ class CelebretadDayViewModel
                 products
             )
                 .catch {
+                    _totalState.value = SearchResultStatus.Error(it.localizedMessage ?: "Bilinmeyen bir hata oluştu")
                     Log.e("Error at takeSearchResult", it.message.toString())
                 }
                 .onEach {
-                    _searchResults.value = it
                     _totalState.value = SearchResultStatus.Success(it)
             }.collect()
         }
@@ -135,7 +133,6 @@ class CelebretadDayViewModel
                             is ApiResponse.Error -> {
                                 Log.e("Tag Gemini error", it.message)
                             }
-
                             is ApiResponse.Succes<GeminiResponse> -> {
                                 try {
                                     val rawJsonResponse = it.body.candidates.firstOrNull()?.content?.parts?.firstOrNull()?.text
@@ -150,8 +147,6 @@ class CelebretadDayViewModel
                                             val giftList = Json.decodeFromString<List<Products>>(cleanedJson)
 
                                             _queryState.value = QueryProductsStatus.Success(giftList)
-
-
                                         } catch (e: Exception) {
                                             Log.e("JSON_ERROR", "Parse edilemedi: ${e.message}")
                                         }
@@ -173,8 +168,6 @@ class CelebretadDayViewModel
 
     fun makePrompt(): String {
         return buildAnnotatedString {
-            append("Ben bir hediye alacağım. Lütfen bana doğrudan 3 ürün ve marka ismini sadece şu formatta ver: '//ürün-marka (fiyat)//'. Başka hiçbir bilgi, açıklama veya selamlama istemiyorum. Sadece 3 satır ürün önerisi dön.\n\n")
-
             append("Benim hakkımda bilgiler:\n")
             append("İsim: ${_userInformation.value?.name}\n")
             append("Yaş: ${_userInformation.value?.old}\n")
@@ -195,13 +188,10 @@ class CelebretadDayViewModel
             if (personInformation.value!!.relationship != null) {
                 append("İlişki Durumu: ${personInformation.value!!.relationship}\n")
             }
-
             append("\nHediye Bilgileri:\n")
             append("Minimum Fiyat: ${giftInformation.value!!.minPrice} TL\n")
             append("Maksimum Fiyat: ${giftInformation.value!!.maxPrice} TL\n")
             append("Hediye Türü: ${giftInformation.value!!.giftMean}\n")
-
-            append("\nLütfen sadece şu formatta yanıt ver: '//ürün-marka (fiyat)//'. Başka hiçbir açıklama ya da cümle istemiyorum. Sadece 3 adet öneri dön.")
         }.toString()
 
     }

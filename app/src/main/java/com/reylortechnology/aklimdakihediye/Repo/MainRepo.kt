@@ -67,6 +67,13 @@ class MainRepo
             "]"
     val getUserInformation = userInformationDao.getLocalInformation().flowOn(Dispatchers.IO)
     val peoplesInformation = peopleInformationDao.getAllPeoples().flowOn(Dispatchers.IO)
+
+    suspend fun getUserInformationOnce() : List<LocalUserInformation>{
+        return withContext(Dispatchers.IO){
+            userInformationDao.getLocalInformationOnce()
+        }
+    }
+
     suspend fun addInformation(userInformation: LocalUserInformation) {
         userInformationDao.addLocalInformation(userInformation)
     }
@@ -96,7 +103,7 @@ class MainRepo
         }
     }
 
-    suspend fun askGemini(prompt: String): Flow<ApiResponse<GeminiResponse>> = safeApiCall {
+     fun askGemini(prompt: String): Flow<ApiResponse<GeminiResponse>> = safeApiCall<GeminiResponse> {
         val GEMINI_API_KEY = BuildConfig.GEMINI_API_KEY
         val MODEL_ID = "gemini-2.0-flash"
         val GENERATE_CONTENT_API = "generateContent"
@@ -122,5 +129,5 @@ class MainRepo
                 )
             )
         }.body()
-    }
+    }.flowOn(Dispatchers.IO)
 }

@@ -7,7 +7,8 @@ sealed class AlertDialogObserver {
         val onConfirm: () -> Unit,
         val dismissText: String,
         val confirmText: String,
-        val dismissButton: () -> Unit
+        val dismissButton: () -> Unit,
+        val withDismiss: Boolean = true
     ) : AlertDialogObserver()
     object none : AlertDialogObserver()
 }

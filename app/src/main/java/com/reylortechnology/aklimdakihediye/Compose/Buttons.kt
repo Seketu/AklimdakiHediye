@@ -23,9 +23,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
@@ -71,7 +73,8 @@ fun SearchCard(
     modifier: Modifier = Modifier,
     searchCardModel: SearchCardModel,
     onBuyButton : () -> Unit,
-    onSaveButton : () -> Unit
+    onSaveButton : () -> Unit,
+    isSaved : Boolean = false
 ) {
     Box(
         modifier = modifier
@@ -121,6 +124,38 @@ fun SearchCard(
                     )
             }
         }
+
+        Row(
+            modifier = Modifier
+                .align(
+                    Alignment.TopEnd
+                )
+                .padding(top = 5.dp, end = 5.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(5.dp)
+        ) {
+            IconButton(
+                modifier = Modifier
+                    .background(color =
+                        if (isSaved) MaterialTheme.colorScheme.primary else
+                            MaterialTheme.colorScheme.surface.copy(0.8f),
+                        shape = CircleShape)
+                    .fillMaxWidth(0.25f)
+                    .aspectRatio(1f)
+                    .padding(5.dp),
+                onClick = {
+                    onSaveButton()
+                }
+                ) {
+                Icon(
+                    painter = painterResource(R.drawable.save_icon),
+                    contentDescription = "Save Button",
+                    tint = if (isSaved) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        }
+
     }
 
 }

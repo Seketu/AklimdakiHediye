@@ -73,58 +73,11 @@ class UserMainViewModel
         }
     }
 
-    fun updateAlertStateForRowNavigation(
-        forWho : String,
-        source: Int
-    ){
-        if(userInformation.value.isEmpty()){
-            _showAlert.value = true
-            _alertDialogState.value = AlertDialogObserver.NewAlertDialog(
-                title = "Kullanıcı Bilgisi Boş Devam etmek için kendinizi tanıtın",
-                onDismiss = {
-                    _showAlert.value = !_showAlert.value
-                    _alertDialogState.value = AlertDialogObserver.none
-                },
-                onConfirm = {
-                    _toInfoScreen.value = ToScreenObserver.NewInformation(forDay = null, source = null)
-                },
-                dismissButton = {
-                    _showAlert.value = !_showAlert.value
-                    _alertDialogState.value = AlertDialogObserver.none
-                },
-                dismissText = "Vazgeç",
-                confirmText = "Bilgilerimi Ekle",
-            )
-        }else{
-            _showAlert.value = true
-            _alertDialogState.value = AlertDialogObserver.NewAlertDialog(
-                title = context.getString(R.string.for_who_user_label),
-                onDismiss = {
-                    _showAlert.value = !_showAlert.value
-                    _alertDialogState.value = AlertDialogObserver.none
-                },
-                dismissButton = {
-                    _rowStatus.value = SpecialRowStatus.ToTakeInformation(
-                        forAnother = true,
-                        forWho = forWho,
-                        source = source
-                    )
-                },
-                onConfirm = {
-                    _rowStatus.value = SpecialRowStatus.ToScreen(forWho = forWho,source = source)
-                },
-                dismissText = context.getString(R.string.for_who_another_label),
-                confirmText = context.getString(R.string.for_who_forme_label),
-            )
-        }
-    }
-
     fun checkUserInformation() {
         if (_userInformation.value.isEmpty()) {
             _alertDialogState.value = AlertDialogObserver.NewAlertDialog(
                 title = context.getString(R.string.alert_dialog_empty_info_title),
                 onDismiss = {
-                    _showAlert.value = !_showAlert.value
                 },
                 onConfirm = {
                     _toInfoScreen.value = ToScreenObserver.NewInformation(forDay = null, source = null)
@@ -132,8 +85,8 @@ class UserMainViewModel
                 dismissText = context.getString(R.string.alert_dialog_empty_info_dismiss),
                 confirmText = context.getString(R.string.alert_dialog_empty_info_confirm),
                 dismissButton = {
-                    _showAlert.value = !_showAlert.value
-                }
+                },
+                withDismiss = false
             )
         } else {
             _alertDialogState.value = AlertDialogObserver.none

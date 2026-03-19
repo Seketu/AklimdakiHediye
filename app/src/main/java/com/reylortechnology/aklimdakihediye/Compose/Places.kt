@@ -1,6 +1,7 @@
 package com.reylortechnology.aklimdakihediye.Compose
 
 import android.content.Intent
+import android.util.Log
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
@@ -17,11 +18,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,6 +33,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowRight
+import androidx.compose.material.icons.automirrored.filled.CompareArrows
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
@@ -38,6 +45,7 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -62,6 +70,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -77,6 +86,9 @@ import androidx.core.net.toUri
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.Peoples
 import com.reylortechnology.aklimdakihediye.R
 import com.reylortechnology.aklimdakihediye.models.Enums.AgeDescStates
+import com.reylortechnology.aklimdakihediye.models.Enums.TypeRelationship
+import com.reylortechnology.aklimdakihediye.ui.theme.OleoScript
+import com.reylortechnology.aklimdakihediye.ui.theme.OrelegaOneRegular
 
 
 @Composable
@@ -209,6 +221,111 @@ fun AgeDescSurface(
         }
     }
 }
+
+
+@Composable
+fun PeopleListCard(
+    modifier: Modifier = Modifier,
+    people : Peoples,
+    isBirthdayNote : String? = null,
+    isSpecialDayNote : String? = null,
+    onAction : () -> Unit = {},
+    textColor: Color = MaterialTheme.colorScheme.onSurfaceVariant
+) {
+    Row(
+        modifier = modifier
+            .padding(3.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
+    ){
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(0.2f)
+                .aspectRatio(1f)
+                .border(
+                    width =  1.dp,
+                    shape = CircleShape,
+                    color = people.color
+                )
+                .padding(1.dp)
+                .clip(CircleShape),
+            contentAlignment = Alignment.Center
+        ){
+            Image(
+                painter = painterResource(id = people.image),
+                contentDescription = "People Image",
+                modifier = Modifier,
+                contentScale = ContentScale.Crop
+            )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                people.peopleName,
+                color = textColor,
+                style = MaterialTheme.typography.headlineLarge.copy(
+                    fontFamily = OleoScript
+                )
+            )
+            Text(
+                stringResource(people.relationship.stringRes),
+                color = textColor,
+                style = MaterialTheme.typography.labelSmall.copy(
+                    fontWeight = FontWeight.Thin
+                )
+            )
+                if (isBirthdayNote != null){
+                    Text(
+                        isBirthdayNote,
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            fontWeight = FontWeight.Medium
+                        )
+                    )
+                }
+                if (isSpecialDayNote != null){
+                    Text(
+                        isSpecialDayNote,
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            fontWeight = FontWeight.Medium
+                        ),
+                        modifier = Modifier.background(
+                            MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
+                            shape = RoundedCornerShape(5.dp)
+                        ).padding(horizontal = 5.dp, vertical = 2.dp),
+                    )
+                }
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxHeight()
+                .fillMaxWidth(0.5f)
+        ){
+            IconButton(
+                modifier = Modifier
+                    .align(Alignment.Center),
+                onClick = {
+                    onAction()
+                },
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = "Düzenle",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(45.dp)
+                )
+            }
+        }
+    }
+}
+
 @Composable
 fun StepperIndicator(currentStep: Int, modifier: Modifier, totalSteps: Int) {
     Row(
@@ -362,6 +479,13 @@ fun MainPeopleCard(
     modifier: Modifier = Modifier,
     peoples: Peoples
 ) {
+    val context  = LocalContext.current
+
+    val hataliDosyaAdi = context.resources.getResourceEntryName(peoples.image)
+    Log.d(
+        "PeopleImageId",
+        peoples.image.toString() + " - " + hataliDosyaAdi
+    )
     val darkTheme = isSystemInDarkTheme()
     Column(
         modifier = modifier,
@@ -645,11 +769,6 @@ fun SavedGiftCard(
             }
 
         }
-        Row (
-            modifier = Modifier.padding(horizontal = 10.dp)
-        ){
-            Text(gift.giftDescription)
-        }
         Row(
             modifier = Modifier
                 .padding(end = 10.dp)
@@ -707,19 +826,21 @@ fun UserInformationPlace(
 @Preview
 @Composable
 private fun CardPreviewAdd() {
-    MainPeopleCard(
-        modifier = Modifier,
-        peoples = Peoples(
-            1,
-            "Ahmet",
-            24,
-            "Terazi",
-            "Harika",
-            "Harika",
-            "Harika",
-            "Aşçı",
-            R.drawable.man_1,
-            Color.Cyan
-        )
+    PeopleListCard(
+        modifier = Modifier.fillMaxWidth().height(150.dp).background(MaterialTheme.colorScheme.surfaceVariant),
+        people = Peoples(
+            peopleName = "Reyhan",
+            age = 20,
+            zodiac = "Aslan",
+            hobbies = "Müzik, Kitap",
+            bestSide = "Yardımsever",
+            character = "Neşeli",
+            job = "Öğrenci",
+            image = R.drawable.woman_2,
+            color = Color(0xFFFFC107),
+            relationship = TypeRelationship.Coworker,
+            birthday = java.time.LocalDate.now().plusDays(2)
+        ),
+        isSpecialDayNote = "2 gün sonra Doğum Günü"
     )
 }

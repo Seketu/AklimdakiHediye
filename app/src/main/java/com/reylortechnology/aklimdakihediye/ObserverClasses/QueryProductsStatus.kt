@@ -6,4 +6,5 @@ sealed class QueryProductsStatus {
     data class Success(val products: List<Products>) : QueryProductsStatus()
     data class Error(val message: String) : QueryProductsStatus()
     object Loading : QueryProductsStatus()
+    object None : QueryProductsStatus()
 }

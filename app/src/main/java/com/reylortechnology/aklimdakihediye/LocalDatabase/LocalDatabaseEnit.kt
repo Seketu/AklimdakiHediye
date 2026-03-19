@@ -6,7 +6,6 @@ import androidx.room.Room
 object LocalDatabaseEnit {
         @Volatile
         private var instance : LocalDatabase? = null
-
         fun getDatabase(context: Context): LocalDatabase{
             return instance ?: synchronized(this){
                 val newInstance = Room.databaseBuilder(

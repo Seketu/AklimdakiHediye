@@ -11,6 +11,9 @@ interface UserInformationDao {
     @Query("SELECT * FROM user_information")
     fun getLocalInformation() : Flow<List<LocalUserInformation>>
 
+    @Query("SELECT * FROM user_information")
+    fun getLocalInformationOnce() : List<LocalUserInformation>
+
     @Insert
     suspend fun addLocalInformation(localUserInformation: LocalUserInformation)
 
