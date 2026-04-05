@@ -171,7 +171,7 @@
     <string name="gift_vibe_for_use">Функционално</string>
     <string name="gift_vibe_humors">Хумористично</string>
     <string name="gift_vibe_retro">Ретро</string>
-    <string name="gift_vibe_luxury"><![CDATA[Луксозно & Елегантно]]></string>
+    <string name="gift_vibe_luxury">Луксозно &amp; Елегантно</string>
     <string name="gift_vibe_memorable">Преживяване</string>
     <string name="gift_vibe_minimalist">Минималистично</string>
 
@@ -293,4 +293,4 @@
 
     <string name="no_gifts_yet">Няма подаръци</string>
     <string name="track_favorite_gifts">Можеш да проследиш своите\nлюбими подаръци тук</string>
-</resources>
+<string name="error_select_date">Datum auswählen</string><string name="mother">Mutter</string></resources>

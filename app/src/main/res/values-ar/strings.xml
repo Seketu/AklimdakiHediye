@@ -171,7 +171,7 @@
     <string name="gift_vibe_for_use">وظيفي</string>
     <string name="gift_vibe_humors">فكاهي</string>
     <string name="gift_vibe_retro">ريترو</string>
-    <string name="gift_vibe_luxury"><![CDATA[فاخر & أنيق]]></string>
+    <string name="gift_vibe_luxury">فاخر &amp; أنيق</string>
     <string name="gift_vibe_memorable">تجربة</string>
     <string name="gift_vibe_minimalist">بسيط</string>
 
@@ -293,4 +293,4 @@
 
     <string name="no_gifts_yet">لا توجد هدايا حتى الآن</string>
     <string name="track_favorite_gifts">يمكنك متابعة هداياك\nالمفضلة هنا</string>
-</resources>
+<string name="error_select_date">Datum auswählen</string><string name="mother">Mutter</string></resources>
