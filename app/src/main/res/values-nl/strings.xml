@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">CadeauIn Gedachten</string>
     <string name="title_app_name">Cadeau in Gedachten</string>
@@ -84,4 +84,4 @@
     <string name="user_info_best_side_label">Jouw goede eigenschappen: </string>
     <string name="loading">Bezig met laden...</string>
     <string name="who_is_lucky">\tWer ist der Glückliche?</string>
-</resources>
+<string name="special_day_main_title">Opgeslagen herinneringen</string><string name="name">Naam</string><string name="mother">Moeder</string><string name="father">Vader</string><string name="friend">Vriend</string><string name="teacher">Leraar</string><string name="select_date">Datum selecteren</string><string name="error_select_relationship">Selecteer uw relatie</string><string name="error_name_required">Naam kan niet leeg zijn</string><string name="label_gift_reason">Waarom geven we dit cadeau?</string><string name="button_create_reminder">Herinnering maken</string><string name="no_gifts_yet">Nog geen cadeaus</string></resources>

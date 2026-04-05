@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Regalo Nella Mente</string>
     <string name="title_app_name">Regalo nella Mente</string>
@@ -84,4 +84,4 @@
     <string name="user_info_best_side_label">I tuoi punti di forza: </string>
     <string name="loading">Caricamento...</string>
     <string name="who_is_lucky">"Chi è il fortunato? "</string>
-</resources>
+<string name="special_day_main_title">Promemoria salvati</string><string name="name">Nome</string><string name="mother">Madre</string><string name="father">Padre</string><string name="friend">Amico</string><string name="teacher">Insegnante</string><string name="select_date">Seleziona data</string><string name="error_select_relationship">Seleziona la tua relazione</string><string name="error_name_required">Il nome non può essere vuoto</string><string name="label_gift_reason">Perché diamo questo regalo?</string><string name="button_create_reminder">Crea promemoria</string><string name="no_gifts_yet">Nessun regalo ancora</string></resources>

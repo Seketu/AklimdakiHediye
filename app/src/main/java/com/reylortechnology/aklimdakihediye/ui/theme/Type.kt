@@ -4,7 +4,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.text.googlefonts.Font
 import com.reylortechnology.aklimdakihediye.R
@@ -35,6 +34,27 @@ val kanitFontFamily = FontFamily(
     Font(googleFont = GoogleFont("Kanit"), fontProvider = provider, weight = FontWeight.ExtraBold)
 )
 
+val poppinsFontFamily = FontFamily(
+    // Thin (100)
+    Font(googleFont = GoogleFont("Poppins"), fontProvider = provider, weight = FontWeight.Thin),
+    // Extra Light (200)
+    Font(googleFont = GoogleFont("Poppins"), fontProvider = provider, weight = FontWeight.ExtraLight),
+    // Light (300)
+    Font(googleFont = GoogleFont("Poppins"), fontProvider = provider, weight = FontWeight.Light),
+    // Regular (400)
+    Font(googleFont = GoogleFont("Poppins"), fontProvider = provider, weight = FontWeight.Normal),
+    // Medium (500)
+    Font(googleFont = GoogleFont("Poppins"), fontProvider = provider, weight = FontWeight.Medium),
+    // SemiBold (600)
+    Font(googleFont = GoogleFont("Poppins"), fontProvider = provider, weight = FontWeight.SemiBold),
+    // Bold (700)
+    Font(googleFont = GoogleFont("Poppins"), fontProvider = provider, weight = FontWeight.Bold),
+    // ExtraBold (800)
+    Font(googleFont = GoogleFont("Poppins"), fontProvider = provider, weight = FontWeight.ExtraBold),
+    // Black (900)
+    Font(googleFont = GoogleFont("Poppins"), fontProvider = provider, weight = FontWeight.Black)
+)
+
 val OleoScript = FontFamily(
     Font(R.font.oleo_script_regular, FontWeight.Normal)
 )
@@ -59,22 +79,48 @@ val Typography.kanitOzelBaslik: TextStyle
         fontWeight = FontWeight.Bold
     )
 
-val AppTypography = Typography(
+val Typography.poppinsTitle: TextStyle
+    get() = this.titleLarge.copy(
+        fontFamily = poppinsFontFamily,
+        fontWeight = FontWeight.SemiBold
+    )
 
+val Typography.poppinsBody: TextStyle
+    get() = this.bodyLarge.copy(
+        fontFamily = poppinsFontFamily,
+        fontWeight = FontWeight.Normal
+    )
+
+val Typography.poppinsHeadline: TextStyle
+    get() = this.headlineMedium.copy(
+        fontFamily = poppinsFontFamily,
+        fontWeight = FontWeight.Bold
+    )
+
+val AppTypography = Typography(
+    // Display styles - Alegreya Sans SC korunuyor
     displayLarge = baseline.displayLarge.copy(fontFamily = displayFontFamily),
     displayMedium = baseline.displayMedium.copy(fontFamily = displayFontFamily),
     displaySmall = baseline.displaySmall.copy(fontFamily = displayFontFamily),
-    headlineLarge = baseline.headlineLarge.copy(fontFamily = displayFontFamily),
-    headlineMedium = baseline.headlineMedium.copy(fontFamily = displayFontFamily),
-    headlineSmall = baseline.headlineSmall.copy(fontFamily = displayFontFamily),
-    titleLarge = baseline.titleLarge.copy(fontFamily = displayFontFamily),
-    titleMedium = baseline.titleMedium.copy(fontFamily = displayFontFamily),
-    titleSmall = baseline.titleSmall.copy(fontFamily = displayFontFamily),
+
+    // Headlines - Poppins kullanılıyor
+    headlineLarge = baseline.headlineLarge.copy(fontFamily = poppinsFontFamily, fontWeight = FontWeight.Bold),
+    headlineMedium = baseline.headlineMedium.copy(fontFamily = poppinsFontFamily, fontWeight = FontWeight.SemiBold),
+    headlineSmall = baseline.headlineSmall.copy(fontFamily = poppinsFontFamily, fontWeight = FontWeight.Medium),
+
+    // Titles - Poppins kullanılıyor
+    titleLarge = baseline.titleLarge.copy(fontFamily = poppinsFontFamily, fontWeight = FontWeight.SemiBold),
+    titleMedium = baseline.titleMedium.copy(fontFamily = poppinsFontFamily, fontWeight = FontWeight.Medium),
+    titleSmall = baseline.titleSmall.copy(fontFamily = poppinsFontFamily, fontWeight = FontWeight.Medium),
+
+    // Body - Roboto korunuyor ama Poppins seçeneği de var
     bodyLarge = baseline.bodyLarge.copy(fontFamily = bodyFontFamily),
     bodyMedium = baseline.bodyMedium.copy(fontFamily = bodyFontFamily),
     bodySmall = baseline.bodySmall.copy(fontFamily = bodyFontFamily),
-    labelLarge = baseline.labelLarge.copy(fontFamily = bodyFontFamily),
-    labelMedium = baseline.labelMedium.copy(fontFamily = bodyFontFamily),
-    labelSmall = baseline.labelSmall.copy(fontFamily = bodyFontFamily),
+
+    // Labels - Poppins kullanılıyor
+    labelLarge = baseline.labelLarge.copy(fontFamily = poppinsFontFamily, fontWeight = FontWeight.Medium),
+    labelMedium = baseline.labelMedium.copy(fontFamily = poppinsFontFamily, fontWeight = FontWeight.Normal),
+    labelSmall = baseline.labelSmall.copy(fontFamily = poppinsFontFamily, fontWeight = FontWeight.Normal),
 )
 

@@ -3,10 +3,14 @@ package com.reylortechnology.aklimdakihediye.Compose
 import android.content.Intent
 import android.util.Log
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
@@ -18,7 +22,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -34,11 +37,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowRight
-import androidx.compose.material.icons.automirrored.filled.CompareArrows
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.DatePicker
@@ -72,6 +77,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -84,11 +90,14 @@ import java.util.Locale
 import java.util.TimeZone
 import androidx.core.net.toUri
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.Peoples
+import com.reylortechnology.aklimdakihediye.ObserverClasses.ZodiacStatus
 import com.reylortechnology.aklimdakihediye.R
 import com.reylortechnology.aklimdakihediye.models.Enums.AgeDescStates
+import com.reylortechnology.aklimdakihediye.models.Enums.CharacterTrait
+import com.reylortechnology.aklimdakihediye.models.Enums.Genders
+import com.reylortechnology.aklimdakihediye.models.Enums.Hobbies
 import com.reylortechnology.aklimdakihediye.models.Enums.TypeRelationship
 import com.reylortechnology.aklimdakihediye.ui.theme.OleoScript
-import com.reylortechnology.aklimdakihediye.ui.theme.OrelegaOneRegular
 
 
 @Composable
@@ -736,60 +745,114 @@ fun SavedGiftCard(
     gift: SavedGifts,
     checked: MutableState<Boolean>,
     onCheckedChange: (Boolean) -> Unit,
-    enabled : MutableState<Boolean>
+    enabled : Boolean
 ) {
     val context = LocalContext.current
-    Column(
+
+    Card(
         modifier = modifier
-            .clip(RoundedCornerShape(15.dp))
-            .background(onSurfaceLight)
+            .fillMaxWidth()
+            .clickable {
+                if (!enabled) {
+                    // Normal mode - go to gift URL
+                    val intent = Intent(Intent.ACTION_VIEW, gift.giftUrl.toUri())
+                    context.startActivity(intent)
+                }
+                // Delete mode'da card click'i checkbox'ı handle etmesin
+            },
+        colors = CardDefaults.cardColors(
+            containerColor = if (checked.value && enabled) {
+                MaterialTheme.colorScheme.errorContainer
+            } else {
+                MaterialTheme.colorScheme.surfaceContainer
+            }
+        ),
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = if (checked.value && enabled) 8.dp else 4.dp
+        )
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),
-            horizontalArrangement = Arrangement.SpaceAround,
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                gift.giftName,
-            )
-            Spacer(Modifier.weight(1f))
-            if (enabled.value){
-                Checkbox(
-                    modifier = Modifier
-                        .clickable{
-                            checked.value = !checked.value
-                        },
-                    checked = checked.value,
-                    onCheckedChange = {onCheckedChange.invoke(it)},
+            // Gift icon
+            Card(
+                modifier = Modifier.size(48.dp),
+                shape = CircleShape,
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
                 )
-            }else{
-
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.FavoriteBorder,
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp),
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
             }
 
-        }
-        Row(
-            modifier = Modifier
-                .padding(end = 10.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
-        ) {
-
-            Button(
-                onClick = {
-                    val intent = Intent(Intent.ACTION_VIEW, gift.giftUrl.toUri())
-                    context.startActivity(intent)
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.White
-                ),
-                shape = RoundedCornerShape(1.dp)
+            // Gift details
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    "Sayfaya Git",
-                    fontSize = 16.sp,
-                    color = Color.Black
+                    text = gift.giftName,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = if (checked.value && enabled) {
+                        MaterialTheme.colorScheme.onErrorContainer
+                    } else {
+                        MaterialTheme.colorScheme.onSurface
+                    },
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+
+                if (!enabled) {
+                    Text(
+                        text = "Sayfaya git",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
+
+            // Checkbox or action icon
+            if (enabled) {
+                AnimatedVisibility(
+                    visible = true,
+                    enter = scaleIn(animationSpec = spring()) + fadeIn(),
+                    exit = scaleOut(animationSpec = spring()) + fadeOut()
+                ) {
+                    Checkbox(
+                        checked = checked.value,
+                        onCheckedChange = { newValue ->
+                            checked.value = newValue
+                            onCheckedChange(newValue)
+                        },
+                        colors = CheckboxDefaults.colors(
+                            checkedColor = MaterialTheme.colorScheme.error,
+                            uncheckedColor = MaterialTheme.colorScheme.outline
+                        )
+                    )
+                }
+            } else {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                    contentDescription = "Go to page",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(20.dp)
                 )
             }
         }
@@ -830,16 +893,17 @@ private fun CardPreviewAdd() {
         modifier = Modifier.fillMaxWidth().height(150.dp).background(MaterialTheme.colorScheme.surfaceVariant),
         people = Peoples(
             peopleName = "Reyhan",
+            relationship = TypeRelationship.Coworker,
+            birthday = java.time.LocalDate.now().plusDays(2),
             age = 20,
-            zodiac = "Aslan",
-            hobbies = "Müzik, Kitap",
+            zodiac = ZodiacStatus.Leo,
+            hobbies = listOf(Hobbies.Basketball),
             bestSide = "Yardımsever",
-            character = "Neşeli",
+            character = listOf(CharacterTrait.STUBBORNNESS),
             job = "Öğrenci",
             image = R.drawable.woman_2,
             color = Color(0xFFFFC107),
-            relationship = TypeRelationship.Coworker,
-            birthday = java.time.LocalDate.now().plusDays(2)
+            gender = Genders.Female
         ),
         isSpecialDayNote = "2 gün sonra Doğum Günü"
     )

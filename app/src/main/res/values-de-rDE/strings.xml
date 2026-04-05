@@ -84,4 +84,239 @@
     <string name="user_info_best_side_label">Deine guten Seiten: </string>
     <string name="loading">Wird geladen...</string>
     <string name="who_is_lucky">Wer ist der Glückliche?</string>
+
+    <!-- Tüm eksik stringler için Almanca çeviriler -->
+    <string name="special_day_main_title">Gespeicherte Erinnerungen</string>
+    <string name="name">Name</string>
+    <string name="mother">Mutter</string>
+    <string name="mother_short_desc">Das stillste Gebet meines Herzens ist immer für dich, Mama.</string>
+    <string name="father_desc_short">Dein Schatten genügt, Papa, du gibst mir bei jedem Schritt Kraft.</string>
+    <string name="sibling_desc_short">Eine unendliche Freundschaft in einem kleinen Herzen: Mein Geschwister.</string>
+    <string name="sweatheart_desc_short">Wenn du lächelst, verstummt die Welt, nur mein Herz spricht.</string>
+    <string name="teacher_desc_short">Du hast einen Buchstaben gegeben, den Weg für ein Leben gezeigt.</string>
+    <string name="friend_desc_short">Wahre Freundschaft bedeutet, sich auch in Stille zu verstehen.</string>
+    <string name="select_date">Datum auswählen</string>
+    <string name="reminder_message_text">Das von dir erstellte Ereignis nähert sich</string>
+    <string name="father">Vater</string>
+    <string name="sibling">Geschwister</string>
+    <string name="sweatheart">Dein Schatz</string>
+    <string name="teacher">Lehrer</string>
+    <string name="friend">Freund</string>
+    <string name="celebrations_list_title">Besondere Tage</string>
+    <string name="new_label">Neu</string>
+    <string name="gender_man">Männlich</string>
+    <string name="gender_female">Weiblich</string>
+    <string name="gender_nc">Keine Angabe</string>
+    <string name="type_relationship_parents">Elternteil</string>
+    <string name="age_desc_child">Kind</string>
+    <string name="age_desc_teen">Jugendlich</string>
+    <string name="age_desc_adult">Erwachsen</string>
+    <string name="age_desc_older">Reif</string>
+
+    <!-- Hobbys -->
+    <string name="hobbies_spor">Sport</string>
+    <string name="hobbies_gym">Fitnessstudio</string>
+    <string name="hobbies_fashion">Mode</string>
+    <string name="hobbies_ghosts">Geister</string>
+    <string name="hobbies_music">Musik</string>
+    <string name="hobbies_enstrumants">Instrumente</string>
+    <string name="hobbies_movies">Filme</string>
+    <string name="hobbies_series">Serien</string>
+    <string name="hobbies_cook">Kochen</string>
+    <string name="hobbies_shopping">Einkaufen</string>
+    <string name="hobbies_reading">Lesen</string>
+    <string name="hobbies_video_games">Videospiele</string>
+    <string name="hobbies_chest">Schach</string>
+    <string name="hobbies_zodiacs">Sternzeichen</string>
+    <string name="hobbies_camping">Camping</string>
+    <string name="hobbies_walking">Wandern</string>
+    <string name="hobbies_flowers">Blumen</string>
+    <string name="hobbies_swimming">Schwimmen</string>
+    <string name="hobbies_dance">Tanzen</string>
+    <string name="hobbies_bike">Radfahren</string>
+    <string name="hobbies_motobike">Motorräder</string>
+    <string name="hobbies_fishing">Angeln</string>
+    <string name="hobbies_cars">Autos</string>
+    <string name="hobbies_football">Fußball</string>
+    <string name="hobbies_basketball">Basketball</string>
+    <string name="hobbies_volleyball">Volleyball</string>
+    <string name="hobbies_cosplay">Cosplay</string>
+    <string name="hobbies_art">Kunst</string>
+
+    <!-- Character Traits -->
+    <string name="character_determination">Entschlossenheit</string>
+    <string name="trait_determination">Entschlossenheit</string>
+    <string name="trait_self_discipline">Selbstdisziplin</string>
+    <string name="trait_resilience">Widerstandsfähig</string>
+    <string name="trait_integrity">Ehrlich</string>
+    <string name="trait_empathy">Empathie</string>
+    <string name="trait_sincerity">Aufrichtig</string>
+    <string name="trait_adaptability">Anpassungsfähig</string>
+    <string name="trait_humility">Bescheiden</string>
+    <string name="trait_curiosity">Neugierig</string>
+    <string name="trait_analytical_thinking">Analytisch</string>
+    <string name="trait_creativity">Kreativ</string>
+    <string name="trait_open_mindedness">Aufgeschlossen</string>
+    <string name="trait_perfectionism">Perfektionistisch</string>
+    <string name="trait_meticulousness">Akribisch</string>
+    <string name="trait_composure">Kaltblütig</string>
+    <string name="trait_stubbornness">Stur</string>
+    <string name="silAlara">Alara sehr lieben</string>
+
+    <!-- Gift Reasons -->
+    <string name="for_why_just_because">Einfach so</string>
+    <string name="for_why_birthday">Geburtstag</string>
+    <string name="for_why_anniversary">Jahrestag</string>
+    <string name="for_why_education">Abschluss</string>
+    <string name="for_why_house_warming">Einweihung</string>
+    <string name="for_why_holiday">Urlaub</string>
+
+    <!-- Gift Vibes -->
+    <string name="gift_vibe_romance">Romantisch</string>
+    <string name="gift_vibe_emotional">Emotional</string>
+    <string name="gift_vibe_for_use">Funktional</string>
+    <string name="gift_vibe_humors">Humorvoll</string>
+    <string name="gift_vibe_retro">Retro</string>
+    <string name="gift_vibe_luxury"><![CDATA[Luxus & Elegant]]></string>
+    <string name="gift_vibe_memorable">Erlebnis</string>
+    <string name="gift_vibe_minimalist">Minimalistisch</string>
+
+    <!-- Prices -->
+    <string name="prices_low">0–500€</string>
+    <string name="upper_low">500–1000€</string>
+    <string name="prices_medium">1000–1500€</string>
+    <string name="prices_high">1500–3000€</string>
+    <string name="prices_unlimit">3000€+</string>
+
+    <!-- Other Labels -->
+    <string name="screen_titles_peoples">Deine Leute</string>
+    <string name="peoples_screen_no_people">Keine gespeicherten Freunde</string>
+    <string name="label_personal_information">Persönliche Informationen</string>
+    <string name="label_old">Alter</string>
+    <string name="label_user_releationship">Deine Beziehungsinformationen</string>
+    <string name="label_people_character">Charaktereigenschaften</string>
+    <string name="label_people_hobies">Hobbys</string>
+    <string name="label_people_zodiac">Sternzeichen</string>
+    <string name="label_people_best_side">gute Seiten</string>
+    <string name="people_details_divider_personal_and_relation_information">persönliche Informationen</string>
+    <string name="people_details_divider_characteristics">Charakter</string>
+    <string name="people_details_divider_hobbies">Hobbys</string>
+    <string name="error_at_update_room">Beim Aktualisieren des Speichers ist ein Fehler aufgetreten</string>
+    <string name="screen_title_take_person_information_main_search_gift">Lass uns das perfekte Geschenk finden</string>
+    <string name="screen_title_take_person_information_black_main_search_gift">Lass uns das perfekte</string>
+    <string name="screen_title_take_person_information_red_main_search_gift">Geschenk finden.</string>
+    <string name="label_textfield_person_name">Name</string>
+    <string name="label_next_step">Nächster Schritt</string>
+
+    <!-- Error Messages -->
+    <string name="error_select_relationship">Bitte wählen Sie Ihre Beziehung aus</string>
+    <string name="error_name_required">Name darf nicht leer sein</string>
+    <string name="error_fill_required_fields">Bitte füllen Sie die Pflichtfelder aus</string>
+    <string name="error_enter_event_name">Ereignisnamen eingeben</string>
+    <string name="error_select_date">Datum auswählen</string>
+
+    <!-- UI Labels -->
+    <string name="label_personal_information_header">Persönliche Informationen</string>
+    <string name="label_event_information">Ereignisinformationen</string>
+    <string name="label_relationship_degree">Ihre Beziehung</string>
+    <string name="label_event_name">Ereignisname</string>
+    <string name="label_notification_timing">Wann möchten Sie Benachrichtigungen erhalten?</string>
+
+    <!-- Gift Related -->
+    <string name="label_gift_reason">Warum kaufen wir dieses Geschenk?</string>
+    <string name="label_special_requests">Spezielle Wünsche?</string>
+    <string name="label_gift_spirit">Geschenkgeist?</string>
+    <string name="label_budget">Was ist unser Budget?</string>
+    <string name="button_find_gift">Finde dein Geschenk!</string>
+    <string name="placeholder_special_request">Z.B. Ich möchte kein Buch oder Smartwatch, usw.</string>
+
+    <!-- Notifications -->
+    <string name="notification_permission_dialog_title">Sie werden zum speziellen Berechtigungsbildschirm weitergeleitet. Bitte versuchen Sie es nach der Rückkehr erneut.</string>
+    <string name="notification_permission_confirm">OK</string>
+    <string name="notification_permission_cancel">Abbrechen</string>
+    <string name="button_create_reminder">Erinnerung erstellen</string>
+
+    <!-- Debug Messages -->
+    <string name="debug_snackbar_shown">Snackbar angezeigt: %s</string>
+    <string name="debug_search_query">🔍 Suche: %s</string>
+    <string name="debug_image_found">🖼️ Bild gefunden (Global): %s</string>
+
+    <!-- Accessibility -->
+    <string name="content_description_back_button">Zurück-Button</string>
+    <string name="content_description_empty">""</string>
+    <string name="content_description_logo">Logo</string>
+    <string name="content_description_user_profile">Benutzerprofil</string>
+    <string name="content_description_edit_profile_image">Profilbild bearbeiten</string>
+    <string name="content_description_add_button">Hinzufügen-Button</string>
+    <string name="content_description_clear_button">Löschen-Button</string>
+    <string name="content_description_back">Zurück</string>
+    <string name="content_description_delete_mode">Löschmodus</string>
+
+    <!-- Debug Log Tags -->
+    <string name="debug_log_snackbar">Snackbar</string>
+    <string name="debug_log_state">state</string>
+    <string name="debug_log_tag">TAG</string>
+    <string name="debug_log_error_gift_vm">Error at giftVm</string>
+    <string name="debug_log_error">Error</string>
+    <string name="debug_log_error_search_result">Error at takeSearchResult</string>
+    <string name="debug_log_tag_gemini_error">Tag Gemini error</string>
+    <string name="debug_log_json_error">JSON_ERROR</string>
+    <string name="debug_log_error_in_vm">Error in Vm</string>
+
+    <!-- Error Messages - Additional -->
+    <string name="error_unknown">Ein unbekannter Fehler ist aufgetreten</string>
+    <string name="error_parse_failed">Parsing fehlgeschlagen: %s</string>
+    <string name="error_notification_permission_required">Sie müssen die Benachrichtigungsberechtigung erteilen</string>
+
+    <!-- Debug Messages - Additional -->
+    <string name="debug_delete_button_log">Tag delete button</string>
+
+    <!-- Preview/Test Data -->
+    <string name="preview_product_name">Produktname</string>
+    <string name="preview_product_image_url">https://example.com/product.jpg</string>
+    <string name="preview_product_url">https://example.com/product</string>
+    <string name="preview_best_side">Freundlich und hilfsbereit</string>
+    <string name="preview_job">Software-Ingenieur</string>
+
+    <!-- Prompt Templates -->
+    <string name="prompt_about_me_info">Informationen über mich:\n</string>
+    <string name="prompt_name">Name: %s\n</string>
+    <string name="prompt_age">Alter: %s\n</string>
+    <string name="prompt_zodiac">Sternzeichen: %s\n</string>
+    <string name="prompt_good_sides">Gute Seiten: %s\n</string>
+    <string name="prompt_hobbies">Hobbys: %s\n</string>
+    <string name="prompt_character">Charaktereigenschaften: %s\n</string>
+
+    <!-- Debug Messages for ViewModels -->
+    <string name="debug_set_another_info">setForAnotherInformation: %s</string>
+    <string name="debug_save_person_info">savePersonInformation: %s</string>
+    <string name="debug_another_info">Another Information: %s</string>
+
+    <!-- Main Search Gift View -->
+    <string name="search_gift">Geschenk suchen</string>
+    <string name="gift_for_template">Geschenk für %s</string>
+    <string name="hobbies_for_template">%s - Hobbys</string>
+    <string name="character_for_template">%s - Charaktereigenschaften</string>
+    <string name="gift_criteria">Geschenkkriterien</string>
+    <string name="gift_suggestions">Geschenkvorschläge</string>
+    <string name="animation_label_main_search">MainSearchGiftScreenAnimation</string>
+
+    <!-- User Settings -->
+    <string name="user_info_missing">Benutzerinformationen fehlen</string>
+    <string name="user_info_missing_desc">Fügen Sie Ihre persönlichen Informationen hinzu\num bessere Vorschläge zu erhalten</string>
+    <string name="add_information">Informationen hinzufügen</string>
+    <string name="personal_info_title">Persönliche Informationen</string>
+    <string name="social_features_title">Soziale Funktionen</string>
+
+    <!-- Navigation Arguments -->
+    <string name="nav_arg_for_another">ForAnother</string>
+    <string name="nav_arg_save_inf">SaveInf</string>
+
+    <!-- Debug Tags -->
+    <string name="debug_tag_args">Args</string>
+    <string name="debug_tag_general">Tag</string>
+
+    <!-- Empty State Messages -->
+    <string name="no_gifts_yet">Noch keine Geschenke</string>
+    <string name="track_favorite_gifts">Hier kannst du deine Lieblingsgeschenke\nverfolgen</string>
 </resources>

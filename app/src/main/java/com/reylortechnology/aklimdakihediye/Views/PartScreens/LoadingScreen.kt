@@ -37,7 +37,7 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
 
             Image(
                 painter = painterResource(id = R.drawable.logo_alpha),
-                contentDescription = "Logo"
+                contentDescription = stringResource(R.string.content_description_logo)
             )
 
             Text(text = stringResource(R.string.loading), color = Color.Black, fontSize = 20.sp)

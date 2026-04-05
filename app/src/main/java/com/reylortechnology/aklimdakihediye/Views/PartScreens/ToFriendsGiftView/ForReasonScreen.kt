@@ -113,7 +113,7 @@ fun ForReasonScreen(
                         )
 
                         Text(
-                            "Bu hediyeyi neden alıyoruz ?",
+                            stringResource(R.string.label_gift_reason),
                             color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.headlineSmall.copy(
                                 fontFamily = OrelegaOneRegular
@@ -167,7 +167,7 @@ fun ForReasonScreen(
                         )
 
                         Text(
-                            "Özel İstekler ?",
+                            stringResource(R.string.label_special_requests),
                             color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.headlineSmall.copy(
                                 fontFamily = OrelegaOneRegular
@@ -195,7 +195,7 @@ fun ForReasonScreen(
                         shape = MaterialTheme.shapes.medium,
                         label = {
                             Text(
-                                "Mesela kitap veya akıllı saat istemiyorum vb."
+                                stringResource(R.string.placeholder_special_request)
                             )
                         }
                     )
@@ -223,7 +223,7 @@ fun ForReasonScreen(
                         )
 
                         Text(
-                            "Hediye Ruhu ?",
+                            stringResource(R.string.label_gift_spirit),
                             color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.headlineSmall.copy(
                                 fontFamily = OrelegaOneRegular
@@ -273,7 +273,7 @@ fun ForReasonScreen(
                         )
 
                         Text(
-                            "Bütçemiz Nedir ?",
+                            stringResource(R.string.label_budget),
                             color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.headlineSmall.copy(
                                 fontFamily = OrelegaOneRegular
@@ -323,7 +323,7 @@ fun ForReasonScreen(
                         Toast
                             .makeText(
                                 context,
-                                "Lütfen Gerekli Alanları Doldurun",
+                                context.getString(R.string.error_fill_required_fields),
                                 Toast.LENGTH_SHORT
                             )
                             .show()
@@ -348,7 +348,7 @@ fun ForReasonScreen(
             contentPadding = PaddingValues(3.dp)
         ) {
             Text(
-                "Hediyeni Bul !",
+                stringResource(R.string.button_find_gift),
                 style = MaterialTheme.typography.headlineSmall.copy(
                     shadow = Shadow(
                         color = MaterialTheme.colorScheme.onPrimary,

@@ -77,6 +77,7 @@ fun SpecialDayMainScreen(
     viewModel : SpecialDaysViewModel = hiltViewModel()
 ) {
 
+    val context = LocalContext.current
     val selectedForDelete = remember {
         mutableListOf<Notifications>()
     }
@@ -100,7 +101,6 @@ fun SpecialDayMainScreen(
     }
 
     val listOfDays = viewModel.reminderList.collectAsState(emptyList())
-    val context = LocalContext.current
     val localConfiguration = LocalConfiguration.current
     val localHeight = localConfiguration.screenHeightDp.dp
 
@@ -186,7 +186,7 @@ fun SpecialDayMainScreen(
                 navigationIcon = {
                     Icon(
                         Icons.AutoMirrored.Default.ArrowBack,
-                        "back button",
+                        stringResource(R.string.content_description_back_button),
                         Modifier
                             .clickable {
                                 navController.popBackStack()
@@ -199,7 +199,7 @@ fun SpecialDayMainScreen(
                     if (deleteState.value){
                         Icon(
                             Icons.Default.Clear,
-                            "back button",
+                            stringResource(R.string.content_description_clear_button),
                             tint = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier
                                 .clickable{
@@ -216,7 +216,7 @@ fun SpecialDayMainScreen(
                     if (notificationPermission.value){
                         screenObserver.value = SpecialDaysScreenObserver.TakePersonInformation
                     }else{
-                        viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar("Bildirim izni vermeniz gerekiyor"))
+                        viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar(context.getString(R.string.error_notification_permission_required)))
                     }
                 },
                 contentColor = MaterialTheme.colorScheme.onPrimary,
@@ -224,7 +224,7 @@ fun SpecialDayMainScreen(
             ) {
                 Icon(
                     Icons.Default.Add,
-                    "back button",
+                    stringResource(R.string.content_description_add_button),
                     Modifier
                         .size(50.dp),
                 )
@@ -298,7 +298,7 @@ fun SpecialDayMainScreen(
                         .fillMaxSize()
                         .background(Color.Red)
                         .clickable {
-                            Log.d("Tag delete button", selectedForDelete.toString())
+                            Log.d(context.getString(R.string.debug_delete_button_log), selectedForDelete.toString())
                             viewModel.deleteReminder(selectedForDelete)
                         },
                     verticalAlignment = Alignment.CenterVertically,

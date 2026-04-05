@@ -23,7 +23,7 @@ import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.SavedGifts
         Peoples::class,
         LastGifts::class
     ],
-    version = 10
+    version = 11
 )
 @TypeConverters(Converters::class)
 abstract class LocalDatabase : RoomDatabase() {

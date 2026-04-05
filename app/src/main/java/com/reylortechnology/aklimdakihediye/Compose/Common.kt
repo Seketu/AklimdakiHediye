@@ -1,3 +1,5 @@
+package com.reylortechnology.aklimdakihediye.Compose
+
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -19,6 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.util.lerp
+import java.time.LocalDate
+import java.time.LocalTime
 import java.time.YearMonth
 import kotlin.math.absoluteValue
 
@@ -26,7 +30,11 @@ import kotlin.math.absoluteValue
 @Composable
 fun DatePickerScreen(
     modifier: Modifier = Modifier,
-    onDateChange: (Int, Int, Int) -> Unit
+    initialDay: Int = 1,     // Başlangıç Günü
+    initialMonth: Int = 1,   // Başlangıç Ayı
+    initialYear: Int = LocalDate.now().year,
+            onDateChange: (Int, Int, Int) -> Unit,
+  // Başlangıç Yılı (Varsayılan olarak mevcut yıl
 ) {
     // KULLANIM:
     // Dışarıdan gelen modifier ne boyutta olursa olsun, içerik ona uyar.
@@ -36,7 +44,10 @@ fun DatePickerScreen(
                 .background(Color(0xFFF5F5F5), RoundedCornerShape(16)), // Arkaplan ve köşe yumuşatma
             onDateSelected = { d, m, y ->
                 onDateChange(d, m, y)
-            }
+            },
+            initialDay = initialDay,
+            initialMonth = initialMonth,
+            initialYear = initialYear,
         )
     }
 }
@@ -47,13 +58,16 @@ fun ResponsiveDatePicker(
     modifier: Modifier = Modifier,
     startYear: Int = 1950,
     endYear: Int = 2026,
+    initialDay: Int = 1,
+    initialMonth: Int = 1,
+    initialYear: Int = endYear,
     onDateSelected: (Int, Int, Int) -> Unit
 ) {
     val years = (startYear..endYear).toList()
     val months = (1..12).toList()
 
-    var selectedYear by remember { mutableIntStateOf(endYear) }
-    var selectedMonth by remember { mutableIntStateOf(1) }
+    var selectedYear by remember { mutableIntStateOf(initialYear.coerceIn(startYear, endYear)) }
+    var selectedMonth by remember { mutableIntStateOf(initialMonth.coerceIn(1, 12)) }
 
     val daysInMonth by remember(selectedMonth, selectedYear) {
         derivedStateOf { YearMonth.of(selectedYear, selectedMonth).lengthOfMonth() }
@@ -191,7 +205,8 @@ fun <T> WheelPicker(
                 text = items[page].toString(),
                 fontSize = fontSize, // Hesaplanan font
                 fontWeight = if (page == pagerState.currentPage) FontWeight.Bold else FontWeight.Medium,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = if (page == pagerState.currentPage) Color.Black else Color.Gray
             )
         }
     }

@@ -145,7 +145,7 @@ class UserInfoView {
                             ) {
                                 Image(
                                     painter = painterResource(R.drawable.back_icon),
-                                    "back button",
+                                    stringResource(R.string.content_description_back_button),
                                     modifier = Modifier
                                 )
                             }

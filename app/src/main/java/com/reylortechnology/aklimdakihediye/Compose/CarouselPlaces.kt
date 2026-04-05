@@ -104,16 +104,19 @@ fun PeoplePhotoSelector(
             val scale = 1f - (absOffset * 0.15f).coerceIn(0f, 0.15f)
             // Alpha: Merkezdeki net, kenardakiler biraz silik
             val alpha = 1f - (absOffset * 0.4f).coerceIn(0f, 0.4f)
-
+            val scaleGapTranslationX = (cardSizePx * (1f - scale) / 2f) * pageOffset
             val isSelected = (pagerState.currentPage == pageIndex)
 
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
+                    .clip(CircleShape)
+                    .aspectRatio(1f)
                     .graphicsLayer {
                         scaleX = scale
                         scaleY = scale
                         this.alpha = alpha
+                        translationX = scaleGapTranslationX
                     }
                     .size(cardSize)
             ) {

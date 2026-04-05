@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Δώρο Στο Μυαλό</string>
     <string name="title_app_name">Δώρο στο Μυαλό</string>
@@ -84,4 +84,4 @@
     <string name="user_info_best_side_label">Τα δυνατά σου σημεία: </string>
     <string name="loading">Φόρτωση...</string>
     <string name="who_is_lucky">Ποιος είναι ο τυχερός</string>
-</resources>
+<string name="special_day_main_title">Αποθηκευμένες υπενθυμίσεις</string><string name="name">Όνομα</string><string name="mother">Μητέρα</string><string name="father">Πατέρας</string><string name="friend">Φίλος</string><string name="teacher">Δάσκαλος</string><string name="select_date">Επιλέξτε ημερομηνία</string><string name="error_select_relationship">Επιλέξτε τη σχέση σας</string><string name="error_name_required">Το όνομα δεν μπορεί να είναι κενό</string><string name="label_gift_reason">Γιατί δίνουμε αυτό το δώρο;</string><string name="button_create_reminder">Δημιουργία υπενθύμισης</string><string name="no_gifts_yet">Κανένα δώρο ακόμα</string></resources>

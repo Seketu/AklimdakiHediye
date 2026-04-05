@@ -415,6 +415,9 @@ fun SuccessLoading(
                     painter = painterResource(R.drawable.main_button),
                     contentScale = ContentScale.FillBounds
                 )
+                .clickable{
+                    navController.navigate(LocalNavController.MainSearchGiftView)
+                }
             ){
                 Box(
                     modifier = Modifier
@@ -480,7 +483,10 @@ fun SuccessLoading(
 
                     Text(
                         "hepsini gör",
-                        color = Color.Red
+                        color = Color.Red,
+                        modifier = Modifier.clickable{
+                            navController.navigate(LocalNavController.PeoplesScreen)
+                        }
                     )
                 }
 

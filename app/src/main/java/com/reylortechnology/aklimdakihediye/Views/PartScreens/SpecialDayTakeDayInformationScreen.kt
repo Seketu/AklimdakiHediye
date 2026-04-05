@@ -41,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,6 +53,7 @@ import com.reylortechnology.aklimdakihediye.Compose.SpecialDayTextField
 import com.reylortechnology.aklimdakihediye.ObserverClasses.AlertDialogObserver
 import com.reylortechnology.aklimdakihediye.ObserverClasses.NotificationTimer
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ScreenStateObservers.SpecialDaysScreenObserver
+import com.reylortechnology.aklimdakihediye.R
 import com.reylortechnology.aklimdakihediye.ViewModels.SpecialDaysViewModel
 import com.reylortechnology.aklimdakihediye.models.ComposeModels.SnackBarEvent
 
@@ -149,7 +151,7 @@ fun SpecialDayTakeDayInformationScreen(
             TopAppBar(
                 title = {
                     Text(
-                        "Etkinlik Bilgileri",
+                        stringResource(R.string.label_event_information),
                         color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 24.sp,
                         textAlign = TextAlign.Center,
@@ -159,7 +161,7 @@ fun SpecialDayTakeDayInformationScreen(
                 navigationIcon = {
                     Icon(
                         Icons.AutoMirrored.Default.ArrowBack,
-                        "back button",
+                        stringResource(R.string.content_description_back_button),
                         Modifier
                             .clickable {
                                 screenObserver.value =
@@ -186,7 +188,7 @@ fun SpecialDayTakeDayInformationScreen(
                 value = eventName,
                 modifier = Modifier
                     .fillMaxWidth(0.9f),
-                label = "Etkinlik Adı",
+                label = stringResource(R.string.label_event_name),
                 isError = eventError
             )
 
@@ -258,7 +260,7 @@ fun SpecialDayTakeDayInformationScreen(
                     }
                 }
                 Text(
-                    "Ne zaman bildirim almak istersiniz ?",
+                    stringResource(R.string.label_notification_timing),
                     fontSize = 9.sp,
                 )
             }
@@ -270,17 +272,17 @@ fun SpecialDayTakeDayInformationScreen(
                     .background(MaterialTheme.colorScheme.primary)
                     .clickable {
                         if (eventName.value.isEmpty()) {
-                            viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar("Etkinlik ismi giriniz"))
+                            viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar(context.getString(R.string.error_enter_event_name)))
                             eventError.value = true
                         } else if (datePickerState.value == null || datePickerState.value == 0L) {
-                            viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar("Tarih seçiniz"))
+                            viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar(context.getString(R.string.error_select_date)))
                         } else {
-                            Log.e("state",exactAlarmPermission.value.toString())
+                            Log.e(context.getString(R.string.debug_log_state),exactAlarmPermission.value.toString())
                             if (!exactAlarmPermission.value){
                                 viewModel.setAlertDialogEvent(event = AlertDialogObserver.NewAlertDialog(
-                                    title = "Bildirim için özel izin ekranına yönlendireleceksiniz,Sonrasında geri dönüş yaparak tekrar deneyiniz",
-                                    confirmText = "Tamam",
-                                    dismissText = "İptal",
+                                    title = context.getString(R.string.notification_permission_dialog_title),
+                                    confirmText = context.getString(R.string.notification_permission_confirm),
+                                    dismissText = context.getString(R.string.notification_permission_cancel),
                                     dismissButton = {
                                         viewModel.setAlertDialogEvent(AlertDialogObserver.none)
                                     },
@@ -313,7 +315,7 @@ fun SpecialDayTakeDayInformationScreen(
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    "Hatırlatıcı Oluştur",
+                    stringResource(R.string.button_create_reminder),
                     fontSize = 24.sp,
                     color = MaterialTheme.colorScheme.onPrimary,
                 )

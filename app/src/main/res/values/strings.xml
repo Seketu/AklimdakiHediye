@@ -18,7 +18,7 @@
     <string name="info_label_old"> yaşı kaç ?</string>
     <string name="info_label_zodiac"> burcu ne ?</string>
     <string name="info_label_job"> mesleği ne ?</string>
-    <string name="info_label_best_side"> karakterinin öne çıkan özellikleri ?</string>"
+    <string name="info_label_best_side"> karakterinin öne çıkan özellikleri ?</string>
     <string name="info_label_hobbies"> Hobileri neler ?</string>
     <string name="info_label_last_gifts"> ona daha önce aldığın hediyeleri neler ?</string>
     <string name="info_label_time"> kaç yıldır berabersiniz ?</string>
@@ -172,4 +172,134 @@
     <string name="prices_unlimit">₺+3000</string>
     <string name="screen_titles_peoples">Kişileriniz</string>
     <string name="peoples_screen_no_people">Kayıtlı Arkadışınız Bulunmuyor</string>
+    <string name="label_personal_information">Kişisel Bilgiler</string>
+    <string name="label_old">Yaş</string>
+    <string name="label_user_releationship">İlişki Bilgileriniz</string>
+    <string name="label_people_character">Karakteristik Özellikler</string>
+    <string name="label_people_hobies">Hobiler</string>
+    <string name="label_people_zodiac">Burcu</string>
+    <string name="label_people_best_side">iyi yönleri</string>
+    <string name="people_details_divider_personal_and_relation_information">kişisel bilgiler</string>
+    <string name="people_details_divider_characteristics">karakter</string>
+    <string name="people_details_divider_hobbies">Hobiler</string>
+    <string name="error_at_update_room">Hafıza güncellemesinde bir hata oluştu</string>
+    <string name="screen_title_take_person_information_main_search_gift">Hadi Harika Hediyeyi Bulalım</string>
+    <string name="screen_title_take_person_information_black_main_search_gift">Hadi Harika Hediyeyi</string>
+    <string name="screen_title_take_person_information_red_main_search_gift">Bulalım.</string>
+    <string name="label_textfield_person_name">İsim</string>
+    <string name="label_next_step">Sonraki Adım</string>
+
+    <!-- Error Messages -->
+    <string name="error_select_relationship">Lütfen yakınlık derecenizi seçin</string>
+    <string name="error_name_required">İsim eksik olamaz</string>
+    <string name="error_fill_required_fields">Lütfen Gerekli Alanları Doldurun</string>
+    <string name="error_enter_event_name">Etkinlik ismi giriniz</string>
+    <string name="error_select_date">Tarih seçiniz</string>
+
+    <!-- UI Labels -->
+    <string name="label_personal_information_header">Kişisel Bilgiler</string>
+    <string name="label_event_information">Etkinlik Bilgileri</string>
+    <string name="label_relationship_degree">Yakınlık Dereceniz</string>
+    <string name="label_event_name">Etkinlik Adı</string>
+    <string name="label_notification_timing">Ne zaman bildirim almak istersiniz ?</string>
+
+    <!-- Gift Related -->
+    <string name="label_gift_reason">Bu hediyeyi neden alıyoruz ?</string>
+    <string name="label_special_requests">Özel İstekler ?</string>
+    <string name="label_gift_spirit">Hediye Ruhu ?</string>
+    <string name="label_budget">Bütçemiz Nedir ?</string>
+    <string name="button_find_gift">Hediyeni Bul !</string>
+    <string name="placeholder_special_request">Mesela kitap veya akıllı saat istemiyorum vb.</string>
+
+    <!-- Notifications -->
+    <string name="notification_permission_dialog_title">Bildirim için özel izin ekranına yönlendireleceksiniz,Sonrasında geri dönüş yaparak tekrar deneyiniz</string>
+    <string name="notification_permission_confirm">Tamam</string>
+    <string name="notification_permission_cancel">İptal</string>
+    <string name="button_create_reminder">Hatırlatıcı Oluştur</string>
+
+    <!-- Debug Messages -->
+    <string name="debug_snackbar_shown">Snackbar gösterildi: %s</string>
+    <string name="debug_search_query">🔍 Aranıyor: %s</string>
+    <string name="debug_image_found">🖼️ Resim bulundu (Global): %s</string>
+
+    <!-- Accessibility -->
+    <string name="content_description_back_button">back button</string>
+    <string name="content_description_empty">""</string>
+    <string name="content_description_logo">Logo</string>
+    <string name="content_description_user_profile">User Profile</string>
+    <string name="content_description_edit_profile_image">Edit Profile Image</string>
+    <string name="content_description_add_button">Add button</string>
+    <string name="content_description_clear_button">Clear button</string>
+    <string name="content_description_back">Back</string>
+    <string name="content_description_delete_mode">Delete Mode</string>
+
+    <!-- Debug Log Tags -->
+    <string name="debug_log_snackbar">Snackbar</string>
+    <string name="debug_log_state">state</string>
+    <string name="debug_log_tag">TAG</string>
+    <string name="debug_log_error_gift_vm">Error at giftVm</string>
+    <string name="debug_log_error">Error</string>
+    <string name="debug_log_error_search_result">Error at takeSearchResult</string>
+    <string name="debug_log_tag_gemini_error">Tag Gemini error</string>
+    <string name="debug_log_json_error">JSON_ERROR</string>
+    <string name="debug_log_error_in_vm">Error in Vm</string>
+
+    <!-- Error Messages - Additional -->
+    <string name="error_unknown">Bilinmeyen bir hata oluştu</string>
+    <string name="error_parse_failed">Parse edilemedi: %s</string>
+
+    <!-- Debug Messages - Additional -->
+    <string name="error_notification_permission_required">Bildirim izni vermeniz gerekiyor</string>
+
+    <!-- Debug Messages - Additional -->
+    <string name="debug_delete_button_log">Tag delete button</string>
+
+    <!-- Preview/Test Data -->
+    <string name="preview_product_name">Ürün Adı</string>
+    <string name="preview_product_image_url">https://example.com/product.jpg</string>
+    <string name="preview_product_url">https://example.com/product</string>
+    <string name="preview_best_side">Dost canlısı ve yardımsever</string>
+    <string name="preview_job">Yazılım Mühendisi</string>
+
+    <!-- Prompt Templates -->
+    <string name="prompt_about_me_info">Benim hakkımda bilgiler:\n</string>
+    <string name="prompt_name">İsim: %s\n</string>
+    <string name="prompt_age">Yaş: %s\n</string>
+    <string name="prompt_zodiac">Burç: %s\n</string>
+    <string name="prompt_good_sides">İyi Yönler: %s\n</string>
+    <string name="prompt_hobbies">Hobiler: %s\n</string>
+    <string name="prompt_character">Karakter Özellikleri: %s\n</string>
+
+    <!-- Debug Messages for ViewModels -->
+    <string name="debug_set_another_info">setForAnotherInformation: %s</string>
+    <string name="debug_save_person_info">savePersonInformation: %s</string>
+    <string name="debug_another_info">Another Information: %s</string>
+
+    <!-- Main Search Gift View -->
+    <string name="search_gift">Hediye Ara</string>
+    <string name="gift_for_template">%s için Hediye</string>
+    <string name="hobbies_for_template">%s - Hobiler</string>
+    <string name="character_for_template">%s - Karakter Özellikleri</string>
+    <string name="gift_criteria">Hediye Kriterleri</string>
+    <string name="gift_suggestions">Hediye Önerileri</string>
+    <string name="animation_label_main_search">MainSearchGiftScreenAnimation</string>
+
+    <!-- User Settings -->
+    <string name="user_info_missing">Kullanıcı Bilgileri Eksik</string>
+    <string name="user_info_missing_desc">Kişisel bilgilerinizi ekleyerek\ndaha iyi öneriler alın</string>
+    <string name="add_information">Bilgileri Ekle</string>
+    <string name="personal_info_title">Kişisel Bilgiler</string>
+    <string name="social_features_title">Sosyal Özellikler</string>
+
+    <!-- Navigation Arguments -->
+    <string name="nav_arg_for_another">ForAnother</string>
+    <string name="nav_arg_save_inf">SaveInf</string>
+
+    <!-- Debug Tags -->
+    <string name="debug_tag_args">Args</string>
+    <string name="debug_tag_general">Tag</string>
+
+    <!-- Empty State Messages -->
+    <string name="no_gifts_yet">Henüz Hediye Yok</string>
+    <string name="track_favorite_gifts">Beğendiğin hediyeleri buradan\ntakip edebilirsin</string>
 </resources>

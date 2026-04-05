@@ -28,6 +28,19 @@ class PeopleRepo
         }
     }
 
+    suspend fun updatePeople(
+        peoples: Peoples
+    ) : Result<Unit>{
+        try {
+            peoplesDao.updatePeople(peoples = peoples)
+            return Result.success(Unit)
+        }catch (
+            e : Exception
+        ){
+            Log.e("Error at updatePeopleRepo" , e.message.toString())
+            return Result.failure(e)
+        }
+    }
     suspend fun takePeopleInformation(peopleId: Int) : Result<Peoples> {
         try {
             val people =  peoplesDao.getPeopleById(peopleId)

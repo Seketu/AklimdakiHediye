@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Cadeau En Tête</string>
     <string name="title_app_name">Cadeau en Tête</string>
@@ -84,4 +84,4 @@
     <string name="user_info_best_side_label">Tes points forts : </string>
     <string name="loading">Chargement...</string>
     <string name="who_is_lucky">\tQui est le chanceux ?</string>
-</resources>
+<string name="special_day_main_title">Rappels enregistrés</string><string name="name">Nom</string><string name="mother">Mère</string><string name="father">Père</string><string name="friend">Ami</string><string name="teacher">Professeur</string><string name="select_date">Sélectionner une date</string><string name="error_select_relationship">Veuillez sélectionner votre relation</string><string name="error_name_required">Le nom ne peut pas être vide</string><string name="label_gift_reason">Pourquoi offrons-nous ce cadeau?</string><string name="button_create_reminder">Créer un rappel</string><string name="no_gifts_yet">Aucun cadeau encore</string></resources>

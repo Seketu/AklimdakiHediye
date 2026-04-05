@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.reylortechnology.aklimdakihediye.Views.MainScreens.AboutGiftInformation
+import com.reylortechnology.aklimdakihediye.Views.MainScreens.MainScreenGiftView
 import com.reylortechnology.aklimdakihediye.Views.MainScreens.PeoplesView
 import com.reylortechnology.aklimdakihediye.Views.MainScreens.SavedVariablesView
 import com.reylortechnology.aklimdakihediye.Views.MainScreens.SpecialDaysScreen
@@ -33,7 +34,9 @@ class LocalNavController {
             composable<SpecialDaysScreen> {
                 SpecialDaysScreen(navController = navController)
             }
-
+            composable<MainSearchGiftView> {
+                MainScreenGiftView(navController = navController)
+            }
             composable<UserSettingsScreen> {
                 UserSettingsView(navController = navController)
             }
@@ -83,6 +86,8 @@ class LocalNavController {
 
     }
 
+    @Serializable
+    object MainSearchGiftView
     @Serializable
     object SavedVariablesScreen
 

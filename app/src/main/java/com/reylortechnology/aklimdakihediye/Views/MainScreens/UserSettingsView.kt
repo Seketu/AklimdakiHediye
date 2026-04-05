@@ -1,32 +1,38 @@
 package com.reylortechnology.aklimdakihediye.Views.MainScreens
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -34,8 +40,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
@@ -43,12 +49,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.reylortechnology.aklimdakihediye.Compose.UserSettingsTextField
@@ -56,10 +62,6 @@ import com.reylortechnology.aklimdakihediye.R
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.LocalUserInformation
 import com.reylortechnology.aklimdakihediye.NavController.LocalNavController
 import com.reylortechnology.aklimdakihediye.ViewModels.UserSettingsViewModel
-import com.reylortechnology.aklimdakihediye.rememberImeState
-import com.reylortechnology.aklimdakihediye.ui.theme.onPrimaryLight
-import com.reylortechnology.aklimdakihediye.ui.theme.primaryLight
-import com.reylortechnology.aklimdakihediye.ui.theme.surfaceLight
 
 
 //Kullanıcı ayarları sayfası
@@ -75,32 +77,35 @@ fun UserSettingsView(
     val userInformation = viewModel.userInformation.collectAsState(emptyList())
 
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     Text(
                         text = stringResource(R.string.user_info_user_settings_information),
-                        color = MaterialTheme.colorScheme.onBackground,
-                        style = MaterialTheme.typography.displaySmall
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 },
-                modifier = Modifier,
                 navigationIcon = {
                     IconButton(
                         onClick = {
                             viewModel.exitScreen(navController = navController)
-                        },
-                        modifier = Modifier.size(50.dp)
+                        }
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                            "Back icon",
-                            tint = MaterialTheme.colorScheme.onBackground
+                            contentDescription = stringResource(R.string.content_description_back),
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    titleContentColor = MaterialTheme.colorScheme.onSurface,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onSurface
+                )
             )
         }
     ) {
@@ -126,25 +131,82 @@ fun UserSettingsView(
 }
 
 @Composable
-fun UserSettingsWithoutDataScreen(modifier: Modifier = Modifier,navController : NavController) {
-    Column(
+fun UserSettingsWithoutDataScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
+    Box(
         modifier = modifier
-                .background(surfaceLight),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.surface),
+        contentAlignment = Alignment.Center
     ) {
-        Button(
-            onClick = {
-                navController.navigate(LocalNavController.UserInfoScreen(null,null,"SaveInf"))
-            },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = primaryLight
-            )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Text(
-                "Kullanıcı Bilgisi Bulunamadı Eklemek için tıklayın",
-                color = onPrimaryLight
+            // Empty state icon
+            Card(
+                modifier = Modifier.size(120.dp),
+                shape = CircleShape,
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
                 )
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = null,
+                        modifier = Modifier.size(60.dp),
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
+            }
+
+            // Empty state text
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.user_info_missing),
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+
+                Text(
+                    text = stringResource(R.string.user_info_missing_desc),
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 24.sp
+                )
+            }
+
+            // Call to action button
+            Card(
+                modifier = Modifier
+                    .clickable {
+                        navController.navigate(LocalNavController.UserInfoScreen(null, null, "SaveInf"))
+                    },
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                ),
+                shape = RoundedCornerShape(16.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.add_information),
+                    modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp),
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            }
         }
     }
 }
@@ -153,13 +215,9 @@ fun UserSettingsWithoutDataScreen(modifier: Modifier = Modifier,navController : 
 fun UserSettingsWithDataScreen(
     modifier: Modifier = Modifier,
     userInformation: State<List<LocalUserInformation>>,
-    viewModel : UserSettingsViewModel = hiltViewModel()
+    viewModel: UserSettingsViewModel = hiltViewModel()
 ) {
-
     val originalUserData = userInformation.value.first()
-
-    val localConfiguration = LocalConfiguration.current
-    val screenHeight = localConfiguration.screenHeightDp.dp
 
     val userNameState = remember(originalUserData) {
         mutableStateOf(originalUserData.name)
@@ -190,211 +248,227 @@ fun UserSettingsWithDataScreen(
             userNameState.value != originalUserData.name ||
                     userHobbiesState.value != originalUserData.hobbies ||
                     characterState.value != originalUserData.character ||
-                    userOldState.value != originalUserData.old.toString()||
+                    userOldState.value != originalUserData.old.toString() ||
                     userZodiacState.value != originalUserData.zodiac ||
                     userBestSideState.value != originalUserData.bestSide
-        }
-    }
-    val imeState = rememberImeState()
-
-    val scrollState = rememberScrollState()
-
-    LaunchedEffect(
-        imeState.value
-    ) {
-        if (imeState.value){
-            scrollState.animateScrollTo(scrollState.maxValue)
         }
     }
 
     Box(
         modifier = modifier
             .fillMaxSize()
-            .verticalScroll(scrollState)
-            .imePadding()
+            .background(MaterialTheme.colorScheme.surface)
     ) {
-        Column(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .height(screenHeight * 0.88f)
-                .fillMaxWidth()
-                .padding(20.dp),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            //User special fields
-            Column(
-                modifier = Modifier
-                    .heightIn(
-                        min = screenHeight * 0.2715f
-                        )
-                    .fillMaxWidth(0.9320f),
-                verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
+            // Personal Information Section
+            item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainer
+                    ),
+                    shape = RoundedCornerShape(16.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                 ) {
-                    Image(
-                        painter = painterResource(R.drawable.special_inf_card),
-                        "special info card",
-                        modifier = Modifier
-                            .height(screenHeight * 0.0523f)
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            Card(
+                                modifier = Modifier.size(40.dp),
+                                shape = CircleShape,
+                                colors = CardDefaults.cardColors(
+                                    containerColor = MaterialTheme.colorScheme.primary
+                                )
+                            ) {
+                                Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Person,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(20.dp),
+                                        tint = MaterialTheme.colorScheme.onPrimary
+                                    )
+                                }
+                            }
 
-                    )
+                            Text(
+                                text = stringResource(R.string.personal_info_title),
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
 
-                    Text(
-                        text = "Özel Bilgiler",
-                        style = MaterialTheme.typography.headlineMedium,
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically),
-                        textAlign = androidx.compose.ui.text.style.TextAlign.Center
-                    )
+                        UserSettingsTextField(
+                            value = userNameState,
+                            modifier = Modifier.fillMaxWidth(),
+                            prefix = stringResource(R.string.user_info_name_label)
+                        )
+
+                        UserSettingsTextField(
+                            value = userOldState,
+                            modifier = Modifier.fillMaxWidth(),
+                            prefix = stringResource(R.string.user_info_old_label),
+                            keyboard = KeyboardOptions.Default.copy(
+                                keyboardType = KeyboardType.Number,
+                                autoCorrectEnabled = false,
+                            )
+                        )
+
+                        UserSettingsTextField(
+                            value = userZodiacState,
+                            modifier = Modifier.fillMaxWidth(),
+                            prefix = stringResource(R.string.user_info_zodiac_label)
+                        )
+                    }
                 }
-                Spacer(modifier = Modifier.height(7.dp))
-                UserSettingsTextField(
-                    value = userNameState,
-                    modifier = Modifier
-                        .heightIn(
-                            min = screenHeight * 0.0545f,
-                            max = screenHeight * 0.15f
-                        )
-                        .fillMaxWidth(),
-                    prefix = stringResource(R.string.user_info_name_label)
-                )
-                Spacer(modifier = Modifier.height(7.dp))
-                UserSettingsTextField(
-                    value = userOldState,
-                    modifier = Modifier
-                        .heightIn(
-                            min = screenHeight * 0.0545f,
-                            max = screenHeight * 0.15f
-                        )
-                        .fillMaxWidth(),
-                    prefix = stringResource(R.string.user_info_old_label),
-                    keyboard = KeyboardOptions.Default.copy(
-                        keyboardType = KeyboardType.Number,
-                        autoCorrectEnabled = false,
-                        )
-                )
-                Spacer(modifier = Modifier.height(7.dp))
-                UserSettingsTextField(
-                    value = userZodiacState,
-                    modifier = Modifier
-                        .heightIn(
-                            min = screenHeight * 0.0545f,
-                            max = screenHeight * 0.15f
-                        )
-                        .fillMaxWidth(),
-                    prefix = stringResource(R.string.user_info_zodiac_label)
-                    )
             }
-            Spacer(Modifier.height(15.dp))
 
-
-            //User Soccial Inf Fields
-            Column(
-                modifier = Modifier
-                    .heightIn(
-                        min = screenHeight * 0.2715f
-                    )
-                    .fillMaxWidth(0.9320f),
-                verticalArrangement = Arrangement.SpaceAround,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
+            // Social Information Section
+            item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainer
+                    ),
+                    shape = RoundedCornerShape(16.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                 ) {
-                    Image(
-                        painter = painterResource(R.drawable.social_inf_card),
-                        "special info card",
-                        modifier = Modifier
-                            .height(screenHeight * 0.0523f),
-                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
-                    )
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            Card(
+                                modifier = Modifier.size(40.dp),
+                                shape = CircleShape,
+                                colors = CardDefaults.cardColors(
+                                    containerColor = MaterialTheme.colorScheme.secondary
+                                )
+                            ) {
+                                Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Star,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(20.dp),
+                                        tint = MaterialTheme.colorScheme.onSecondary
+                                    )
+                                }
+                            }
 
-                    Text(
-                        text = "Sosyal Özellikler",
-                        style = MaterialTheme.typography.headlineMedium,
-                        modifier = Modifier
-                    )
+                            Text(
+                                text = stringResource(R.string.social_features_title),
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+
+                        UserSettingsTextField(
+                            value = characterState,
+                            prefix = stringResource(R.string.user_info_caracter_label),
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+
+                        UserSettingsTextField(
+                            value = userHobbiesState,
+                            prefix = stringResource(R.string.user_info_hobbies_label),
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+
+                        UserSettingsTextField(
+                            value = userBestSideState,
+                            prefix = stringResource(R.string.user_info_best_side_label),
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    }
                 }
-                Spacer(Modifier.height(7.dp))
-                UserSettingsTextField(
-                    value = characterState,
-                    prefix = stringResource(R.string.user_info_caracter_label),
-                    modifier = Modifier
-                        .heightIn(
-                            min = screenHeight * 0.0545f,
-                            max = screenHeight * 0.15f
-                        )
-                        .fillMaxWidth(),
-                )
-                Spacer(Modifier.height(7.dp))
-                UserSettingsTextField(
-                    value = userHobbiesState,
-                    prefix = stringResource(R.string.user_info_hobbies_label),
-                    modifier = Modifier
-                        .heightIn(
-                            min = screenHeight * 0.0545f,
-                            max = screenHeight * 0.15f
-                        )
-                        .fillMaxWidth(),
-                )
-                Spacer(Modifier.height(7.dp))
-                UserSettingsTextField(
-                    value = userBestSideState,
-                    prefix = stringResource(R.string.user_info_best_side_label),
-                    modifier = Modifier
-                        .heightIn(
-                            min = screenHeight * 0.0545f,
-                            max = screenHeight * 0.15f
-                        )
-                        .fillMaxWidth(),
-                )
+            }
+
+            // Bottom spacing
+            item {
+                Spacer(modifier = Modifier.height(80.dp))
             }
         }
-            AnimatedVisibility(
+
+        // Floating Save Button
+        AnimatedVisibility(
+            visible = isModified.value,
+            enter = slideInVertically(
+                initialOffsetY = { it },
+                animationSpec = spring()
+            ) + scaleIn(animationSpec = spring()) + fadeIn(),
+            exit = slideOutVertically(
+                targetOffsetY = { it },
+                animationSpec = spring()
+            ) + scaleOut(animationSpec = spring()) + fadeOut(),
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .imePadding()
+        ) {
+            Card(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .imePadding()
-                    .align(Alignment.BottomCenter),
-                visible = isModified.value,
-                enter = slideInVertically(initialOffsetY = { it }) + fadeIn(),
-                exit = slideOutVertically(targetOffsetY = { it }) + fadeOut()
+                    .fillMaxWidth(0.9f)
+                    .padding(16.dp)
+                    .clickable {
+                        val userInformation = LocalUserInformation(
+                            uid = userInformation.value[0].uid,
+                            name = userNameState.value,
+                            hobbies = userHobbiesState.value,
+                            character = characterState.value,
+                            old = userOldState.value.toInt(),
+                            zodiac = userZodiacState.value,
+                            bestSide = userBestSideState.value
+                        )
+                        viewModel.setUserInformation(userInformation, isModified)
+                    },
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                ),
+                shape = RoundedCornerShape(16.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
-                Column(
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(screenHeight * 0.1f)
-                        .background(MaterialTheme.colorScheme.primary)
-                        .clickable {
-                            val userInformation = LocalUserInformation(
-                                uid = userInformation.value.get(0).uid,
-                                name = userNameState.value,
-                                hobbies = userHobbiesState.value,
-                                character = characterState.value,
-                                old = userOldState.value.toInt(),
-                                zodiac = userZodiacState.value,
-                                bestSide = userBestSideState.value
-                            )
-                            viewModel.setUserInformation(userInformation,isModified)
-                        },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Icon(
+                        imageVector = Icons.Default.Save,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.size(24.dp)
+                    )
+
+                    Spacer(modifier = Modifier.size(8.dp))
+
                     Text(
-                        text = "Kaydet",
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.headlineLarge
+                        text = "Değişiklikleri Kaydet",
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
             }
+        }
     }
 }

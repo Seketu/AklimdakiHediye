@@ -133,7 +133,7 @@ fun SpecialDayTakePersonInformationScreen(
                 SnackBarEvent.None -> {}
                 is SnackBarEvent.ShowSnackBar -> {
                     snackBar.showSnackbar(message = event.message)
-                    Log.d("Snackbar", "Snackbar gösterildi: ${event.message}")
+                    Log.d(context.getString(R.string.debug_log_snackbar), context.getString(R.string.debug_snackbar_shown, event.message))
                 }
             }
         }
@@ -156,7 +156,7 @@ fun SpecialDayTakePersonInformationScreen(
             TopAppBar(
                 title = {
                         Text(
-                            "Kişisel Bilgiler",
+                            stringResource(R.string.label_personal_information_header),
                             fontSize = 24.sp,
                             color = MaterialTheme.colorScheme.onSurface,
                             textAlign = TextAlign.Center,
@@ -166,7 +166,7 @@ fun SpecialDayTakePersonInformationScreen(
                 navigationIcon = {
                     Icon(
                         Icons.AutoMirrored.Default.ArrowBack,
-                        "back button",
+                        stringResource(R.string.content_description_back_button),
                         Modifier
                             .clickable {
                                 screenObserver.value = SpecialDaysScreenObserver.MainScreen
@@ -198,7 +198,7 @@ fun SpecialDayTakePersonInformationScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    "Yakınlık Dereceniz",
+                    stringResource(R.string.label_relationship_degree),
                     fontSize = 24.sp,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -246,12 +246,12 @@ fun SpecialDayTakePersonInformationScreen(
                     .clickable {
                         when (checkBoxState.value) {
                             SpecialDayCheckModel.None -> {
-                                viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar("Lütfen yakınlık derecenizi seçin"))
+                                viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar(context.getString(R.string.error_select_relationship)))
                             }
                             SpecialDayCheckModel.Father -> {
                                 if (nameField.value.isEmpty()) {
                                     nameError.value = true
-                                    viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar("İsim eksik olamaz"))
+                                    viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar(context.getString(R.string.error_name_required)))
                                 } else {
                                     viewModel.setPersonInfo(
                                         name = nameField.value,
@@ -265,7 +265,7 @@ fun SpecialDayTakePersonInformationScreen(
                             SpecialDayCheckModel.Mother -> {
                                 if (nameField.value.isEmpty()) {
                                     nameError.value = true
-                                    viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar("İsim eksik olamaz"))
+                                    viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar(context.getString(R.string.error_name_required)))
                                 } else {
                                     viewModel.setPersonInfo(
                                         name = nameField.value,
@@ -279,7 +279,7 @@ fun SpecialDayTakePersonInformationScreen(
                             SpecialDayCheckModel.SweatHeart -> {
                                 if (nameField.value.isEmpty()) {
                                     nameError.value = true
-                                    viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar("İsim eksik olamaz"))
+                                    viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar(context.getString(R.string.error_name_required)))
 
                                 } else {
                                     viewModel.setPersonInfo(
@@ -294,7 +294,7 @@ fun SpecialDayTakePersonInformationScreen(
                             SpecialDayCheckModel.Teacher -> {
                                 if(nameField.value.isEmpty()){
                                     nameError.value = true
-                                    viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar("İsim eksik olamaz"))
+                                    viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar(context.getString(R.string.error_name_required)))
 
                                 }else{
                                     viewModel.setPersonInfo(
@@ -309,7 +309,7 @@ fun SpecialDayTakePersonInformationScreen(
                             SpecialDayCheckModel.Friend -> {
                                 if(nameField.value.isEmpty()){
                                     nameError.value = true
-                                    viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar("İsim eksik olamaz"))
+                                    viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar(context.getString(R.string.error_name_required)))
 
                                 }else{
                                     viewModel.setPersonInfo(
@@ -323,7 +323,7 @@ fun SpecialDayTakePersonInformationScreen(
                             SpecialDayCheckModel.Sibling -> {
                                 if(nameField.value.isEmpty()){
                                     nameError.value = true
-                                    viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar("İsim eksik olamaz"))
+                                    viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar(context.getString(R.string.error_name_required)))
                                 }else{
                                     viewModel.setPersonInfo(
                                         name = nameField.value,

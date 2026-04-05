@@ -37,6 +37,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -130,7 +131,7 @@ fun UserInformationView(
                     navigationIcon = {
                         Image(
                             painter = painterResource(R.drawable.back_icon),
-                            "back button",
+                            stringResource(R.string.content_description_back_button),
                             modifier = Modifier
                                 .padding(10.dp)
                                 .clickable {

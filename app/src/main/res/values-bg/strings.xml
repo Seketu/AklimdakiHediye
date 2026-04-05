@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Подарък ВГ лавата</string>
     <string name="title_app_name">Подарък в Главата</string>
@@ -84,4 +84,4 @@
     <string name="user_info_best_side_label">Твоите силни страни: </string>
     <string name="loading">Зареждане...</string>
     <string name="who_is_lucky">"Кой е късметлията? "</string>
-</resources>
+<string name="special_day_main_title">Запазени напоминания</string><string name="name">Име</string><string name="mother">Майка</string><string name="father">Баща</string><string name="friend">Приятел</string><string name="teacher">Учител</string><string name="select_date">Избор на дата</string><string name="error_select_relationship">Моля, изберете вашата връзка</string><string name="error_name_required">Име не може да е празно</string><string name="label_gift_reason">Защо даваме този подарък?</string><string name="button_create_reminder">Създайте напоминание</string><string name="no_gifts_yet">Няма подаръци</string></resources>

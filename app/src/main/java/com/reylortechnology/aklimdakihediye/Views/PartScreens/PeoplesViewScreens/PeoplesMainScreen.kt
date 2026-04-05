@@ -14,6 +14,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -27,7 +29,7 @@ import com.reylortechnology.aklimdakihediye.models.Enums.PeopleUiModel
 fun PeoplesMainScreen(
     modifier: Modifier = Modifier,
     peoplesData : List<PeopleUiModel>,
-    onEdit : (Peoples) -> Unit
+    onEdit : (PeopleUiModel) -> Unit
 ) {
     Box(
         modifier = modifier
@@ -66,7 +68,7 @@ fun PeoplesMainScreen(
                                 .border(2.dp, MaterialTheme.colorScheme.primary, MaterialTheme.shapes.large),
                             textColor = MaterialTheme.colorScheme.onSurface,
                             onAction = {
-                              onEdit(people.people)
+                              onEdit(people)
                             }
                         )
                     }

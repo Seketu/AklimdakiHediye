@@ -1,6 +1,5 @@
 package com.reylortechnology.aklimdakihediye.Compose
 
-import DatePickerScreen
 import android.annotation.SuppressLint
 import android.os.Build
 import android.util.Log
@@ -498,7 +497,7 @@ fun AddPeopleDialog(
                             Genders.entries.forEach { genders ->
                                 ColoredCheckBox(
                                     modifier = Modifier,
-                                    text = stringResource(genders.titleId),
+                                    text = stringResource(genders.stringRes),
                                     selectedValue = selectedGender.value == genders
                                 ) {
                                     if (selectedGender.value == genders) {
@@ -801,14 +800,15 @@ fun AddPeopleDialog(
                                         peopleName = peopleName.value,
                                         birthday = LocalDate.of(selectedYear, selectedMonth, selectedDay) ,
                                         age = calculatedAge.toInt(),
-                                        zodiac = selectedZodiac.value.name,
-                                        hobbies = selectedHobbies.joinToString(","){it.name},
+                                        zodiac = selectedZodiac.value,
+                                        hobbies = selectedHobbies,
                                         bestSide = peopleBestSide.value,
-                                        character = selectedCharacterTrait.joinToString(",") { it.name },
+                                        character = selectedCharacterTrait,
                                         job = peopleJob.value,
                                         image = selectedImageId,
                                         color = selectedColor.value,
-                                        relationship = selectedRelationships.value!!
+                                        relationship = selectedRelationships.value!!,
+                                        gender = selectedGender.value!!
                                     )
                                 )
                             } else {
@@ -868,6 +868,35 @@ fun AddPeopleDialog(
                     tint = MaterialTheme.colorScheme.onError
                 )
             }
+        }
+    }
+}
+
+
+@Composable
+fun ImageSelector(
+    onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+    color : androidx.compose.ui.graphics.Color
+) {
+    val profileImages = listOf(
+        R.drawable.man_1,
+        R.drawable.man_2,
+        R.drawable.woman_2,
+        R.drawable.mom_1,
+        R.drawable.mom_2
+    )
+    Dialog(
+        onDismissRequest = onDismissRequest
+    ) {
+        
+        PeoplePhotoSelector(
+            modifier = modifier,
+            photoList = profileImages,
+            photoColor = color,
+            cardSize = 100.dp
+        ) { imageId , color ->
+
         }
     }
 }

@@ -5,7 +5,7 @@ import com.reylortechnology.aklimdakihediye.R
 
 enum class Genders (
     var id : Int,
-    @param:StringRes val titleId : Int
+    @param:StringRes val stringRes : Int
 ){
     Male(1, R.string.gender_man),
     Female(2, R.string.gender_female),

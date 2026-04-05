@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">هديتي في ذهني</string>
     <string name="title_app_name">هديتي في ذهني</string>
@@ -84,4 +84,4 @@
     <string name="user_info_best_side_label">صفاتك الجيدة: </string>
     <string name="loading">جارٍ التحميل...</string>
     <string name="who_is_lucky">"من هو المحظوظ؟ "</string>
-</resources>
+<string name="special_day_main_title">التذكيرات المحفوظة</string><string name="name">الاسم</string><string name="mother">الأم</string><string name="father">الأب</string><string name="friend">صديق</string><string name="teacher">المعلم</string><string name="select_date">تحديد التاريخ</string><string name="error_select_relationship">يرجى تحديد علاقتك</string><string name="error_name_required">لا يمكن أن يكون الاسم فارغًا</string><string name="label_gift_reason">لماذا نعطي هذا الهدية?</string><string name="button_create_reminder">إنشاء تذكير</string><string name="no_gifts_yet">لا توجد هدايا حتى الآن</string></resources>
