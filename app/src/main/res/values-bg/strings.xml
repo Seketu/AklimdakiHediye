@@ -82,6 +82,215 @@
     <string name="user_info_old_label">Твоята възраст: </string>
     <string name="user_info_zodiac_label">Твоята зодия: </string>
     <string name="user_info_best_side_label">Твоите силни страни: </string>
-    <string name="loading">Зареждане...</string>
-    <string name="who_is_lucky">"Кой е късметлията? "</string>
-<string name="special_day_main_title">Запазени напоминания</string><string name="name">Име</string><string name="mother">Майка</string><string name="father">Баща</string><string name="friend">Приятел</string><string name="teacher">Учител</string><string name="select_date">Избор на дата</string><string name="error_select_relationship">Моля, изберете вашата връзка</string><string name="error_name_required">Име не може да е празно</string><string name="label_gift_reason">Защо даваме този подарък?</string><string name="button_create_reminder">Създайте напоминание</string><string name="no_gifts_yet">Няма подаръци</string></resources>
+    <string name="loading">Зареждане…</string>
+    <string name="who_is_lucky">Кой е късметлията?</string>
+
+    <string name="special_day_main_title">Запазени напоминания</string>
+    <string name="name">Име</string>
+    <string name="mother_short_desc">Най-тихата молитва в сърцето ми е всегда за теб, мамо.</string>
+    <string name="father_desc_short">Сянката ти е достатъчна, татко, даваш ми сила при всяка стъпка.</string>
+    <string name="sibling_desc_short">Безкрайно приятелство в малко сърце: Мой брат/Моя сестра.</string>
+    <string name="sweatheart_desc_short">Когато се усмихваш, светът мълчи, само моето сърце говори.</string>
+    <string name="teacher_desc_short">Дал/а си букви, показа пътя за целия живот.</string>
+    <string name="friend_desc_short">Истинското приятелство е разбиране дори в мълчанието.</string>
+    <string name="select_date">Избор на дата</string>
+    <string name="reminder_message_text">Събитието, което създаде, се приближава</string>
+    <string name="father">Баща</string>
+    <string name="sibling">Брат/Сестра</string>
+    <string name="sweatheart">Твоят любим</string>
+    <string name="teacher">Учител</string>
+    <string name="friend">Приятел</string>
+    <string name="celebrations_list_title">Специални дни</string>
+    <string name="new_label">Ново</string>
+    <string name="gender_man">Мъж</string>
+    <string name="gender_female">Жена</string>
+    <string name="gender_nc">Неуточнено</string>
+    <string name="type_relationship_parents">Родител</string>
+    <string name="age_desc_child">Дете</string>
+    <string name="age_desc_teen">Тийнейджър</string>
+    <string name="age_desc_adult">Възрастен</string>
+    <string name="age_desc_older">Зрял</string>
+
+    <string name="hobbies_spor">Спорт</string>
+    <string name="hobbies_gym">Фитнес зала</string>
+    <string name="hobbies_fashion">Мода</string>
+    <string name="hobbies_ghosts">Привидения</string>
+    <string name="hobbies_music">Музика</string>
+    <string name="hobbies_enstrumants">Инструменти</string>
+    <string name="hobbies_movies">Филми</string>
+    <string name="hobbies_series">Сериали</string>
+    <string name="hobbies_cook">Готвене</string>
+    <string name="hobbies_shopping">Пазаруване</string>
+    <string name="hobbies_reading">Четене</string>
+    <string name="hobbies_video_games">Видеоигри</string>
+    <string name="hobbies_chest">Шахмат</string>
+    <string name="hobbies_zodiacs">Зодиакални знаци</string>
+    <string name="hobbies_camping">Кемпинг</string>
+    <string name="hobbies_walking">Разходка</string>
+    <string name="hobbies_flowers">Цветя</string>
+    <string name="hobbies_swimming">Плуване</string>
+    <string name="hobbies_dance">Танц</string>
+    <string name="hobbies_bike">Верижни колела</string>
+    <string name="hobbies_motobike">Мотоциклети</string>
+    <string name="hobbies_fishing">Риболов</string>
+    <string name="hobbies_cars">Автомобили</string>
+    <string name="hobbies_football">Футбол</string>
+    <string name="hobbies_basketball">Баскетбол</string>
+    <string name="hobbies_volleyball">Волейбол</string>
+    <string name="hobbies_cosplay">Косплей</string>
+    <string name="hobbies_art">Изкуство</string>
+
+    <string name="character_determination">Решимост</string>
+    <string name="trait_determination">Решимост</string>
+    <string name="trait_self_discipline">Самодисциплина</string>
+    <string name="trait_resilience">Еластичност</string>
+    <string name="trait_integrity">Честност</string>
+    <string name="trait_empathy">Съпричастност</string>
+    <string name="trait_sincerity">Искреност</string>
+    <string name="trait_adaptability">Адаптивност</string>
+    <string name="trait_humility">Смирение</string>
+    <string name="trait_curiosity">Любопитство</string>
+    <string name="trait_analytical_thinking">Аналитично мислене</string>
+    <string name="trait_creativity">Креативност</string>
+    <string name="trait_open_mindedness">Открито мислене</string>
+    <string name="trait_perfectionism">Перфекционизъм</string>
+    <string name="trait_meticulousness">Внимателност</string>
+    <string name="trait_composure">Хладнокръвност</string>
+    <string name="trait_stubbornness">Упорство</string>
+    <string name="silAlara">Много люблю Алара</string>
+
+    <string name="for_why_just_because">Просто защото искам</string>
+    <string name="for_why_birthday">Рождендан</string>
+    <string name="for_why_anniversary">Годишнина</string>
+    <string name="for_why_education">Завършване</string>
+    <string name="for_why_house_warming">Нов дом</string>
+    <string name="for_why_holiday">Отпуск</string>
+
+    <string name="gift_vibe_romance">Романтично</string>
+    <string name="gift_vibe_emotional">Емоционално</string>
+    <string name="gift_vibe_for_use">Функционално</string>
+    <string name="gift_vibe_humors">Хумористично</string>
+    <string name="gift_vibe_retro">Ретро</string>
+    <string name="gift_vibe_luxury"><![CDATA[Луксозно & Елегантно]]></string>
+    <string name="gift_vibe_memorable">Преживяване</string>
+    <string name="gift_vibe_minimalist">Минималистично</string>
+
+    <string name="prices_low">0–500 лв</string>
+    <string name="upper_low">500–1000 лв</string>
+    <string name="prices_medium">1000–1500 лв</string>
+    <string name="prices_high">1500–3000 лв</string>
+    <string name="prices_unlimit">3000+ лв</string>
+
+    <string name="screen_titles_peoples">Твоите хора</string>
+    <string name="peoples_screen_no_people">Няма запазени приятели</string>
+    <string name="label_personal_information">Лична информация</string>
+    <string name="label_old">Възраст</string>
+    <string name="label_user_releationship">Твоята информация за връзка</string>
+    <string name="label_people_character">Характерни черти</string>
+    <string name="label_people_hobies">Хобита</string>
+    <string name="label_people_zodiac">Зодиак</string>
+    <string name="label_people_best_side">Добри качества</string>
+    <string name="people_details_divider_personal_and_relation_information">лична информация</string>
+    <string name="people_details_divider_characteristics">характер</string>
+    <string name="people_details_divider_hobbies">Хобита</string>
+    <string name="error_at_update_room">Възникна грешка при актуализиране на паметта</string>
+    <string name="screen_title_take_person_information_main_search_gift">Нека намерим перфектния подарък</string>
+    <string name="screen_title_take_person_information_black_main_search_gift">Нека намерим перфектния</string>
+    <string name="screen_title_take_person_information_red_main_search_gift">подарък.</string>
+    <string name="label_textfield_person_name">Име</string>
+    <string name="label_next_step">Следваща стъпка</string>
+
+    <string name="error_select_relationship">Моля, изберете вашата връзка</string>
+    <string name="error_name_required">Име не може да е празно</string>
+    <string name="error_fill_required_fields">Моля, попълнете всички задължителни полета</string>
+    <string name="error_enter_event_name">Въведете име на събитието</string>
+
+    <string name="label_personal_information_header">Лична информация</string>
+    <string name="label_event_information">Информация за събитието</string>
+    <string name="label_relationship_degree">Твоята връзка</string>
+    <string name="label_event_name">Име на събитието</string>
+    <string name="label_notification_timing">Кога искаш да получиш уведомления?</string>
+
+    <string name="label_gift_reason">Защо даваме този подарък?</string>
+    <string name="label_special_requests">Специални молби?</string>
+    <string name="label_gift_spirit">Дух на подаръка?</string>
+    <string name="label_budget">Какъв е нашия бюджет?</string>
+    <string name="button_find_gift">Намери твоя подарък!</string>
+    <string name="placeholder_special_request">Например, не искам книга или смарт часовник и т.н.</string>
+
+    <string name="notification_permission_dialog_title">Ще бъдеш пренасочен към екрана със специални разрешения за уведомления. Моля, опитай отново след като се върнеш.</string>
+    <string name="notification_permission_confirm">ОК</string>
+    <string name="notification_permission_cancel">Отмени</string>
+    <string name="button_create_reminder">Създай напоминание</string>
+
+    <string name="debug_snackbar_shown">Показана лента: %s</string>
+    <string name="debug_search_query">🔍 Търсене: %s</string>
+    <string name="debug_image_found">🖼️ Намерено изображение (Глобално): %s</string>
+
+    <string name="content_description_back_button">Бутон за назад</string>
+    <string name="content_description_empty">""</string>
+    <string name="content_description_logo">Логото</string>
+    <string name="content_description_user_profile">Потребителски профил</string>
+    <string name="content_description_edit_profile_image">Редактиране на профилна снимка</string>
+    <string name="content_description_add_button">Добавяне на бутон</string>
+    <string name="content_description_clear_button">Бутон Изчистване</string>
+    <string name="content_description_back">Назад</string>
+    <string name="content_description_delete_mode">Режим на изтриване</string>
+
+    <string name="debug_log_snackbar">Snackbar</string>
+    <string name="debug_log_state">state</string>
+    <string name="debug_log_tag">TAG</string>
+    <string name="debug_log_error_gift_vm">Error at giftVm</string>
+    <string name="debug_log_error">Error</string>
+    <string name="debug_log_error_search_result">Error at takeSearchResult</string>
+    <string name="debug_log_tag_gemini_error">Tag Gemini error</string>
+    <string name="debug_log_json_error">JSON_ERROR</string>
+    <string name="debug_log_error_in_vm">Error in Vm</string>
+
+    <string name="error_unknown">Възникна неизвестна грешка</string>
+    <string name="error_parse_failed">Грешка при разбор: %s</string>
+    <string name="error_notification_permission_required">Трябва да разрешиш разрешенията за уведомления</string>
+
+    <string name="debug_delete_button_log">Tag delete button</string>
+
+    <string name="preview_product_name">Име на продукта</string>
+    <string name="preview_product_image_url">https://example.com/product.jpg</string>
+    <string name="preview_product_url">https://example.com/product</string>
+    <string name="preview_best_side">Приятелски и отзивчив</string>
+    <string name="preview_job">Софтуерен инженер</string>
+
+    <string name="prompt_about_me_info">Информация за мен:\n</string>
+    <string name="prompt_name">Име: %s\n</string>
+    <string name="prompt_age">Възраст: %s\n</string>
+    <string name="prompt_zodiac">Зодиак: %s\n</string>
+    <string name="prompt_good_sides">Добри страни: %s\n</string>
+    <string name="prompt_hobbies">Хобита: %s\n</string>
+    <string name="prompt_character">Характерни черти: %s\n</string>
+
+    <string name="debug_set_another_info">setForAnotherInformation: %s</string>
+    <string name="debug_save_person_info">savePersonInformation: %s</string>
+    <string name="debug_another_info">Another Information: %s</string>
+
+    <string name="search_gift">Търси подарък</string>
+    <string name="gift_for_template">Подарък за %s</string>
+    <string name="hobbies_for_template">%s - Хобита</string>
+    <string name="character_for_template">%s - Характерни черти</string>
+    <string name="gift_criteria">Критерии на подаръка</string>
+    <string name="gift_suggestions">Предложения за подаръци</string>
+    <string name="animation_label_main_search">MainSearchGiftScreenAnimation</string>
+
+    <string name="user_info_missing">Липсват потребителски информации</string>
+    <string name="user_info_missing_desc">Добави твоята лична информация\nза по-добри предложения</string>
+    <string name="add_information">Добави информация</string>
+    <string name="personal_info_title">Лична информация</string>
+    <string name="social_features_title">Социални функции</string>
+
+    <string name="nav_arg_for_another">ForAnother</string>
+    <string name="nav_arg_save_inf">SaveInf</string>
+
+    <string name="debug_tag_args">Args</string>
+    <string name="debug_tag_general">Tag</string>
+
+    <string name="no_gifts_yet">Няма подаръци</string>
+    <string name="track_favorite_gifts">Можеш да проследиш своите\nлюбими подаръци тук</string>
+</resources>
