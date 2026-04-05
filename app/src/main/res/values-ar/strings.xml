@@ -82,6 +82,215 @@
     <string name="user_info_old_label">عمرك: </string>
     <string name="user_info_zodiac_label">برجك: </string>
     <string name="user_info_best_side_label">صفاتك الجيدة: </string>
-    <string name="loading">جارٍ التحميل...</string>
-    <string name="who_is_lucky">"من هو المحظوظ؟ "</string>
-<string name="special_day_main_title">التذكيرات المحفوظة</string><string name="name">الاسم</string><string name="mother">الأم</string><string name="father">الأب</string><string name="friend">صديق</string><string name="teacher">المعلم</string><string name="select_date">تحديد التاريخ</string><string name="error_select_relationship">يرجى تحديد علاقتك</string><string name="error_name_required">لا يمكن أن يكون الاسم فارغًا</string><string name="label_gift_reason">لماذا نعطي هذا الهدية?</string><string name="button_create_reminder">إنشاء تذكير</string><string name="no_gifts_yet">لا توجد هدايا حتى الآن</string></resources>
+    <string name="loading">جارٍ التحميل…</string>
+    <string name="who_is_lucky">من هو المحظوظ؟</string>
+
+    <string name="special_day_main_title">التذكيرات المحفوظة</string>
+    <string name="name">الاسم</string>
+    <string name="mother_short_desc">أهدأ دعاء في قلبي دائمًا لأجلك، يا أمي.</string>
+    <string name="father_desc_short">ظلك يكفيني يا أبي، تعطيني القوة في كل خطوة.</string>
+    <string name="sibling_desc_short">صداقة لا نهائية في قلب صغير: أختي/أخي.</string>
+    <string name="sweatheart_desc_short">عندما تبتسمين، يصمت العالم، فقط قلبي يتكلم.</string>
+    <string name="teacher_desc_short">أعطيتَ حرفًا، وأرشدتَ طريقًا مدى الحياة.</string>
+    <string name="friend_desc_short">الصداقة الحقيقية هي الفهم حتى في الصمت.</string>
+    <string name="select_date">تحديد التاريخ</string>
+    <string name="reminder_message_text">الحدث الذي أنشأته يقترب</string>
+    <string name="father">الأب</string>
+    <string name="sibling">الأخ/الأخت</string>
+    <string name="sweatheart">حبيبك</string>
+    <string name="teacher">المعلم</string>
+    <string name="friend">صديق</string>
+    <string name="celebrations_list_title">أيام خاصة</string>
+    <string name="new_label">جديد</string>
+    <string name="gender_man">ذكر</string>
+    <string name="gender_female">أنثى</string>
+    <string name="gender_nc">غير محدد</string>
+    <string name="type_relationship_parents">الوالد</string>
+    <string name="age_desc_child">طفل</string>
+    <string name="age_desc_teen">مراهق</string>
+    <string name="age_desc_adult">بالغ</string>
+    <string name="age_desc_older">ناضج</string>
+
+    <string name="hobbies_spor">الرياضة</string>
+    <string name="hobbies_gym">صالة الألعاب</string>
+    <string name="hobbies_fashion">الموضة</string>
+    <string name="hobbies_ghosts">الأشباح</string>
+    <string name="hobbies_music">الموسيقى</string>
+    <string name="hobbies_enstrumants">الآلات الموسيقية</string>
+    <string name="hobbies_movies">الأفلام</string>
+    <string name="hobbies_series">المسلسلات</string>
+    <string name="hobbies_cook">الطهي</string>
+    <string name="hobbies_shopping">التسوق</string>
+    <string name="hobbies_reading">القراءة</string>
+    <string name="hobbies_video_games">ألعاب الفيديو</string>
+    <string name="hobbies_chest">الشطرنج</string>
+    <string name="hobbies_zodiacs">الأبراج</string>
+    <string name="hobbies_camping">التخييم</string>
+    <string name="hobbies_walking">المشي</string>
+    <string name="hobbies_flowers">الزهور</string>
+    <string name="hobbies_swimming">السباحة</string>
+    <string name="hobbies_dance">الرقص</string>
+    <string name="hobbies_bike">ركوب الدراجات</string>
+    <string name="hobbies_motobike">الدراجات النارية</string>
+    <string name="hobbies_fishing">الصيد</string>
+    <string name="hobbies_cars">السيارات</string>
+    <string name="hobbies_football">كرة القدم</string>
+    <string name="hobbies_basketball">كرة السلة</string>
+    <string name="hobbies_volleyball">الكرة الطائرة</string>
+    <string name="hobbies_cosplay">كوسبلاي</string>
+    <string name="hobbies_art">الفن</string>
+
+    <string name="character_determination">الحزم</string>
+    <string name="trait_determination">الحزم</string>
+    <string name="trait_self_discipline">الانضباط الذاتي</string>
+    <string name="trait_resilience">المرونة</string>
+    <string name="trait_integrity">الصدق</string>
+    <string name="trait_empathy">التعاطف</string>
+    <string name="trait_sincerity">الصراحة</string>
+    <string name="trait_adaptability">قابلية التكيف</string>
+    <string name="trait_humility">التواضع</string>
+    <string name="trait_curiosity">الفضول</string>
+    <string name="trait_analytical_thinking">التفكير التحليلي</string>
+    <string name="trait_creativity">الإبداع</string>
+    <string name="trait_open_mindedness">انفتاح العقل</string>
+    <string name="trait_perfectionism">الكمالية</string>
+    <string name="trait_meticulousness">الدقة</string>
+    <string name="trait_composure">البرود</string>
+    <string name="trait_stubbornness">العناد</string>
+    <string name="silAlara">حب ألارا كثيرًا</string>
+
+    <string name="for_why_just_because">فقط لأنني أريد</string>
+    <string name="for_why_birthday">عيد ميلاد</string>
+    <string name="for_why_anniversary">ذكرى سنوية</string>
+    <string name="for_why_education">التخرج</string>
+    <string name="for_why_house_warming">حفل الإطلاق</string>
+    <string name="for_why_holiday">عطلة</string>
+
+    <string name="gift_vibe_romance">رومانسي</string>
+    <string name="gift_vibe_emotional">عاطفي</string>
+    <string name="gift_vibe_for_use">وظيفي</string>
+    <string name="gift_vibe_humors">فكاهي</string>
+    <string name="gift_vibe_retro">ريترو</string>
+    <string name="gift_vibe_luxury"><![CDATA[فاخر & أنيق]]></string>
+    <string name="gift_vibe_memorable">تجربة</string>
+    <string name="gift_vibe_minimalist">بسيط</string>
+
+    <string name="prices_low">0–500 ريال</string>
+    <string name="upper_low">500–1000 ريال</string>
+    <string name="prices_medium">1000–1500 ريال</string>
+    <string name="prices_high">1500–3000 ريال</string>
+    <string name="prices_unlimit">3000+ ريال</string>
+
+    <string name="screen_titles_peoples">أشخاصك</string>
+    <string name="peoples_screen_no_people">لا توجد أصدقاء محفوظين</string>
+    <string name="label_personal_information">معلومات شخصية</string>
+    <string name="label_old">العمر</string>
+    <string name="label_user_releationship">معلومات علاقتك</string>
+    <string name="label_people_character">صفات الشخصية</string>
+    <string name="label_people_hobies">الهوايات</string>
+    <string name="label_people_zodiac">البرج</string>
+    <string name="label_people_best_side">الجوانب الجيدة</string>
+    <string name="people_details_divider_personal_and_relation_information">معلومات شخصية</string>
+    <string name="people_details_divider_characteristics">الشخصية</string>
+    <string name="people_details_divider_hobbies">الهوايات</string>
+    <string name="error_at_update_room">حدث خطأ أثناء تحديث الذاكرة</string>
+    <string name="screen_title_take_person_information_main_search_gift">لنجد الهدية المثالية</string>
+    <string name="screen_title_take_person_information_black_main_search_gift">لنجد الهدية</string>
+    <string name="screen_title_take_person_information_red_main_search_gift">المثالية.</string>
+    <string name="label_textfield_person_name">الاسم</string>
+    <string name="label_next_step">الخطوة التالية</string>
+
+    <string name="error_select_relationship">يرجى تحديد علاقتك</string>
+    <string name="error_name_required">لا يمكن أن يكون الاسم فارغًا</string>
+    <string name="error_fill_required_fields">يرجى ملء جميع الحقول المطلوبة</string>
+    <string name="error_enter_event_name">أدخل اسم الحدث</string>
+
+    <string name="label_personal_information_header">معلومات شخصية</string>
+    <string name="label_event_information">معلومات الحدث</string>
+    <string name="label_relationship_degree">علاقتك</string>
+    <string name="label_event_name">اسم الحدث</string>
+    <string name="label_notification_timing">متى تريد استلام الإشعارات؟</string>
+
+    <string name="label_gift_reason">لماذا نعطي هذا الهدية?</string>
+    <string name="label_special_requests">طلبات خاصة؟</string>
+    <string name="label_gift_spirit">روح الهدية؟</string>
+    <string name="label_budget">ما ميزانيتنا؟</string>
+    <string name="button_find_gift">ابحث عن هديتك!</string>
+    <string name="placeholder_special_request">على سبيل المثال، لا أريد كتابًا أو ساعة ذكية، وما إلى ذلك.</string>
+
+    <string name="notification_permission_dialog_title">سيتم توجيهك إلى شاشة الإذن الخاصة للإشعارات. يرجى إعادة المحاولة بعد العودة.</string>
+    <string name="notification_permission_confirm">موافق</string>
+    <string name="notification_permission_cancel">إلغاء</string>
+    <string name="button_create_reminder">إنشاء تذكير</string>
+
+    <string name="debug_snackbar_shown">تم عرض الشريط: %s</string>
+    <string name="debug_search_query">🔍 البحث: %s</string>
+    <string name="debug_image_found">🖼️ تم العثور على الصورة (عام): %s</string>
+
+    <string name="content_description_back_button">زر الرجوع</string>
+    <string name="content_description_empty">""</string>
+    <string name="content_description_logo">الشعار</string>
+    <string name="content_description_user_profile">ملف المستخدم الشخصي</string>
+    <string name="content_description_edit_profile_image">تعديل صورة الملف الشخصي</string>
+    <string name="content_description_add_button">زر الإضافة</string>
+    <string name="content_description_clear_button">زر المسح</string>
+    <string name="content_description_back">الرجوع</string>
+    <string name="content_description_delete_mode">وضع الحذف</string>
+
+    <string name="debug_log_snackbar">Snackbar</string>
+    <string name="debug_log_state">state</string>
+    <string name="debug_log_tag">TAG</string>
+    <string name="debug_log_error_gift_vm">Error at giftVm</string>
+    <string name="debug_log_error">Error</string>
+    <string name="debug_log_error_search_result">Error at takeSearchResult</string>
+    <string name="debug_log_tag_gemini_error">Tag Gemini error</string>
+    <string name="debug_log_json_error">JSON_ERROR</string>
+    <string name="debug_log_error_in_vm">Error in Vm</string>
+
+    <string name="error_unknown">حدث خطأ غير معروف</string>
+    <string name="error_parse_failed">فشل التحليل: %s</string>
+    <string name="error_notification_permission_required">تحتاج إلى منح إذن الإشعار</string>
+
+    <string name="debug_delete_button_log">Tag delete button</string>
+
+    <string name="preview_product_name">اسم المنتج</string>
+    <string name="preview_product_image_url">https://example.com/product.jpg</string>
+    <string name="preview_product_url">https://example.com/product</string>
+    <string name="preview_best_side">ودود ومساعد</string>
+    <string name="preview_job">مهندس برمجيات</string>
+
+    <string name="prompt_about_me_info">معلومات عني:\n</string>
+    <string name="prompt_name">الاسم: %s\n</string>
+    <string name="prompt_age">العمر: %s\n</string>
+    <string name="prompt_zodiac">البرج: %s\n</string>
+    <string name="prompt_good_sides">الجوانب الجيدة: %s\n</string>
+    <string name="prompt_hobbies">الهوايات: %s\n</string>
+    <string name="prompt_character">صفات الشخصية: %s\n</string>
+
+    <string name="debug_set_another_info">setForAnotherInformation: %s</string>
+    <string name="debug_save_person_info">savePersonInformation: %s</string>
+    <string name="debug_another_info">Another Information: %s</string>
+
+    <string name="search_gift">البحث عن هدية</string>
+    <string name="gift_for_template">هدية ل%s</string>
+    <string name="hobbies_for_template">%s - الهوايات</string>
+    <string name="character_for_template">%s - صفات الشخصية</string>
+    <string name="gift_criteria">معايير الهدية</string>
+    <string name="gift_suggestions">اقتراحات الهدايا</string>
+    <string name="animation_label_main_search">MainSearchGiftScreenAnimation</string>
+
+    <string name="user_info_missing">معلومات المستخدم مفقودة</string>
+    <string name="user_info_missing_desc">أضف معلوماتك الشخصية\nللحصول على اقتراحات أفضل</string>
+    <string name="add_information">إضافة معلومات</string>
+    <string name="personal_info_title">معلومات شخصية</string>
+    <string name="social_features_title">الميزات الاجتماعية</string>
+
+    <string name="nav_arg_for_another">ForAnother</string>
+    <string name="nav_arg_save_inf">SaveInf</string>
+
+    <string name="debug_tag_args">Args</string>
+    <string name="debug_tag_general">Tag</string>
+
+    <string name="no_gifts_yet">لا توجد هدايا حتى الآن</string>
+    <string name="track_favorite_gifts">يمكنك متابعة هداياك\nالمفضلة هنا</string>
+</resources>
