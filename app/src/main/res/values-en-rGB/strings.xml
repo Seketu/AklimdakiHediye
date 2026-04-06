@@ -1,24 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My Gift Idea</string>
-    <string name="title_app_name">My Gift Idea</string>
+    <string name="app_name">Gift On My Mind</string>
+    <string name="title_app_name">Gift on My Mind</string>
     <string name="main_list_title">Who is the gift for?</string>
 
     <string name="next_text">Continue</string>
 
-    <string name="main_list_father">Fathers Day</string>
-    <string name="main_list_mother">Mothers Day</string>
-    <string name="main_list_lover">Valentines Day</string>
-    <string name="main_list_women">Womens Day</string>
-    <string name="main_list_father_card">"Fathers are the silent heroes of the family. They support us with their strength and raise us with their love. Thank you for being our first and eternal hero!"</string>
-    <string name="main_list_mother_card">"Mom, you are the purest form of love and compassion. Your place in our lives is indescribable because you are our first teacher, our strongest supporter, and an endless source of love. Happy Mothes Day, the sunshine of our lives!"</string>
-    <string name="main_list_lover_card">"My love, you are the most beautiful gift that gives meaning to my life. In a world that shines with your eyes, every moment becomes more special and unforgettable. Happy Valentines Day, the one who holds the most special place in my heart!"</string>
-    <string name="main_list_women_card">"Women are the true heroes who change the color and meaning of the world. With their strength, love, and unique presence, they make every moment more beautiful. Happy Womens Day to all the women who make life more livable!"</string>
+    <string name="main_list_father">Father\'s Day</string>
+    <string name="main_list_mother">Mother\'s Day</string>
+    <string name="main_list_lover">Valentine\'s Day</string>
+    <string name="main_list_women">Women\'s Day</string>
+    <string name="main_list_father_card">"Fathers are the silent heroes of the family. They support us with their strength and raise us with their love. Thank you for being our first and eternal heroes!"</string>
+    <string name="main_list_mother_card">"Mum, you are the purest form of love and care. Your place in our lives is indescribable because you are our first teacher, strongest supporter, and an endless source of love. Happy Mother\'s Day, sunshine of our lives!"</string>
+    <string name="main_list_lover_card">"My love, you are the most beautiful gift that gives meaning to my life. In a world lit by your eyes, every moment becomes more special and unforgettable. Happy Valentine\'s Day — the most beautiful place in my heart belongs to you!"</string>
+    <string name="main_list_women_card">"Women are the real heroes who add colour and meaning to the world. With their strength, love, and unique presence, they make every moment more beautiful. Happy Women\'s Day to all who make life better!"</string>
 
-    <string name="info_label_name">What is their name?</string>
+    <string name="info_label_name">What\'s their name?</string>
     <string name="info_label_old">How old are they?</string>
-    <string name="info_label_zodiac">What is their zodiac sign?</string>
-    <string name="info_label_job">What is their profession?</string>
-    <string name="info_label_best_side">What are their standout personality traits?</string>
+    <string name="info_label_zodiac">What\'s their zodiac sign?</string>
+    <string name="info_label_job">What\'s their profession?</string>
+    <string name="info_label_best_side">What are their best personality traits?</string>
     <string name="info_label_hobbies">What are their hobbies?</string>
     <string name="info_label_last_gifts">What gifts have you given them before?</string>
     <string name="info_label_time">How long have you been together?</string>
@@ -28,22 +29,22 @@
     <string name="main_row_teacher">Your Teacher</string>
     <string name="main_row_job">Coworker</string>
 
-    <string name="name_label">"Whats name? "</string>
+    <string name="name_label">What\'s name?</string>
     <string name="old_label">How old are you?</string>
     <string name="best_side_label">What do people say are your good traits?</string>
     <string name="hobbies_label">What are your interests?</string>
-    <string name="zodiac_label">What is your zodiac sign? (Not everything has to be proven...)</string>
+    <string name="zodiac_label">What\'s your zodiac sign? (Not everything needs proof...)</string>
     <string name="caracter_label">How would you describe your personality? (Are you a social butterfly?)</string>
 
-    <string name="user_info_label_1">Lets start with your name</string>
-    <string name="user_info_label_2">Tell us about yourself</string>
-    <string name="gift_price_place_label">Whats your budget for the gift?</string>
+    <string name="user_info_label_1">Let\'s start with your name</string>
+    <string name="user_info_label_2">Tell us a bit about yourself</string>
+    <string name="gift_price_place_label">What\'s your budget for the gift?</string>
     <string name="gift_screen_mention_label">What kind of meaning do you want the gift to have?</string>
     <string name="done">Finish</string>
     <string name="alert_dialog_empty_info_title">No Information Found</string>
-    <string name="alert_dialog_empty_info_dismiss">Ill keep looking</string>
+    <string name="alert_dialog_empty_info_dismiss">Let me check a bit more</string>
     <string name="alert_dialog_empty_info_confirm">Let me introduce myself</string>
-    <string name="for_who_user_label">Do you want to proceed with your own info?</string>
+    <string name="for_who_user_label">Do you want to continue with your own info?</string>
     <string name="for_who_another_label">No, for someone else</string>
     <string name="for_who_forme_label">Yes, for myself</string>
     <string name="save_text">Save</string>
@@ -63,16 +64,16 @@
 
     <string name="relationship_flirt">Flirt</string>
     <string name="relationship_married">Married</string>
-    <string name="relationship_sweatheart">Lover</string>
+    <string name="relationship_sweatheart">Sweetheart</string>
 
-    <string name="gift_mention_button_label_sentimental">Sentimental</string>
+    <string name="gift_mention_button_label_sentimental">Sentimental Meaning</string>
     <string name="gift_mention_button_label_daily_user">For Everyday Use</string>
 
     <string name="delete">Delete</string>
 
     <string name="saved_gift_screen_label">Saved Gifts</string>
-    <string name="saved_gift_screen_empty_label">No saved gifts available</string>
-    <string name="user_info_user_setting_label">Your Information</string>
+    <string name="saved_gift_screen_empty_label">No saved gifts found</string>
+    <string name="user_info_user_setting_label">Your Info</string>
     <string name="user_info_button_user_settings_label">Show My Info</string>
     <string name="user_info_user_settings_information">Personal Information</string>
     <string name="user_info_name_label">Your Name: </string>
@@ -80,7 +81,229 @@
     <string name="user_info_caracter_label">Personality: </string>
     <string name="user_info_old_label">Your Age: </string>
     <string name="user_info_zodiac_label">Your Zodiac Sign: </string>
-    <string name="user_info_best_side_label">Your Good Traits: </string>
+    <string name="user_info_best_side_label">Your Best Traits: </string>
     <string name="loading">Loading...</string>
-    <string name="who_is_lucky">\tWho is the lucky one?</string>
+    <string name="who_is_lucky">Who is the lucky one?</string>
+
+    <string name="special_day_main_title">Saved Reminders</string>
+    <string name="name">Name</string>
+    <string name="mother">Mother</string>
+    <string name="mother_short_desc">The most silent prayer of my heart is always for you, mother.</string>
+    <string name="father_desc_short">Your shadow is enough, father, you give me strength at every step.</string>
+    <string name="sibling_desc_short">An infinite friendship in a little heart: My sibling.</string>
+    <string name="sweatheart_desc_short">When you smile, the world goes silent, only my heart speaks.</string>
+    <string name="teacher_desc_short">You gave a letter, you showed the way for a lifetime.</string>
+    <string name="friend_desc_short">True friendship is understanding even in silence.</string>
+    <string name="select_date">Select Date</string>
+    <string name="reminder_message_text">the event you created is approaching</string>
+    <string name="father">Father</string>
+    <string name="sibling">Sibling</string>
+    <string name="sweatheart">Your Lover</string>
+    <string name="teacher">Teacher</string>
+    <string name="friend">Friend</string>
+    <string name="celebrations_list_title">Special Days</string>
+    <string name="new_label">New</string>
+    <string name="gender_man">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_nc">Prefer not to say</string>
+    <string name="type_relationship_parents">Parent</string>
+    <string name="age_desc_child">Child</string>
+    <string name="age_desc_teen">Teen</string>
+    <string name="age_desc_adult">Adult</string>
+    <string name="age_desc_older">Mature</string>
+    <string name="hobbies_spor">Sports</string>
+    <string name="hobbies_gym">GYM</string>
+    <string name="hobbies_fashion">Fashion</string>
+    <string name="hobbies_ghosts">Ghosts</string>
+    <string name="hobbies_music">Music</string>
+    <string name="hobbies_enstrumants">Instruments</string>
+    <string name="hobbies_movies">Films</string>
+    <string name="hobbies_series">TV Series</string>
+    <string name="hobbies_cook">Cooking</string>
+    <string name="hobbies_shopping">Shopping</string>
+    <string name="hobbies_reading">Reading</string>
+    <string name="hobbies_video_games">Video Games</string>
+    <string name="hobbies_chest">Chess</string>
+    <string name="hobbies_zodiacs">Zodiac Signs</string>
+    <string name="hobbies_camping">Camping</string>
+    <string name="hobbies_walking">Hiking</string>
+    <string name="hobbies_flowers">Flowers</string>
+    <string name="hobbies_swimming">Swimming</string>
+    <string name="hobbies_dance">Dance</string>
+    <string name="hobbies_bike">Cycling</string>
+    <string name="hobbies_motobike">Motorcycles</string>
+    <string name="hobbies_fishing">Fishing</string>
+    <string name="hobbies_cars">Cars</string>
+    <string name="hobbies_football">Football</string>
+    <string name="hobbies_basketball">Basketball</string>
+    <string name="hobbies_volleyball">Volleyball</string>
+    <string name="hobbies_cosplay">Cosplay</string>
+    <string name="hobbies_art">Art</string>
+    <string name="character_determination">Determination</string>
+    <string name="trait_determination">Determination</string>
+    <string name="trait_self_discipline">Self Discipline</string>
+    <string name="trait_resilience">Resilient</string>
+    <string name="trait_integrity">Honest</string>
+    <string name="trait_empathy">Empathy</string>
+    <string name="trait_sincerity">Sincere</string>
+    <string name="trait_adaptability">Adaptable</string>
+    <string name="trait_humility">Humble</string>
+    <string name="trait_curiosity">Curious</string>
+    <string name="trait_analytical_thinking">Analytical</string>
+    <string name="trait_creativity">Creative</string>
+    <string name="trait_open_mindedness">Open-minded</string>
+    <string name="trait_perfectionism">Perfectionist</string>
+    <string name="trait_meticulousness">Meticulous</string>
+    <string name="trait_composure">Cool-headed</string>
+    <string name="trait_stubbornness">Stubborn</string>
+    <string name="silAlara">Loving Alara so much</string>
+    <string name="for_why_just_because">Just Because</string>
+    <string name="for_why_birthday">Birthday</string>
+    <string name="for_why_anniversary">Anniversary</string>
+    <string name="for_why_education">Graduation</string>
+    <string name="for_why_house_warming">Housewarming</string>
+    <string name="for_why_holiday">Vacation</string>
+    <string name="gift_vibe_romance">Romantic</string>
+    <string name="gift_vibe_emotional">Emotional</string>
+    <string name="gift_vibe_for_use">Functional</string>
+    <string name="gift_vibe_humors">Humorous</string>
+    <string name="gift_vibe_retro">Retro</string>
+    <string name="gift_vibe_luxury"><![CDATA[Luxury & Elegant]]></string>
+    <string name="gift_vibe_memorable">Experience</string>
+    <string name="gift_vibe_minimalist">Minimalist</string>
+    <string name="prices_low">£0–500</string>
+    <string name="upper_low">£500–1000</string>
+    <string name="prices_medium">£1000–1500</string>
+    <string name="prices_high">£1500–3000</string>
+    <string name="prices_unlimit">£3000+</string>
+    <string name="screen_titles_peoples">Your People</string>
+    <string name="peoples_screen_no_people">No Saved Friends</string>
+    <string name="label_personal_information">Personal Information</string>
+    <string name="label_old">Age</string>
+    <string name="label_user_releationship">Your Relationship Information</string>
+    <string name="label_people_character">Character Traits</string>
+    <string name="label_people_hobies">Hobbies</string>
+    <string name="label_people_zodiac">Zodiac Sign</string>
+    <string name="label_people_best_side">good sides</string>
+    <string name="people_details_divider_personal_and_relation_information">personal information</string>
+    <string name="people_details_divider_characteristics">character</string>
+    <string name="people_details_divider_hobbies">Hobbies</string>
+    <string name="error_at_update_room">An error occurred while updating memory</string>
+    <string name="screen_title_take_person_information_main_search_gift">Let\'s Find the Perfect Gift</string>
+    <string name="screen_title_take_person_information_black_main_search_gift">Let\'s Find the Perfect</string>
+    <string name="screen_title_take_person_information_red_main_search_gift">Gift.</string>
+    <string name="label_textfield_person_name">Name</string>
+    <string name="label_next_step">Next Step</string>
+
+    <!-- Error Messages -->
+    <string name="error_select_relationship">Please select your relationship degree</string>
+    <string name="error_name_required">Name cannot be empty</string>
+    <string name="error_fill_required_fields">Please Fill Required Fields</string>
+    <string name="error_enter_event_name">Enter event name</string>
+    <string name="error_select_date">Select date</string>
+
+    <!-- UI Labels -->
+    <string name="label_personal_information_header">Personal Information</string>
+    <string name="label_event_information">Event Information</string>
+    <string name="label_relationship_degree">Your Relationship Degree</string>
+    <string name="label_event_name">Event Name</string>
+    <string name="label_notification_timing">When would you like to receive notifications?</string>
+
+    <!-- Gift Related -->
+    <string name="label_gift_reason">Why are we buying this gift?</string>
+    <string name="label_special_requests">Special Requests?</string>
+    <string name="label_gift_spirit">Gift Spirit?</string>
+    <string name="label_budget">What\'s Our Budget?</string>
+    <string name="button_find_gift">Find Your Gift!</string>
+    <string name="placeholder_special_request">For example, I don\'t want a book or smartwatch, etc.</string>
+
+    <!-- Notifications -->
+    <string name="notification_permission_dialog_title">You will be directed to the special permission screen for notifications. Please try again after returning.</string>
+    <string name="notification_permission_confirm">OK</string>
+    <string name="notification_permission_cancel">Cancel</string>
+    <string name="button_create_reminder">Create Reminder</string>
+
+    <!-- Debug Messages -->
+    <string name="debug_snackbar_shown">Snackbar shown: %s</string>
+    <string name="debug_search_query">🔍 Searching: %s</string>
+    <string name="debug_image_found">🖼️ Image found (Global): %s</string>
+
+    <!-- Accessibility -->
+    <string name="content_description_back_button">back button</string>
+    <string name="content_description_empty">""</string>
+    <string name="content_description_logo">Logo</string>
+    <string name="content_description_user_profile">User Profile</string>
+    <string name="content_description_edit_profile_image">Edit Profile Image</string>
+    <string name="content_description_add_button">Add button</string>
+    <string name="content_description_clear_button">Clear button</string>
+    <string name="content_description_back">Back</string>
+    <string name="content_description_delete_mode">Delete Mode</string>
+
+    <!-- Debug Log Tags -->
+    <string name="debug_log_snackbar">Snackbar</string>
+    <string name="debug_log_state">state</string>
+    <string name="debug_log_tag">TAG</string>
+    <string name="debug_log_error_gift_vm">Error at giftVm</string>
+    <string name="debug_log_error">Error</string>
+    <string name="debug_log_error_search_result">Error at takeSearchResult</string>
+    <string name="debug_log_tag_gemini_error">Tag Gemini error</string>
+    <string name="debug_log_json_error">JSON_ERROR</string>
+    <string name="debug_log_error_in_vm">Error in Vm</string>
+
+    <!-- Error Messages - Additional -->
+    <string name="error_unknown">An unknown error occurred</string>
+    <string name="error_parse_failed">Parse failed: %s</string>
+    <string name="error_notification_permission_required">You need to grant notification permission</string>
+
+    <!-- Debug Messages - Additional -->
+    <string name="debug_delete_button_log">Tag delete button</string>
+
+    <!-- Preview/Test Data -->
+    <string name="preview_product_name">Product Name</string>
+    <string name="preview_product_image_url">https://example.com/product.jpg</string>
+    <string name="preview_product_url">https://example.com/product</string>
+    <string name="preview_best_side">Friendly and helpful</string>
+    <string name="preview_job">Software Engineer</string>
+
+    <!-- Prompt Templates -->
+    <string name="prompt_about_me_info">Information about me:\n</string>
+    <string name="prompt_name">Name: %s\n</string>
+    <string name="prompt_age">Age: %s\n</string>
+    <string name="prompt_zodiac">Zodiac: %s\n</string>
+    <string name="prompt_good_sides">Good Sides: %s\n</string>
+    <string name="prompt_hobbies">Hobbies: %s\n</string>
+    <string name="prompt_character">Character Traits: %s\n</string>
+
+    <!-- Debug Messages for ViewModels -->
+    <string name="debug_set_another_info">setForAnotherInformation: %s</string>
+    <string name="debug_save_person_info">savePersonInformation: %s</string>
+    <string name="debug_another_info">Another Information: %s</string>
+
+    <!-- Main Search Gift View -->
+    <string name="search_gift">Search Gift</string>
+    <string name="gift_for_template">Gift for %s</string>
+    <string name="hobbies_for_template">%s - Hobbies</string>
+    <string name="character_for_template">%s - Character Traits</string>
+    <string name="gift_criteria">Gift Criteria</string>
+    <string name="gift_suggestions">Gift Suggestions</string>
+    <string name="animation_label_main_search">MainSearchGiftScreenAnimation</string>
+
+    <!-- User Settings -->
+    <string name="user_info_missing">User Information Missing</string>
+    <string name="user_info_missing_desc">Add your personal information\nto get better suggestions</string>
+    <string name="add_information">Add Information</string>
+    <string name="personal_info_title">Personal Information</string>
+    <string name="social_features_title">Social Features</string>
+
+    <!-- Navigation Arguments -->
+    <string name="nav_arg_for_another">ForAnother</string>
+    <string name="nav_arg_save_inf">SaveInf</string>
+
+    <!-- Debug Tags -->
+    <string name="debug_tag_args">Args</string>
+    <string name="debug_tag_general">Tag</string>
+
+    <!-- Empty State Messages -->
+    <string name="no_gifts_yet">No Gifts Yet</string>
+    <string name="track_favorite_gifts">You can track your favourite\ngifts here</string>
 </resources>

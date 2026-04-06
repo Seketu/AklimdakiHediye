@@ -85,7 +85,7 @@
     <string name="loading">Зареждане…</string>
     <string name="who_is_lucky">Кой е късметлията?</string>
 
-    <string name="special_day_main_title">Запазени напоминания</string>
+    <string name="special_day_main_title">Запазени напомняния</string>
     <string name="name">Име</string>
     <string name="mother_short_desc">Най-тихата молитва в сърцето ми е всегда за теб, мамо.</string>
     <string name="father_desc_short">Сянката ти е достатъчна, татко, даваш ми сила при всяка стъпка.</string>
@@ -293,4 +293,6 @@
 
     <string name="no_gifts_yet">Няма подаръци</string>
     <string name="track_favorite_gifts">Можеш да проследиш своите\nлюбими подаръци тук</string>
-<string name="error_select_date">Datum auswählen</string><string name="mother">Mutter</string></resources>
+    <string name="error_select_date">Изберете дата</string>
+    <string name="mother">Майка</string>
+</resources>

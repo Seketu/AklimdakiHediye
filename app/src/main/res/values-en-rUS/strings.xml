@@ -105,7 +105,7 @@
     <string name="new_label">New</string>
     <string name="gender_man">Male</string>
     <string name="gender_female">Female</string>
-    <string name="gender_nc">Non-Comment</string>
+    <string name="gender_nc">Prefer not to say</string>
     <string name="type_relationship_parents">Parent</string>
     <string name="age_desc_child">Child</string>
     <string name="age_desc_teen">Teen</string>

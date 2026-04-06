@@ -293,4 +293,6 @@
 
     <string name="no_gifts_yet">لا توجد هدايا حتى الآن</string>
     <string name="track_favorite_gifts">يمكنك متابعة هداياك\nالمفضلة هنا</string>
-<string name="error_select_date">Datum auswählen</string><string name="mother">Mutter</string></resources>
+    <string name="mother">الأم</string>
+    <string name="error_select_date">اختر التاريخ</string>
+</resources>

@@ -99,7 +99,7 @@
     <string name="new_label">Yeni</string>
     <string name="gender_man">Erkek</string>
     <string name="gender_female">Kadın</string>
-    <string name="gender_nc">Non-Comment</string>
+    <string name="gender_nc">Belirtmek İstemiyorum</string>
     <string name="type_relationship_parents">Ebeveyn</string>
     <string name="age_desc_child">Çocuk</string>
     <string name="age_desc_teen">Genç</string>
