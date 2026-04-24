@@ -176,6 +176,7 @@ class UserMainView {
 
             }
             ShowPopUp.Show -> {
+                /*
                 AddPeopleDialog(
                     modifier = Modifier
                         .fillMaxWidth(0.94f)
@@ -185,7 +186,7 @@ class UserMainView {
                     }
                 ) {peoples ->
                     addNewPeople(peoples)
-                }
+                }*/
             }
         }
 
@@ -355,11 +356,12 @@ fun SuccessLoading(
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            /*
             AdBanner(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.075f)
-            )
+            )*/
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

@@ -26,8 +26,8 @@ configure<ApplicationExtension> {
         applicationId = "com.reylortechnology.aklimdakihediye"
         minSdk = 24
         targetSdk = 35
-        versionCode = 2
-        versionName = "2.0"
+        versionCode = 9
+        versionName = "9.0"
 
         buildConfigField("String", "GEMINI_API_KEY", "\"${localProperties.getProperty("GEMINI_API_KEY")}\"")
         buildConfigField("String", "BASE_URL", "\"${localProperties.getProperty("BASE_URL")}\"")
