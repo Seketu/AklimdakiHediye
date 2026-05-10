@@ -74,16 +74,6 @@ All text resources are managed via Android's `strings.xml` structure, ensuring a
 
 ---
 
-## 🚀 Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/your-repository.git
-   ```
-2. Open the project in **Android Studio**.
-3. Let Gradle sync automatically.
-4. Build and run the app on an emulator or a physical device!
----
 
 ## 📸 Screenshots
 
