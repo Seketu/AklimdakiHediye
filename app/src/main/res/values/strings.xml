@@ -303,5 +303,5 @@
     <string name="no_gifts_yet">Henüz Hediye Yok</string>
     <string name="track_favorite_gifts">Beğendiğin hediyeleri buradan\ntakip edebilirsin</string>
     
-    <string name="days_left_birthday">Doğum gününe %1$s gün kaldı 🥳</string>
+    <string name="days_left_birthday" translatable="false">Doğum gününe %1$s gün kaldı 🥳</string>
 </resources>
