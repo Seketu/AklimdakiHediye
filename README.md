@@ -20,7 +20,7 @@ This project is developed using **Native Android (Kotlin)** and follows the **MV
 It actively utilizes the **Room Database**, **Dagger Hilt**, **Ktor Client**, and **Flow** libraries.  
 Additionally, **Gemini API** and **DuckDuckGo Search Engine** integrations enhance the app's functionality.
 
-[APK File](https://github.com/Seketu/AklimdakiHediye/raw/main/apk/akl%C4%B1mdaki_hediye.apk)
+[Play Store](https://play.google.com/store/apps/details?id=com.reylortechnology.aklimdakihediye&hl=tr)
 
 Thank you for your interest and support!
 
@@ -74,16 +74,6 @@ All text resources are managed via Android's `strings.xml` structure, ensuring a
 
 ---
 
-## 🚀 Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/your-repository.git
-   ```
-2. Open the project in **Android Studio**.
-3. Let Gradle sync automatically.
-4. Build and run the app on an emulator or a physical device!
----
 
 ## 📸 Screenshots
 
