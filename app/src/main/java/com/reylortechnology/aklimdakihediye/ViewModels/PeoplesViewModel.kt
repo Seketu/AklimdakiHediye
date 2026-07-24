@@ -144,7 +144,12 @@ constructor(
                 isBirthdayNote = calculatorSpecialDays.calculateBirthday(people.birthday),
                 isSpecialNote = when(people.relationship){
                     TypeRelationship.Coworker -> null
-                    TypeRelationship.Parents -> calculatorSpecialDays.calculateFathersDay() + calculatorSpecialDays.calculateMothersDay()
+                    TypeRelationship.Parents -> {
+                        val fatherDay = calculatorSpecialDays.calculateFathersDay()
+                        val motherDay = calculatorSpecialDays.calculateMothersDay()
+                        
+                        listOfNotNull(fatherDay , motherDay).joinToString(" , ").takeIf { it.isNotEmpty() }
+                    }
                     TypeRelationship.Friends -> null
                     TypeRelationship.Partners -> calculatorSpecialDays.calculateValentineDay()
                     TypeRelationship.Siblings -> null

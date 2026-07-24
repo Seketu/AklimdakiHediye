@@ -105,7 +105,7 @@ class MainRepo
 
      fun askGemini(prompt: String): Flow<ApiResponse<GeminiResponse>> = safeApiCall<GeminiResponse> {
         val GEMINI_API_KEY = BuildConfig.GEMINI_API_KEY
-        val MODEL_ID = "gemini-2.0-flash"
+        val MODEL_ID = "gemini-2.5-flash"
         val GENERATE_CONTENT_API = "generateContent"
         client.post(
             "${BuildConfig.BASE_URL}v1beta/models/${MODEL_ID}:${GENERATE_CONTENT_API}?key=${GEMINI_API_KEY}"

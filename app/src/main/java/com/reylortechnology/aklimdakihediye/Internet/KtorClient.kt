@@ -15,15 +15,12 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import javax.inject.Singleton
 
-
 @InstallIn(SingletonComponent::class)
 @Module
 object KtorClient {
-
     @Provides
     @Singleton
     fun provideHttpClient (): HttpClient = HttpClient(Android){
-
 
         install(ContentNegotiation){
             json(
@@ -49,5 +46,4 @@ object KtorClient {
             socketTimeout = 30_000
         }
     }
-
 }

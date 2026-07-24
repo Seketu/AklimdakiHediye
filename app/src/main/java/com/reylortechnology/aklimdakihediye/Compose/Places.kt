@@ -79,6 +79,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.SavedGifts
@@ -249,10 +250,10 @@ fun PeopleListCard(
     ){
         Box(
             modifier = Modifier
-                .fillMaxWidth(0.2f)
+                .fillMaxHeight(0.65f)
                 .aspectRatio(1f)
                 .border(
-                    width =  1.dp,
+                    width = 1.dp,
                     shape = CircleShape,
                     color = people.color
                 )
@@ -263,7 +264,7 @@ fun PeopleListCard(
             Image(
                 painter = painterResource(id = people.image),
                 contentDescription = "People Image",
-                modifier = Modifier,
+                modifier = Modifier.fillMaxHeight(),
                 contentScale = ContentScale.Crop
             )
         }
@@ -290,14 +291,14 @@ fun PeopleListCard(
             )
                 if (isBirthdayNote != null){
                     Text(
-                        isBirthdayNote,
+                        stringResource(R.string.days_left_birthday,isBirthdayNote),
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.labelMedium.copy(
                             fontWeight = FontWeight.Medium
                         )
                     )
                 }
-                if (isSpecialDayNote != null){
+                if (!isSpecialDayNote.isNullOrEmpty()){
                     Text(
                         isSpecialDayNote,
                         color = MaterialTheme.colorScheme.primary,
@@ -527,7 +528,8 @@ fun MainPeopleCard(
         Text(
             text = peoples.peopleName,
             style = MaterialTheme.typography.labelMedium.copy(fontSize = 20.sp),
-            color = if (darkTheme) Color.White else Color.Black
+            color = if (darkTheme) Color.White else Color.Black,
+            maxLines = 1   
         )
     }
 }
@@ -886,7 +888,9 @@ fun UserInformationPlace(
     }
 }
 */
-@Preview
+
+
+@PreviewScreenSizes
 @Composable
 private fun CardPreviewAdd() {
     PeopleListCard(

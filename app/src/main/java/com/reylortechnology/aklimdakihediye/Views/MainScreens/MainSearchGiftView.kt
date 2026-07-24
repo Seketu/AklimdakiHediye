@@ -91,10 +91,10 @@ fun MainScreenGiftView(
     val characterBestSide = remember { mutableStateOf("") }
     val zodiacStatus = remember { mutableStateOf(ZodiacStatus.None) }
     val calculatedAge = remember {
-        mutableStateOf(0)
+        mutableIntStateOf(0)
     }
     val selectedImageId = remember {
-        mutableStateOf<Int>(R.drawable.man_1)
+        mutableIntStateOf(R.drawable.man_1)
     }
     val selectedColor = remember {
         mutableStateOf<Color>(Color.Transparent)
@@ -125,9 +125,9 @@ fun MainScreenGiftView(
                     }
                     // Kullanıcı ad girdiğinde title güncelle
                     popBarTitle.value = if (peopleName.value.isNotBlank()) {
-                        context.getString(R.string.gift_for_template, peopleName.value)
+                        stringResource(R.string.gift_for_template, peopleName.value)
                     } else {
-                        context.getString(R.string.search_gift)
+                        stringResource(R.string.search_gift)
                     }
                 }
                 PeopleInformationScreen.TakePersonHobbies -> {
@@ -139,9 +139,9 @@ fun MainScreenGiftView(
                         )
                     }
                     popBarTitle.value = if (peopleName.value.isNotBlank()) {
-                        context.getString(R.string.hobbies_for_template, peopleName.value)
+                        stringResource(R.string.hobbies_for_template, peopleName.value)
                     } else {
-                        context.getString(R.string.hobbies_label)
+                        stringResource(R.string.hobbies_label)
                     }
                 }
                 PeopleInformationScreen.TakeCharacterTraits -> {
@@ -153,9 +153,9 @@ fun MainScreenGiftView(
                         )
                     }
                     popBarTitle.value = if (peopleName.value.isNotBlank()) {
-                        context.getString(R.string.character_for_template, peopleName.value)
+                        stringResource(R.string.character_for_template, peopleName.value)
                     } else {
-                        context.getString(R.string.label_people_character)
+                        stringResource(R.string.label_people_character)
                     }
                 }
             }
@@ -169,9 +169,9 @@ fun MainScreenGiftView(
                 )
             }
             popBarTitle.value = if (peopleName.value.isNotBlank()) {
-                context.getString(R.string.character_for_template, peopleName.value) + " - " + context.getString(R.string.gift_criteria)
+                stringResource(R.string.character_for_template, peopleName.value) + " - " + stringResource(R.string.gift_criteria)
             } else {
-                context.getString(R.string.gift_criteria)
+                stringResource(R.string.gift_criteria)
             }
         }
         GiftSearchResult -> {
@@ -181,9 +181,9 @@ fun MainScreenGiftView(
                 navController.popBackStack()
             }
             popBarTitle.value = if (peopleName.value.isNotBlank()) {
-                context.getString(R.string.gift_for_template, peopleName.value)
+                stringResource(R.string.gift_for_template, peopleName.value)
             } else {
-                context.getString(R.string.gift_suggestions)
+                stringResource(R.string.gift_suggestions)
             }
         }
     }
@@ -250,7 +250,7 @@ fun MainScreenGiftView(
                                 selectedImageId = selectedImageId,
                                 selectedColor = selectedColor,
                                 onNext = {age->
-                                    calculatedAge.value = age
+                                    calculatedAge.intValue = age
                                     screenObserver.value = PeopleInformation(
                                         PeopleInformationScreen.TakePersonHobbies
                                     )
@@ -287,13 +287,13 @@ fun MainScreenGiftView(
                                     peopleName = peopleName.value,
                                     relationship = typeOfRelationship.value!!,
                                     birthday =  LocalDate.of(selectedYear.intValue, selectedMonth.intValue, selectedDay.intValue),
-                                    age = calculatedAge.value,
+                                    age = calculatedAge.intValue,
                                     zodiac = zodiacStatus.value,
                                     hobbies = peopleHobbies,
                                     bestSide = characterBestSide.value,
                                     character = characterTraits,
                                     job = peopleJob.value,
-                                    image = selectedImageId.value,
+                                    image = selectedImageId.intValue,
                                     color = selectedColor.value,
                                     gender = selectedGender.value!!,
                                 )

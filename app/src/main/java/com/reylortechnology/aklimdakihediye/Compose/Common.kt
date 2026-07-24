@@ -73,12 +73,13 @@ fun ResponsiveDatePicker(
         derivedStateOf { YearMonth.of(selectedYear, selectedMonth).lengthOfMonth() }
     }
 
-    var selectedDay by remember { mutableIntStateOf(1) }
+    var selectedDay by remember { mutableIntStateOf(initialDay.coerceIn(1, daysInMonth)) }
     LaunchedEffect(daysInMonth) {
         if (selectedDay > daysInMonth) selectedDay = daysInMonth
     }
 
     LaunchedEffect(selectedDay, selectedMonth, selectedYear) {
+        // Only trigger if it's different from initial values or after initialization
         onDateSelected(selectedDay, selectedMonth, selectedYear)
     }
 

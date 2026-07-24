@@ -40,7 +40,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -80,7 +79,7 @@ fun PeopleDetailScreen(
     modifier: Modifier = Modifier,
     context: Context,
     peoples: MutableState<Peoples>,
-    selectedPeople: Peoples? = null,
+    selectedPeople: Peoples,
     openImageDialog: (Peoples) -> Unit,
     updatePeopleInformation: (Peoples)-> Unit = { _ -> }
 ) {
@@ -88,17 +87,10 @@ fun PeopleDetailScreen(
     val screenHeight = screenConf.screenHeightDp.dp
 
     // Use selectedPeople if available, otherwise fall back to peoples.value
-    val currentPeople = selectedPeople ?: peoples.value
+    val currentPeople = selectedPeople
     var peopleInformation by remember(currentPeople) { mutableStateOf(currentPeople) }
 
-    // Update peopleInformation when selectedPeople changes (e.g., from image selection)
-    LaunchedEffect(selectedPeople) {
-        if (selectedPeople != null) {
-            peopleInformation = selectedPeople
-        }
-    }
-
-    val isInformationChange = remember(peopleInformation) {
+    val isInformationChange = remember(peopleInformation, peoples.value) {
         derivedStateOf {
             peopleInformation != peoples.value
         }
@@ -318,8 +310,12 @@ fun PeopleDetailScreen(
                                             initialYear = peopleInformation.birthday.year
                                         ) { day, month, year ->
                                             val newDate = LocalDate.of(year, month, day)
-                                            peopleInformation = peopleInformation.copy(birthday = newDate)
-                                            peopleInformation = peopleInformation.copy(age = Period.between(newDate, LocalDate.now()).years)
+                                            if (newDate != peopleInformation.birthday) {
+                                                peopleInformation = peopleInformation.copy(
+                                                    birthday = newDate,
+                                                    age = Period.between(newDate, LocalDate.now()).years
+                                                )
+                                            }
                                         }
 
                                         AgeDescSurface(
@@ -617,3 +613,37 @@ fun PeopleDetailScreen(
 
     }
 }
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Preview
+@Composable
+private fun peopleDetailScreenPrev () {
+    val people = remember {
+        mutableStateOf<Peoples>(
+            Peoples(
+                peopleName = "John",
+                peopleId = 1,
+                age = 25,
+                birthday = LocalDate.of(1998, 1, 1),
+                job = "",
+                image = R.drawable.ic_launcher_foreground,
+                color = Color.Blue,
+                zodiac = ZodiacStatus.Aries,
+                gender = Genders.Male,
+                bestSide = " ",
+                hobbies = listOf(Hobbies.Football),
+                character = listOf(CharacterTrait.ADAPTABILITY),
+                relationship = TypeRelationship.Friends
+            )
+        )
+    }
+    PeopleDetailScreen(
+        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
+        context = LocalContext.current,
+        peoples = people,
+        selectedPeople = people.value,
+        openImageDialog = {},
+        updatePeopleInformation = {  },
+    )
+}
+

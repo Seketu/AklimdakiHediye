@@ -59,6 +59,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.reylortechnology.aklimdakihediye.R
 import com.reylortechnology.aklimdakihediye.AdMob.AdBanner
+import com.reylortechnology.aklimdakihediye.BuildConfig
 import com.reylortechnology.aklimdakihediye.Compose.AddMainPeopleCard
 import com.reylortechnology.aklimdakihediye.Compose.AddPeopleDialog
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ForWhoObserver
@@ -176,7 +177,6 @@ class UserMainView {
 
             }
             ShowPopUp.Show -> {
-                /*
                 AddPeopleDialog(
                     modifier = Modifier
                         .fillMaxWidth(0.94f)
@@ -186,7 +186,7 @@ class UserMainView {
                     }
                 ) {peoples ->
                     addNewPeople(peoples)
-                }*/
+                }
             }
         }
 
@@ -312,8 +312,6 @@ fun SuccessLoading(
     peopleInformation: List<Peoples>,
     setAddPeoplePopUp : (Boolean) -> Unit
 ) {
-    val context = LocalContext.current
-
     val buttonList = listOf(
         UserMainListItems(
             stringResource(R.string.main_list_father),
@@ -356,12 +354,13 @@ fun SuccessLoading(
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            /*
+
             AdBanner(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.075f)
-            )*/
+            )
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -516,6 +515,7 @@ fun SuccessLoading(
                                 .fillMaxHeight(1f)
                                 .width(60.dp)
                                 .clickable{
+                                    Log.d("add_people_track" , "Add people button is clicked")
                                     setAddPeoplePopUp(true)
                                 }
                         )
@@ -574,7 +574,11 @@ fun SuccessLoading(
                         .fillMaxHeight(0.2f)
                         .align(Alignment.BottomCenter),
                     source = R.raw.main_anim,
-                    contentScale = ContentScale.FillWidth
+                    contentScale = ContentScale.FillWidth,
+                    secondModifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.2f)
+                        .align(Alignment.BottomCenter)
                 )
 
                 Column(
@@ -699,7 +703,8 @@ fun SuccessLoading(
     }
 }
 
-@Preview
+@Preview(
+)
 @Composable
 private fun Prev() {
     SuccessLoading(rememberNavController(),

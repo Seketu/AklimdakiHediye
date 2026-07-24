@@ -86,10 +86,12 @@ class MainSearchGiftViewModel
                                         _geminiQueryState.value = QueryProductsStatus.Error("Hediye önerileri alınırken bir hata oluştu: ${e.message}")
                                     }
                                 } else {
+                                    Log.e("Erro at MSgiftVİewModel" , "Hata content null")
                                     _geminiQueryState.value = QueryProductsStatus.Error("Hediye önerileri alınamadı")
                                 }
                             }
                             is ApiResponse.Error -> {
+                                Log.e("MainSearchGiftViewModel", "API error: ${response.message}")
                                 _geminiQueryState.value = QueryProductsStatus.Error("API hatası: ${response.message}")
                             }
                         }

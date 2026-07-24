@@ -46,7 +46,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -311,27 +311,31 @@ fun PeoplesView(
                     }
 
                     is PeoplesViewObserver.PersonDetailScreen -> {
-                        PeopleDetailScreen(
-                            modifier = Modifier.padding(paddingValues),
-                            peoples = it.people,
-                            selectedPeople = selectedPeople.value,
-                            openImageDialog = { peoples ->
-                                viewModel.setSelectedPeople(peoples)
-                                viewModel.openDialog(
-                                    DialogStateObserver.imageSelector(
-                                        imageId = peoples.image,
-                                        color = peoples.color
+                        if (selectedPeople.value == null) {
+                            viewModel.setSelectedPeople(it.people.value)
+                        }else {
+                            PeopleDetailScreen(
+                                modifier = Modifier.padding(paddingValues),
+                                peoples = it.people,
+                                selectedPeople = selectedPeople.value!!,
+                                openImageDialog = { peoples ->
+                                    viewModel.setSelectedPeople(peoples)
+                                    viewModel.openDialog(
+                                        DialogStateObserver.imageSelector(
+                                            imageId = peoples.image,
+                                            color = peoples.color
+                                        )
                                     )
-                                )
-                            },
-                            updatePeopleInformation = { people ->
-                                viewModel.setNewPeopleInformation(
-                                    people = people,
-                                    screenState = peopleScreenObserver
-                                )
-                            },
-                            context = context
-                        )
+                                },
+                                updatePeopleInformation = { people ->
+                                    viewModel.setNewPeopleInformation(
+                                        people = people,
+                                        screenState = peopleScreenObserver
+                                    )
+                                },
+                                context = context
+                            )
+                        }
                     }
 
                     is PeoplesViewObserver.AddPersonScreen -> {
@@ -342,8 +346,8 @@ fun PeoplesView(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @Preview
+    @PreviewScreenSizes
     @Composable
     private fun PeoplesPreview() {
-        PeoplesView(rememberNavController())
+        PeoplesView(navController = rememberNavController())
     }

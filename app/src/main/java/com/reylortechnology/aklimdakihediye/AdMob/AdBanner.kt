@@ -6,6 +6,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
+import com.reylortechnology.aklimdakihediye.BuildConfig
 
 //Mutlaka burada id tanımını değiştir
 // asıl kimlik : ca-app-pub-3865288813123224/9603268055
@@ -18,7 +19,7 @@ fun AdBanner(modifier: Modifier = Modifier) {
             AdView(it).apply {
                 setAdSize(AdSize.BANNER)
                 loadAd(AdRequest.Builder().build())
-                adUnitId = "ca-app-pub-3865288813123224/9603268055"
+                adUnitId = BuildConfig.AdMobKey_Banner
             }
         }
     )

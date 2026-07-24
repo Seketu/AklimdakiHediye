@@ -25,9 +25,9 @@ configure<ApplicationExtension> {
     defaultConfig {
         applicationId = "com.reylortechnology.aklimdakihediye"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 9
-        versionName = "9.0"
+        targetSdk = 36
+        versionCode = 10
+        versionName = "v2.2"
 
         buildConfigField("String", "GEMINI_API_KEY", "\"${localProperties.getProperty("GEMINI_API_KEY")}\"")
         buildConfigField("String", "BASE_URL", "\"${localProperties.getProperty("BASE_URL")}\"")
@@ -36,7 +36,15 @@ configure<ApplicationExtension> {
     }
 
     buildTypes {
+
+        debug {
+            buildConfigField(type = "String" , name = "AdMobKey_Banner" , value = "\"ca-app-pub-3940256099942544/9214589741\"")
+            buildConfigField(type = "String" , name = "AdMobKey_Interstitial" , value = "\"ca-app-pub-3940256099942544/1033173712\"")
+        }
+
         release {
+            buildConfigField(type = "String" , name = "AdMobKey_Banner" , value = "\"ca-app-pub-3865288813123224/9603268055\"")
+            buildConfigField(type = "String" , name = "AdMobKey_Interstitial" , value = "\"ca-app-pub-3865288813123224/9193054578\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
