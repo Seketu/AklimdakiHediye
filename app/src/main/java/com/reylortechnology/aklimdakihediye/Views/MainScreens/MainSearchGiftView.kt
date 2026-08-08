@@ -54,6 +54,13 @@ import com.reylortechnology.aklimdakihediye.Views.PartScreens.ToFriendsGiftView.
 import com.reylortechnology.aklimdakihediye.Views.PartScreens.ToFriendsGiftView.ForReasonScreen
 import com.reylortechnology.aklimdakihediye.models.Enums.CharacterTrait
 import com.reylortechnology.aklimdakihediye.models.Enums.Hobbies
+import androidx.compose.runtime.getValue
+import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.SavedGifts
+import com.reylortechnology.aklimdakihediye.ObserverClasses.QueryProductsStatus
+import com.reylortechnology.aklimdakihediye.ObserverClasses.SearchResultStatus
+import com.reylortechnology.aklimdakihediye.models.GiftInformationModels.GiftInformation
+import com.reylortechnology.aklimdakihediye.models.GiftInformationModels.Products
+import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,6 +70,36 @@ fun MainScreenGiftView(
     navController: NavHostController,
     viewModel : MainSearchGiftViewModel = hiltViewModel()
     ) {
+    val geminiQueryState by viewModel.geminiQueryState.collectAsState()
+    val searchResultStatus by viewModel.searchResultStatus.collectAsState()
+
+    MainScreenGiftContent(
+        navController = navController,
+        onSavePeople = viewModel::savePeople,
+        onInitPeopleInformation = viewModel::initPeopleInformation,
+        onSetGiftInformation = viewModel::setGiftInformation,
+        onSaveGift = viewModel.saveGift(),
+        geminiQueryState = geminiQueryState,
+        searchResultStatus = searchResultStatus,
+        onTakeSearchResultStatus = viewModel.takeSearchResultStatus(),
+        toastEvent = viewModel.toastEvent
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun MainScreenGiftContent(
+    navController: NavHostController,
+    onSavePeople: (Peoples) -> Unit,
+    onInitPeopleInformation: (Peoples) -> Unit,
+    onSetGiftInformation: (GiftInformation) -> Unit,
+    onSaveGift: (SavedGifts) -> Unit,
+    geminiQueryState: QueryProductsStatus,
+    searchResultStatus: SearchResultStatus,
+    onTakeSearchResultStatus: (List<Products>) -> Unit,
+    toastEvent: Flow<String>? = null
+) {
 
     val screenObserver = remember {
         mutableStateOf<MainSearchGiftScreensObserver>(
@@ -189,7 +226,7 @@ fun MainScreenGiftView(
     }
     // Toast messages için LaunchedEffect
     LaunchedEffect(Unit) {
-        viewModel.toastEvent.collect { message ->
+        toastEvent?.collect { message ->
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -299,9 +336,9 @@ fun MainScreenGiftView(
                                 )
                                 // Burada isSave true ise bilgileri kaydet, false ise kaydetme ve direkt olarak arama ekranına geç
                                 if (isSave){
-                                    viewModel.savePeople(people)
+                                    onSavePeople(people)
                                 }else{
-                                    viewModel.initPeopleInformation(people)
+                                    onInitPeopleInformation(people)
                                 }
                                 screenObserver.value = GiftInformation
                             }
@@ -316,7 +353,7 @@ fun MainScreenGiftView(
                             .padding(paddingValues)
                             .fillMaxSize(),
                         onActionButton = { giftInformation ->
-                            viewModel.setGiftInformation(giftInformation)
+                            onSetGiftInformation(giftInformation)
                             screenObserver.value = GiftSearchResult
                         }
                     )
@@ -333,11 +370,11 @@ fun MainScreenGiftView(
                                 .padding(paddingValues)
                                 .fillMaxSize(),
                             context = context,
-                            saveGifts = viewModel.saveGift(),
+                            saveGifts = onSaveGift,
                             navController = navController,
-                            geminiQueryState = viewModel.geminiQueryState.collectAsState().value,
-                            searchResultStatus = viewModel.searchResultStatus.collectAsState().value,
-                            takeSearchResultStatus = viewModel.takeSearchResultStatus(),
+                            geminiQueryState = geminiQueryState,
+                            searchResultStatus = searchResultStatus,
+                            takeSearchResultStatus = onTakeSearchResultStatus,
                         )
                     }
 
@@ -352,5 +389,14 @@ fun MainScreenGiftView(
 @Preview
 @Composable
 private fun MainSearchGiftViewPrev() {
-        MainScreenGiftView(navController = rememberNavController())
+    MainScreenGiftContent(
+        navController = rememberNavController(),
+        onSavePeople = {},
+        onInitPeopleInformation = {},
+        onSetGiftInformation = {},
+        onSaveGift = {},
+        geminiQueryState = QueryProductsStatus.None,
+        searchResultStatus = SearchResultStatus.None,
+        onTakeSearchResultStatus = {}
+    )
 }
