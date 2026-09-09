@@ -1,5 +1,6 @@
 package com.reylortechnology.aklimdakihediye.ui.theme
 
+import android.content.res.Configuration
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -16,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 
 private val lightScheme = lightColorScheme(
@@ -289,3 +291,16 @@ fun AklimdakiHediyeTheme(
   )
 }
 
+@Preview(
+    name = "Light Mode",
+    group = "Themes",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    showBackground = true
+)
+@Preview(
+    name = "Dark Mode",
+    group = "Themes",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true
+)
+annotation class ThemePreviews

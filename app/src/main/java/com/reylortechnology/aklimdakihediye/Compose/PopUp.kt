@@ -27,13 +27,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -55,6 +56,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -67,6 +69,7 @@ import com.reylortechnology.aklimdakihediye.models.Enums.Genders
 import com.reylortechnology.aklimdakihediye.models.Enums.Hobbies
 import com.reylortechnology.aklimdakihediye.models.Enums.ProfileColors
 import com.reylortechnology.aklimdakihediye.models.Enums.TypeRelationship
+import com.reylortechnology.aklimdakihediye.ui.theme.ThemePreviews
 import com.reylortechnology.aklimdakihediye.ui.theme.onSaveDialogBg
 import com.reylortechnology.aklimdakihediye.ui.theme.saveDialogBg
 import java.time.LocalDate
@@ -245,157 +248,81 @@ fun AddPeopleDialog(
 
                 item {
                     //People Name Field
-                    BasicTextField(
+                    OutlinedTextField(
                         value = peopleName.value,
                         onValueChange = { peopleName.value = it },
-                        decorationBox = { innerField ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .clip(shape = MaterialTheme.shapes.medium)
-                                    .background(
-                                        MaterialTheme.colorScheme.secondary
-                                    ),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxHeight()
-                                        .fillMaxWidth(0.2f)
-                                        .background(MaterialTheme.colorScheme.primary),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        "İsim",
-                                        color = MaterialTheme.colorScheme.onPrimary
-                                    )
-                                }
-
-                                Box(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .padding(10.dp)
-                                ) {
-                                    if (peopleName.value.isNullOrEmpty()) {
-                                        Text(
-                                            text = "Lüften Arkadaşınızın ismini yazın...",
-                                            color = MaterialTheme.colorScheme.onSecondary
-                                        )
-                                    } else {
-                                        innerField()
-                                    }
-                                }
-                            }
-                        },
+                        label = { Text("İsim") },
+                        placeholder = { Text("Lütfen Arkadaşınızın ismini yazın...") },
+                        singleLine = true,
+                        shape = MaterialTheme.shapes.medium,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f),
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            focusedTextColor = MaterialTheme.colorScheme.onSecondary,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onSecondary,
+                            focusedLabelColor = MaterialTheme.colorScheme.primary,
+                            unfocusedLabelColor = MaterialTheme.colorScheme.onSecondary,
+                            focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.6f),
+                            unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.6f),
+                            cursorColor = MaterialTheme.colorScheme.primary
+                        ),
                         modifier = Modifier
-                            .height(screenHeight * 0.06f)
-                            .fillMaxWidth(0.89f),
+                            .fillMaxWidth()
                     )
                 }
                 //PeopleJob Field
-                item{
-                    BasicTextField(
+                item {
+                    OutlinedTextField(
                         value = peopleJob.value,
                         onValueChange = { peopleJob.value = it },
-                        decorationBox = { innerField ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .clip(shape = MaterialTheme.shapes.medium)
-                                    .background(
-                                        MaterialTheme.colorScheme.secondary
-                                    ),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxHeight()
-                                        .fillMaxWidth(0.2f)
-                                        .background(MaterialTheme.colorScheme.primary),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        "Meslek",
-                                        color = MaterialTheme.colorScheme.onPrimary
-                                    )
-                                }
-
-                                Box(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .padding(10.dp)
-                                ) {
-                                    if (peopleJob.value.isNullOrEmpty()) {
-                                        Text(
-                                            text = "Lüften Mesleğini Yazınız...",
-                                            color = MaterialTheme.colorScheme.onSecondary
-                                        )
-                                    } else {
-                                        innerField()
-                                    }
-                                }
-                            }
-                        },
+                        label = { Text("Meslek") },
+                        placeholder = { Text("Lütfen Mesleğini Yazınız...") },
+                        singleLine = true,
+                        shape = MaterialTheme.shapes.medium,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f),
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            focusedTextColor = MaterialTheme.colorScheme.onSecondary,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onSecondary,
+                            focusedLabelColor = MaterialTheme.colorScheme.primary,
+                            unfocusedLabelColor = MaterialTheme.colorScheme.onSecondary,
+                            focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.6f),
+                            unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.6f),
+                            cursorColor = MaterialTheme.colorScheme.primary
+                        ),
                         modifier = Modifier
-                            .height(screenHeight * 0.06f)
-                            .fillMaxWidth(0.89f),
+                            .fillMaxWidth()
                     )
                 }
 
                 item {
-                    //People BestSize Fİeld
-                    BasicTextField(
+                    //People BestSide Field
+                    OutlinedTextField(
                         value = peopleBestSide.value,
                         onValueChange = { peopleBestSide.value = it },
-                        decorationBox = { innerField ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .clip(shape = MaterialTheme.shapes.medium)
-                                    .background(
-                                        MaterialTheme.colorScheme.secondary
-                                    ),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxHeight()
-                                        .fillMaxWidth(0.2f)
-                                        .background(MaterialTheme.colorScheme.primary),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        "İyi Yönler",
-                                        color = MaterialTheme.colorScheme.onPrimary,
-                                        textAlign = TextAlign.Center
-                                    )
-                                }
-
-                                Box(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .padding(10.dp)
-                                ) {
-                                    if (peopleBestSide.value.isNullOrEmpty()) {
-                                        Text(
-                                            text = "Lüften İyi Yönlerini Yazınız...",
-                                            color = MaterialTheme.colorScheme.onSecondary
-                                        )
-                                    } else {
-                                        innerField()
-                                    }
-                                }
-                            }
-                        },
+                        label = { Text("İyi Yönler") },
+                        placeholder = { Text("Lütfen İyi Yönlerini Yazınız...") },
+                        singleLine = true,
+                        shape = MaterialTheme.shapes.medium,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f),
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            focusedTextColor = MaterialTheme.colorScheme.onSecondary,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onSecondary,
+                            focusedLabelColor = MaterialTheme.colorScheme.primary,
+                            unfocusedLabelColor = MaterialTheme.colorScheme.onSecondary,
+                            focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.6f),
+                            unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.6f),
+                            cursorColor = MaterialTheme.colorScheme.primary
+                        ),
                         modifier = Modifier
-                            .height(screenHeight * 0.06f)
-                            .fillMaxWidth(0.89f),
+                            .fillMaxWidth()
                     )
                 }
 
@@ -948,7 +875,7 @@ fun AlertDialog(
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
-@Preview
+@ThemePreviews
 @Composable
 private fun PopPreview() {
     Column(

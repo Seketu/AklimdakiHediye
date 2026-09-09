@@ -9,6 +9,7 @@ import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -33,21 +34,25 @@ fun DatePickerScreen(
     initialDay: Int = 1,     // Başlangıç Günü
     initialMonth: Int = 1,   // Başlangıç Ayı
     initialYear: Int = LocalDate.now().year,
-            onDateChange: (Int, Int, Int) -> Unit,
-  // Başlangıç Yılı (Varsayılan olarak mevcut yıl
+    containerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
+    highlightColor: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f),
+    selectedTextColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
+    unselectedTextColor: Color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f),
+    onDateChange: (Int, Int, Int) -> Unit,
 ) {
-    // KULLANIM:
-    // Dışarıdan gelen modifier ne boyutta olursa olsun, içerik ona uyar.
     Box(contentAlignment = Alignment.Center, modifier = Modifier) {
         ResponsiveDatePicker(
             modifier = modifier
-                .background(Color(0xFFF5F5F5), RoundedCornerShape(16)), // Arkaplan ve köşe yumuşatma
+                .background(containerColor, RoundedCornerShape(16)),
             onDateSelected = { d, m, y ->
                 onDateChange(d, m, y)
             },
             initialDay = initialDay,
             initialMonth = initialMonth,
             initialYear = initialYear,
+            highlightColor = highlightColor,
+            selectedTextColor = selectedTextColor,
+            unselectedTextColor = unselectedTextColor
         )
     }
 }
@@ -61,6 +66,9 @@ fun ResponsiveDatePicker(
     initialDay: Int = 1,
     initialMonth: Int = 1,
     initialYear: Int = endYear,
+    highlightColor: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f),
+    selectedTextColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
+    unselectedTextColor: Color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f),
     onDateSelected: (Int, Int, Int) -> Unit
 ) {
     val years = (startYear..endYear).toList()
@@ -79,7 +87,6 @@ fun ResponsiveDatePicker(
     }
 
     LaunchedEffect(selectedDay, selectedMonth, selectedYear) {
-        // Only trigger if it's different from initial values or after initialization
         onDateSelected(selectedDay, selectedMonth, selectedYear)
     }
 
@@ -87,22 +94,16 @@ fun ResponsiveDatePicker(
         modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
-        // Ekranda aynı anda kaç satır görünsün? (Genelde 3 veya 5 seçilir)
         val visibleItemsCount = 3
-
-        // Matematik: Toplam Yükseklik / Görünmesi İstenen Sayı = Bir Satırın Yüksekliği
         val itemHeight = maxHeight / visibleItemsCount
-
-        // Font boyutu da satır yüksekliğine göre oranlanır (Yüksekliğin %40'ı kadar font olsun)
         val fontSize = with(LocalDensity.current) { (itemHeight * 0.45f).toSp() }
 
         // Ortadaki Seçim Çizgisi (Highlight)
-        // Yüksekliği tam olarak hesaplanan itemHeight kadardır.
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(itemHeight)
-                .background(Color(0x1A000000), RoundedCornerShape(8))
+                .background(highlightColor, RoundedCornerShape(8))
         )
 
         Row(
@@ -117,6 +118,8 @@ fun ResponsiveDatePicker(
                 itemHeight = itemHeight,
                 fontSize = fontSize,
                 visibleItemsCount = visibleItemsCount,
+                selectedTextColor = selectedTextColor,
+                unselectedTextColor = unselectedTextColor,
                 onItemSelected = { selectedDay = it }
             )
 
@@ -128,6 +131,8 @@ fun ResponsiveDatePicker(
                 itemHeight = itemHeight,
                 fontSize = fontSize,
                 visibleItemsCount = visibleItemsCount,
+                selectedTextColor = selectedTextColor,
+                unselectedTextColor = unselectedTextColor,
                 onItemSelected = { selectedMonth = it }
             )
 
@@ -139,6 +144,8 @@ fun ResponsiveDatePicker(
                 itemHeight = itemHeight,
                 fontSize = fontSize,
                 visibleItemsCount = visibleItemsCount,
+                selectedTextColor = selectedTextColor,
+                unselectedTextColor = unselectedTextColor,
                 onItemSelected = { selectedYear = it }
             )
         }
@@ -151,9 +158,11 @@ fun <T> WheelPicker(
     modifier: Modifier = Modifier,
     items: List<T>,
     initialItem: T,
-    itemHeight: Dp,          // Hesaplanan yükseklik dışarıdan gelir
-    fontSize: TextUnit,      // Hesaplanan font boyutu dışarıdan gelir
+    itemHeight: Dp,
+    fontSize: TextUnit,
     visibleItemsCount: Int,
+    selectedTextColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
+    unselectedTextColor: Color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f),
     onItemSelected: (T) -> Unit
 ) {
     val startIndex = items.indexOf(initialItem).coerceAtLeast(0)
@@ -168,13 +177,11 @@ fun <T> WheelPicker(
 
     VerticalPager(
         state = pagerState,
-        modifier = modifier.fillMaxHeight(), // Yüksekliği tamamen doldurur
-        // Padding hesabı: (Görünen Sayı / 2) * Satır Yüksekliği -> Tam ortaya denk getirir
+        modifier = modifier.fillMaxHeight(),
         contentPadding = PaddingValues(vertical = itemHeight * (visibleItemsCount / 2)),
         pageSize = PageSize.Fixed(itemHeight),
     ) { page ->
 
-        // Görsel efektler (Büyüme/Küçülme)
         val pageOffset = (
                 (pagerState.currentPage - page) + pagerState.currentPageOffsetFraction
                 ).absoluteValue
@@ -193,7 +200,7 @@ fun <T> WheelPicker(
 
         Box(
             modifier = Modifier
-                .height(itemHeight) // Hesaplanan yükseklik
+                .height(itemHeight)
                 .fillMaxWidth()
                 .graphicsLayer {
                     scaleX = scale
@@ -204,10 +211,10 @@ fun <T> WheelPicker(
         ) {
             Text(
                 text = items[page].toString(),
-                fontSize = fontSize, // Hesaplanan font
+                fontSize = fontSize,
                 fontWeight = if (page == pagerState.currentPage) FontWeight.Bold else FontWeight.Medium,
                 textAlign = TextAlign.Center,
-                color = if (page == pagerState.currentPage) Color.Black else Color.Gray
+                color = if (page == pagerState.currentPage) selectedTextColor else unselectedTextColor
             )
         }
     }

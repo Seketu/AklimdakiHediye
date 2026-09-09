@@ -389,7 +389,7 @@ fun ZodiacButton(
     ) {
         Image(
             painter = painterResource(imageSource),
-            "zodiac buttons",
+            contentDescription = "zodiac buttons",
             contentScale = ContentScale.FillHeight,
         )
         Text(zodiacName, color = Color.Black)
