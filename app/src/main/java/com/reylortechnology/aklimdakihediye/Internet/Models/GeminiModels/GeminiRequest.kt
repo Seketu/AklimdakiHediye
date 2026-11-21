@@ -11,7 +11,9 @@ data class GeminiRequest(
 @Serializable
 data class GenerationConfig(
     val responseMimeType: String? = null, // JSON zorlaması için
-    val temperature: Float? = 1.0f
+    val temperature: Float? = 1.0f,
+    // responseMimeType "application/json" iken cevabın şeklini Gemini tarafında zorlar
+    val responseSchema: GeminiSchema? = null
 )
 
 // Content ve Part sınıfların muhtemelen zaten şöyledir, aynen kalsın:

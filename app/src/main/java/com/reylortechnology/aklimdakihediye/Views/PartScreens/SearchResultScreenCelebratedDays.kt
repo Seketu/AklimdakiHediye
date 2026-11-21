@@ -34,6 +34,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.reylortechnology.aklimdakihediye.Compose.SearchCard
+import com.reylortechnology.aklimdakihediye.Compose.SearchCardMinWidth
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.SavedGifts
 import com.reylortechnology.aklimdakihediye.NavController.LocalNavController
 import com.reylortechnology.aklimdakihediye.R
@@ -67,7 +68,7 @@ fun SearchResultScreenCelebratedDays(
                     fontFamily = FontFamily.SansSerif,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                is QueryProductsStatus.Loading -> LoadingScreen(modifier = Modifier.padding(paddingValues))
+                is QueryProductsStatus.Loading -> GiftIdeasLoadingScreen(modifier = Modifier.padding(paddingValues))
                 is QueryProductsStatus.Success -> SuccessSearchResultScreen(
                     modifier = Modifier
                         .padding(paddingValues),
@@ -129,18 +130,21 @@ fun SuccessSearchResultScreen(
                         )
                     }
 
-                    SearchResultStatus.Loading ->  {
-                        LoadingScreen(Modifier.fillMaxSize())
+                    // None: sonuç isteği LaunchedEffect ile hemen başlıyor, boş ekran yanıp sönmesin
+                    SearchResultStatus.Loading, SearchResultStatus.None ->  {
+                        SearchResultLoadingScreen(Modifier.fillMaxSize())
                     }
 
                     is SearchResultStatus.Success ->{
                         LazyVerticalGrid(
-                            modifier = Modifier.fillMaxSize(),
-                            columns = GridCells.Adaptive(120.dp,),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(MaterialTheme.colorScheme.background),
+                            columns = GridCells.Adaptive(SearchCardMinWidth),
                             state = rememberLazyGridState(),
-                            horizontalArrangement = Arrangement.spacedBy(25.dp),
-                            verticalArrangement = Arrangement.spacedBy(20.dp),
-                            contentPadding = PaddingValues(horizontal = 20.dp)
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp),
+                            contentPadding = PaddingValues(16.dp)
                         ) {
                             items(it.searchCardModels) { card ->
                                 val giftSaved = remember {
@@ -163,9 +167,6 @@ fun SuccessSearchResultScreen(
                                 )
                             }
                         }
-                    }
-                    SearchResultStatus.None -> {
-
                     }
                 }
             }

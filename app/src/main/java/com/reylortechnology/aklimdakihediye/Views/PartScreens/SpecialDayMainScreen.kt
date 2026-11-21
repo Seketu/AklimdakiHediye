@@ -45,6 +45,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -78,8 +79,9 @@ fun SpecialDayMainScreen(
 ) {
 
     val context = LocalContext.current
+    // Seçim kayıt id'si ile tutulur; liste değişince işaretler başka kartlara kaymaz
     val selectedForDelete = remember {
-        mutableListOf<Notifications>()
+        mutableStateListOf<Int>()
     }
 
     LaunchedEffect(Unit) {
@@ -98,6 +100,10 @@ fun SpecialDayMainScreen(
 
     val deleteState = remember {
         mutableStateOf(false)
+    }
+
+    LaunchedEffect(deleteState.value) {
+        if (!deleteState.value) selectedForDelete.clear()
     }
 
     val listOfDays = viewModel.reminderList.collectAsState(emptyList())
@@ -244,18 +250,13 @@ fun SpecialDayMainScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 items(
-                    listOfDays.value
+                    listOfDays.value,
+                    key = { it.id }
                 ) {
-                    val checked = remember {
-                        mutableStateOf(false)
-                    }
-                    if (checked.value){
-                        selectedForDelete.add(it)
-                    }else{
-                        selectedForDelete.remove(it)
-                    }
-                    if (!deleteState.value){
-                        selectedForDelete.clear()
+                    val reminderId = it.id
+                    val isChecked = reminderId in selectedForDelete
+                    val toggleChecked = {
+                        if (isChecked) selectedForDelete.remove(reminderId) else selectedForDelete.add(reminderId)
                     }
                     ReminderCard(
                         title = it.for_who,
@@ -268,18 +269,18 @@ fun SpecialDayMainScreen(
                             .background(MaterialTheme.colorScheme.secondary, shape = MaterialTheme.shapes.small)
                             .border(
                                 width = if (deleteState.value) 5.dp else 0.dp,
-                                color = if (checked.value) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outline,
+                                color = if (isChecked) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outline,
                                 shape = MaterialTheme.shapes.small
                             )
                             .padding(10.dp)
                             .combinedClickable(
                                 onLongClick = {
                                     deleteState.value = true
-                                    checked.value = !checked.value
+                                    toggleChecked()
                                 },
                                 onClick = {
                                     if (deleteState.value){
-                                        checked.value = !checked.value
+                                        toggleChecked()
                                     }
                                 }
                             )
@@ -299,7 +300,10 @@ fun SpecialDayMainScreen(
                         .background(Color.Red)
                         .clickable {
                             Log.d(context.getString(R.string.debug_delete_button_log), selectedForDelete.toString())
-                            viewModel.deleteReminder(selectedForDelete)
+                            // Kopya liste ver: coroutine çalışırken seçim temizlenebilir
+                            val toDelete = listOfDays.value.filter { it.id in selectedForDelete }
+                            if (toDelete.isNotEmpty()) viewModel.deleteReminder(toDelete)
+                            deleteState.value = false
                         },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center

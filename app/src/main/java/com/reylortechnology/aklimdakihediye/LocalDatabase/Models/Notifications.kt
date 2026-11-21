@@ -17,5 +17,8 @@ data class Notifications (
     @ColumnInfo(name = "releationship")
     val releationship : String,
     @ColumnInfo(name = "message")
-    val message : String
+    val message : String,
+    // Bildirimin tetikleneceği an. 0 = v12 öncesi kayıt (alarmı tarih bazlı requestCode ile kurulmuş).
+    @ColumnInfo(name = "notify_at", defaultValue = "0")
+    val notifyAt : Long = 0L
 )

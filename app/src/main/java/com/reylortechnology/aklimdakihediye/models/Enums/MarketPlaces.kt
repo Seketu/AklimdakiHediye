@@ -1,7 +1,5 @@
 package com.reylortechnology.aklimdakihediye.models.Enums
 
-import android.net.Uri
-
 enum class MarketPlaces(
     val domain : String,
     val imageHost : String?   // Hotlink engeli olmayan resim CDN'i
@@ -16,14 +14,20 @@ enum class MarketPlaces(
 
     companion object {
         fun isMarketPlace(url : String) : Boolean {
-            val host = Uri.parse(url).host?.lowercase() ?: return false
+            val host = hostOf(url) ?: return false
             return entries.any { host.matchesDomain(it.domain) }
         }
 
         fun isTrustedImageHost(url : String) : Boolean {
-            val host = Uri.parse(url).host?.lowercase() ?: return false
+            val host = hostOf(url) ?: return false
             return entries.any { market -> market.imageHost?.let { host.matchesDomain(it) } == true }
         }
+
+        // android.net.Uri yerine düz metin: birim testlerinde de çalışsın, Türkçe karakterli
+        // ya da boşluklu adreslerde java.net.URI gibi hata fırlatmasın.
+        private fun hostOf(url : String) : String? =
+            Regex("^[a-zA-Z][a-zA-Z0-9+.-]*://(?:[^@/?#]*@)?([^/:?#]+)").find(url)
+                ?.groupValues?.get(1)?.lowercase()
 
         private fun String.matchesDomain(domain : String) : Boolean =
             this == domain || endsWith(".$domain")

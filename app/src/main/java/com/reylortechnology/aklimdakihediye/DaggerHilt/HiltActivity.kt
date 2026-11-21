@@ -2,7 +2,9 @@ package com.reylortechnology.aklimdakihediye.DaggerHilt
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
+import com.reylortechnology.aklimdakihediye.LocalDatabase.Migrations.MIGRATION_11_12
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.NotificationsDao
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.PeoplesDao
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.SavedGiftDao
@@ -15,6 +17,7 @@ import com.reylortechnology.aklimdakihediye.Repo.SavedVariableRepo
 import com.reylortechnology.aklimdakihediye.Repo.UserSettingsRepo
 import com.reylortechnology.aklimdakihediye.Services.DuckDuckGoSearch
 import com.reylortechnology.aklimdakihediye.Services.ImageSearchService
+import com.reylortechnology.aklimdakihediye.Services.ProductImageSelector
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,10 +25,30 @@ import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @HiltAndroidApp
-class MyApp : Application()
+class MyApp : Application() {
+
+    @Inject
+    lateinit var notificationsRepo: NotificationsRepo
+
+    private val appScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+    override fun onCreate() {
+        super.onCreate()
+        // Alarmlar yeniden başlatma / zorla durdurma / yedekten geri yüklemede silinir; her açılışta tekrar kur
+        appScope.launch {
+            runCatching { notificationsRepo.rescheduleAll() }
+                .onFailure { Log.e("MyApp", "Hatırlatmalar yeniden kurulamadı", it) }
+        }
+    }
+}
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -45,6 +68,7 @@ object DatabaseModule {
             LocalDatabase::class.java,
             "app_database"
         )
+            .addMigrations(MIGRATION_11_12)
             .fallbackToDestructiveMigration(false)
             .build()
     }
@@ -95,9 +119,14 @@ object DatabaseModule {
     }
 
     @Provides
+    fun provideProductImageSelector() : ProductImageSelector {
+        return ProductImageSelector()
+    }
+
+    @Provides
     @Singleton // İstek sınırlayıcı ve önbellek tek örnekte tutulmalı
-    fun provideImageSearchService(client: HttpClient) : ImageSearchService {
-        return ImageSearchService(client)
+    fun provideImageSearchService(client: HttpClient, selector: ProductImageSelector) : ImageSearchService {
+        return ImageSearchService(client, selector)
     }
 
     @Provides
@@ -126,8 +155,11 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideNotificationsRepo(notificationDao: NotificationsDao): NotificationsRepo{
-        return NotificationsRepo(notificationDao)
+    fun provideNotificationsRepo(
+        @ApplicationContext context: Context,
+        notificationDao: NotificationsDao
+    ): NotificationsRepo{
+        return NotificationsRepo(context, notificationDao)
     }
 
 }

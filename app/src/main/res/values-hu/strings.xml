@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Csillagjegyed: </string>
     <string name="user_info_best_side_label">Erősségeid: </string>
     <string name="loading">"Betöltés... "</string>
+    <string name="search_card_browse">Megnézem</string>
+    <string name="content_description_save_gift">Ajándék mentése</string>
+    <string name="loading_thinking_gift_ideas">Ajándékötletek keresése…</string>
+    <string name="loading_matching_personality">A személyiséghez illő lehetőségek kiválasztása…</string>
+    <string name="loading_almost_ready">Mindjárt kész…</string>
+    <string name="loading_searching_products">Termékek keresése az üzletekben…</string>
     <string name="who_is_lucky">\tKi a szerencsés?</string>
 <string name="special_day_main_title">Mentett emlékeztetők</string><string name="name">Név</string><string name="mother">Anya</string><string name="father">Apa</string><string name="friend">Barát</string><string name="teacher">Tanár</string><string name="select_date">Dátum kiválasztása</string><string name="error_select_relationship">Válassza ki a kapcsolatát</string><string name="error_name_required">A név nem lehet üres</string><string name="label_gift_reason">Miért adjuk ezt az ajándékot?</string><string name="button_create_reminder">Emlékeztetője</string>
     <string name="debug_tag_general">Tag</string>
@@ -119,6 +125,8 @@ ajándékaidat itt</string><string name="hobbies_spor">Sport</string><string nam
     <string name="sweatheart">Kedvesed</string>
     <string name="type_relationship_parents">Szülő</string>
     <string name="error_select_date">Válasszon dátumot</string>
+    <string name="error_reminder_date_past">Nem választhatsz múltbeli dátumot</string>
+    <string name="error_reminder_time_passed">Ennek az emlékeztetőnek az időpontja már elmúlt. Válassz rövidebb időtartamot.</string>
     <string name="debug_log_snackbar">Snackbar</string>
     <string name="debug_log_state">state</string>
     <string name="debug_log_tag">TAG</string>

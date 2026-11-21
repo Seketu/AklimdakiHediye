@@ -78,6 +78,12 @@
     <string name="user_info_zodiac_label">Burcunuz : </string>
     <string name="user_info_best_side_label">İyi yönleriniz : </string>
     <string name="loading">Yükleniyor...</string>
+    <string name="search_card_browse">Göz At</string>
+    <string name="content_description_save_gift">Hediyeyi kaydet</string>
+    <string name="loading_thinking_gift_ideas">Hediye fikirleri düşünülüyor…</string>
+    <string name="loading_matching_personality">Kişiliğe en uygun seçenekler seçiliyor…</string>
+    <string name="loading_almost_ready">Neredeyse hazır…</string>
+    <string name="loading_searching_products">Ürünler mağazalarda aranıyor…</string>
     <string name="who_is_lucky">"Kim bu şanslı "</string>
     <string name="special_day_main_title">Kaydedilen Hatırlatmalar</string>
     <string name="name">İsim</string>
@@ -195,6 +201,8 @@
     <string name="error_fill_required_fields">Lütfen Gerekli Alanları Doldurun</string>
     <string name="error_enter_event_name">Etkinlik ismi giriniz</string>
     <string name="error_select_date">Tarih seçiniz</string>
+    <string name="error_reminder_date_past">Geçmiş bir tarih seçilemez</string>
+    <string name="error_reminder_time_passed">Bu bildirim zamanı geçmiş, daha kısa bir süre seçin</string>
 
     <!-- UI Labels -->
     <string name="label_personal_information_header">Kişisel Bilgiler</string>

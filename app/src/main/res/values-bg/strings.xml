@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Твоята зодия: </string>
     <string name="user_info_best_side_label">Твоите силни страни: </string>
     <string name="loading">Зареждане…</string>
+    <string name="search_card_browse">Разгледай</string>
+    <string name="content_description_save_gift">Запази подаръка</string>
+    <string name="loading_thinking_gift_ideas">Обмисляме идеи за подаръци…</string>
+    <string name="loading_matching_personality">Избираме варианти според характера…</string>
+    <string name="loading_almost_ready">Почти готово…</string>
+    <string name="loading_searching_products">Търсим продукти в магазините…</string>
     <string name="who_is_lucky">Кой е късметлията?</string>
 
     <string name="special_day_main_title">Запазени напомняния</string>
@@ -294,5 +300,7 @@
     <string name="no_gifts_yet">Няма подаръци</string>
     <string name="track_favorite_gifts">Можеш да проследиш своите\nлюбими подаръци тук</string>
     <string name="error_select_date">Изберете дата</string>
+    <string name="error_reminder_date_past">Не може да изберете минала дата</string>
+    <string name="error_reminder_time_passed">Времето за това напомняне вече е минало. Изберете по-кратък срок.</string>
     <string name="mother">Майка</string>
 </resources>

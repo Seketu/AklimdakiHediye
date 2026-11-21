@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Το ζώδιό σου: </string>
     <string name="user_info_best_side_label">Τα δυνατά σου σημεία: </string>
     <string name="loading">Φόρτωση...</string>
+    <string name="search_card_browse">Προβολή</string>
+    <string name="content_description_save_gift">Αποθήκευση δώρου</string>
+    <string name="loading_thinking_gift_ideas">Σκεφτόμαστε ιδέες για δώρα…</string>
+    <string name="loading_matching_personality">Διαλέγουμε επιλογές που ταιριάζουν στον χαρακτήρα…</string>
+    <string name="loading_almost_ready">Σχεδόν έτοιμο…</string>
+    <string name="loading_searching_products">Αναζητούμε προϊόντα στα καταστήματα…</string>
     <string name="who_is_lucky">Ποιος είναι ο τυχερός</string>
 <string name="special_day_main_title">Αποθηκευμένες υπενθυμίσεις</string><string name="name">Όνομα</string><string name="mother">Μητέρα</string><string name="father">Πατέρας</string><string name="friend">Φίλος</string><string name="teacher">Δάσκαλος</string><string name="select_date">Επιλέξτε ημερομηνία</string><string name="error_select_relationship">Επιλέξτε τη σχέση σας</string><string name="error_name_required">Το όνομα δεν μπορεί να είναι κενό</string><string name="label_gift_reason">Γιατί δίνουμε αυτό το δώρο;</string><string name="button_create_reminder">Δημιουργία υπενθύμισης</string>
     <string name="debug_tag_general">Tag</string>
@@ -119,6 +125,8 @@
     <string name="sweatheart">Ο/Η αγαπημένος/η σου</string>
     <string name="type_relationship_parents">Γονέας</string>
     <string name="error_select_date">Επιλέξτε ημερομηνία</string>
+    <string name="error_reminder_date_past">Δεν μπορείτε να επιλέξετε παρελθοντική ημερομηνία</string>
+    <string name="error_reminder_time_passed">Η ώρα αυτής της υπενθύμισης έχει ήδη περάσει. Επιλέξτε μικρότερο χρονικό διάστημα.</string>
     <string name="debug_log_snackbar">Snackbar</string>
     <string name="debug_log_state">state</string>
     <string name="debug_log_tag">TAG</string>

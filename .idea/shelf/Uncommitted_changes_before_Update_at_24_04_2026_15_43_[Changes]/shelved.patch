@@ -1,0 +1,609 @@
+Index: app/src/main/java/com/reylortechnology/aklimdakihediye/Views/MainScreens/UserMainView.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.reylortechnology.aklimdakihediye.Views.MainScreens\r\n\r\nimport android.os.Build\r\nimport android.util.Log\r\nimport androidx.annotation.RequiresApi\r\nimport androidx.compose.foundation.background\r\nimport androidx.compose.foundation.border\r\nimport androidx.compose.foundation.clickable\r\nimport androidx.compose.foundation.isSystemInDarkTheme\r\nimport androidx.compose.foundation.layout.Arrangement\r\nimport androidx.compose.foundation.layout.Box\r\nimport androidx.compose.foundation.layout.Column\r\nimport androidx.compose.foundation.layout.Row\r\nimport androidx.compose.foundation.layout.Spacer\r\nimport androidx.compose.foundation.layout.aspectRatio\r\nimport androidx.compose.foundation.layout.fillMaxHeight\r\nimport androidx.compose.foundation.layout.fillMaxSize\r\nimport androidx.compose.foundation.layout.fillMaxWidth\r\nimport androidx.compose.foundation.layout.height\r\nimport androidx.compose.foundation.layout.heightIn\r\nimport androidx.compose.foundation.layout.padding\r\nimport androidx.compose.foundation.layout.size\r\nimport androidx.compose.foundation.layout.width\r\nimport androidx.compose.foundation.lazy.LazyColumn\r\nimport androidx.compose.foundation.lazy.LazyRow\r\nimport androidx.compose.foundation.lazy.items\r\nimport androidx.compose.foundation.shape.RoundedCornerShape\r\nimport androidx.compose.material3.MaterialTheme\r\nimport androidx.compose.material3.Scaffold\r\nimport androidx.compose.material3.Text\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.runtime.LaunchedEffect\r\nimport androidx.compose.runtime.collectAsState\r\nimport androidx.compose.runtime.getValue\r\nimport androidx.compose.runtime.mutableStateOf\r\nimport androidx.compose.runtime.remember\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.draw.clip\r\nimport androidx.compose.ui.draw.paint\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.layout.ContentScale\r\nimport androidx.compose.ui.platform.LocalConfiguration\r\nimport androidx.compose.ui.platform.LocalContext\r\nimport androidx.compose.ui.res.painterResource\r\nimport androidx.compose.ui.res.stringResource\r\nimport androidx.compose.ui.text.SpanStyle\r\nimport androidx.compose.ui.text.buildAnnotatedString\r\nimport androidx.compose.ui.text.font.FontWeight\r\nimport androidx.compose.ui.text.style.TextDecoration\r\nimport androidx.compose.ui.text.withStyle\r\nimport androidx.compose.ui.tooling.preview.Preview\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.compose.ui.unit.sp\r\nimport androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel\r\nimport androidx.navigation.NavController\r\nimport androidx.navigation.compose.rememberNavController\r\nimport com.airbnb.lottie.compose.LottieCompositionSpec\r\nimport com.airbnb.lottie.compose.rememberLottieComposition\r\nimport com.reylortechnology.aklimdakihediye.R\r\nimport com.reylortechnology.aklimdakihediye.AdMob.AdBanner\r\nimport com.reylortechnology.aklimdakihediye.Compose.AddMainPeopleCard\r\nimport com.reylortechnology.aklimdakihediye.Compose.AddPeopleDialog\r\nimport com.reylortechnology.aklimdakihediye.ObserverClasses.ForWhoObserver\r\nimport com.reylortechnology.aklimdakihediye.ObserverClasses.AlertDialogObserver\r\nimport com.reylortechnology.aklimdakihediye.ObserverClasses.ToScreenObserver\r\nimport com.reylortechnology.aklimdakihediye.ViewModels.UserMainViewModel\r\nimport com.reylortechnology.aklimdakihediye.Compose.AlertDialog\r\nimport com.reylortechnology.aklimdakihediye.Compose.AutoResizeText\r\nimport com.reylortechnology.aklimdakihediye.Compose.LottieAnim\r\nimport com.reylortechnology.aklimdakihediye.Compose.MainListDailyButton\r\nimport com.reylortechnology.aklimdakihediye.Compose.MainListRowButton\r\nimport com.reylortechnology.aklimdakihediye.Compose.MainPeopleCard\r\nimport com.reylortechnology.aklimdakihediye.Compose.NavigationButton\r\nimport com.reylortechnology.aklimdakihediye.LocalDatabase.Models.LocalUserInformation\r\nimport com.reylortechnology.aklimdakihediye.LocalDatabase.Models.Peoples\r\nimport com.reylortechnology.aklimdakihediye.NavController.LocalNavController\r\nimport com.reylortechnology.aklimdakihediye.ObserverClasses.ShowPopUp\r\nimport com.reylortechnology.aklimdakihediye.ObserverClasses.SpecialRowStatus\r\nimport com.reylortechnology.aklimdakihediye.Views.PartScreens.LoadingScreen\r\nimport com.reylortechnology.aklimdakihediye.models.ComposeModels.UserMainListItems\r\nimport com.reylortechnology.aklimdakihediye.ui.theme.JustAnotherHandFont\r\nimport com.reylortechnology.aklimdakihediye.ui.theme.fatherCardBg\r\nimport com.reylortechnology.aklimdakihediye.ui.theme.kanitOzelBaslik\r\nimport com.reylortechnology.aklimdakihediye.ui.theme.loverCardBg\r\nimport com.reylortechnology.aklimdakihediye.ui.theme.motherCardBg\r\nimport com.reylortechnology.aklimdakihediye.ui.theme.stylizedRed\r\nimport com.reylortechnology.aklimdakihediye.ui.theme.stylizedYellow\r\nimport com.reylortechnology.aklimdakihediye.ui.theme.womenCardBg\r\n\r\n\r\n//Ana kullanıcı sayfası\r\nclass UserMainView {\r\n\r\n    @RequiresApi(Build.VERSION_CODES.O)\r\n    @Composable\r\n    fun UserMainScreen(\r\n        navController: NavController,\r\n        viewModel: UserMainViewModel = hiltViewModel()\r\n    ) {\r\n        val context = LocalContext.current\r\n        val alertDialogState by viewModel.alertDialogState.collectAsState()\r\n        val showAlert by viewModel.showAlert.collectAsState()\r\n        val infoScreen by viewModel.infoScreen.collectAsState()\r\n        val toRowButtonState by viewModel.rowStatus.collectAsState()\r\n        val userInformation by viewModel.userInformation.collectAsState()\r\n        val peopleInformation by  viewModel.peoplesInformation.collectAsState()\r\n        val addPeoplePopUp by viewModel.addPeoplePopUpState.collectAsState()\r\n\r\n        UserMainContent(\r\n            navController = navController,\r\n            alertDialogState = alertDialogState,\r\n            showAlert = showAlert,\r\n            infoScreen = infoScreen,\r\n            toRowButtonState = toRowButtonState,\r\n            onUpdateForWho = { forDay, source ->\r\n                viewModel.updateForWhoState(\r\n                    ForWhoObserver.checkState,\r\n                    context,\r\n                    forDay,\r\n                    source\r\n                )\r\n            },\r\n            onNavigateFromColumn = { nav, forDay, source, forWhat ->\r\n                viewModel.navigateFromColumn(nav, forDay, source, forWhat)\r\n            },\r\n            userInformation,\r\n            peopleInformation,\r\n            addNewPeople = { viewModel.addNewPeople(it) },\r\n            addPeoplePopUp = addPeoplePopUp,\r\n            setAddPeoplePopUp = {value ->\r\n                viewModel.setAddPeoplePopup(value)\r\n            }\r\n        )\r\n    }\r\n\r\n    @RequiresApi(Build.VERSION_CODES.O)\r\n    @Composable\r\n    fun UserMainContent(\r\n        navController: NavController,\r\n        alertDialogState: AlertDialogObserver,\r\n        showAlert: Boolean,\r\n        infoScreen: ToScreenObserver,\r\n        toRowButtonState: SpecialRowStatus,\r\n        onUpdateForWho: (String, Int) -> Unit,\r\n        onNavigateFromColumn: (NavController, String?, Int?, String) -> Unit,\r\n        userInformation: List<LocalUserInformation>,\r\n        peopleInformation : List<Peoples>,\r\n        addNewPeople : (Peoples)-> Unit,\r\n        setAddPeoplePopUp : (Boolean)-> Unit,\r\n        addPeoplePopUp: ShowPopUp\r\n        ) {\r\n        val isLoading = remember { mutableStateOf(true) }\r\n        // Her bir animasyon için rememberLottieComposition kullanıyoruz\r\n        val compositionMain by rememberLottieComposition(\r\n            LottieCompositionSpec.RawRes(R.raw.main_anim)\r\n        )\r\n        val compositionExit by rememberLottieComposition(\r\n            LottieCompositionSpec.RawRes(R.raw.exit_anim)\r\n        )\r\n        val compositionFather by rememberLottieComposition(\r\n            LottieCompositionSpec.RawRes(R.raw.fathers_anim)\r\n        )\r\n        val compositionMother by rememberLottieComposition(\r\n            LottieCompositionSpec.RawRes(R.raw.mother)\r\n        )\r\n        val compositionLover by rememberLottieComposition(\r\n            LottieCompositionSpec.RawRes(R.raw.lover_anim)\r\n        )\r\n        val compositionWoman by rememberLottieComposition(\r\n            LottieCompositionSpec.RawRes(R.raw.woman_anim)\r\n        )\r\n\r\n        when(addPeoplePopUp){\r\n            ShowPopUp.None -> {\r\n\r\n            }\r\n            ShowPopUp.Show -> {\r\n                AddPeopleDialog(\r\n                    modifier = Modifier\r\n                        .fillMaxWidth(0.94f)\r\n                        .fillMaxHeight(0.94f),\r\n                    onDismissRequest = {\r\n                        setAddPeoplePopUp(false)\r\n                    }\r\n                ) {peoples ->\r\n                    addNewPeople(peoples)\r\n                }\r\n            }\r\n        }\r\n\r\n        LaunchedEffect(\r\n            key1 = toRowButtonState\r\n        ) {\r\n            toRowButtonState.let {\r\n                when(it){\r\n                    SpecialRowStatus.None ->{\r\n\r\n                    }\r\n                    is SpecialRowStatus.ToScreen -> {\r\n                        navController.navigate(LocalNavController.SpecialGiftRowScreen(\r\n                            source = it.source,\r\n                            forWho = it.forWho,\r\n                            forAnother = false\r\n                        ))\r\n                    }\r\n                    is SpecialRowStatus.ToTakeInformation -> {\r\n                        navController.navigate(LocalNavController.SpecialGiftRowScreen(\r\n                            source = it.source,\r\n                            forWho = it.forWho,\r\n                            forAnother = it.forAnother\r\n                        ))\r\n                    }\r\n                }\r\n            }\r\n        }\r\n\r\n        LaunchedEffect(\r\n            infoScreen\r\n        ) {\r\n            if (!isLoading.value) {\r\n                infoScreen.let { event->\r\n                    when(event){\r\n                        is ToScreenObserver.NewInformation -> {\r\n                            onNavigateFromColumn(\r\n                                navController,\r\n                                event.forDay,\r\n                                event.source,\r\n                                \"SaveInf\"\r\n                            )\r\n                        }\r\n                        is ToScreenObserver.WithUserInformation -> {\r\n                            onNavigateFromColumn(\r\n                                navController,\r\n                                event.forDay,\r\n                                event.source,\r\n                                \"WithInf\"\r\n                            )\r\n                        }\r\n                        ToScreenObserver.none -> {\r\n                            Log.e(\"Error\",\"none\")\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        }\r\n\r\n        // Tüm animasyonların yüklenip yüklenmediğini kontrol ediyoruz\r\n        LaunchedEffect(\r\n            compositionMain,\r\n            compositionExit,\r\n            compositionFather,\r\n            compositionMother,\r\n            compositionLover,\r\n            compositionWoman\r\n        ) {\r\n            if (compositionMain != null &&\r\n                compositionExit != null &&\r\n                compositionFather != null &&\r\n                compositionMother != null &&\r\n                compositionLover != null &&\r\n                compositionWoman != null\r\n            ) {\r\n                isLoading.value = false\r\n            }\r\n        }\r\n\r\n        alertDialogState.let { event ->\r\n            when (event) {\r\n                is AlertDialogObserver.NewAlertDialog -> {\r\n                    if (showAlert && !isLoading.value) {\r\n                        AlertDialog(\r\n                            title = event.title,\r\n                            confirmButton = event.onConfirm,\r\n                            dismissButton = event.dismissButton,\r\n                            onDismissRequest = event.onDismiss,\r\n                            dismissText = event.dismissText,\r\n                            confirmText = event.confirmText\r\n                        )\r\n                    }\r\n                }\r\n\r\n                AlertDialogObserver.none -> {\r\n\r\n                }\r\n            }\r\n        }\r\n\r\n        when (isLoading.value) {\r\n            true -> LoadingScreen(modifier = Modifier.fillMaxSize())\r\n\r\n            false -> SuccessLoading(\r\n                navController =  navController,\r\n                onUpdateForWho =  onUpdateForWho,\r\n                userInformation = userInformation.firstOrNull(),\r\n                peopleInformation = peopleInformation,\r\n                setAddPeoplePopUp = {\r\n                    setAddPeoplePopUp(it)\r\n                }\r\n            )\r\n        }\r\n    }\r\n}\r\n\r\n@Composable\r\nfun SuccessLoading(\r\n    navController: NavController,\r\n    onUpdateForWho: (String, Int) -> Unit,\r\n    userInformation: LocalUserInformation? = null,\r\n    peopleInformation: List<Peoples>,\r\n    setAddPeoplePopUp : (Boolean) -> Unit\r\n) {\r\n    val context = LocalContext.current\r\n\r\n    val buttonList = listOf(\r\n        UserMainListItems(\r\n            stringResource(R.string.main_list_father),\r\n            R.raw.fathers_anim,\r\n            fatherCardBg,\r\n            stringResource(R.string.main_list_father_card)\r\n        ),\r\n        UserMainListItems(\r\n            stringResource(R.string.main_list_mother),\r\n            R.raw.mother,\r\n            motherCardBg,\r\n            stringResource(R.string.main_list_mother_card)\r\n        ),\r\n        UserMainListItems(\r\n            stringResource(R.string.main_list_lover),\r\n            R.raw.lover_anim,\r\n            loverCardBg,\r\n            stringResource(R.string.main_list_lover_card)\r\n        ),\r\n        UserMainListItems(\r\n            stringResource(R.string.main_list_women),\r\n            R.raw.woman_anim,\r\n            womenCardBg,\r\n            stringResource(R.string.main_list_women_card)\r\n        )\r\n    )\r\n    val screenConfig = LocalConfiguration.current\r\n    val screenHeight = screenConfig.screenHeightDp.dp\r\n\r\n    Scaffold(\r\n        modifier = Modifier\r\n            .fillMaxSize()\r\n            .background(\r\n                MaterialTheme.colorScheme.surfaceVariant\r\n            )\r\n    ) {\r\n        Column(\r\n            modifier = Modifier\r\n                .padding(it)\r\n                .fillMaxSize(),\r\n            horizontalAlignment = Alignment.CenterHorizontally\r\n        ) {\r\n            AdBanner(\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n                    .fillMaxHeight(0.075f)\r\n            )\r\n            Column(\r\n                modifier = Modifier\r\n                    .fillMaxWidth()\r\n            ) {\r\n                Text(\r\n                    text  = buildAnnotatedString {\r\n                        withStyle(\r\n                            style = MaterialTheme.typography.kanitOzelBaslik.copy(\r\n                                color = if (isSystemInDarkTheme()) Color.White else Color.Black,\r\n                                fontSize = 24.sp\r\n                            ).toSpanStyle()\r\n                        ){\r\n                            append(\"AKLIMDAKİ HEDİYE\")\r\n                        }\r\n\r\n                        withStyle(\r\n                            style = SpanStyle(\r\n                                color = Color.Red,\r\n                                fontSize = 50.sp\r\n                            )\r\n                        ){\r\n                            append(\".\")\r\n                        }\r\n                    },\r\n                    modifier = Modifier\r\n                        .align(Alignment.Start)\r\n                        .padding(start = 5.dp)\r\n                )\r\n                Text(\r\n                    text  = buildAnnotatedString {\r\n                        withStyle(\r\n                            style = MaterialTheme.typography.headlineMedium.copy(\r\n                                fontFamily = JustAnotherHandFont,\r\n                                fontWeight = FontWeight.Thin,\r\n                                color = if (isSystemInDarkTheme()) Color.White else Color.Black,\r\n\r\n                            ).toSpanStyle()\r\n                        ){\r\n                            append(\"Merhaba ${userInformation?.name ?: \"\"},\\nBugün Kimi Mutlu ediyoruz\")\r\n                        }\r\n                    },\r\n                    modifier = Modifier\r\n                        .align(Alignment.Start)\r\n                        .padding(start = 5.dp)\r\n                )\r\n            }\r\n\r\n\r\n            Box(modifier = Modifier\r\n                .fillMaxWidth(0.975f)\r\n                .height(screenHeight * 0.2f)\r\n                .paint(\r\n                    painter = painterResource(R.drawable.main_button),\r\n                    contentScale = ContentScale.FillBounds\r\n                )\r\n            ){\r\n                Box(\r\n                    modifier = Modifier\r\n                        .align(Alignment.TopStart)\r\n                        .background(\r\n                            color = stylizedRed,\r\n                            shape = MaterialTheme.shapes.large\r\n                        )\r\n                        .padding(2.dp)\r\n                        .fillMaxWidth(0.3f),\r\n                    contentAlignment = Alignment.Center\r\n                ){\r\n                    Text(\r\n                        \"AI destekli\",\r\n                        color = stylizedYellow\r\n                    )\r\n                }\r\n\r\n                AutoResizeText(\r\n                    \"Aklındaki Hediyeyi Bulalım\",\r\n                    color = Color.White,\r\n                    modifier = Modifier\r\n                        .align(Alignment.TopEnd)\r\n                        .fillMaxWidth(0.7f),\r\n                    style = MaterialTheme.typography.headlineMedium\r\n                )\r\n\r\n                Box(\r\n                    modifier = Modifier\r\n                        .align(Alignment.BottomCenter)\r\n                        .padding(bottom = 20.dp)\r\n                        .background(stylizedRed, shape = MaterialTheme.shapes.large)\r\n                        .padding(3.dp)\r\n                ){\r\n                    Text(\r\n                        \"Aramaya Başla !\",\r\n                        color = Color.White,\r\n                        style = MaterialTheme.typography.headlineMedium\r\n                    )\r\n                }\r\n            }\r\n            Spacer(\r\n                modifier  = Modifier.heightIn(\r\n                    min = 10.dp\r\n                )\r\n            )\r\n            Column(\r\n                modifier = Modifier.fillMaxWidth(0.97f)\r\n                    .heightIn(\r\n                        max = screenHeight * 0.15f\r\n                    )\r\n            ) {\r\n                Row(\r\n                    modifier = Modifier.fillMaxWidth(),\r\n                    verticalAlignment = Alignment.Bottom,\r\n                    horizontalArrangement = Arrangement.SpaceBetween\r\n                ) {\r\n                    Text(\r\n                        text = \"Arkadaşlarınız İçin\",\r\n                        style = MaterialTheme.typography.titleLarge,\r\n                        fontWeight = FontWeight.W400\r\n                    )\r\n\r\n                    Text(\r\n                        \"hepsini gör\",\r\n                        color = Color.Red\r\n                    )\r\n                }\r\n\r\n                LazyRow(\r\n                    modifier = Modifier\r\n                        .fillMaxWidth()\r\n                        .fillMaxHeight(0.8f)\r\n                ) {\r\n                    items(\r\n                        peopleInformation\r\n                    ){people ->\r\n                        MainPeopleCard(\r\n                            modifier = Modifier\r\n                                .fillMaxHeight()\r\n                                .aspectRatio(1f)\r\n                                .clickable{\r\n                                    navController.navigate(LocalNavController.ToFriendGiftView(people.peopleId))\r\n                                },\r\n                            peoples = people\r\n                        )\r\n                    }\r\n                    item {\r\n                        AddMainPeopleCard(\r\n                            modifier = Modifier\r\n                                .fillMaxHeight(1f)\r\n                                .width(60.dp)\r\n                                .clickable{\r\n                                    setAddPeoplePopUp(true)\r\n                                }\r\n                        )\r\n                    }\r\n                }\r\n            }\r\n\r\n            //Depreceted Who is the lucky person\r\n            /*\r\n            Column(\r\n                Modifier\r\n                    .fillMaxWidth()\r\n                    .height(screenHeight * 0.075f)\r\n                    .padding(top = 10.dp)\r\n                    .clip(RoundedCornerShape(15.dp))\r\n                    .background(mainRowCardBg),\r\n                horizontalAlignment = Alignment.CenterHorizontally,\r\n                verticalArrangement = Arrangement.Top\r\n            ) {\r\n                Text(\r\n                    stringResource(R.string.who_is_lucky),\r\n                    color = Color.White\r\n                )\r\n                LazyRow(\r\n                    modifier = Modifier\r\n                        .fillMaxWidth(0.9f)\r\n                        .fillMaxHeight(0.8f)\r\n                ) {\r\n                    items(rowList) { row ->\r\n                        Spacer(Modifier.width(15.dp))\r\n                        MainListRowButton(\r\n                            modifier = Modifier\r\n                                .clickable{\r\n                                    onUpdateForWho(row.text, row.source)\r\n                                },\r\n                            source = row.source,\r\n                            text = row.text\r\n                        )\r\n                        Spacer(Modifier.width(5.dp))\r\n                    }\r\n                }\r\n            }*/\r\n            Spacer(\r\n                modifier  = Modifier.heightIn(\r\n                    min = 10.dp\r\n                )\r\n            )\r\n            Box(\r\n                modifier = Modifier\r\n                    .fillMaxSize(),\r\n                contentAlignment = Alignment.BottomCenter\r\n            ) {\r\n                LottieAnim(\r\n                    modifier = Modifier\r\n                        .fillMaxWidth()\r\n                        .fillMaxHeight(0.2f)\r\n                        .align(Alignment.BottomCenter),\r\n                    source = R.raw.main_anim,\r\n                    contentScale = ContentScale.FillWidth\r\n                )\r\n\r\n                Column(\r\n                    modifier = Modifier\r\n                        .fillMaxSize()\r\n                        .align(Alignment.Center),\r\n                    horizontalAlignment = Alignment.CenterHorizontally,\r\n                ) {\r\n                    Text(\r\n                        text = stringResource(R.string.celebrations_list_title),\r\n                        color = if(isSystemInDarkTheme())\r\n                            Color.White\r\n                        else Color.Black,\r\n                        style = MaterialTheme.typography.headlineMedium,\r\n                        fontWeight = FontWeight.W200,\r\n                        textDecoration = TextDecoration.combine(\r\n                            listOf(\r\n                                TextDecoration.Underline\r\n                            )\r\n                        )\r\n                    )\r\n                    Spacer(\r\n                        Modifier.height(3.dp)\r\n                    )\r\n\r\n                    //Celebrate Days Fields\r\n                    LazyRow(\r\n                        modifier = Modifier\r\n                            .fillMaxWidth(0.95f)\r\n                            .fillMaxHeight(0.85f)\r\n                    ) {\r\n                        items(buttonList) { button ->\r\n                            Spacer(Modifier.width(15.dp))\r\n                            MainListDailyButton(\r\n                                modifier = Modifier\r\n                                    .width(  350.dp)\r\n                                    .fillMaxHeight(0.8f)\r\n                                    .background(button.color, shape = RoundedCornerShape(15.dp))\r\n                                    .border(\r\n                                        width = 1.dp,\r\n                                        color = if(isSystemInDarkTheme()) Color.White else Color.Black,\r\n                                        shape = RoundedCornerShape(15.dp)\r\n                                        )\r\n                                    .padding(5.dp)\r\n                                    .clickable {\r\n                                        onUpdateForWho(button.text, button.source)\r\n                                    },\r\n                                source = button.source,\r\n                                lottieModifier = Modifier\r\n                                    .size(100.dp),\r\n                                contentScale = ContentScale.FillHeight,\r\n                                text = button.text,\r\n                                cardText = button.cardText\r\n                            )\r\n                        }\r\n                    }\r\n                }\r\n                Row(\r\n                    modifier = Modifier\r\n                        .fillMaxWidth()\r\n                        .heightIn(\r\n                            min  = screenHeight * 0.0742f\r\n                        )\r\n                        .padding(\r\n                            vertical = 5.dp,\r\n                            horizontal = 15.dp\r\n                        )\r\n                        .clip(\r\n                            MaterialTheme.shapes.large\r\n                        )\r\n                        .background(\r\n                            color = MaterialTheme.colorScheme.primary\r\n                        )\r\n                        .padding(start = 20.dp, end = 20.dp),\r\n                    verticalAlignment = Alignment.CenterVertically,\r\n                    horizontalArrangement = Arrangement.SpaceBetween\r\n                ) {\r\n                    NavigationButton(\r\n                        modifier = Modifier\r\n                            .size(30.dp)\r\n                            .clickable {\r\n                                navController.navigate(LocalNavController.SavedVariablesScreen)\r\n                            },\r\n                        R.drawable.save_flag_icon,\r\n                        \"Hediyeler\"\r\n                    )\r\n\r\n                    NavigationButton(\r\n                        modifier = Modifier\r\n                            .size(\r\n                                30.dp\r\n                            )\r\n                            .clickable{\r\n\r\n                            },\r\n                        source = R.drawable.people_icon,\r\n                        text = \"İnsanlar\"\r\n                    )\r\n\r\n                    NavigationButton(\r\n                        modifier = Modifier\r\n                            .size(30.dp)\r\n                            .clickable{\r\n                                navController.navigate(LocalNavController.SpecialDaysScreen)\r\n                            },\r\n                        source = R.drawable.notification_icon,\r\n                        text = \"Takvim\"\r\n                    )\r\n\r\n                    NavigationButton(\r\n                        modifier = Modifier\r\n                            .size(30.dp)\r\n                            .clickable {\r\n                                navController.navigate(LocalNavController.UserSettingsScreen)\r\n                            },\r\n                        R.drawable.user_settings_icon,\r\n                        text = \"Profil\"\r\n                    )\r\n                }\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n@Preview\r\n@Composable\r\nprivate fun Prev() {\r\n    SuccessLoading(rememberNavController(),\r\n        onUpdateForWho = { _, _ -> },\r\n        peopleInformation = emptyList(),\r\n        setAddPeoplePopUp = {}\r\n        )\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/reylortechnology/aklimdakihediye/Views/MainScreens/UserMainView.kt b/app/src/main/java/com/reylortechnology/aklimdakihediye/Views/MainScreens/UserMainView.kt
+--- a/app/src/main/java/com/reylortechnology/aklimdakihediye/Views/MainScreens/UserMainView.kt	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ b/app/src/main/java/com/reylortechnology/aklimdakihediye/Views/MainScreens/UserMainView.kt	(date 1771084462955)
+@@ -90,8 +90,6 @@
+ 
+ 
+ //Ana kullanıcı sayfası
+-class UserMainView {
+-
+     @RequiresApi(Build.VERSION_CODES.O)
+     @Composable
+     fun UserMainScreen(
+@@ -300,7 +298,7 @@
+             )
+         }
+     }
+-}
++
+ 
+ @Composable
+ fun SuccessLoading(
+Index: app/src/main/java/com/reylortechnology/aklimdakihediye/Views/PartScreens/SearchResultScreenCelebratedDays.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.reylortechnology.aklimdakihediye.Views.PartScreens\r\n\r\nimport androidx.activity.compose.BackHandler\r\nimport androidx.compose.foundation.background\r\nimport androidx.compose.foundation.layout.Arrangement\r\nimport androidx.compose.foundation.layout.Box\r\nimport androidx.compose.foundation.layout.fillMaxSize\r\nimport androidx.compose.foundation.layout.padding\r\nimport androidx.compose.foundation.lazy.grid.GridCells\r\nimport androidx.compose.foundation.lazy.grid.LazyVerticalGrid\r\nimport androidx.compose.foundation.lazy.grid.items\r\nimport androidx.compose.foundation.lazy.grid.rememberLazyGridState\r\nimport androidx.compose.material3.MaterialTheme\r\nimport androidx.compose.material3.Scaffold\r\nimport androidx.compose.material3.Text\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.runtime.LaunchedEffect\r\nimport androidx.compose.runtime.State\r\nimport androidx.compose.runtime.collectAsState\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.text.font.FontFamily\r\nimport androidx.compose.ui.tooling.preview.Preview\r\nimport androidx.compose.ui.unit.sp\r\nimport androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel\r\nimport androidx.navigation.NavController\r\nimport androidx.navigation.compose.rememberNavController\r\nimport com.reylortechnology.aklimdakihediye.Compose.SearchCard\r\nimport com.reylortechnology.aklimdakihediye.NavController.LocalNavController\r\nimport com.reylortechnology.aklimdakihediye.ViewModels.CelebretadDayViewModel\r\nimport com.reylortechnology.aklimdakihediye.ObserverClasses.QueryProductsStatus\r\nimport com.reylortechnology.aklimdakihediye.ObserverClasses.SearchResultStatus\r\n\r\n\r\n//Todo update all search screen\r\n@Composable\r\nfun SearchResultScreenCelebratedDays(\r\n    viewModel: CelebretadDayViewModel = hiltViewModel(),\r\n    navController: NavController\r\n) {\r\n\r\n    val queryState = viewModel.queryState.collectAsState()\r\n    val searchResultState = viewModel.totalState.collectAsState()\r\n    queryState.value.let {\r\n        when (it) {\r\n            is QueryProductsStatus.Error -> Text(\r\n                text = it.message,\r\n                fontSize = 20.sp,\r\n                fontFamily = FontFamily.SansSerif,\r\n                color = MaterialTheme.colorScheme.onSurfaceVariant\r\n            )\r\n            is QueryProductsStatus.Loading -> LoadingScreen()\r\n            is QueryProductsStatus.Success -> SuccessSearchResultScreen(\r\n                navController = navController,\r\n                searchResultState = searchResultState,\r\n                getSearchResult = {\r\n                    viewModel.takeSearchResult(it.products)\r\n                }\r\n            )\r\n        }\r\n    }\r\n}\r\n\r\n@Composable\r\nfun SuccessSearchResultScreen(\r\n    navController: NavController,\r\n    getSearchResult : ()-> Unit,\r\n    searchResultState: State<SearchResultStatus>\r\n) {\r\n    BackHandler(enabled = true) {\r\n        navController.navigate(LocalNavController.MainScreen){\r\n            popUpTo(0) { inclusive = true }\r\n        }\r\n    }\r\n\r\n    LaunchedEffect(Unit) {\r\n        //GetSearchResult\r\n        getSearchResult()\r\n    }\r\n\r\n    Scaffold(\r\n        modifier = Modifier\r\n            .fillMaxSize()\r\n            .background(MaterialTheme.colorScheme.background)\r\n    ) {\r\n        Box(\r\n            modifier = Modifier\r\n                .padding(it)\r\n                .fillMaxSize()\r\n        ){\r\n            LazyVerticalGrid(\r\n                modifier = Modifier.fillMaxSize(),\r\n                columns = GridCells.Fixed(2),\r\n                state = rememberLazyGridState(),\r\n                horizontalArrangement = Arrangement.SpaceBetween,\r\n                verticalArrangement = Arrangement.SpaceBetween\r\n            ) {\r\n                searchResultState.value.let {\r\n                    when(it) {\r\n                        is SearchResultStatus.Error -> item {\r\n                            Text(\r\n                                text = it.message,\r\n                                fontSize = 20.sp,\r\n                                fontFamily = FontFamily.SansSerif,\r\n                                color = MaterialTheme.colorScheme.onSurfaceVariant\r\n                            )\r\n                        }\r\n\r\n                        SearchResultStatus.Loading -> item {\r\n                            LoadingScreen()\r\n                        }\r\n\r\n                        is SearchResultStatus.Success -> items(it.searchCardModels) { card ->\r\n                            SearchCard(\r\n                                modifier = Modifier,\r\n                                searchCardModel = card,\r\n                                onBuyButton = {},\r\n                                onSaveButton = {}\r\n                            )\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n@Preview(showBackground = true)\r\n@Composable\r\nfun GreetingPreview() {\r\n    SearchResultScreenCelebratedDays(navController = rememberNavController())\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/reylortechnology/aklimdakihediye/Views/PartScreens/SearchResultScreenCelebratedDays.kt b/app/src/main/java/com/reylortechnology/aklimdakihediye/Views/PartScreens/SearchResultScreenCelebratedDays.kt
+--- a/app/src/main/java/com/reylortechnology/aklimdakihediye/Views/PartScreens/SearchResultScreenCelebratedDays.kt	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ b/app/src/main/java/com/reylortechnology/aklimdakihediye/Views/PartScreens/SearchResultScreenCelebratedDays.kt	(date 1771084356824)
+@@ -10,6 +10,8 @@
+ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+ import androidx.compose.foundation.lazy.grid.items
+ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
++import androidx.compose.material3.CenterAlignedTopAppBar
++import androidx.compose.material3.ExperimentalMaterial3Api
+ import androidx.compose.material3.MaterialTheme
+ import androidx.compose.material3.Scaffold
+ import androidx.compose.material3.Text
+@@ -18,8 +20,10 @@
+ import androidx.compose.runtime.State
+ import androidx.compose.runtime.collectAsState
+ import androidx.compose.ui.Modifier
++import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontFamily
+ import androidx.compose.ui.tooling.preview.Preview
++import androidx.compose.ui.unit.dp
+ import androidx.compose.ui.unit.sp
+ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+ import androidx.navigation.NavController
+@@ -29,6 +33,7 @@
+ import com.reylortechnology.aklimdakihediye.ViewModels.CelebretadDayViewModel
+ import com.reylortechnology.aklimdakihediye.ObserverClasses.QueryProductsStatus
+ import com.reylortechnology.aklimdakihediye.ObserverClasses.SearchResultStatus
++import com.reylortechnology.aklimdakihediye.R
+ 
+ 
+ //Todo update all search screen
+@@ -60,6 +65,7 @@
+     }
+ }
+ 
++@OptIn(ExperimentalMaterial3Api::class)
+ @Composable
+ fun SuccessSearchResultScreen(
+     navController: NavController,
+@@ -80,7 +86,16 @@
+     Scaffold(
+         modifier = Modifier
+             .fillMaxSize()
+-            .background(MaterialTheme.colorScheme.background)
++            .background(MaterialTheme.colorScheme.background),
++        topBar = {
++            CenterAlignedTopAppBar(
++                title = {Text(
++                    text = stringResource(R.string.app_name),
++                    style = MaterialTheme.typography.headlineMedium
++                )},
++
++            )
++        }
+     ) {
+         Box(
+             modifier = Modifier
+@@ -91,8 +106,8 @@
+                 modifier = Modifier.fillMaxSize(),
+                 columns = GridCells.Fixed(2),
+                 state = rememberLazyGridState(),
+-                horizontalArrangement = Arrangement.SpaceBetween,
+-                verticalArrangement = Arrangement.SpaceBetween
++                horizontalArrangement = Arrangement.spacedBy(20.dp),
++                verticalArrangement = Arrangement.spacedBy(10.dp)
+             ) {
+                 searchResultState.value.let {
+                     when(it) {
+@@ -106,7 +121,9 @@
+                         }
+ 
+                         SearchResultStatus.Loading -> item {
+-                            LoadingScreen()
++                            LoadingScreen(
++                                modifier = Modifier.fillMaxSize()
++                            )
+                         }
+ 
+                         is SearchResultStatus.Success -> items(it.searchCardModels) { card ->
+Index: .idea/codeStyles/Project.xml
+===================================================================
+diff --git a/.idea/codeStyles/Project.xml b/.idea/codeStyles/Project.xml
+deleted file mode 100644
+--- a/.idea/codeStyles/Project.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ /dev/null	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
+@@ -1,123 +0,0 @@
+-<component name="ProjectCodeStyleConfiguration">
+-  <code_scheme name="Project" version="173">
+-    <JetCodeStyleSettings>
+-      <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+-    </JetCodeStyleSettings>
+-    <codeStyleSettings language="XML">
+-      <option name="FORCE_REARRANGE_MODE" value="1" />
+-      <indentOptions>
+-        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+-      </indentOptions>
+-      <arrangement>
+-        <rules>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>xmlns:android</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>^$</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>xmlns:.*</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>^$</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-              <order>BY_NAME</order>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>.*:id</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>http://schemas.android.com/apk/res/android</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>.*:name</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>http://schemas.android.com/apk/res/android</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>name</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>^$</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>style</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>^$</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>.*</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>^$</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-              <order>BY_NAME</order>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>.*</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>http://schemas.android.com/apk/res/android</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-              <order>ANDROID_ATTRIBUTE_ORDER</order>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>.*</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>.*</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-              <order>BY_NAME</order>
+-            </rule>
+-          </section>
+-        </rules>
+-      </arrangement>
+-    </codeStyleSettings>
+-    <codeStyleSettings language="kotlin">
+-      <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+-    </codeStyleSettings>
+-  </code_scheme>
+-</component>
+\ No newline at end of file
+Index: .idea/studiobot.xml
+===================================================================
+diff --git a/.idea/studiobot.xml b/.idea/studiobot.xml
+deleted file mode 100644
+--- a/.idea/studiobot.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ /dev/null	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="StudioBotProjectSettings">
+-    <option name="shareContext" value="OptedIn" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/appInsightsSettings.xml
+===================================================================
+diff --git a/.idea/appInsightsSettings.xml b/.idea/appInsightsSettings.xml
+deleted file mode 100644
+--- a/.idea/appInsightsSettings.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ /dev/null	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
+@@ -1,26 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="AppInsightsSettings">
+-    <option name="tabSettings">
+-      <map>
+-        <entry key="Firebase Crashlytics">
+-          <value>
+-            <InsightsFilterSettings>
+-              <option name="connection">
+-                <ConnectionSetting>
+-                  <option name="appId" value="PLACEHOLDER" />
+-                  <option name="mobileSdkAppId" value="" />
+-                  <option name="projectId" value="" />
+-                  <option name="projectNumber" value="" />
+-                </ConnectionSetting>
+-              </option>
+-              <option name="signal" value="SIGNAL_UNSPECIFIED" />
+-              <option name="timeIntervalDays" value="THIRTY_DAYS" />
+-              <option name="visibilityType" value="ALL" />
+-            </InsightsFilterSettings>
+-          </value>
+-        </entry>
+-      </map>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/copilot.data.migration.ask.xml
+===================================================================
+diff --git a/.idea/copilot.data.migration.ask.xml b/.idea/copilot.data.migration.ask.xml
+deleted file mode 100644
+--- a/.idea/copilot.data.migration.ask.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ /dev/null	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="AskMigrationStateService">
+-    <option name="migrationStatus" value="COMPLETED" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/migrations.xml
+===================================================================
+diff --git a/.idea/migrations.xml b/.idea/migrations.xml
+deleted file mode 100644
+--- a/.idea/migrations.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ /dev/null	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
+@@ -1,10 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectMigrations">
+-    <option name="MigrateToGradleLocalJavaHome">
+-      <set>
+-        <option value="$PROJECT_DIR$" />
+-      </set>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/copilot.data.migration.ask2agent.xml
+===================================================================
+diff --git a/.idea/copilot.data.migration.ask2agent.xml b/.idea/copilot.data.migration.ask2agent.xml
+deleted file mode 100644
+--- a/.idea/copilot.data.migration.ask2agent.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ /dev/null	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="Ask2AgentMigrationStateService">
+-    <option name="migrationStatus" value="COMPLETED" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/kotlinc.xml
+===================================================================
+diff --git a/.idea/kotlinc.xml b/.idea/kotlinc.xml
+deleted file mode 100644
+--- a/.idea/kotlinc.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ /dev/null	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="KotlinJpsPluginSettings">
+-    <option name="version" value="2.1.0" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/copilot.data.migration.edit.xml
+===================================================================
+diff --git a/.idea/copilot.data.migration.edit.xml b/.idea/copilot.data.migration.edit.xml
+deleted file mode 100644
+--- a/.idea/copilot.data.migration.edit.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ /dev/null	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="EditMigrationStateService">
+-    <option name="migrationStatus" value="COMPLETED" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/git_toolbox_prj.xml
+===================================================================
+diff --git a/.idea/git_toolbox_prj.xml b/.idea/git_toolbox_prj.xml
+deleted file mode 100644
+--- a/.idea/git_toolbox_prj.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ /dev/null	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
+@@ -1,15 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="GitToolBoxProjectSettings">
+-    <option name="commitMessageIssueKeyValidationOverride">
+-      <BoolValueOverride>
+-        <option name="enabled" value="true" />
+-      </BoolValueOverride>
+-    </option>
+-    <option name="commitMessageValidationEnabledOverride">
+-      <BoolValueOverride>
+-        <option name="enabled" value="true" />
+-      </BoolValueOverride>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/deviceManager.xml
+===================================================================
+diff --git a/.idea/deviceManager.xml b/.idea/deviceManager.xml
+deleted file mode 100644
+--- a/.idea/deviceManager.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ /dev/null	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
+@@ -1,13 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="DeviceTable">
+-    <option name="columnSorters">
+-      <list>
+-        <ColumnSorterState>
+-          <option name="column" value="Name" />
+-          <option name="order" value="ASCENDING" />
+-        </ColumnSorterState>
+-      </list>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/codeStyles/codeStyleConfig.xml
+===================================================================
+diff --git a/.idea/codeStyles/codeStyleConfig.xml b/.idea/codeStyles/codeStyleConfig.xml
+deleted file mode 100644
+--- a/.idea/codeStyles/codeStyleConfig.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ /dev/null	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
+@@ -1,5 +0,0 @@
+-<component name="ProjectCodeStyleConfiguration">
+-  <state>
+-    <option name="USE_PER_PROJECT_SETTINGS" value="true" />
+-  </state>
+-</component>
+\ No newline at end of file
+Index: .idea/inspectionProfiles/Project_Default.xml
+===================================================================
+diff --git a/.idea/inspectionProfiles/Project_Default.xml b/.idea/inspectionProfiles/Project_Default.xml
+deleted file mode 100644
+--- a/.idea/inspectionProfiles/Project_Default.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ /dev/null	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
+@@ -1,61 +0,0 @@
+-<component name="InspectionProjectProfileManager">
+-  <profile version="1.0">
+-    <option name="myName" value="Project Default" />
+-    <inspection_tool class="ComposePreviewDimensionRespectsLimit" enabled="true" level="WARNING" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="ComposePreviewMustBeTopLevelFunction" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="ComposePreviewNeedsComposableAnnotation" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="ComposePreviewNotSupportedInUnitTestFiles" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="GlancePreviewDimensionRespectsLimit" enabled="true" level="WARNING" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="GlancePreviewMustBeTopLevelFunction" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="GlancePreviewNeedsComposableAnnotation" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="GlancePreviewNotSupportedInUnitTestFiles" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewAnnotationInFunctionWithParameters" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewApiLevelMustBeValid" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewDeviceShouldUseNewSpec" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewFontScaleMustBeGreaterThanZero" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewMultipleParameterProviders" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewParameterProviderOnFirstParameter" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewPickerAnnotation" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-  </profile>
+-</component>
+\ No newline at end of file
+Index: .idea/copilot.data.migration.agent.xml
+===================================================================
+diff --git a/.idea/copilot.data.migration.agent.xml b/.idea/copilot.data.migration.agent.xml
+deleted file mode 100644
+--- a/.idea/copilot.data.migration.agent.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ /dev/null	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="AgentMigrationStateService">
+-    <option name="migrationStatus" value="COMPLETED" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_21\" default=\"true\" project-jdk-name=\"jbr-21\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ b/.idea/misc.xml	(date 1777034603690)
+@@ -1,8 +1,6 @@
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="jbr-21" project-jdk-type="JavaSDK">
+-    <output url="file://$PROJECT_DIR$/build/classes" />
+-  </component>
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="jbr-21" project-jdk-type="JavaSDK" />
+   <component name="ProjectType">
+     <option name="id" value="Android" />
+   </component>
+Index: .idea/deploymentTargetSelector.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"deploymentTargetSelector\">\r\n    <selectionStates>\r\n      <SelectionState runConfigName=\"app\">\r\n        <option name=\"selectionMode\" value=\"DROPDOWN\" />\r\n        <DropdownSelection timestamp=\"2026-02-12T08:53:52.500523100Z\">\r\n          <Target type=\"DEFAULT_BOOT\">\r\n            <handle>\r\n              <DeviceId pluginId=\"LocalEmulator\" identifier=\"path=C:\\Users\\avina\\.android\\avd\\DersCihazi.avd\" />\r\n            </handle>\r\n          </Target>\r\n        </DropdownSelection>\r\n        <DialogSelection />\r\n      </SelectionState>\r\n      <SelectionState runConfigName=\"private\">\r\n        <option name=\"selectionMode\" value=\"DROPDOWN\" />\r\n      </SelectionState>\r\n      <SelectionState runConfigName=\"CarouselPrev\">\r\n        <option name=\"selectionMode\" value=\"DROPDOWN\" />\r\n      </SelectionState>\r\n      <SelectionState runConfigName=\"PopPreview\">\r\n        <option name=\"selectionMode\" value=\"DROPDOWN\" />\r\n      </SelectionState>\r\n      <SelectionState runConfigName=\"InformationGift\">\r\n        <option name=\"selectionMode\" value=\"DROPDOWN\" />\r\n      </SelectionState>\r\n      <SelectionState runConfigName=\"ButtonsPreview\">\r\n        <option name=\"selectionMode\" value=\"DROPDOWN\" />\r\n      </SelectionState>\r\n      <SelectionState runConfigName=\"Preview (1)\">\r\n        <option name=\"selectionMode\" value=\"DROPDOWN\" />\r\n      </SelectionState>\r\n      <SelectionState runConfigName=\"Preview (2)\">\r\n        <option name=\"selectionMode\" value=\"DROPDOWN\" />\r\n      </SelectionState>\r\n    </selectionStates>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetSelector.xml b/.idea/deploymentTargetSelector.xml
+--- a/.idea/deploymentTargetSelector.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ b/.idea/deploymentTargetSelector.xml	(date 1771083956536)
+@@ -4,35 +4,6 @@
+     <selectionStates>
+       <SelectionState runConfigName="app">
+         <option name="selectionMode" value="DROPDOWN" />
+-        <DropdownSelection timestamp="2026-02-12T08:53:52.500523100Z">
+-          <Target type="DEFAULT_BOOT">
+-            <handle>
+-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\avina\.android\avd\DersCihazi.avd" />
+-            </handle>
+-          </Target>
+-        </DropdownSelection>
+-        <DialogSelection />
+-      </SelectionState>
+-      <SelectionState runConfigName="private">
+-        <option name="selectionMode" value="DROPDOWN" />
+-      </SelectionState>
+-      <SelectionState runConfigName="CarouselPrev">
+-        <option name="selectionMode" value="DROPDOWN" />
+-      </SelectionState>
+-      <SelectionState runConfigName="PopPreview">
+-        <option name="selectionMode" value="DROPDOWN" />
+-      </SelectionState>
+-      <SelectionState runConfigName="InformationGift">
+-        <option name="selectionMode" value="DROPDOWN" />
+-      </SelectionState>
+-      <SelectionState runConfigName="ButtonsPreview">
+-        <option name="selectionMode" value="DROPDOWN" />
+-      </SelectionState>
+-      <SelectionState runConfigName="Preview (1)">
+-        <option name="selectionMode" value="DROPDOWN" />
+-      </SelectionState>
+-      <SelectionState runConfigName="Preview (2)">
+-        <option name="selectionMode" value="DROPDOWN" />
+       </SelectionState>
+     </selectionStates>
+   </component>
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"CHOOSE_PER_TEST\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveExternalAnnotations\" value=\"true\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ b/.idea/gradle.xml	(date 1771084650031)
+@@ -12,7 +12,6 @@
+             <option value="$PROJECT_DIR$/app" />
+           </set>
+         </option>
+-        <option name="resolveExternalAnnotations" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: gradle/libs.versions.toml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[versions]\r\naccompanistPager = \"0.36.0\"\r\nagp = \"9.0.0\"\r\nappcompat = \"1.7.1\"\r\nautoCommon = \"1.2.2\"\r\ncoilCompose = \"2.7.0\"\r\ngenerativeai = \"0.9.0\"\r\nhiltAndroid = \"2.59.1\"\r\nhiltNavigationCompose = \"1.3.0\"\r\njsoup = \"1.22.1\"\r\nkotlin = \"2.3.0\"\r\ncoreKtx = \"1.17.0\"\r\njunit = \"4.13.2\"\r\njunitVersion = \"1.3.0\"\r\nespressoCore = \"3.7.0\"\r\nktorBom = \"3.4.0\"\r\nktorClientAndroid = \"3.4.0\"\r\nktorClientCio = \"3.4.0\"\r\nktorClientContentNegotiation = \"3.4.0\"\r\nktorClientCore = \"3.4.0\"\r\nktorClientPlugins = \"3.1.1\"\r\nktorSerializationKotlinxJson = \"3.4.0\"\r\nlifecycleRuntimeKtx = \"2.10.0\"\r\nactivityCompose = \"1.12.3\"\r\ncomposeBom = \"2026.01.01\"\r\nlottieCompose = \"6.7.1\"\r\nokhttp = \"5.3.2\"\r\nconstraintlayout = \"2.2.1\"\r\nnavigationCompose = \"2.9.7\"\r\ncomposeNavigation = \"2.9.7\"\r\nplayServicesAds = \"24.9.0\"\r\nroomRxjava3 = \"2.8.4\"\r\nroomKtx = \"2.8.4\"\r\nroomCompiler = \"2.8.4\"\r\nserialization = \"1.10.0\"\r\njunitJupiter = \"6.0.2\"\r\nmaterial3 = \"1.4.0\"\r\nconcurrentFutures = \"1.3.0\"\r\nuiTextGoogleFontsVersion = \"1.10.2\"\r\nuiGeometry = \"1.10.2\"\r\n\r\n[libraries]\r\naccompanist-pager = { module = \"com.google.accompanist:accompanist-pager\", version.ref = \"accompanistPager\" }\r\naccompanist-pager-indicators = { module = \"com.google.accompanist:accompanist-pager-indicators\", version.ref = \"accompanistPager\" }\r\nandroidx-appcompat = { module = \"androidx.appcompat:appcompat\", version.ref = \"appcompat\" }\r\nandroidx-compose-material-icons-extended = { module = \"androidx.compose.material:material-icons-extended\" }\r\nandroidx-core-ktx = { group = \"androidx.core\", name = \"core-ktx\", version.ref = \"coreKtx\" }\r\nandroidx-hilt-navigation-compose = { module = \"androidx.hilt:hilt-navigation-compose\", version.ref = \"hiltNavigationCompose\" }\r\nandroidx-room-compiler = { module = \"androidx.room:room-compiler\", version.ref = \"roomCompiler\" }\r\nandroidx-room-ktx = { module = \"androidx.room:room-ktx\", version.ref = \"roomKtx\" }\r\nandroidx-room-rxjava3 = { module = \"androidx.room:room-rxjava3\", version.ref = \"roomRxjava3\" }\r\nandroidx-ui-text-google-fonts = { module = \"androidx.compose.ui:ui-text-google-fonts\", version.ref = \"uiTextGoogleFontsVersion\" }\r\nauto-common = { module = \"com.google.auto:auto-common\", version.ref = \"autoCommon\" }\r\ncoil-compose = { module = \"io.coil-kt:coil-compose\", version.ref = \"coilCompose\" }\r\ngenerativeai = { module = \"com.google.ai.client.generativeai:generativeai\", version.ref = \"generativeai\" }\r\nhilt-android = { module = \"com.google.dagger:hilt-android\", version.ref = \"hiltAndroid\" }\r\nhilt-android-compiler = { module = \"com.google.dagger:hilt-android-compiler\", version.ref = \"hiltAndroid\" }\r\njsoup = { module = \"org.jsoup:jsoup\", version.ref = \"jsoup\" }\r\njunit = { group = \"junit\", name = \"junit\", version.ref = \"junit\" }\r\nandroidx-junit = { group = \"androidx.test.ext\", name = \"junit\", version.ref = \"junitVersion\" }\r\nandroidx-espresso-core = { group = \"androidx.test.espresso\", name = \"espresso-core\", version.ref = \"espressoCore\" }\r\nandroidx-lifecycle-runtime-ktx = { group = \"androidx.lifecycle\", name = \"lifecycle-runtime-ktx\", version.ref = \"lifecycleRuntimeKtx\" }\r\nandroidx-activity-compose = { group = \"androidx.activity\", name = \"activity-compose\", version.ref = \"activityCompose\" }\r\nandroidx-compose-bom = { group = \"androidx.compose\", name = \"compose-bom\", version.ref = \"composeBom\" }\r\nandroidx-ui = { group = \"androidx.compose.ui\", name = \"ui\" }\r\nandroidx-ui-graphics = { group = \"androidx.compose.ui\", name = \"ui-graphics\" }\r\nandroidx-ui-tooling = { group = \"androidx.compose.ui\", name = \"ui-tooling\" }\r\nandroidx-ui-tooling-preview = { group = \"androidx.compose.ui\", name = \"ui-tooling-preview\" }\r\nandroidx-ui-test-manifest = { group = \"androidx.compose.ui\", name = \"ui-test-manifest\" }\r\nandroidx-ui-test-junit4 = { group = \"androidx.compose.ui\", name = \"ui-test-junit4\" }\r\nandroidx-material3 = { group = \"androidx.compose.material3\", name = \"material3\" }\r\nktor-bom = { module = \"io.ktor:ktor-bom\", version.ref = \"ktorBom\" }\r\nktor-client-android = { module = \"io.ktor:ktor-client-android\", version.ref = \"ktorClientAndroid\" }\r\nktor-client-cio = { module = \"io.ktor:ktor-client-cio\", version.ref = \"ktorClientCio\" }\r\nktor-client-content-negotiation = { module = \"io.ktor:ktor-client-content-negotiation\", version.ref = \"ktorClientContentNegotiation\" }\r\nktor-client-core = { module = \"io.ktor:ktor-client-core\", version.ref = \"ktorClientCore\" }\r\nktor-client-logging = { module = \"io.ktor:ktor-client-logging\" }\r\nktor-client-plugins = { module = \"io.ktor:ktor-client-plugins\", version.ref = \"ktorClientPlugins\" }\r\nktor-client-serialization = { module = \"io.ktor:ktor-client-serialization\" }\r\nktor-ktor-client-android = { module = \"io.ktor:ktor-client-android\" }\r\nktor-ktor-client-content-negotiation = { module = \"io.ktor:ktor-client-content-negotiation\" }\r\nktor-ktor-serialization-kotlinx-json = { module = \"io.ktor:ktor-serialization-kotlinx-json\" }\r\nktor-serialization-kotlinx-json = { module = \"io.ktor:ktor-serialization-kotlinx-json\", version.ref = \"ktorSerializationKotlinxJson\" }\r\nlottie-compose = { module = \"com.airbnb.android:lottie-compose\", version.ref = \"lottieCompose\" }\r\nokhttp = { module = \"com.squareup.okhttp3:okhttp\", version.ref = \"okhttp\" }\r\nandroidx-constraintlayout = { group = \"androidx.constraintlayout\", name = \"constraintlayout\", version.ref = \"constraintlayout\" }\r\nandroidx-navigation-compose = { group = \"androidx.navigation\", name = \"navigation-compose\", version.ref = \"navigationCompose\" }\r\nnavigation-compose = { module = \"androidx.navigation:navigation-compose\", version.ref = \"composeNavigation\" }\r\nkotlinx-serialization-json = { module = \"org.jetbrains.kotlinx:kotlinx-serialization-json\", version.ref = \"serialization\"}\r\njunit-jupiter = { group = \"org.junit.jupiter\", name = \"junit-jupiter\", version.ref = \"junitJupiter\" }\r\nandroidx-compose-material3 = { group = \"androidx.compose.material3\", name = \"material3\", version.ref = \"material3\" }\r\nandroidx-concurrent-futures = { group = \"androidx.concurrent\", name = \"concurrent-futures\", version.ref = \"concurrentFutures\" }\r\nandroidx-concurrent-futures-ktx = { group = \"androidx.concurrent\", name = \"concurrent-futures-ktx\", version.ref = \"concurrentFutures\" }\r\nplay-services-ads = { module = \"com.google.android.gms:play-services-ads\", version.ref = \"playServicesAds\" }\r\nandroidx-compose-ui-geometry = { group = \"androidx.compose.ui\", name = \"ui-geometry\", version.ref = \"uiGeometry\" }\r\n\r\n[plugins]\r\nandroid-application = { id = \"com.android.application\", version.ref = \"agp\" }\r\nkotlin-android = { id = \"org.jetbrains.kotlin.android\", version.ref = \"kotlin\" }\r\nkotlin-compose = { id = \"org.jetbrains.kotlin.plugin.compose\", version.ref = \"kotlin\" }\r\nkotlin-serialization = { id = \"org.jetbrains.kotlin.plugin.serialization\", version.ref = \"kotlin\" }\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/gradle/libs.versions.toml b/gradle/libs.versions.toml
+--- a/gradle/libs.versions.toml	(revision 88242e969fb9bed7a14290cb75788ec5d37c7233)
++++ b/gradle/libs.versions.toml	(date 1771084666142)
+@@ -1,6 +1,6 @@
+ [versions]
+ accompanistPager = "0.36.0"
+-agp = "9.0.0"
++agp = "9.0.1"
+ appcompat = "1.7.1"
+ autoCommon = "1.2.2"
+ coilCompose = "2.7.0"

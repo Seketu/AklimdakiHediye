@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Ton signe du zodiaque : </string>
     <string name="user_info_best_side_label">Tes points forts : </string>
     <string name="loading">Chargement...</string>
+    <string name="search_card_browse">Voir</string>
+    <string name="content_description_save_gift">Enregistrer le cadeau</string>
+    <string name="loading_thinking_gift_ideas">Recherche d\'idées cadeaux…</string>
+    <string name="loading_matching_personality">Sélection des options adaptées à sa personnalité…</string>
+    <string name="loading_almost_ready">Presque prêt…</string>
+    <string name="loading_searching_products">Recherche des produits dans les boutiques…</string>
     <string name="who_is_lucky">Qui est le chanceux ?</string>
     <string name="special_day_main_title">Rappels enregistrés</string>
     <string name="name">Nom</string>
@@ -95,6 +101,8 @@
     <string name="select_date">Sélectionner une date</string>
     <string name="error_enter_event_name">Entrez le nom de l\'événement</string>
     <string name="error_select_date">Sélectionner une date</string>
+    <string name="error_reminder_date_past">Impossible de choisir une date passée</string>
+    <string name="error_reminder_time_passed">Ce moment de rappel est déjà passé. Choisissez un délai plus court.</string>
     <string name="label_personal_information_header">Informations personnelles</string>
     <string name="error_select_relationship">Veuillez sélectionner votre relation</string>
     <string name="error_name_required">Le nom ne peut pas être vide</string>

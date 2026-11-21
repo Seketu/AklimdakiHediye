@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Your Zodiac Sign: </string>
     <string name="user_info_best_side_label">Your Best Traits: </string>
     <string name="loading">Loading...</string>
+    <string name="search_card_browse">Browse</string>
+    <string name="content_description_save_gift">Save gift</string>
+    <string name="loading_thinking_gift_ideas">Brainstorming gift ideas…</string>
+    <string name="loading_matching_personality">Picking options that match their personality…</string>
+    <string name="loading_almost_ready">Almost ready…</string>
+    <string name="loading_searching_products">Searching shops for products…</string>
     <string name="who_is_lucky">Who is the lucky one?</string>
 
     <string name="special_day_main_title">Saved Reminders</string>
@@ -201,6 +207,8 @@
     <string name="error_fill_required_fields">Please Fill Required Fields</string>
     <string name="error_enter_event_name">Enter event name</string>
     <string name="error_select_date">Select date</string>
+    <string name="error_reminder_date_past">You cannot pick a past date</string>
+    <string name="error_reminder_time_passed">This reminder time has already passed. Choose a shorter notice period.</string>
 
     <!-- UI Labels -->
     <string name="label_personal_information_header">Personal Information</string>

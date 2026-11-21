@@ -38,6 +38,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Button
@@ -56,6 +57,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.SelectableDates
+import com.reylortechnology.aklimdakihediye.util.localTodayAsUtcMidnight
+import com.reylortechnology.aklimdakihediye.util.utcDateToLocalMidnight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -370,8 +374,8 @@ fun ReminderCard(
     releationship : String
 ) {
 
+    // Tarih yerel gece yarısı olarak saklanır; cihaz saat dilimiyle gösterilir
     val sdf = SimpleDateFormat("dd MMMM yyyy", Locale("tr"))
-    sdf.timeZone = TimeZone.getTimeZone("Europe/Istanbul")
 
     Column(
         modifier = modifier,
@@ -458,14 +462,19 @@ fun DatePickerView(
     }
     // 3. DatePicker Dialog
     if (showDatePickerDialog.value) {
-        val datePickerState = rememberDatePickerState()
+        val todayUtc = remember { localTodayAsUtcMidnight() }
+        val datePickerState = rememberDatePickerState(
+            selectableDates = object : SelectableDates {
+                override fun isSelectableDate(utcTimeMillis: Long) = utcTimeMillis >= todayUtc
+            }
+        )
 
         DatePickerDialog(
             onDismissRequest = { showDatePickerDialog.value = false },
             confirmButton = {
                 TextButton(
                     onClick = {
-                        selectedDateMillis1.value = datePickerState.selectedDateMillis
+                        selectedDateMillis1.value = datePickerState.selectedDateMillis?.let(::utcDateToLocalMidnight)
                         showDatePickerDialog.value = false
                     }
                 ) {
@@ -566,13 +575,12 @@ fun AddMainPeopleCard(
                 },
             contentAlignment = Alignment.Center
         ){
-            Text("+",
-                modifier = Modifier
-                    .fillMaxSize()
-                    .align(Alignment.Center),
-                fontSize = 50.sp,
-                textAlign = TextAlign.Center
-                )
+            Icon(
+                imageVector = Icons.Filled.Add,
+                contentDescription = stringResource(R.string.new_label),
+                modifier = Modifier.fillMaxSize(0.6f),
+                tint = if (darkTheme) Color.White else Color.Black
+            )
         }
         Text(
             text = stringResource(R.string.new_label),

@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Твой знак зодиака: </string>
     <string name="user_info_best_side_label">Твои сильные стороны: </string>
     <string name="loading">"Загрузка... "</string>
+    <string name="search_card_browse">Смотреть</string>
+    <string name="content_description_save_gift">Сохранить подарок</string>
+    <string name="loading_thinking_gift_ideas">Подбираем идеи подарков…</string>
+    <string name="loading_matching_personality">Выбираем варианты под характер…</string>
+    <string name="loading_almost_ready">Почти готово…</string>
+    <string name="loading_searching_products">Ищем товары в магазинах…</string>
     <string name="who_is_lucky">Кто счастливчик?</string>
 <string name="special_day_main_title">Сохраненные напоминания</string><string name="name">Имя</string><string name="mother">Мать</string><string name="father">Отец</string><string name="friend">Друг</string><string name="teacher">Учитель</string><string name="select_date">Выберите дату</string><string name="error_select_relationship">Пожалуйста, выберите ваши отношения</string><string name="error_name_required">Имя не может быть пустым</string><string name="label_gift_reason">Почему мы дарим этот подарок?</string><string name="button_create_reminder">Создать напоминание</string>
     <string name="debug_tag_general">Tag</string>
@@ -119,6 +125,8 @@
     <string name="sweatheart">Ваш любимый / Ваша любимая</string>
     <string name="type_relationship_parents">Родитель</string>
     <string name="error_select_date">Выберите дату</string>
+    <string name="error_reminder_date_past">Нельзя выбрать прошедшую дату</string>
+    <string name="error_reminder_time_passed">Время этого напоминания уже прошло. Выберите более короткий срок.</string>
     <string name="debug_log_snackbar">Snackbar</string>
     <string name="debug_log_state">state</string>
     <string name="debug_log_tag">TAG</string>

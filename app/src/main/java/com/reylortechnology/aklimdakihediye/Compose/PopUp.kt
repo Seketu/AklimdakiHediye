@@ -382,8 +382,9 @@ fun AddPeopleDialog(
                             }
                         }
                     }
+                }
 
-
+                item {
                     //Genders Fields
                     Column(
                         modifier = Modifier
@@ -436,8 +437,9 @@ fun AddPeopleDialog(
                             }
                         }
                     }
+                }
 
-
+                item {
                     //BirthDay
 
                     val descAgedState = remember(calculatedAge) {
@@ -598,8 +600,9 @@ fun AddPeopleDialog(
                             }
                         }
                     }
+                }
 
-
+                item {
                     //Character
                     Column(
                         modifier = Modifier
@@ -653,8 +656,9 @@ fun AddPeopleDialog(
                             }
                         }
                     }
+                }
 
-
+                item {
                     //Zodiac
                     Column(
                         modifier = Modifier

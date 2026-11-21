@@ -28,8 +28,16 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.OpenInNew
+import androidx.compose.material.icons.rounded.Bookmark
+import androidx.compose.material.icons.rounded.BookmarkBorder
+import androidx.compose.material.icons.rounded.CardGiftcard
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.MaterialTheme
@@ -50,6 +58,7 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextPainter.paint
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -68,6 +77,11 @@ import com.reylortechnology.aklimdakihediye.ui.theme.OleoScript
 import com.reylortechnology.aklimdakihediye.ui.theme.OrelegaOneRegular
 
 
+/** Sonuç grid'lerinde (gerçek kart + iskelet) ortak kullanılan minimum kart genişliği. */
+val SearchCardMinWidth = 150.dp
+
+private val SearchCardImageShape = RoundedCornerShape(12.dp)
+
 @Composable
 fun SearchCard(
     modifier: Modifier = Modifier,
@@ -76,88 +90,155 @@ fun SearchCard(
     onSaveButton : () -> Unit,
     isSaved : Boolean = false
 ) {
-    Box(
-        modifier = modifier
-            .clip(
-                shape = MaterialTheme.shapes.large
-            )
-    ){
-        Column(
+    val colors = MaterialTheme.colorScheme
+
+    val saveContainerColor by animateColorAsState(
+        targetValue = if (isSaved) colors.primary else colors.surfaceContainerLowest.copy(alpha = 0.92f),
+        animationSpec = tween(durationMillis = 300),
+        label = "Save Container Color"
+    )
+    val saveContentColor by animateColorAsState(
+        targetValue = if (isSaved) colors.onPrimary else colors.primary,
+        animationSpec = tween(durationMillis = 300),
+        label = "Save Content Color"
+    )
+
+    Card(
+        onClick = onBuyButton,
+        modifier = modifier,
+        shape = MaterialTheme.shapes.large,
+        colors = CardDefaults.cardColors(
+            containerColor = colors.surfaceContainerLow,
+            contentColor = colors.onSurface
+        ),
+        border = BorderStroke(1.dp, colors.outlineVariant.copy(alpha = 0.6f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+    ) {
+        Box(
             modifier = Modifier
-                .fillMaxSize()
-                .background(color = MaterialTheme.colorScheme.secondaryContainer)
-                .padding(horizontal = 3.dp)
-        ){
+                .fillMaxWidth()
+                .padding(6.dp)
+                .aspectRatio(1f)
+                .clip(SearchCardImageShape)
+                .background(colors.surfaceContainerHighest)
+        ) {
+            // Görsel yüklenemezse / yoksa arkada hediye ikonu görünür
+            Icon(
+                imageVector = Icons.Rounded.CardGiftcard,
+                contentDescription = null,
+                tint = colors.onSurfaceVariant.copy(alpha = 0.4f),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(40.dp)
+            )
             AsyncImage(
                 model = searchCardModel.imageUrl,
-                contentDescription = "Search Card Image",
-                contentScale = ContentScale.FillBounds,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
+                contentDescription = searchCardModel.name,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
             )
+            Surface(
+                onClick = onSaveButton,
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(6.dp)
+                    .size(34.dp),
+                shape = CircleShape,
+                color = saveContainerColor,
+                contentColor = saveContentColor,
+                shadowElevation = 2.dp
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    Icon(
+                        imageVector = if (isSaved) Icons.Rounded.Bookmark else Icons.Rounded.BookmarkBorder,
+                        contentDescription = stringResource(R.string.content_description_save_gift),
+                        tint = saveContentColor,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+            }
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 10.dp, end = 10.dp, top = 2.dp, bottom = 10.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
             Text(
                 text = searchCardModel.name,
-                style = MaterialTheme.typography.bodyMedium,
-                )
-
-            Text(
-                searchCardModel.price,
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+                style = MaterialTheme.typography.titleSmall,
+                color = colors.onSurface,
+                minLines = 2,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
             )
 
-            Button(
-                onClick = {
-                    onBuyButton()
-                },
+            Text(
+                text = searchCardModel.price.ifBlank { "—" },
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                color = colors.primary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            FilledTonalButton(
+                onClick = onBuyButton,
                 modifier = Modifier
-                    .defaultMinSize(minWidth = 0.dp, minHeight = 0.dp)
-                    .fillMaxWidth(0.85f)
-                    .fillMaxHeight(0.5f)
-                    .align(Alignment.CenterHorizontally),
-                contentPadding = PaddingValues(vertical = 1.dp)
+                    .fillMaxWidth()
+                    .height(36.dp),
+                shape = MaterialTheme.shapes.medium,
+                contentPadding = PaddingValues(horizontal = 8.dp)
             ) {
                 Text(
-                    text = "Göz At",
-                    style = MaterialTheme.typography.bodyMedium,
+                    text = stringResource(R.string.search_card_browse),
+                    style = MaterialTheme.typography.labelLarge,
                     maxLines = 1
-                    )
-            }
-        }
-
-        Row(
-            modifier = Modifier
-                .align(
-                    Alignment.TopEnd
                 )
-                .padding(top = 5.dp, end = 5.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(5.dp)
-        ) {
-            IconButton(
-                modifier = Modifier
-                    .background(color =
-                        if (isSaved) MaterialTheme.colorScheme.primary else
-                            MaterialTheme.colorScheme.surface.copy(0.8f),
-                        shape = CircleShape)
-                    .fillMaxWidth(0.25f)
-                    .aspectRatio(1f)
-                    .padding(5.dp),
-                onClick = {
-                    onSaveButton()
-                }
-                ) {
+                Spacer(Modifier.width(6.dp))
                 Icon(
-                    painter = painterResource(R.drawable.save_icon),
-                    contentDescription = "Save Button",
-                    tint = if (isSaved) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.fillMaxSize()
+                    imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
+                    contentDescription = null,
+                    tint = colors.onSecondaryContainer,
+                    modifier = Modifier.size(16.dp)
                 )
             }
         }
-
     }
+}
 
+/** Ürünler aranırken gösterilen, [SearchCard] ile aynı ölçülerdeki parıltılı iskelet kart. */
+@Composable
+fun SearchCardSkeleton(modifier: Modifier = Modifier) {
+    val colors = MaterialTheme.colorScheme
+    val lineShape = RoundedCornerShape(4.dp)
+
+    Card(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.large,
+        colors = CardDefaults.cardColors(containerColor = colors.surfaceContainerLow),
+        border = BorderStroke(1.dp, colors.outlineVariant.copy(alpha = 0.6f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(6.dp)
+                .aspectRatio(1f)
+                .shimmer(SearchCardImageShape)
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 10.dp, end = 10.dp, top = 2.dp, bottom = 10.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Box(Modifier.fillMaxWidth(0.9f).height(14.dp).shimmer(lineShape))
+            Box(Modifier.fillMaxWidth(0.6f).height(14.dp).shimmer(lineShape))
+            Box(Modifier.fillMaxWidth(0.4f).height(18.dp).shimmer(lineShape))
+            Box(Modifier.fillMaxWidth().height(36.dp).shimmer(MaterialTheme.shapes.medium))
+        }
+    }
 }
 
 @Composable
@@ -569,8 +650,7 @@ private fun ButtonsPreview() {
         ) {
             SearchCard(
                 modifier = Modifier
-                    .width(100.dp)
-                    .height(200.dp),
+                    .width(SearchCardMinWidth),
                 searchCardModel = SearchCardModel(
                     name = "Hediye Kartı",
                     price = "₺100",

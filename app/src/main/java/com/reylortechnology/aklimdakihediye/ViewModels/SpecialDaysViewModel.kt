@@ -1,6 +1,5 @@
 package com.reylortechnology.aklimdakihediye.ViewModels
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.MutableState
@@ -12,6 +11,7 @@ import com.reylortechnology.aklimdakihediye.ObserverClasses.ScreenStateObservers
 import com.reylortechnology.aklimdakihediye.R
 import com.reylortechnology.aklimdakihediye.Repo.NotificationsRepo
 import com.reylortechnology.aklimdakihediye.models.ComposeModels.SnackBarEvent
+import com.reylortechnology.aklimdakihediye.models.Enums.ReminderScheduleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -22,7 +22,6 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import java.util.TimeZone
 import javax.inject.Inject
 
 @HiltViewModel
@@ -64,7 +63,6 @@ class SpecialDaysViewModel
         }
     }
 
-    @SuppressLint("ScheduleExactAlarm")
     fun createReminder(
         context: Context,
         selectedDateMillis: Long,
@@ -73,10 +71,7 @@ class SpecialDaysViewModel
         screenState: MutableState<SpecialDaysScreenObserver>
     ) {
         Log.d("TarihMillis", selectedDateMillis.toString())
-
-        val sdf = SimpleDateFormat("dd MMMM yyyy", Locale("tr"))
-        sdf.timeZone = TimeZone.getTimeZone("Europe/Istanbul")
-        Log.d("TarihString", sdf.format(Date(selectedDateMillis)))
+        Log.d("TarihString", SimpleDateFormat("dd MMMM yyyy", Locale("tr")).format(Date(selectedDateMillis)))
 
         val message = buildString {
             append(
@@ -93,7 +88,6 @@ class SpecialDaysViewModel
         viewModelScope.launch {
             try {
                 val result = repo.scheduleAndSaveNotification(
-                    context = context,
                     selectedDateMillis = selectedDateMillis,
                     notifyBeforeDays = notifyBeforeDays,
                     event = event,
@@ -101,14 +95,23 @@ class SpecialDaysViewModel
                     releationship = personRelationship.value,
                     for_who = personName.value,
                 )
-                if (result) {
-                    _snackBarEvent.tryEmit(
-                        SnackBarEvent.ShowSnackBar("Hatırlatıcı Oluşturuldu")
+                when (result) {
+                    ReminderScheduleResult.SCHEDULED -> {
+                        _snackBarEvent.tryEmit(
+                            SnackBarEvent.ShowSnackBar("Hatırlatıcı Oluşturuldu")
+                        )
+                        delay(5000)
+                        screenState.value = SpecialDaysScreenObserver.MainScreen
+                    }
+                    // Kullanıcı izin ekranına gönderildi, geri dönüp tekrar deneyecek
+                    ReminderScheduleResult.PERMISSION_REQUIRED -> {}
+                    ReminderScheduleResult.DATE_IN_PAST -> _snackBarEvent.tryEmit(
+                        SnackBarEvent.ShowSnackBar(context.getString(R.string.error_reminder_date_past))
                     )
-                    delay(5000)
-                    screenState.value = SpecialDaysScreenObserver.MainScreen
-                }else{
-                    _snackBarEvent.tryEmit(
+                    ReminderScheduleResult.NOTIFY_TIME_PASSED -> _snackBarEvent.tryEmit(
+                        SnackBarEvent.ShowSnackBar(context.getString(R.string.error_reminder_time_passed))
+                    )
+                    ReminderScheduleResult.ERROR -> _snackBarEvent.tryEmit(
                         SnackBarEvent.ShowSnackBar("Bir Sorun oluştu")
                     )
                 }

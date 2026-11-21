@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">برجك: </string>
     <string name="user_info_best_side_label">صفاتك الجيدة: </string>
     <string name="loading">جارٍ التحميل…</string>
+    <string name="search_card_browse">تصفّح</string>
+    <string name="content_description_save_gift">حفظ الهدية</string>
+    <string name="loading_thinking_gift_ideas">نفكّر في أفكار للهدايا…</string>
+    <string name="loading_matching_personality">نختار خيارات تناسب الشخصية…</string>
+    <string name="loading_almost_ready">اقتربنا…</string>
+    <string name="loading_searching_products">نبحث عن المنتجات في المتاجر…</string>
     <string name="who_is_lucky">من هو المحظوظ؟</string>
 
     <string name="special_day_main_title">التذكيرات المحفوظة</string>
@@ -295,4 +301,6 @@
     <string name="track_favorite_gifts">يمكنك متابعة هداياك\nالمفضلة هنا</string>
     <string name="mother">الأم</string>
     <string name="error_select_date">اختر التاريخ</string>
+    <string name="error_reminder_date_past">لا يمكن اختيار تاريخ في الماضي</string>
+    <string name="error_reminder_time_passed">وقت هذا التذكير قد مضى. اختر مدة أقصر.</string>
 </resources>

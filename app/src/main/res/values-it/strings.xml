@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Il tuo segno: </string>
     <string name="user_info_best_side_label">I tuoi punti di forza: </string>
     <string name="loading">Caricamento...</string>
+    <string name="search_card_browse">Vedi</string>
+    <string name="content_description_save_gift">Salva regalo</string>
+    <string name="loading_thinking_gift_ideas">Sto pensando a idee regalo…</string>
+    <string name="loading_matching_personality">Scelgo le opzioni più adatte alla sua personalità…</string>
+    <string name="loading_almost_ready">Quasi pronto…</string>
+    <string name="loading_searching_products">Cerco i prodotti nei negozi…</string>
     <string name="who_is_lucky">Chi è il fortunato?</string>
     <string name="special_day_main_title">Promemoria salvati</string>
     <string name="name">Nome</string>
@@ -95,6 +101,8 @@
     <string name="select_date">Seleziona data</string>
     <string name="error_enter_event_name">Inserisci il nome dell\'evento</string>
     <string name="error_select_date">Seleziona data</string>
+    <string name="error_reminder_date_past">Non puoi scegliere una data passata</string>
+    <string name="error_reminder_time_passed">Questo orario di promemoria è già passato. Scegli un preavviso più breve.</string>
     <string name="label_personal_information_header">Informazioni personali</string>
     <string name="error_select_relationship">Seleziona la tua relazione</string>
     <string name="error_name_required">Il nome non può essere vuoto</string>

@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Stjernetegnet ditt: </string>
     <string name="user_info_best_side_label">Dine beste sider: </string>
     <string name="loading">Laster inn...</string>
+    <string name="search_card_browse">Se</string>
+    <string name="content_description_save_gift">Gem gave</string>
+    <string name="loading_thinking_gift_ideas">Finder gaveidéer…</string>
+    <string name="loading_matching_personality">Vælger muligheder, der passer til personligheden…</string>
+    <string name="loading_almost_ready">Næsten klar…</string>
+    <string name="loading_searching_products">Søger efter produkter i butikker…</string>
     <string name="who_is_lucky">"Hvem er den heldige? "</string>
 <string name="special_day_main_title">Gemte påmindelser</string><string name="name">Navn</string><string name="mother">Moder</string><string name="father">Far</string><string name="friend">Ven</string><string name="teacher">Lærer</string><string name="select_date">Vælg dato</string><string name="error_select_relationship">Vælg dit forhold</string><string name="error_name_required">Navn kan ikke være tomt</string><string name="label_gift_reason">Hvorfor giver vi denne gave?</string><string name="button_create_reminder">Opret påmindelse</string>
     <string name="debug_tag_general">Tag</string>
@@ -119,6 +125,8 @@ gaver her</string><string name="hobbies_spor">Sport</string><string name="hobbie
     <string name="sweatheart">Din kæreste</string>
     <string name="type_relationship_parents">Forælder</string>
     <string name="error_select_date">Vælg dato</string>
+    <string name="error_reminder_date_past">Du kan ikke vælge en dato i fortiden</string>
+    <string name="error_reminder_time_passed">Tidspunktet for denne påmindelse er allerede passeret. Vælg en kortere frist.</string>
     <string name="debug_log_snackbar">Snackbar</string>
     <string name="debug_log_state">state</string>
     <string name="debug_log_tag">TAG</string>

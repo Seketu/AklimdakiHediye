@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Jouw sterrenbeeld: </string>
     <string name="user_info_best_side_label">Jouw goede eigenschappen: </string>
     <string name="loading">Bezig met laden...</string>
+    <string name="search_card_browse">Bekijken</string>
+    <string name="content_description_save_gift">Cadeau opslaan</string>
+    <string name="loading_thinking_gift_ideas">Cadeau-ideeën bedenken…</string>
+    <string name="loading_matching_personality">Opties kiezen die bij de persoonlijkheid passen…</string>
+    <string name="loading_almost_ready">Bijna klaar…</string>
+    <string name="loading_searching_products">Producten zoeken in winkels…</string>
     <string name="who_is_lucky">Wie is de gelukkige?</string>
     <string name="special_day_main_title">Opgeslagen herinneringen</string>
     <string name="name">Naam</string>
@@ -95,6 +101,8 @@
     <string name="select_date">Datum selecteren</string>
     <string name="error_enter_event_name">Voer de naam van de gebeurtenis in</string>
     <string name="error_select_date">Selecteer datum</string>
+    <string name="error_reminder_date_past">Je kunt geen datum in het verleden kiezen</string>
+    <string name="error_reminder_time_passed">Dit herinneringstijdstip is al voorbij. Kies een kortere termijn.</string>
     <string name="label_personal_information_header">Persoonlijke informatie</string>
     <string name="error_select_relationship">Selecteer uw relatie</string>
     <string name="error_name_required">Naam kan niet leeg zijn</string>

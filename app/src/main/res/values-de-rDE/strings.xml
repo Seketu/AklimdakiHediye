@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Dein Sternzeichen: </string>
     <string name="user_info_best_side_label">Deine guten Seiten: </string>
     <string name="loading">Wird geladen...</string>
+    <string name="search_card_browse">Ansehen</string>
+    <string name="content_description_save_gift">Geschenk speichern</string>
+    <string name="loading_thinking_gift_ideas">Geschenkideen werden gesammelt…</string>
+    <string name="loading_matching_personality">Passende Optionen zur Persönlichkeit werden ausgewählt…</string>
+    <string name="loading_almost_ready">Fast fertig…</string>
+    <string name="loading_searching_products">Produkte werden in Shops gesucht…</string>
     <string name="who_is_lucky">Wer ist der Glückliche?</string>
 
     <!-- Tüm eksik stringler için Almanca çeviriler -->
@@ -214,6 +220,8 @@
     <string name="error_fill_required_fields">Bitte füllen Sie die Pflichtfelder aus</string>
     <string name="error_enter_event_name">Ereignisnamen eingeben</string>
     <string name="error_select_date">Datum auswählen</string>
+    <string name="error_reminder_date_past">Ein vergangenes Datum kann nicht gewählt werden</string>
+    <string name="error_reminder_time_passed">Dieser Erinnerungszeitpunkt ist bereits vorbei. Wähle eine kürzere Vorlaufzeit.</string>
 
     <!-- UI Labels -->
     <string name="label_personal_information_header">Persönliche Informationen</string>

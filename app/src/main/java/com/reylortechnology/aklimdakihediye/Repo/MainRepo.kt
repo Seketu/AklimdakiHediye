@@ -4,11 +4,8 @@ import android.net.Uri
 import android.util.Log
 import com.reylortechnology.aklimdakihediye.BuildConfig
 import com.reylortechnology.aklimdakihediye.Internet.ApiResponse
-import com.reylortechnology.aklimdakihediye.Internet.Models.GeminiModels.Content
-import com.reylortechnology.aklimdakihediye.Internet.Models.GeminiModels.GeminiRequest
 import com.reylortechnology.aklimdakihediye.Internet.Models.GeminiModels.GeminiResponse
-import com.reylortechnology.aklimdakihediye.Internet.Models.GeminiModels.GenerationConfig
-import com.reylortechnology.aklimdakihediye.Internet.Models.GeminiModels.Part
+import com.reylortechnology.aklimdakihediye.Internet.Prompts.GiftAdvisorPrompt
 import com.reylortechnology.aklimdakihediye.Internet.safeApiCall
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.PeoplesDao
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.UserInformationDao
@@ -49,22 +46,6 @@ class MainRepo
     private val bingSearchService: ImageSearchService,
     val client: HttpClient,
 ) {
-    val SYSTEM_PROMPT = "Role: You are the expert AI Gift Advisor for the mobile application \"Aklımdaki Hediye\" (Gift in My Mind).\n" +
-            "Task: Based on the user's input (age, gender, interests, budget, occasion), recommend exactly 10 distinct, creative, and available gift ideas suitable for the Turkish market.\n" +
-            "\n" +
-            "Constraints & Rules:\n" +
-            "1. Output MUST be a strictly valid JSON array. Do not include any markdown formatting (like ```json), introduction, or explanation text outside the JSON.\n" +
-            "2. Market: Focus on products available in Turkey (Trendyol, Hepsiburada, Amazon TR, etc.).\n" +
-            "3. Safety: Never recommend illegal, dangerous, or explicit (+18) items.\n" +
-            "4. Language: The keys of the JSON must be in English, but the *values* (content like descriptions) must be in Turkish (unless the user explicitly asks in English).\n" +
-            "\n" +
-            "JSON Schema:\n" +
-            "[\n" +
-            "  {\n" +
-            "    \"gift_name\": \"Name of the product\",\n" +
-            "    \"estimated_price\": \"Price range in TL (e.g., 1500-2000 TL)\"\n" +
-            "  }\n" +
-            "]"
     val getUserInformation = userInformationDao.getLocalInformation().flowOn(Dispatchers.IO)
     val peoplesInformation = peopleInformationDao.getAllPeoples().flowOn(Dispatchers.IO)
 
@@ -89,7 +70,9 @@ class MainRepo
         coroutineScope {
             val result = products.map {gift->
                 async {
-                    val searchResult = bingSearchService.searchProduct(gift.name)
+                    val searchResult = bingSearchService.searchProduct(
+                        gift.searchQuery?.takeIf { it.isNotBlank() } ?: gift.name
+                    )
                     SearchCardModel(
                         name = gift.name,
                         url = searchResult.giftUrl ?: "https://www.trendyol.com/sr?q=${Uri.encode(gift.name)}",
@@ -103,31 +86,12 @@ class MainRepo
         }
     }
 
-     fun askGemini(prompt: String): Flow<ApiResponse<GeminiResponse>> = safeApiCall<GeminiResponse> {
-        val GEMINI_API_KEY = BuildConfig.GEMINI_API_KEY
-        val MODEL_ID = "gemini-2.5-flash"
-        val GENERATE_CONTENT_API = "generateContent"
+    fun askGemini(prompt: String): Flow<ApiResponse<GeminiResponse>> = safeApiCall<GeminiResponse> {
         client.post(
-            "${BuildConfig.BASE_URL}v1beta/models/${MODEL_ID}:${GENERATE_CONTENT_API}?key=${GEMINI_API_KEY}"
+            "${BuildConfig.BASE_URL}v1beta/models/${GiftAdvisorPrompt.MODEL_ID}:generateContent?key=${BuildConfig.GEMINI_API_KEY}"
         ) {
             contentType(ContentType.Application.Json)
-            setBody(
-                GeminiRequest(
-                    systemInstruction = Content(
-                        parts = listOf(Part(text = SYSTEM_PROMPT))
-                    ),
-                    contents = listOf(
-                        Content(
-                            role = "user",
-                            parts = listOf<Part>(Part(prompt))
-                        )
-                    ),
-                    generationConfig = GenerationConfig(
-                        responseMimeType = "application/json",
-                        temperature = 0.9f
-                    )
-                )
-            )
+            setBody(GiftAdvisorPrompt.request(prompt))
         }.body()
     }.flowOn(Dispatchers.IO)
 }
