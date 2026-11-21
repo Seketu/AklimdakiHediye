@@ -19,6 +19,7 @@ import com.reylortechnology.aklimdakihediye.ObserverClasses.QueryProductsStatus
 import com.reylortechnology.aklimdakihediye.ObserverClasses.SearchResultStatus
 import com.reylortechnology.aklimdakihediye.models.ComposeModels.SearchCardModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
@@ -102,15 +103,18 @@ class CelebretadDayViewModel
     }
 
     fun takeSearchResult(products: List<Products>) {
+        _totalState.value = SearchResultStatus.Loading
+        Log.d(GIFT_FLOW_TAG, "${products.size} ürün için link/görsel aranıyor")
         viewModelScope.launch {
             mainRepo.getGiftsAndUrls(
                 products
             )
                 .catch {
-                    _totalState.value = SearchResultStatus.Error(it.localizedMessage ?: "Bilinmeyen bir hata oluştu")
-                    Log.e("Error at takeSearchResult", it.message.toString())
+                    Log.e(GIFT_FLOW_TAG, "Ürün araması başarısız: ${it.message}", it)
+                    _totalState.value = SearchResultStatus.Error(GIFT_ERROR_MESSAGE)
                 }
                 .onEach {
+                    Log.d(GIFT_FLOW_TAG, "Ürün araması tamamlandı: ${it.size} kart")
                     _totalState.value = SearchResultStatus.Success(it)
             }.collect()
         }
@@ -123,47 +127,67 @@ class CelebretadDayViewModel
             giftMean = forGiftInformation.giftMean,
         )
 
-        val prompt = makePrompt()
+        _queryState.value = QueryProductsStatus.Loading
 
         viewModelScope.launch {
             try {
-                mainRepo.askGemini(prompt).apply {
-                    collect {
-                        when (it) {
-                            is ApiResponse.Error -> {
-                                Log.e("Tag Gemini error", it.message)
+                val prompt = makePrompt()
+                Log.d(GIFT_FLOW_TAG, "Gemini isteği gönderiliyor")
+
+                mainRepo.askGemini(prompt).collect { response ->
+                    when (response) {
+                        is ApiResponse.Error -> {
+                            failQuery("Gemini isteği başarısız: ${response.message}")
+                        }
+
+                        is ApiResponse.Succes<GeminiResponse> -> {
+                            val candidate = response.body.candidates.firstOrNull()
+                            val rawJsonResponse = candidate?.content?.parts?.firstOrNull()?.text
+                            Log.d(
+                                GIFT_FLOW_TAG,
+                                "Gemini cevap verdi. finishReason=${candidate?.finishReason}, " +
+                                        "metin uzunluğu=${rawJsonResponse?.length}"
+                            )
+
+                            if (rawJsonResponse.isNullOrBlank()) {
+                                failQuery("Gemini boş cevap döndü (finishReason=${candidate?.finishReason})")
+                                return@collect
                             }
-                            is ApiResponse.Succes<GeminiResponse> -> {
-                                try {
-                                    val rawJsonResponse = it.body.candidates.firstOrNull()?.content?.parts?.firstOrNull()?.text
-                                    if (rawJsonResponse != null) {
-                                        try {
 
-                                            val cleanedJson = rawJsonResponse
-                                                .removePrefix("```json")
-                                                .removeSuffix("```")
-                                                .trim()
-
-                                            val giftList = Json.decodeFromString<List<Products>>(cleanedJson)
-
-                                            _queryState.value = QueryProductsStatus.Success(giftList)
-                                        } catch (e: Exception) {
-                                            Log.e("JSON_ERROR", "Parse edilemedi: ${e.message}")
-                                        }
-                                    }
-                                }catch (e: Exception){
-                                    Log.e("Error", e.message.toString())
-                                }
+                            val giftList = try {
+                                val cleanedJson = rawJsonResponse
+                                    .trim()
+                                    .removePrefix("```json")
+                                    .removeSuffix("```")
+                                    .trim()
+                                Json { ignoreUnknownKeys = true }
+                                    .decodeFromString<List<Products>>(cleanedJson)
+                            } catch (e: Exception) {
+                                failQuery("Gemini cevabı parse edilemedi: ${e.message}\nCevap: $rawJsonResponse")
+                                return@collect
                             }
+
+                            if (giftList.isEmpty()) {
+                                failQuery("Gemini boş hediye listesi döndü")
+                                return@collect
+                            }
+
+                            Log.d(GIFT_FLOW_TAG, "${giftList.size} hediye önerisi alındı")
+                            _queryState.value = QueryProductsStatus.Success(giftList)
                         }
                     }
-                }.catch {
-                    Log.e("Error", it.message.toString())
                 }
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
-                Log.e("Error in Vm", e.message.toString())
+                failQuery("Hediye önerisi alınırken beklenmeyen hata: ${e.message}", e)
             }
         }
+    }
+
+    private fun failQuery(logMessage: String, throwable: Throwable? = null) {
+        Log.e(GIFT_FLOW_TAG, logMessage, throwable)
+        _queryState.value = QueryProductsStatus.Error(GIFT_ERROR_MESSAGE)
     }
 
     fun makePrompt(): String {
@@ -194,5 +218,10 @@ class CelebretadDayViewModel
             append("Hediye Türü: ${giftInformation.value!!.giftMean}\n")
         }.toString()
 
+    }
+
+    private companion object {
+        const val GIFT_FLOW_TAG = "GiftFlow"
+        const val GIFT_ERROR_MESSAGE = "Hediye önerileri alınırken bir hata oluştu. Lütfen tekrar deneyin."
     }
 }

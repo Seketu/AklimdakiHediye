@@ -95,6 +95,7 @@ object DatabaseModule {
     }
 
     @Provides
+    @Singleton // İstek sınırlayıcı ve önbellek tek örnekte tutulmalı
     fun provideImageSearchService(client: HttpClient) : ImageSearchService {
         return ImageSearchService(client)
     }

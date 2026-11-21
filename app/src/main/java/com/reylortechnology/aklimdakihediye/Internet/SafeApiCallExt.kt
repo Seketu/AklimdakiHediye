@@ -1,5 +1,6 @@
 package com.reylortechnology.aklimdakihediye.Internet
 
+import android.util.Log
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
@@ -26,9 +27,11 @@ inline fun <reified T> safeApiCall(crossinline action: suspend () -> HttpRespons
 
             emit(ApiResponse.Succes(parsedBody))
         } else {
+            Log.e("ApiResponse", "Error: ${response.status.value} - ${response.status.description}")
             emit(ApiResponse.Error("${response.status.value} - ${response.status.description}"))
         }
     }.catch { cause: Throwable ->
+        Log.e("ApiResponse", "Error: ${cause.message}")
         emit(ApiResponse.Error(cause.message ?: cause.toString()))
     }.flowOn(Dispatchers.IO)
 }
