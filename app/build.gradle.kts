@@ -31,6 +31,8 @@ configure<ApplicationExtension> {
 
         buildConfigField("String", "GEMINI_API_KEY", "\"${localProperties.getProperty("GEMINI_API_KEY")}\"")
         buildConfigField("String", "BASE_URL", "\"${localProperties.getProperty("BASE_URL")}\"")
+        // Amazon Associates kimliği (örn. "aklimdaki-21"). Boşsa linkler değiştirilmeden açılır.
+        buildConfigField("String", "AMAZON_AFFILIATE_TAG", "\"${localProperties.getProperty("AMAZON_AFFILIATE_TAG", "")}\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

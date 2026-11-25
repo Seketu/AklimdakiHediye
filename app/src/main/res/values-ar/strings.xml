@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">برجك: </string>
     <string name="user_info_best_side_label">صفاتك الجيدة: </string>
     <string name="loading">جارٍ التحميل…</string>
+    <string name="permission_dialog_title">لا تفوّت أي تذكير</string>
+    <string name="permission_dialog_exact_alarm_body">نحتاج هذا الإذن لتصلك تذكيرات الأيام المميزة في موعدها تمامًا.</string>
+    <string name="permission_dialog_step_settings">سننقلك إلى شاشة الأذونات في الإعدادات</string>
+    <string name="permission_dialog_step_return">فعّل «المنبّهات والتذكيرات» ثم عُد إلى التطبيق</string>
+    <string name="permission_dialog_go_settings">الانتقال إلى الإعدادات</string>
+    <string name="permission_dialog_later">ليس الآن</string>
     <string name="search_card_browse">تصفّح</string>
     <string name="content_description_save_gift">حفظ الهدية</string>
     <string name="loading_thinking_gift_ideas">نفكّر في أفكار للهدايا…</string>
@@ -227,6 +233,7 @@
     <string name="notification_permission_dialog_title">سيتم توجيهك إلى شاشة الإذن الخاصة للإشعارات. يرجى إعادة المحاولة بعد العودة.</string>
     <string name="notification_permission_confirm">موافق</string>
     <string name="notification_permission_cancel">إلغاء</string>
+    <string name="exact_alarm_permission_dialog_title">لكي تصلك التذكيرات في وقتها، فعّل إذن المنبهات والتذكيرات. سيتم توجيهك إلى الإعدادات.</string>
     <string name="button_create_reminder">إنشاء تذكير</string>
 
     <string name="debug_snackbar_shown">تم عرض الشريط: %s</string>

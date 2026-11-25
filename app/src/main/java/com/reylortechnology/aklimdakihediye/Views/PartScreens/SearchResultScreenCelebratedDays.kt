@@ -1,5 +1,6 @@
 package com.reylortechnology.aklimdakihediye.Views.PartScreens
 
+import com.reylortechnology.aklimdakihediye.models.Enums.MarketPlaces
 import android.content.Context
 import android.content.Intent
 import androidx.activity.compose.BackHandler
@@ -155,7 +156,7 @@ fun SuccessSearchResultScreen(
                                     searchCardModel = card,
                                     isSaved = giftSaved.value,
                                     onBuyButton = {
-                                        val intent = Intent(Intent.ACTION_VIEW, card.url.toUri())
+                                        val intent = Intent(Intent.ACTION_VIEW, MarketPlaces.withAffiliate(card.url).toUri())
                                         context.startActivity(intent)
                                     },
                                     onSaveButton = {

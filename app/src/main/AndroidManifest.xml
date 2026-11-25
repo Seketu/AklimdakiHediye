@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
@@ -25,12 +24,13 @@
             android:name=".NotificationReceiver"
             android:exported="false">
         </receiver>
-        <!-- BOOT_COMPLETED korumalı bir sistem yayını; sadece sistem gönderebilir -->
+        <!-- İki yayın da korumalı sistem yayını; sadece sistem gönderebilir -->
         <receiver
-            android:name=".BootReceiver"
+            android:name=".RescheduleReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" />
             </intent-filter>
         </receiver>
         <activity

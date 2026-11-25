@@ -36,6 +36,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.rounded.NotificationsActive
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -63,7 +64,15 @@ import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import androidx.core.app.ActivityCompat
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import com.reylortechnology.aklimdakihediye.Compose.PermissionDialog
 import com.reylortechnology.aklimdakihediye.Compose.ReminderCard
+import com.reylortechnology.aklimdakihediye.util.appNotificationSettingsIntent
+import com.reylortechnology.aklimdakihediye.util.areNotificationsEnabled
+import com.reylortechnology.aklimdakihediye.util.canScheduleExactAlarms
+import com.reylortechnology.aklimdakihediye.util.exactAlarmSettingsIntent
+import com.reylortechnology.aklimdakihediye.util.findActivity
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.Notifications
 import com.reylortechnology.aklimdakihediye.ObserverClasses.ScreenStateObservers.SpecialDaysScreenObserver
 import com.reylortechnology.aklimdakihediye.R
@@ -113,43 +122,74 @@ fun SpecialDayMainScreen(
     val snackbar = remember {
         SnackbarHostState()
     }
-    val notificationPermission = remember {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            mutableStateOf(
-                ContextCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) == PackageManager.PERMISSION_GRANTED
-            )
-        } else {
-            mutableStateOf(
-                ContextCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_NOTIFICATION_POLICY
-                )== PackageManager.PERMISSION_GRANTED
-            )
-        }
+    // İzin durumları her ON_RESUME'da yenilenir; kullanıcı ayarlardan dönünce ekran güncel olur
+    val notificationPermission = remember { mutableStateOf(areNotificationsEnabled(context)) }
+    val exactAlarmPermission = remember { mutableStateOf(canScheduleExactAlarms(context)) }
+    val showExactAlarmDialog = remember { mutableStateOf(false) }
+    // FAB'dan istenip reddedilirse ve sistem diyaloğu artık açılmıyorsa ayarlara yönlendir
+    val requestedFromFab = remember { mutableStateOf(false) }
+
+    LifecycleResumeEffect(Unit) {
+        notificationPermission.value = areNotificationsEnabled(context)
+        exactAlarmPermission.value = canScheduleExactAlarms(context)
+        onPauseOrDispose { }
     }
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
         onResult = { isGranted ->
-            if(isGranted){
-                notificationPermission.value = isGranted
+            notificationPermission.value = isGranted || areNotificationsEnabled(context)
+            val activity = context.findActivity()
+            val permanentlyDenied = !isGranted && activity != null &&
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                !ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.POST_NOTIFICATIONS)
+            if (permanentlyDenied && requestedFromFab.value) {
+                context.startActivity(appNotificationSettingsIntent(context))
+            } else if (!exactAlarmPermission.value) {
+                // Bildirim iznini sorduktan sonra sıradaki izin
+                showExactAlarmDialog.value = true
             }
+            requestedFromFab.value = false
         }
     )
+
+    fun requestNotificationPermission(fromFab: Boolean) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestedFromFab.value = fromFab
+            launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else if (fromFab) {
+            // Android 13 öncesinde çalışma zamanı izni yok; kapalıysa sadece ayarlardan açılır
+            context.startActivity(appNotificationSettingsIntent(context))
+        }
+    }
 
     LaunchedEffect(
         key1 = Unit
     ) {
-        if (!notificationPermission.value){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            }else{
-                launcher.launch(Manifest.permission.ACCESS_NOTIFICATION_POLICY)
-            }
+        if (!notificationPermission.value) {
+            requestNotificationPermission(fromFab = false)
+        } else if (!exactAlarmPermission.value) {
+            showExactAlarmDialog.value = true
         }
+    }
+
+    if (showExactAlarmDialog.value) {
+        PermissionDialog(
+            icon = Icons.Rounded.NotificationsActive,
+            title = stringResource(R.string.permission_dialog_title),
+            description = stringResource(R.string.permission_dialog_exact_alarm_body),
+            steps = listOf(
+                stringResource(R.string.permission_dialog_step_settings),
+                stringResource(R.string.permission_dialog_step_return)
+            ),
+            confirmText = stringResource(R.string.permission_dialog_go_settings),
+            dismissText = stringResource(R.string.permission_dialog_later),
+            onConfirm = {
+                showExactAlarmDialog.value = false
+                exactAlarmSettingsIntent(context)?.let(context::startActivity)
+            },
+            onDismiss = { showExactAlarmDialog.value = false }
+        )
     }
 
     LaunchedEffect(
@@ -220,9 +260,11 @@ fun SpecialDayMainScreen(
             FloatingActionButton(
                 onClick = {
                     if (notificationPermission.value){
+                        // Alarm izni yoksa hatırlatma yine kurulur (esnek alarm), sadece birkaç dakika gecikebilir
                         screenObserver.value = SpecialDaysScreenObserver.TakePersonInformation
                     }else{
                         viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar(context.getString(R.string.error_notification_permission_required)))
+                        requestNotificationPermission(fromFab = true)
                     }
                 },
                 contentColor = MaterialTheme.colorScheme.onPrimary,

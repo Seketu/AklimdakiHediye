@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Il tuo segno: </string>
     <string name="user_info_best_side_label">I tuoi punti di forza: </string>
     <string name="loading">Caricamento...</string>
+    <string name="permission_dialog_title">Non perdere nessun promemoria</string>
+    <string name="permission_dialog_exact_alarm_body">Ci serve questa autorizzazione perché i promemoria dei giorni speciali arrivino puntuali.</string>
+    <string name="permission_dialog_step_settings">Ti porteremo alla schermata delle autorizzazioni nelle Impostazioni</string>
+    <string name="permission_dialog_step_return">Attiva «Sveglie e promemoria» e torna nell\'app</string>
+    <string name="permission_dialog_go_settings">Vai alle Impostazioni</string>
+    <string name="permission_dialog_later">Non ora</string>
     <string name="search_card_browse">Vedi</string>
     <string name="content_description_save_gift">Salva regalo</string>
     <string name="loading_thinking_gift_ideas">Sto pensando a idee regalo…</string>
@@ -108,6 +114,7 @@
     <string name="error_name_required">Il nome non può essere vuoto</string>
     <string name="label_gift_reason">Perché diamo questo regalo?</string>
     <string name="notification_permission_cancel">Cancel</string>
+    <string name="exact_alarm_permission_dialog_title">Per ricevere i promemoria in orario, attiva l\'autorizzazione Sveglie e promemoria. Verrai indirizzato alle impostazioni.</string>
     <string name="button_create_reminder">Crea promemoria</string>
     <string name="debug_tag_general">Tag</string>
     <string name="no_gifts_yet">Nessun regalo ancora</string>

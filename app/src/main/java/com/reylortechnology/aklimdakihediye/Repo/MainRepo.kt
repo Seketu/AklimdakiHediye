@@ -14,6 +14,7 @@ import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.SavedGifts
 import com.reylortechnology.aklimdakihediye.Services.DuckDuckGoSearch
 import com.reylortechnology.aklimdakihediye.Services.ImageSearchService
 import com.reylortechnology.aklimdakihediye.models.ComposeModels.SearchCardModel
+import com.reylortechnology.aklimdakihediye.models.Enums.MarketPlaces
 import com.reylortechnology.aklimdakihediye.models.GiftInformationModels.Products
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -75,7 +76,7 @@ class MainRepo
                     )
                     SearchCardModel(
                         name = gift.name,
-                        url = searchResult.giftUrl ?: "https://www.trendyol.com/sr?q=${Uri.encode(gift.name)}",
+                        url = searchResult.giftUrl ?: MarketPlaces.searchUrl(gift.name),
                         imageUrl = searchResult.imageUrl,
                         price = gift.price
                     )

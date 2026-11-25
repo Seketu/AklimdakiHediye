@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Το ζώδιό σου: </string>
     <string name="user_info_best_side_label">Τα δυνατά σου σημεία: </string>
     <string name="loading">Φόρτωση...</string>
+    <string name="permission_dialog_title">Μη χάνεις καμία υπενθύμιση</string>
+    <string name="permission_dialog_exact_alarm_body">Χρειαζόμαστε αυτή την άδεια ώστε οι υπενθυμίσεις για τις ξεχωριστές μέρες να φτάνουν ακριβώς στην ώρα τους.</string>
+    <string name="permission_dialog_step_settings">Θα σε μεταφέρουμε στην οθόνη αδειών στις Ρυθμίσεις</string>
+    <string name="permission_dialog_step_return">Ενεργοποίησε το «Ξυπνητήρια και υπενθυμίσεις» και επέστρεψε στην εφαρμογή</string>
+    <string name="permission_dialog_go_settings">Μετάβαση στις Ρυθμίσεις</string>
+    <string name="permission_dialog_later">Όχι τώρα</string>
     <string name="search_card_browse">Προβολή</string>
     <string name="content_description_save_gift">Αποθήκευση δώρου</string>
     <string name="loading_thinking_gift_ideas">Σκεφτόμαστε ιδέες για δώρα…</string>
@@ -120,6 +126,7 @@
     <string name="label_personal_information_header">Προσωπικές πληροφορίες</string>
     <string name="new_label">Νέο</string>
     <string name="notification_permission_cancel">Ακύρωση</string>
+    <string name="exact_alarm_permission_dialog_title">Για να λαμβάνετε τις υπενθυμίσεις στην ώρα τους, ενεργοποιήστε την άδεια Ξυπνητήρια και υπενθυμίσεις. Θα μεταφερθείτε στις ρυθμίσεις.</string>
     <string name="notification_permission_confirm">ΟΚ</string>
     <string name="sibling">Αδελφός/Αδελφή</string>
     <string name="sweatheart">Ο/Η αγαπημένος/η σου</string>

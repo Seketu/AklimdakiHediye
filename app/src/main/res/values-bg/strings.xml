@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Твоята зодия: </string>
     <string name="user_info_best_side_label">Твоите силни страни: </string>
     <string name="loading">Зареждане…</string>
+    <string name="permission_dialog_title">Не пропускай напомняния</string>
+    <string name="permission_dialog_exact_alarm_body">Това разрешение е нужно, за да пристигат напомнянията за специалните дни точно навреме.</string>
+    <string name="permission_dialog_step_settings">Ще те пренасочим към екрана с разрешения в Настройки</string>
+    <string name="permission_dialog_step_return">Включи „Будилници и напомняния“ и се върни в приложението</string>
+    <string name="permission_dialog_go_settings">Към Настройки</string>
+    <string name="permission_dialog_later">Не сега</string>
     <string name="search_card_browse">Разгледай</string>
     <string name="content_description_save_gift">Запази подаръка</string>
     <string name="loading_thinking_gift_ideas">Обмисляме идеи за подаръци…</string>
@@ -227,6 +233,7 @@
     <string name="notification_permission_dialog_title">Ще бъдеш пренасочен към екрана със специални разрешения за уведомления. Моля, опитай отново след като се върнеш.</string>
     <string name="notification_permission_confirm">ОК</string>
     <string name="notification_permission_cancel">Отмени</string>
+    <string name="exact_alarm_permission_dialog_title">За да получавате напомнянията навреме, включете разрешението Будилници и напомняния. Ще бъдете пренасочени към настройките.</string>
     <string name="button_create_reminder">Създай напоминание</string>
 
     <string name="debug_snackbar_shown">Показана лента: %s</string>

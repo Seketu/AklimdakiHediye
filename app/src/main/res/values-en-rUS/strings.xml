@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Your Zodiac Sign: </string>
     <string name="user_info_best_side_label">Your Best Traits: </string>
     <string name="loading">Loading...</string>
+    <string name="permission_dialog_title">Never miss a reminder</string>
+    <string name="permission_dialog_exact_alarm_body">We need this permission so the reminders you set for special days arrive right on time.</string>
+    <string name="permission_dialog_step_settings">We will take you to the permission screen in Settings</string>
+    <string name="permission_dialog_step_return">Turn on “Alarms and reminders” and come back to the app</string>
+    <string name="permission_dialog_go_settings">Go to Settings</string>
+    <string name="permission_dialog_later">Not now</string>
     <string name="search_card_browse">Browse</string>
     <string name="content_description_save_gift">Save gift</string>
     <string name="loading_thinking_gift_ideas">Brainstorming gift ideas…</string>
@@ -229,6 +235,7 @@
     <string name="notification_permission_dialog_title">You will be directed to the special permission screen for notifications. Please try again after returning.</string>
     <string name="notification_permission_confirm">OK</string>
     <string name="notification_permission_cancel">Cancel</string>
+    <string name="exact_alarm_permission_dialog_title">To get reminders on time, turn on the Alarms &amp; reminders permission. You will be taken to settings.</string>
     <string name="button_create_reminder">Create Reminder</string>
 
     <!-- Debug Messages -->

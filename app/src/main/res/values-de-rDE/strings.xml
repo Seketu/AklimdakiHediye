@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Dein Sternzeichen: </string>
     <string name="user_info_best_side_label">Deine guten Seiten: </string>
     <string name="loading">Wird geladen...</string>
+    <string name="permission_dialog_title">Keine Erinnerung verpassen</string>
+    <string name="permission_dialog_exact_alarm_body">Wir brauchen diese Berechtigung, damit deine Erinnerungen für besondere Tage pünktlich ankommen.</string>
+    <string name="permission_dialog_step_settings">Wir leiten dich zur Berechtigungsseite in den Einstellungen weiter</string>
+    <string name="permission_dialog_step_return">Aktiviere „Wecker und Erinnerungen“ und kehre zur App zurück</string>
+    <string name="permission_dialog_go_settings">Zu den Einstellungen</string>
+    <string name="permission_dialog_later">Nicht jetzt</string>
     <string name="search_card_browse">Ansehen</string>
     <string name="content_description_save_gift">Geschenk speichern</string>
     <string name="loading_thinking_gift_ideas">Geschenkideen werden gesammelt…</string>
@@ -242,6 +248,7 @@
     <string name="notification_permission_dialog_title">Sie werden zum speziellen Berechtigungsbildschirm weitergeleitet. Bitte versuchen Sie es nach der Rückkehr erneut.</string>
     <string name="notification_permission_confirm">OK</string>
     <string name="notification_permission_cancel">Abbrechen</string>
+    <string name="exact_alarm_permission_dialog_title">Damit Erinnerungen pünktlich ankommen, aktiviere die Berechtigung Wecker und Erinnerungen. Du wirst zu den Einstellungen weitergeleitet.</string>
     <string name="button_create_reminder">Erinnerung erstellen</string>
 
     <!-- Debug Messages -->

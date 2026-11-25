@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Stjernetegnet ditt: </string>
     <string name="user_info_best_side_label">Dine beste sider: </string>
     <string name="loading">Laster inn...</string>
+    <string name="permission_dialog_title">Gå ikke glip af en påmindelse</string>
+    <string name="permission_dialog_exact_alarm_body">Vi har brug for denne tilladelse, så dine påmindelser om særlige dage kommer til tiden.</string>
+    <string name="permission_dialog_step_settings">Vi sender dig til tilladelsesskærmen i Indstillinger</string>
+    <string name="permission_dialog_step_return">Slå „Alarmer og påmindelser“ til, og vend tilbage til appen</string>
+    <string name="permission_dialog_go_settings">Gå til Indstillinger</string>
+    <string name="permission_dialog_later">Ikke nu</string>
     <string name="search_card_browse">Se</string>
     <string name="content_description_save_gift">Gem gave</string>
     <string name="loading_thinking_gift_ideas">Finder gaveidéer…</string>
@@ -120,6 +126,7 @@ gaver her</string><string name="hobbies_spor">Sport</string><string name="hobbie
     <string name="label_personal_information_header">Personlige oplysninger</string>
     <string name="new_label">Ny</string>
     <string name="notification_permission_cancel">Annuller</string>
+    <string name="exact_alarm_permission_dialog_title">For at få påmindelser til tiden skal du slå tilladelsen Alarmer og påmindelser til. Du bliver sendt til indstillingerne.</string>
     <string name="notification_permission_confirm">OK</string>
     <string name="sibling">Søskende</string>
     <string name="sweatheart">Din kæreste</string>

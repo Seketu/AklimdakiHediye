@@ -78,6 +78,12 @@
     <string name="user_info_zodiac_label">Burcunuz : </string>
     <string name="user_info_best_side_label">İyi yönleriniz : </string>
     <string name="loading">Yükleniyor...</string>
+    <string name="permission_dialog_title">Hatırlatmaları kaçırma</string>
+    <string name="permission_dialog_exact_alarm_body">Özel günler için kurduğun hatırlatmaların tam zamanında gelmesi için bu izne ihtiyacımız var.</string>
+    <string name="permission_dialog_step_settings">Seni ayarlardaki izin ekranına yönlendireceğiz</string>
+    <string name="permission_dialog_step_return">“Alarmlar ve hatırlatıcılar” iznini açıp uygulamaya geri dön</string>
+    <string name="permission_dialog_go_settings">Ayarlara git</string>
+    <string name="permission_dialog_later">Şimdi değil</string>
     <string name="search_card_browse">Göz At</string>
     <string name="content_description_save_gift">Hediyeyi kaydet</string>
     <string name="loading_thinking_gift_ideas">Hediye fikirleri düşünülüyor…</string>
@@ -223,6 +229,7 @@
     <string name="notification_permission_dialog_title">Bildirim için özel izin ekranına yönlendireleceksiniz,Sonrasında geri dönüş yaparak tekrar deneyiniz</string>
     <string name="notification_permission_confirm">Tamam</string>
     <string name="notification_permission_cancel">İptal</string>
+    <string name="exact_alarm_permission_dialog_title">Hatırlatmaların tam zamanında gelmesi için Alarmlar ve hatırlatıcılar iznini açmalısın. Ayarlara yönlendirileceksin.</string>
     <string name="button_create_reminder">Hatırlatıcı Oluştur</string>
 
     <!-- Debug Messages -->

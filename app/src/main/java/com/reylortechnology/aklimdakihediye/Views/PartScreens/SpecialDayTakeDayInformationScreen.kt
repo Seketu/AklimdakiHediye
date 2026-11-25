@@ -75,15 +75,6 @@ fun SpecialDayTakeDayInformationScreen(
 
     val context = LocalContext.current
 
-    val exactAlarmPermission = remember {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        mutableStateOf(
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                alarmManager.canScheduleExactAlarms()
-            } else true
-        )
-    }
-
 
     val eventName = remember {
         mutableStateOf("")
@@ -277,38 +268,14 @@ fun SpecialDayTakeDayInformationScreen(
                         } else if (datePickerState.value == null || datePickerState.value == 0L) {
                             viewModel.setSnackBarEvent(event = SnackBarEvent.ShowSnackBar(context.getString(R.string.error_select_date)))
                         } else {
-                            Log.e(context.getString(R.string.debug_log_state),exactAlarmPermission.value.toString())
-                            if (!exactAlarmPermission.value){
-                                viewModel.setAlertDialogEvent(event = AlertDialogObserver.NewAlertDialog(
-                                    title = context.getString(R.string.notification_permission_dialog_title),
-                                    confirmText = context.getString(R.string.notification_permission_confirm),
-                                    dismissText = context.getString(R.string.notification_permission_cancel),
-                                    dismissButton = {
-                                        viewModel.setAlertDialogEvent(AlertDialogObserver.none)
-                                    },
-                                    onConfirm = {
-                                        viewModel.createReminder(
-                                            context = context,
-                                            selectedDateMillis = datePickerState.value!!,
-                                            notifyBeforeDays = dropDownList.value.daysBefore,
-                                            event = eventName.value,
-                                            screenState = screenObserver,
-                                        )
-                                        viewModel.setAlertDialogEvent(AlertDialogObserver.none)
-                                    },
-                                    onDismiss = {
-                                        viewModel.setAlertDialogEvent(AlertDialogObserver.none)
-                                    }
-                                ))
-                            }else{
-                                viewModel.createReminder(
-                                    context = context,
-                                    selectedDateMillis = datePickerState.value!!,
-                                    event = eventName.value,
-                                    notifyBeforeDays = dropDownList.value.daysBefore,
-                                    screenState = screenObserver
-                                )
-                            }
+                            // Alarm izni ana ekranda istenir; yoksa hatırlatma esnek alarmla kurulur
+                            viewModel.createReminder(
+                                context = context,
+                                selectedDateMillis = datePickerState.value!!,
+                                event = eventName.value,
+                                notifyBeforeDays = dropDownList.value.daysBefore,
+                                screenState = screenObserver
+                            )
                         }
                     },
                 verticalAlignment = Alignment.CenterVertically,

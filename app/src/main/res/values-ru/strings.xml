@@ -83,6 +83,12 @@
     <string name="user_info_zodiac_label">Твой знак зодиака: </string>
     <string name="user_info_best_side_label">Твои сильные стороны: </string>
     <string name="loading">"Загрузка... "</string>
+    <string name="permission_dialog_title">Не пропускайте напоминания</string>
+    <string name="permission_dialog_exact_alarm_body">Это разрешение нужно, чтобы напоминания об особых днях приходили точно вовремя.</string>
+    <string name="permission_dialog_step_settings">Мы откроем экран разрешений в настройках</string>
+    <string name="permission_dialog_step_return">Включите «Будильники и напоминания» и вернитесь в приложение</string>
+    <string name="permission_dialog_go_settings">Открыть настройки</string>
+    <string name="permission_dialog_later">Не сейчас</string>
     <string name="search_card_browse">Смотреть</string>
     <string name="content_description_save_gift">Сохранить подарок</string>
     <string name="loading_thinking_gift_ideas">Подбираем идеи подарков…</string>
@@ -120,6 +126,7 @@
     <string name="label_personal_information_header">Личная информация</string>
     <string name="new_label">Новый</string>
     <string name="notification_permission_cancel">Отмена</string>
+    <string name="exact_alarm_permission_dialog_title">Чтобы напоминания приходили вовремя, включите разрешение «Будильники и напоминания». Вы будете перенаправлены в настройки.</string>
     <string name="notification_permission_confirm">ОК</string>
     <string name="sibling">Брат/Сестра</string>
     <string name="sweatheart">Ваш любимый / Ваша любимая</string>

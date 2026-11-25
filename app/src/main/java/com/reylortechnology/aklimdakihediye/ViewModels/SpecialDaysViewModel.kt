@@ -103,8 +103,6 @@ class SpecialDaysViewModel
                         delay(5000)
                         screenState.value = SpecialDaysScreenObserver.MainScreen
                     }
-                    // Kullanıcı izin ekranına gönderildi, geri dönüp tekrar deneyecek
-                    ReminderScheduleResult.PERMISSION_REQUIRED -> {}
                     ReminderScheduleResult.DATE_IN_PAST -> _snackBarEvent.tryEmit(
                         SnackBarEvent.ShowSnackBar(context.getString(R.string.error_reminder_date_past))
                     )

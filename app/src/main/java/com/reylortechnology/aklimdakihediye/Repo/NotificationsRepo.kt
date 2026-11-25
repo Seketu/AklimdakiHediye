@@ -5,15 +5,13 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import android.provider.Settings
 import android.util.Log
-import androidx.core.net.toUri
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Dao.NotificationsDao
 import com.reylortechnology.aklimdakihediye.LocalDatabase.Models.Notifications
 import com.reylortechnology.aklimdakihediye.NotificationReceiver
 import com.reylortechnology.aklimdakihediye.ObserverClasses.NotificationTimer
 import com.reylortechnology.aklimdakihediye.models.Enums.ReminderScheduleResult
+import com.reylortechnology.aklimdakihediye.util.canScheduleExactAlarms
 import java.util.Calendar
 import javax.inject.Inject
 
@@ -50,15 +48,8 @@ class NotificationsRepo
         val notifyAtMillis = computeNotifyAt(selectedDateMillis, notifyBeforeDays)
         if (notifyAtMillis <= now) return ReminderScheduleResult.NOTIFY_TIME_PASSED
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
-            val intentSettings = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
-                data = "package:${context.packageName}".toUri()
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            }
-            context.startActivity(intentSettings)
-            return ReminderScheduleResult.PERMISSION_REQUIRED
-        }
-
+        // "Alarmlar ve hatırlatıcılar" izni ana ekranda istenir. Verilmemişse setAlarm esnek alarma düşer;
+        // izin sonradan verilince RescheduleReceiver alarmları tam zamanlı olarak yeniden kurar.
         return try {
             val notification = Notifications(
                 for_who = for_who,
@@ -111,8 +102,8 @@ class NotificationsRepo
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-        // Arka planda (boot) izin yoksa, hatırlatma kaybolmasın diye esnek alarma düş
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S || alarmManager.canScheduleExactAlarms()) {
+        // İzin yoksa hatırlatma kaybolmasın diye esnek alarma düş
+        if (canScheduleExactAlarms(context)) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminder.notifyAt, pendingIntent)
         } else {
             alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminder.notifyAt, pendingIntent)

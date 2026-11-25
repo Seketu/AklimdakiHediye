@@ -1,5 +1,6 @@
 package com.reylortechnology.aklimdakihediye.Compose
 
+import com.reylortechnology.aklimdakihediye.models.Enums.MarketPlaces
 import android.content.Intent
 import android.util.Log
 import androidx.compose.animation.AnimatedContent
@@ -765,7 +766,7 @@ fun SavedGiftCard(
             .clickable {
                 if (!enabled) {
                     // Normal mode - go to gift URL
-                    val intent = Intent(Intent.ACTION_VIEW, gift.giftUrl.toUri())
+                    val intent = Intent(Intent.ACTION_VIEW, MarketPlaces.withAffiliate(gift.giftUrl).toUri())
                     context.startActivity(intent)
                 }
                 // Delete mode'da card click'i checkbox'ı handle etmesin

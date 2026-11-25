@@ -27,7 +27,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.NotificationsActive
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Surface
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
+import com.reylortechnology.aklimdakihediye.ui.theme.AklimdakiHediyeTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
@@ -876,6 +890,177 @@ fun AlertDialog(
         },
         containerColor = MaterialTheme.colorScheme.primaryContainer
     )
+}
+
+/**
+ * İzin isteği öncesi gösterilen, tema renklerine uyumlu açıklayıcı diyalog.
+ * Üstte hafifçe sallanan ikon, altında kısa açıklama ve numaralı adımlar yer alır.
+ */
+@Composable
+fun PermissionDialog(
+    modifier: Modifier = Modifier,
+    icon: ImageVector,
+    title: String,
+    description: String,
+    steps: List<String> = emptyList(),
+    confirmText: String,
+    dismissText: String,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    val colors = MaterialTheme.colorScheme
+
+    val transition = rememberInfiniteTransition(label = "Permission Icon")
+    val iconWiggle by transition.animateFloat(
+        initialValue = 0f,
+        targetValue = 0f,
+        animationSpec = infiniteRepeatable(
+            animation = keyframes {
+                durationMillis = 2400
+                0f at 0
+                -14f at 100
+                12f at 220
+                -8f at 340
+                4f at 460
+                0f at 580
+                0f at 2400
+            }
+        ),
+        label = "Icon Wiggle"
+    )
+
+    Dialog(onDismissRequest = onDismiss) {
+        Surface(
+            modifier = modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(28.dp),
+            color = colors.surfaceContainerHigh,
+            contentColor = colors.onSurface
+        ) {
+            Column(
+                modifier = Modifier.padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(76.dp)
+                        .background(colors.primaryContainer, CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = colors.onPrimaryContainer,
+                        modifier = Modifier
+                            .size(38.dp)
+                            .graphicsLayer { rotationZ = iconWiggle }
+                    )
+                }
+
+                Spacer(Modifier.height(16.dp))
+
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = colors.onSurface,
+                    textAlign = TextAlign.Center
+                )
+
+                Spacer(Modifier.height(8.dp))
+
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = colors.onSurfaceVariant,
+                    textAlign = TextAlign.Center
+                )
+
+                if (steps.isNotEmpty()) {
+                    Spacer(Modifier.height(20.dp))
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(colors.surfaceContainerLowest, RoundedCornerShape(16.dp))
+                            .padding(14.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        steps.forEachIndexed { index, step ->
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(24.dp)
+                                        .background(colors.primary, CircleShape),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = "${index + 1}",
+                                        style = MaterialTheme.typography.labelMedium,
+                                        color = colors.onPrimary
+                                    )
+                                }
+                                Text(
+                                    text = step,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = colors.onSurface,
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
+                        }
+                    }
+                }
+
+                Spacer(Modifier.height(24.dp))
+
+                Button(
+                    onClick = onConfirm,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Settings,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Spacer(Modifier.width(8.dp))
+                    Text(text = confirmText, style = MaterialTheme.typography.labelLarge)
+                }
+
+                TextButton(
+                    onClick = onDismiss,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = dismissText,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = colors.onSurfaceVariant
+                    )
+                }
+            }
+        }
+    }
+}
+
+@ThemePreviews
+@Composable
+private fun PermissionDialogPreview() {
+    AklimdakiHediyeTheme {
+        PermissionDialog(
+            icon = Icons.Rounded.NotificationsActive,
+            title = stringResource(R.string.permission_dialog_title),
+            description = stringResource(R.string.permission_dialog_exact_alarm_body),
+            steps = listOf(
+                stringResource(R.string.permission_dialog_step_settings),
+                stringResource(R.string.permission_dialog_step_return)
+            ),
+            confirmText = stringResource(R.string.permission_dialog_go_settings),
+            dismissText = stringResource(R.string.permission_dialog_later),
+            onConfirm = {},
+            onDismiss = {}
+        )
+    }
 }
 
 @RequiresApi(Build.VERSION_CODES.O)

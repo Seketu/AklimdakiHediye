@@ -49,7 +49,7 @@ class ImageSearchService @Inject constructor(
         val candidate = selector.selectBest(fetchCandidates(cleanQuery), tokens)
 
         val productLink = candidate?.pageUrl?.takeIf { MarketPlaces.isMarketPlace(it) }
-            ?: "https://www.trendyol.com/sr?q=${Uri.encode(cleanQuery)}"
+            ?: MarketPlaces.searchUrl(cleanQuery)
 
         val image = candidate?.let { selector.chooseDisplayImage(it) }
         if (image == null) Log.e("HybridSearch", "❌ Uygun görsel bulunamadı: $cleanQuery")
